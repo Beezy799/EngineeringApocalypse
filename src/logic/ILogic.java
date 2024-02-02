@@ -6,7 +6,6 @@ public class ILogic {
 
     private IView view;
 
-
     public void setView(IView v) {
         this.view = v;
     }

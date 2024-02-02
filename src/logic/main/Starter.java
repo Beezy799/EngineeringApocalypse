@@ -29,7 +29,6 @@ public Starter() {
 		view = new IView(logic);
 		caricamento.showProgress(99);
 		logic.setView(view);
-        System.out.println("fine caricamento");
         caricamento.setVisible(false);
 		caricamento.dispose();
 	}
