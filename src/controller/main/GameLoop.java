@@ -1,7 +1,8 @@
-package src.logic.main;
+package src.controller.main;
 
-import src.logic.ILogic;
+import src.controller.IController;
 import src.view.IView;
+import src.model.IModel;
 
 // classe contenente il game loop, il ciclo di update e repaint del gioco
 public class GameLoop implements Runnable {
@@ -12,12 +13,14 @@ public class GameLoop implements Runnable {
 	private int UPS_SET = 200;
 	
 	private IView view;
-	private ILogic logic;
+	private IController controller;
+	private IModel model;
 
 	
-	public GameLoop(IView v, ILogic L) {
+	public GameLoop(IView v, IController c, IModel m) {
 		this.view = v;
-		this.logic = L;
+		this.controller = c;
+		model = m;
 		startGameLoop();
 	}
 
@@ -69,7 +72,7 @@ public class GameLoop implements Runnable {
 	}
 
 	private void update() {
-		logic.updateGame();	
+		controller.updateGame();	
 	}
 	
 }

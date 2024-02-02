@@ -1,14 +1,16 @@
-package src.logic.main;
+package src.controller.main;
 
-import src.logic.ILogic;
+import src.controller.IController;
 import src.view.IView;
+import src.model.IModel;
 import src.view.gameBegin.SplashScreenGame;
 
 public class Starter {
 	
 private  SplashScreenGame caricamento;
 private  IView view;
-private  ILogic logic;
+private  IController controller;
+private IModel model;
 
 public Starter() {
     //inizializizza le interfacce View, logic
@@ -17,18 +19,23 @@ public Starter() {
 
 	public static void main(String[] args) {
         Starter s = new Starter();
-		new GameLoop(s.view, s.logic);
+		new GameLoop(s.view, s.controller, s.model);
 	}
   
     private  void initClasses() {
 		
 		caricamento = new SplashScreenGame();	
-		logic = new ILogic();
+		controller = new IController();
 		caricamento.showProgress(30);
 		
-		view = new IView(logic);
+		model = new IModel(controller);
+		controller.setModel(model);
+		caricamento.showProgress(60);
+
+		view = new IView(controller, model);
 		caricamento.showProgress(99);
-		logic.setView(view);
+		controller.setView(view);
+		model.setView(view);
         caricamento.setVisible(false);
 		caricamento.dispose();
 	}
