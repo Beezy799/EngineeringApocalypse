@@ -5,6 +5,7 @@ import java.awt.Button;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -16,10 +17,10 @@ import static src.view.main.GamePanel.SCALE;
 import static src.view.main.GamePanel.GAME_HEIGHT;
 import static src.view.main.GamePanel.GAME_WIDTH;
 
-public class MainMenu {
+public class MainMenu extends AbstractMenu{
     
-    private MenuButton [] buttons;
     private BufferedImage[] animatedBackground;
+    //per distanziare i bottoni ugualmente 
     private final int distanceBetweenButtons = (int)(35 * SCALE);
 
     //sono due contatori uno per scorrere le immagini ed uno per contare il tempo
@@ -37,7 +38,9 @@ public class MainMenu {
 
     public MainMenu(){
 
-        buttons = new MenuButton[4];
+		//lo eredita
+        buttons = new AbstractMenuButton[4];
+
         createPlayButton();
         createOptionButton();
         createRestartButton();
@@ -230,9 +233,9 @@ public class MainMenu {
     public void draw(Graphics2D g2) {
 
         drawBackground(g2);
-            
-        for (MenuButton m: buttons)
-             m.draw(g2);
+        
+		//ereditato
+        drawButtons(g2);
 
         drawCredits(g2);
 
@@ -270,7 +273,4 @@ public class MainMenu {
 	}
 
 
-
-
 }
-

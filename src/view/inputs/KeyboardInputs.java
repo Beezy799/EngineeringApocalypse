@@ -22,7 +22,7 @@ public class KeyboardInputs implements KeyListener {
 	
 	public KeyboardInputs(IView v) {
 		this.view = v;
-		mainMenuInputs = new MainMenuInputs(view.getMainMenu);
+		mainMenuInputs = new MainMenuInputs(view.getMainMenu());
 	}
 
 	@Override

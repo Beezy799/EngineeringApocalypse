@@ -9,7 +9,10 @@ import src.view.gameBegin.StartTitle;
 import src.view.inputs.MouseInputs;
 import src.view.main.GamePanel;
 import src.view.main.GameWindow;
+import src.view.menu.AvatarMenu;
 import src.view.menu.MainMenu;
+import src.view.menu.OptionMenu;
+import src.view.menu.PauseMenu;
 
 public class IView {
 
@@ -20,8 +23,10 @@ private GameWindow gameWindow;
 private GamePanel gamePanel;
 private MouseInputs mouseInputs;
 private StartTitle startTitle;
-public MainMenu getMainMenu;
 private MainMenu mainMenu;
+private OptionMenu optionMenu;
+private PauseMenu pauseMenu;
+private AvatarMenu avatarMenu;
 
     public IView(IController cont, IModel mod) {
 
@@ -29,7 +34,9 @@ private MainMenu mainMenu;
         this.model = mod;
         startTitle = new StartTitle(this);
         mainMenu = new MainMenu();
-
+        optionMenu = new OptionMenu();
+        pauseMenu = new PauseMenu();
+        avatarMenu = new AvatarMenu();
 
 
         mouseInputs = new MouseInputs(this);
@@ -65,11 +72,22 @@ private MainMenu mainMenu;
  
     
     public MainMenu getMainMenu(){
-
         return this.mainMenu;
     }
 
     public StartTitle getStartTitle() {
        return startTitle;
+    }
+
+    public OptionMenu getOptions() {
+        return optionMenu;
+    }
+
+    public PauseMenu getPause() {
+        return pauseMenu;
+    }
+
+    public AvatarMenu getAvatarMenu() {
+        return avatarMenu;
     }
 }

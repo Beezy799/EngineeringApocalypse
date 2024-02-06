@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.SwingUtilities;
 
+import src.model.GameState;
 //import controller.main.Gamestate;
 import src.view.IView;
 
@@ -18,27 +19,28 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 		this.view = v;
 	}
 
-	//lui sente solo che il mouse ha fatto qualcosa, poi delega la gestione dell'evento ai vari gamestate
+	//lui sente solo che il mouse ha fatto qualcosa, poi delega la gestione dell'evento ai vari menu a seconda del gameState
 	@Override
-	public void mouseDragged(MouseEvent e) {
-	/* 	switch (Gamestate.state) {
+	public void mouseDragged(MouseEvent e) {   //per soundbar
+		switch (GameState.actualState) {
 		case OPTIONS:
-			view.getOptions().mouseDragged(e);
+			view.getOptions().mouseDraggedInOption(e);
 			break;
 		case PAUSE:
-			view.getPause().mouseDragged(e);
+			view.getPause().mouseDraggedInPause(e);
 			break;
 		default:
 			break;
-		}*/
+		}
 
 	}
 
+	//funzionamento come sopra
 	@Override
 	public void mouseMoved(MouseEvent e) {
-	/* 	switch (Gamestate.state) {
+	 	switch (GameState.actualState) {
 		case MAIN_MENU:
-			view.getMenu().mouseMoved(e);
+			view.getMainMenu().mouseMoved(e);
 			break;
 		case SELECT_AVATAR:
 			view.getAvatarMenu().mouseMoved(e);
@@ -52,7 +54,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 		default:
 			break;
 
-		} */
+		} 
 
 	}
 
