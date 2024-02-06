@@ -27,4 +27,8 @@ private GameState nexState;
     public void draw(Graphics2D g2) {
         g2.drawImage(mouseAwayImage, bounds.x, bounds.y, null);
     }
+
+    public Rectangle getBounds(){
+        return bounds;
+    }
 }
