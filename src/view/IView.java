@@ -9,21 +9,29 @@ import src.view.gameBegin.StartTitle;
 import src.view.inputs.MouseInputs;
 import src.view.main.GamePanel;
 import src.view.main.GameWindow;
+import src.view.menu.MainMenu;
 
 public class IView {
 
 private IModel model;
 private IController controller;
+
 private GameWindow gameWindow;
 private GamePanel gamePanel;
 private MouseInputs mouseInputs;
 private StartTitle startTitle;
+public MainMenu getMainMenu;
+private MainMenu mainMenu;
 
     public IView(IController cont, IModel mod) {
 
         this.controller = cont;
         this.model = mod;
         startTitle = new StartTitle(this);
+        mainMenu = new MainMenu();
+
+
+
         mouseInputs = new MouseInputs(this);
         gamePanel = new GamePanel(this, mouseInputs);
         gameWindow = new GameWindow(gamePanel, this);
@@ -43,7 +51,9 @@ private StartTitle startTitle;
             case START_TITLE:
                 startTitle.draw(g2);
                 break;
-        
+            case MAIN_MENU:
+                mainMenu.draw(g2);
+            break;
             default:
                 break;
         }
@@ -52,5 +62,14 @@ private StartTitle startTitle;
     public void changeGameStateToMainMenu() {
        model.changeGameState(GameState.MAIN_MENU);
     }
+ 
     
+    public MainMenu getMainMenu(){
+
+        return this.mainMenu;
+    }
+
+    public StartTitle getStartTitle() {
+       return startTitle;
+    }
 }
