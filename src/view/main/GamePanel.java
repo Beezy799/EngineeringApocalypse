@@ -100,6 +100,5 @@ public class GamePanel extends JPanel {
 	// gestire anche i tasti
 	public void setCursorPosition(int X, int Y) {
 		robot.mouseMove(this.getLocationOnScreen().x + X, this.getLocationOnScreen().y + Y);
-		System.out.println("shddhh gp");
 	}
 }
