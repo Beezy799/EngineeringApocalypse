@@ -6,7 +6,7 @@ import src.model.IModel;
 import src.view.gameBegin.SplashScreenGame;
 
 public class Starter {
-	
+	//ciao Giulia
 private  SplashScreenGame caricamento;
 private  IView view;
 private  IController controller;
