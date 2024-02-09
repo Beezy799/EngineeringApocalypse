@@ -69,7 +69,14 @@ private AvatarMenu avatarMenu;
     public void changeGameStateToMainMenu() {
        model.changeGameState(GameState.MAIN_MENU);
     }
+
+    public void changeGameState(GameState newState){
+        GameState.actualState = newState;
+    }
  
+    public void setCursorPosition(int x, int y){    //richiama e basta il metodo che sta in GamePanel
+        gamePanel.setCursorPosition(x,y);               
+    }
     
     public MainMenu getMainMenu(){
         return this.mainMenu;

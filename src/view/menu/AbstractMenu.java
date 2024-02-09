@@ -31,7 +31,7 @@ public abstract class AbstractMenu {
 		resetButtons();
 	}
 
-	protected void resetButtons() {
+	public void resetButtons() {
 		for(AbstractMenuButton mb : buttons)
 			mb.resetBooleans();
 	}

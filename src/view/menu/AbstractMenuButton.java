@@ -42,7 +42,7 @@ public abstract class AbstractMenuButton {
 		this.mousePressed = mousePressed;
 	}
 	
-	public GameState getButtonState() {
+	public GameState getPointedState() {
 		return newState;
 	}
 	

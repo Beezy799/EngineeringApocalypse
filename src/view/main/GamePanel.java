@@ -1,10 +1,12 @@
 package src.view.main;
 
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -21,6 +23,9 @@ import src.view.inputs.MouseInputs;
 //(chiudi,riduci,allarga)  
 
 public class GamePanel extends JPanel {
+
+	//classe importata da java awt
+	private Robot robot;
 
 	private static final long serialVersionUID = 1L;
 	
@@ -48,6 +53,7 @@ public class GamePanel extends JPanel {
 		addKeyListener(new KeyboardInputs(view));
         setGameCursor(this);
 
+		createRobot();
 	}
 
 	private void setPanelSize() {
@@ -78,4 +84,22 @@ public class GamePanel extends JPanel {
         setCursor(Toolkit.getDefaultToolkit().createCustomCursor(mouseIcon,new Point(gp.getX(),gp.getY()),"custom cursor"));
         
     } 
+
+	public void createRobot(){
+		try {
+			robot = new Robot();
+		} catch (AWTException e) {
+			
+			e.printStackTrace();
+		}
+	}
+
+	// per usare i tasti direzionali nei vari menu, ho fatto in modo che, usando i tasti,
+	// si possa spostare la freccina e quindi i bottoni reagiscono allo spostamento della freccina.
+	// in questo modo ho riciclato i metodi dei bottoni che gestiscono il mouse per 
+	// gestire anche i tasti
+	public void setCursorPosition(int X, int Y) {
+		robot.mouseMove(this.getLocationOnScreen().x + X, this.getLocationOnScreen().y + Y);
+		System.out.println("shddhh gp");
+	}
 }
