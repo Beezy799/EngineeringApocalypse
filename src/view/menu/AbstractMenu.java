@@ -1,6 +1,7 @@
 package src.view.menu;
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 //classe astratta che contiene i metodi e le risorse comuni a tutti i tipi di menu. 
@@ -29,6 +30,16 @@ public abstract class AbstractMenu {
 				mb.reactToMouse(e);
 		
 		resetButtons();
+	}
+
+	public void enterReleased(KeyEvent e){
+		for(AbstractMenuButton mb : buttons) {
+			if (mb.mouseOver == true) {
+				mb.reactToEnter();
+				resetButtons();
+			}
+		}
+
 	}
 
 	public void resetButtons() {

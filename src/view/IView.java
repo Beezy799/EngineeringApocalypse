@@ -1,6 +1,6 @@
 package src.view;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 
 import src.controller.IController;
 import src.model.GameState;
@@ -79,6 +79,10 @@ private AvatarMenu avatarMenu;
  
     public void setCursorPosition(int x, int y){    //richiama e basta il metodo che sta in GamePanel
         gamePanel.setCursorPosition(x,y);               
+    }
+
+    public Point getCursorPosition(){
+        return gamePanel.getMousePosition();
     }
     
     public MainMenu getMainMenu(){

@@ -1,5 +1,6 @@
 package src.view.inputs;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -8,11 +9,14 @@ import src.model.GameState;
 //import controller.main.Gamestate;
 
 import src.view.IView;
+
+import static src.view.main.GamePanel.SCALE;
 //import view.playState.entityView.EntityView;
 
 
 public class KeyboardInputs implements KeyListener {
 
+    private int cursorSpeed = (int)(SCALE*10);
     private IView view;
     private MainMenuInputs mainMenuInputs;
     private OptionMenuInputs optionMenuInputs;
@@ -31,10 +35,15 @@ public class KeyboardInputs implements KeyListener {
             case START_TITLE:
                 view.changeGameStateToMainMenu();
             break; 
-                
-/*              case PLAYING:
-                handleKeypressedDuringPlayState(e);
-                break; */
+            default: //nei casi main manu , opzioni e  avatar selection
+                moveCursor(e);
+                break;
+            case PLAYING:
+                break;
+            case DIALOGUE:
+                break;
+            case BOSS_CUTSCENE:
+                break;
 
 /*          case DIALOGUE:
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE ||
@@ -68,26 +77,56 @@ public class KeyboardInputs implements KeyListener {
 
     }
 
+    private void moveCursor(KeyEvent e) {
+
+        Point p = view.getCursorPosition();
+        int x = p.x;
+        int y = p.y;
+
+        if(e.getKeyCode() == KeyEvent.VK_UP ||e.getKeyCode() == KeyEvent.VK_W){
+            view.setCursorPosition(x, y - cursorSpeed);
+        }
+        if(e.getKeyCode() == KeyEvent.VK_DOWN ||e.getKeyCode() == KeyEvent.VK_S){
+            view.setCursorPosition(x, y + cursorSpeed);
+        }
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT ||e.getKeyCode() == KeyEvent.VK_D){
+            view.setCursorPosition(x + cursorSpeed, y);
+        }
+        if(e.getKeyCode() == KeyEvent.VK_LEFT ||e.getKeyCode() == KeyEvent.VK_A){
+            view.setCursorPosition(x - cursorSpeed, y);
+        }
+
+
+
+    }
+
 
     //lui sente solo che un tasto è stato rilasciato, poi delega la gestione del fatto ai vari gamestate
     @Override
     public void keyReleased(KeyEvent e) {
+
         switch (GameState.actualState) {
             case MAIN_MENU:
-                mainMenuInputs.keyReleasedDuringMainMenuState(e.getKeyCode());
+                //mainMenuInputs.keyReleasedDuringMainMenuState(e.getKeyCode());
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    view.getMainMenu().enterReleased(e);
+                }
                 break;
             case SELECT_AVATAR:
-                avatarMenuInputs.keyReleasedDuringSelectAvatarState(e.getKeyCode());
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    view.getAvatarMenu().enterReleased(e);
+                }
                 break;
             case OPTIONS:
-                optionMenuInputs.keyReleasedDuringOptionState(e.getKeyCode());
+                //optionMenuInputs.keyReleasedDuringOptionState(e.getKeyCode());
                 break;
             case PLAYING:
-                handleKeyReleasedPlayState(e);
+                //handleKeyReleasedPlayState(e);
                 break; 
             default:
                 break;
-        }   
+        }
+
     }
 
     private void handleKeyReleasedPlayState(KeyEvent e) {

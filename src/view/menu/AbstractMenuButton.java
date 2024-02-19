@@ -60,7 +60,7 @@ public abstract class AbstractMenuButton {
 
 	public abstract  void reactToDrag(MouseEvent e); //soundbar
 
-
+	public abstract void reactToEnter(); //qunado premi enter su un bottone
 	
 
 }
