@@ -36,6 +36,7 @@ public abstract class AbstractMenu {
 			mb.resetBooleans();
 	}
 
+	//resetta i bottoni e controlla se il mouse è sopra al bottone
 	public void mouseMoved(MouseEvent e) {
 		for(AbstractMenuButton mb : buttons)
 			mb.setMouseOver(false);

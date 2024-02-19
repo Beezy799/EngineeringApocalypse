@@ -20,6 +20,10 @@ public class IController {
             case PLAYING:
             break;
 
+            case QUIT:
+                System.exit(0);
+                break;
+
             default:
                 break;
         }

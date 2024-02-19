@@ -59,6 +59,8 @@ public abstract class AbstractMenuButton {
 	public abstract void reactToMouse(MouseEvent e);
 
 	public abstract  void reactToDrag(MouseEvent e); //soundbar
+
+
 	
 
 }

@@ -29,13 +29,11 @@ public class MenuButton extends AbstractMenuButton {
 			g2.drawImage(mousePressedImage, (int)bounds.getX(), (int)bounds.getY(), null);	
     }
 
-    public Rectangle getBounds(){
-        return bounds;
-    }
+
 
     @Override
     public void reactToMouse(MouseEvent e) {
-        System.out.println("funziona in menubutton");
+        GameState.actualState = newState;
     }
 
     @Override

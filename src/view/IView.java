@@ -36,7 +36,7 @@ private AvatarMenu avatarMenu;
         mainMenu = new MainMenu();
         optionMenu = new OptionMenu();
         pauseMenu = new PauseMenu();
-        avatarMenu = new AvatarMenu();
+        avatarMenu = new AvatarMenu(this);
 
 
         mouseInputs = new MouseInputs(this);
@@ -61,6 +61,9 @@ private AvatarMenu avatarMenu;
             case MAIN_MENU:
                 mainMenu.draw(g2);
             break;
+            case SELECT_AVATAR:
+                avatarMenu.draw(g2);
+                break;
             default:
                 break;
         }

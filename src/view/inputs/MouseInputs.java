@@ -38,7 +38,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 	//funzionamento come sopra
 	@Override
 	public void mouseMoved(MouseEvent e) {
-/* 	 	switch (GameState.actualState) {
+ 	 	switch (GameState.actualState) {
 		case MAIN_MENU:
 			view.getMainMenu().mouseMoved(e);
 			break;
@@ -54,29 +54,29 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 		default:
 			break;
 
-		}  */
+		}
 
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-	/* 	switch (Gamestate.state) {
+	 	switch (GameState.actualState) {
 		case START_TITLE:
-			view.getStart().skipTitle();
+			view.changeGameStateToMainMenu();
 			break;
 		default:
 			break;
-		} */
+		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-	/* 	switch (Gamestate.state) {
+		switch (GameState.actualState) {
 		case MAIN_MENU:
-			view.getMenu().mousePressed(e);
+			view.getMainMenu().mousePressed(e);
 			break;
 		case SELECT_AVATAR:
-			view.getAvatarMenu().mousePressed(e);
+			//view.getAvatarMenu().mousePressed(e);
 			break;
 		case OPTIONS:
 			view.getOptions().mousePressed(e);
@@ -89,29 +89,18 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 			break;
 		default:
 			break;
-		} */
+		}
 	}
 	
-	private void handleMousePressedDuringPlayState(MouseEvent e) {
-		/* if(SwingUtilities.isLeftMouseButton(e))
-			view.getController().getPlay().startPlayerAttacking();
-		
-		else if(SwingUtilities.isRightMouseButton(e))
-			view.getController().getPlay().startPlayerParring();
-		
-		else if(SwingUtilities.isMiddleMouseButton(e))		
-				view.getController().getPlay().startPlayerThrowing(); */
-	
-	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		/* switch (Gamestate.state) {
+		 switch (GameState.actualState) {
 		case MAIN_MENU:
-			view.getMenu().mouseReleased(e);
+			view.getMainMenu().mouseReleased(e);
 			break;
 		case SELECT_AVATAR:
-			view.getAvatarMenu().mouseReleased(e);
+			//view.getAvatarMenu().mouseReleased(e);
 			break;
 		case OPTIONS:
 			view.getOptions().mouseReleased(e);
@@ -122,13 +111,13 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 		case PAUSE:
 			view.getPause().mouseReleased(e);
 			break;
-		case DIALOGUE:
+/*		case DIALOGUE:
 			int index = view.getController().getPlay().getPlayer().getIndexOfEntityInteract();
 			view.getPlay().getRoom(view.getCurrentRoomIndex()).getNPC(index).nextDialogueLine();
-			break;
+			break;*/
 		default:
 			break;
-		} */
+		}
 	}
 
 	private void handleMouseReleasedDuringPlayState(MouseEvent e) {
@@ -150,5 +139,18 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 	}
+
+	private void handleMousePressedDuringPlayState(MouseEvent e) {
+		/* if(SwingUtilities.isLeftMouseButton(e))
+			view.getController().getPlay().startPlayerAttacking();
+
+		else if(SwingUtilities.isRightMouseButton(e))
+			view.getController().getPlay().startPlayerParring();
+
+		else if(SwingUtilities.isMiddleMouseButton(e))
+				view.getController().getPlay().startPlayerThrowing(); */
+
+	}
+
 
 }

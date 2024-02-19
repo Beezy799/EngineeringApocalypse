@@ -1,0 +1,67 @@
+package src.view.menu;
+
+import src.model.GameState;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+
+//questa classe serve per gestire le "gif" degli avantar nel menu di selezione
+public class AvatarMenuButton extends  AbstractMenuButton{
+
+    private BufferedImage[] gifButton;
+    private int animationCounter = 0; //aumenta ogni ciclo di repaint
+    private  int animationSpeed = 20; // serve a regolare la velocità gif
+    private int animationLenght = 6; //durata gif
+    private int numSprite = 0; //indice della sprite disegnata
+
+    public AvatarMenuButton  (BufferedImage[] img, Rectangle b, GameState nS){
+
+        gifButton = new BufferedImage[6];
+
+        for(int i=0; i<=5 ; i++){
+            gifButton[i] = img[i];
+        }
+
+
+        this.bounds = b;
+        this.newState = nS;
+    }
+
+    @Override
+    //disegna gli avatar che si muovono quando ci andiamo sopra con il mouse, altrimenti non si muovono
+    public void draw(Graphics2D g2) {
+
+        if(mouseOver) {
+            drawGif(g2);
+        }
+        else {
+            //se mouse non ci sta sopra diegna l'immagine ferma
+            g2.drawImage(gifButton[0], bounds.x, bounds.y, null);
+        }
+    }
+
+    private void drawGif(Graphics2D g2) {
+        animationCounter++;
+
+        if (animationCounter > animationSpeed) {
+            numSprite++;
+
+            if(numSprite >= animationLenght)
+                numSprite = 0;
+
+            animationCounter = 0;
+        }
+
+        g2.drawImage(gifButton[numSprite], bounds.x, bounds.y, null);
+    }
+
+    @Override
+    public void reactToMouse(MouseEvent e) {
+        GameState.actualState = newState;
+    }
+
+    @Override
+    public void reactToDrag(MouseEvent e) {
+    }
+}
