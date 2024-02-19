@@ -52,7 +52,7 @@ public class MainMenu extends AbstractMenu{
     
     private void createTitle() {
         try {
-            title = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/logo.png")); 
+            title = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/logo.png"));
             title = ViewUtils.scaleImage(title, title.getWidth() * 0.8f * SCALE, title.getHeight() * SCALE * 0.8f);
         } 
         catch (IOException e) {

@@ -14,6 +14,7 @@ import static src.view.main.GamePanel.SCALE;
 //questa classe serve per gestire le "gif" degli avantar nel menu di selezione
 public class AvatarMenuButton extends  AbstractMenuButton{
 
+    private Font descriptionFont;
     private String skillsDescription;
     private BufferedImage[] gifButton;
     private int animationCounter = 0; //aumenta ogni ciclo di repaint
@@ -24,9 +25,10 @@ public class AvatarMenuButton extends  AbstractMenuButton{
 
     public AvatarMenuButton (BufferedImage[] img, Rectangle b, GameState nS, String s){
         skillsDescription = s;
+        int fontSize = (int)(10*SCALE);
+        descriptionFont = new Font("Arial", Font.PLAIN, fontSize);
 
         gifButton = new BufferedImage[6];
-
         for(int i=0; i<=5 ; i++){
             gifButton[i] = img[i];
         }
@@ -56,6 +58,9 @@ public class AvatarMenuButton extends  AbstractMenuButton{
     }
 
     private void drawSkillsDescription(Graphics2D g2) {
+
+        g2.setFont(descriptionFont);
+
         int x = ViewUtils.getXforCenterText(skillsDescription, g2);
         g2.setColor(Color.red);
         g2.drawString(skillsDescription, x, (int)(350*SCALE));
