@@ -76,7 +76,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 			view.getMainMenu().mousePressed(e);
 			break;
 		case SELECT_AVATAR:
-			//view.getAvatarMenu().mousePressed(e);
+			view.getAvatarMenu().mousePressed(e);
 			break;
 		case OPTIONS:
 			view.getOptions().mousePressed(e);
@@ -100,7 +100,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 			view.getMainMenu().mouseReleased(e);
 			break;
 		case SELECT_AVATAR:
-			//view.getAvatarMenu().mouseReleased(e);
+			view.getAvatarMenu().mouseReleased(e);
 			break;
 		case OPTIONS:
 			view.getOptions().mouseReleased(e);

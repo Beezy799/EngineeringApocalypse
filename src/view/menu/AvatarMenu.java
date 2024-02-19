@@ -66,11 +66,11 @@ public class AvatarMenu extends AbstractMenu{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        String s = "Mario, viene dallo scientifico, ha più appunti";
         int boyButtonX = ViewUtils.getCenteredXPos(gifAnimationBoy[0].getWidth()) - (int)(80*SCALE);
         int boyButtonY = (int)(150*SCALE);
         Rectangle rect = new Rectangle(boyButtonX,boyButtonY, gifAnimationBoy[0].getWidth(), gifAnimationBoy[0].getHeight());
-        buttons[1] = new AvatarMenuButton(gifAnimationBoy, rect, GameState.PLAYING);
+        buttons[1] = new AvatarMenuButton(gifAnimationBoy, rect, GameState.PLAYING, s);
     }
 
 
@@ -91,11 +91,11 @@ public class AvatarMenu extends AbstractMenu{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        int boyButtonX = ViewUtils.getCenteredXPos(gifAnimationGirl[0].getWidth()) + (int)(80*SCALE);
-        int boyButtonY = (int)(150*SCALE);
-        Rectangle rect = new Rectangle(boyButtonX,boyButtonY, gifAnimationGirl[0].getWidth(), gifAnimationGirl[0].getHeight());
-        buttons[2] = new AvatarMenuButton(gifAnimationGirl, rect, GameState.PLAYING);
+        String s = "Sara, viene dal classico, ha più concentrazione";
+        int girlButtonX = ViewUtils.getCenteredXPos(gifAnimationGirl[0].getWidth()) + (int)(80*SCALE);
+        int girlButtonY = (int)(150*SCALE);
+        Rectangle rect = new Rectangle(girlButtonX, girlButtonY, gifAnimationGirl[0].getWidth(), gifAnimationGirl[0].getHeight());
+        buttons[2] = new AvatarMenuButton(gifAnimationGirl, rect, GameState.PLAYING, s);
     }
 
 
@@ -126,43 +126,18 @@ public class AvatarMenu extends AbstractMenu{
         buttons[0] = new MenuButton(goBackButtonImage, rect, GameState.MAIN_MENU);
     }
 
-    //sarebbero le scritte che appaiono se passi sopra a un personaggio
-/*    private void loadCharacterSkills() {
-        characterSkills = new String[2];
-        characterSkills[0] = "Sara, viene dal classico, ha più concentrazione";
-        characterSkills[1] = "Mario, viene dallo scientifico, ha più appunti";
-    }*/
+
 
     public void draw(Graphics2D g2) {
-   //     drawBackground(g2);
-        drawAvatarChoiceText(g2);
-   //     drawCharacterSkills(g2);
+        // chiede al menu principale di disegnare il background, senza dover ricaricare le immagini dello sfondo
+        view.getMainMenu().drawBackground(g2);
+        drawAvatarMenuTitle(g2);
         drawButtons(g2);
     }
 
-    // chiede al menu principale di disegnare il background, senza dover ricaricare le immagini dello sfondo
- /*   private void drawBackground(Graphics2D g2) {
-        view.getMenu().drawBackground(g2);
-    }*/
-
-    private void drawAvatarChoiceText(Graphics2D g2) {
+    private void drawAvatarMenuTitle(Graphics2D g2) {
         g2.drawImage(titleAvatar, titleAvatarX, titleAvatarY, null);
     }
-
-/*    private void drawCharacterSkills(Graphics2D g2) {
-        if(buttons[RAGAZZO].getMouseOver() == true) {
-            g2.setColor(Color.red);
-            int x = ViewUtils.getXforCenterText(characterSkills[RAGAZZO -1], g2);
-            int y = (int)(buttons[RAGAZZO].getBounds().getHeight() + buttons[RAGAZZO].getBounds().getY() + 30*SCALE);
-            g2.drawString(characterSkills[RAGAZZO -1], x, y);
-        }
-        else if (buttons[RAGAZZA].getMouseOver() == true) {
-            g2.setColor(Color.red);
-            int x = ViewUtils.getXforCenterText(characterSkills[RAGAZZA -1], g2);
-            int y = (int)(buttons[RAGAZZA].getBounds().getHeight() + buttons[RAGAZZA].getBounds().getY() + 30*SCALE);
-            g2.drawString(characterSkills[RAGAZZA -1], x, y);
-        }
-    }*/
 
 /*    public void keyReleased(int tasto) {
 
