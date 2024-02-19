@@ -34,7 +34,7 @@ private AvatarMenu avatarMenu;
         this.model = mod;
         startTitle = new StartTitle(this);
         mainMenu = new MainMenu();
-        optionMenu = new OptionMenu();
+        optionMenu = new OptionMenu(this);
         pauseMenu = new PauseMenu();
         avatarMenu = new AvatarMenu(this);
 
@@ -63,6 +63,9 @@ private AvatarMenu avatarMenu;
             break;
             case SELECT_AVATAR:
                 avatarMenu.draw(g2);
+                break;
+            case OPTIONS:
+                optionMenu.draw(g2);
                 break;
             default:
                 break;

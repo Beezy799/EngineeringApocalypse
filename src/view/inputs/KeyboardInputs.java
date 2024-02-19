@@ -112,6 +112,9 @@ public class KeyboardInputs implements KeyListener {
                 }
                 break;
             case OPTIONS:
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    view.getOptions().enterReleased(e);
+                }
                 break;
             case PLAYING:
                 //handleKeyReleasedPlayState(e);
