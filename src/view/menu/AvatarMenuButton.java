@@ -75,7 +75,7 @@ public class AvatarMenuButton extends  AbstractMenuButton{
 
         g2.drawImage(gifButton[numSprite], bounds.x, bounds.y, null);
     }
-//metodo per reagire ad enter come se fosse un click
+//metodo per reagire ad enter come se fosse un clic
     @Override
     public void reactToMouse(MouseEvent e) {
         GameState.actualState = newState;

@@ -18,15 +18,10 @@ public class KeyboardInputs implements KeyListener {
 
     private int cursorSpeed = (int)(SCALE*10);
     private IView view;
-    private MainMenuInputs mainMenuInputs;
-    private OptionMenuInputs optionMenuInputs;
-    private AvatarMenuInputs avatarMenuInputs;
-    private PauseMenuInputs pauseMenuInputs;
     private PlayStateInputs playStateInputs;
     
     public KeyboardInputs(IView v) {
         this.view = v;
-        mainMenuInputs = new MainMenuInputs(view, view.getMainMenu());
     }
 
     @Override
@@ -107,7 +102,6 @@ public class KeyboardInputs implements KeyListener {
 
         switch (GameState.actualState) {
             case MAIN_MENU:
-                //mainMenuInputs.keyReleasedDuringMainMenuState(e.getKeyCode());
                 if(e.getKeyCode() == KeyEvent.VK_ENTER) {
                     view.getMainMenu().enterReleased(e);
                 }
@@ -118,7 +112,6 @@ public class KeyboardInputs implements KeyListener {
                 }
                 break;
             case OPTIONS:
-                //optionMenuInputs.keyReleasedDuringOptionState(e.getKeyCode());
                 break;
             case PLAYING:
                 //handleKeyReleasedPlayState(e);
