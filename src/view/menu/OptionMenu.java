@@ -21,11 +21,21 @@ public class OptionMenu extends AbstractMenu{
     public OptionMenu(IView v){
         view = v;
 
-        buttons = new AbstractMenuButton[4]; //6
+        buttons = new AbstractMenuButton[6]; //6
         createGoBackButton();
         createDifficultyButtons();
+        createSoundBar();
 
+    }
 
+    private void createSoundBar() {
+        Rectangle r1 = new Rectangle(0,0, 400, 20);
+        Rectangle r2 = new Rectangle(0,0, 100, 20);
+        buttons[4] = new SoundBar(r1, r2, view);
+
+        r1 = new Rectangle(0,40, 400, 20);
+        r2 = new Rectangle(0,40, 400, 20);
+        buttons[5] = new SoundBar(r1, r2, view);
     }
 
 
@@ -57,7 +67,7 @@ public class OptionMenu extends AbstractMenu{
 
     private void createDifficultyButtons() {
         BufferedImage[] difficultyButtonImage = new BufferedImage[3];
-        int distanceBetweenButtons = (int)(35 * SCALE);
+        int distanceBetweenButtons = (int)(32 * SCALE);
         int yFirstButton = GAME_HEIGHT/2 + (int)(40*SCALE);
 
         // PRIMO BOTTONE: MATRICOLA
@@ -141,13 +151,14 @@ public class OptionMenu extends AbstractMenu{
         view.getMainMenu().drawBackground(g2);
         drawButtons(g2);
     }
-    public void mouseMovedInOptionMenu(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
-    }
 
     public void mouseDraggedInOption(MouseEvent e) {
-
+        for(AbstractMenuButton mb : buttons){
+            if(mb.checkIfMouseIsIn(e)){
+                mb.reactToDrag(e);
+            }
+        }
     }
+
     
 }

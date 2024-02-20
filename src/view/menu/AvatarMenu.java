@@ -26,7 +26,6 @@ public class AvatarMenu extends AbstractMenu{
         view = v;
         loadAvatarChoiceText();
         loadButtons();
-      //  loadCharacterSkills();
     }
 
     // è la scritta "scegli il tuo avatar"
@@ -106,13 +105,13 @@ public class AvatarMenu extends AbstractMenu{
         BufferedImage temp = null;
         try {
             temp = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/indietro1.png"));
-            goBackButtonImage[0] = ViewUtils.scaleImage(temp, temp.getWidth() * 0.4f*SCALE , temp.getHeight() * SCALE * 0.4f);
+            goBackButtonImage[0] = ViewUtils.scaleImage(temp, temp.getWidth() * 0.35f*SCALE , temp.getHeight() * SCALE * 0.35f);
 
             temp = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/indietro2.png"));
-            goBackButtonImage[1] = ViewUtils.scaleImage(temp, temp.getWidth() * 0.45f *SCALE , temp.getHeight() * SCALE * 0.45f);
+            goBackButtonImage[1] = ViewUtils.scaleImage(temp, temp.getWidth() * 0.40f *SCALE , temp.getHeight() * SCALE * 0.40f);
 
             temp = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/indietro3.png"));
-            goBackButtonImage[2] = ViewUtils.scaleImage(temp, temp.getWidth() * 0.4f*SCALE , temp.getHeight() * SCALE * 0.4f);
+            goBackButtonImage[2] = ViewUtils.scaleImage(temp, temp.getWidth() * 0.40f*SCALE , temp.getHeight() * SCALE * 0.40f);
 
         }
         catch (IOException e) {

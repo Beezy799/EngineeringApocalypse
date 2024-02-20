@@ -62,7 +62,7 @@ public class AvatarMenuButton extends  AbstractMenuButton{
         g2.setFont(descriptionFont);
 
         int x = ViewUtils.getXforCenterText(skillsDescription, g2);
-        g2.setColor(Color.blue);
+        g2.setColor(Color.CYAN);
         g2.drawString(skillsDescription, x, (int)(350*SCALE));
     }
 
@@ -87,11 +87,12 @@ public class AvatarMenuButton extends  AbstractMenuButton{
     }
 
     @Override
-    public void reactToDrag(MouseEvent e) {
+    public void reactToEnter() {
+        GameState.actualState = newState;
     }
 
     @Override
-    public void reactToEnter() {
-        GameState.actualState = newState;
+    public void reactToDrag(MouseEvent e) {
+
     }
 }

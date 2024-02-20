@@ -22,7 +22,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 	//lui sente solo che il mouse ha fatto qualcosa, poi delega la gestione dell'evento ai vari menu a seconda del gameState
 	@Override
 	public void mouseDragged(MouseEvent e) {   //per soundbar
-/* 		switch (GameState.actualState) {
+ 		switch (GameState.actualState) {
 		case OPTIONS:
 			view.getOptions().mouseDraggedInOption(e);
 			break;
@@ -31,7 +31,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 			break;
 		default:
 			break;
-		} */
+		}
 
 	}
 

@@ -36,12 +36,14 @@ public class MenuButton extends AbstractMenuButton {
         GameState.actualState = newState;
     }
 
-    @Override
-    public void reactToDrag(MouseEvent e) {
-    }
 
     @Override
     public void reactToEnter() {
         GameState.actualState = newState;
+    }
+
+    @Override
+    public void reactToDrag(MouseEvent e) {
+
     }
 }

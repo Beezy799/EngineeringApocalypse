@@ -24,7 +24,7 @@ public class DifficultyBotton extends AbstractMenuButton {
        difficulty = diff;
        explaination = s;
 
-       int fontSize = (int)(15*SCALE);
+       int fontSize = (int)(12*SCALE);
        descriptionFont = new Font("Arial", Font.PLAIN, fontSize);
 
     }
@@ -34,7 +34,7 @@ public class DifficultyBotton extends AbstractMenuButton {
         g2.drawImage(mouseAwayImage, (int)bounds.getX(), (int)bounds.getY(), null);
         if(mouseOver){
             g2.drawImage(mouseOverImage, (int)bounds.getX(), (int)bounds.getY(), null);
-            g2.setColor(Color.red);
+            g2.setColor(Color.CYAN);
             g2.setFont(descriptionFont);
             int x = ViewUtils.getXforCenterText(explaination, g2);
             int y = GAME_HEIGHT/2 + (int)(160*SCALE);
@@ -50,12 +50,12 @@ public class DifficultyBotton extends AbstractMenuButton {
     }
 
     @Override
-    public void reactToDrag(MouseEvent e) {
-
+    public void reactToEnter() {
+        System.out.println("cambia difficoltà");
     }
 
     @Override
-    public void reactToEnter() {
-        System.out.println("cambia difficoltà");
+    public void reactToDrag(MouseEvent e) {
+
     }
 }
