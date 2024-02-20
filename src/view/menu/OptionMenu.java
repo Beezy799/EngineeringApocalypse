@@ -10,12 +10,15 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import static src.view.main.GamePanel.GAME_HEIGHT;
-import static src.view.main.GamePanel.SCALE;
+import static src.view.main.GamePanel.*;
 
 public class OptionMenu extends AbstractMenu{
 
     private static final int DIFF_MATRICOLA = 0, DIFF_FUORICORSO = 1, DIFF_LAVORATORE = 2;
+
+    private int yMusicSoundbar = (int)(70*SCALE);
+    private int ySoundEffectBar = (int)(120*SCALE);
+    private  BufferedImage diff, music, se;
     private IView view;
 
     public OptionMenu(IView v){
@@ -25,17 +28,53 @@ public class OptionMenu extends AbstractMenu{
         createGoBackButton();
         createDifficultyButtons();
         createSoundBar();
+        loadImages();
+
+    }
+
+    private void loadImages() {
+        //DIFF
+        diff = null;
+        try {
+            diff = ImageIO.read(getClass().getResourceAsStream("/res/opzioni/diff.png"));
+            diff = ViewUtils.scaleImage(diff, diff.getWidth() * 0.60f*SCALE , diff.getHeight() * SCALE * 0.60f);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //MUSIC
+        music = null;
+        try {
+            music = ImageIO.read(getClass().getResourceAsStream("/res/opzioni/volumemusica.png"));
+            music = ViewUtils.scaleImage(music, music.getWidth() * 0.30f*SCALE , music.getHeight() * SCALE * 0.30f);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // SE
+        se = null;
+        try {
+            se = ImageIO.read(getClass().getResourceAsStream("/res/opzioni/volumeeffetti.png"));
+            se = ViewUtils.scaleImage(se, se.getWidth() * 0.35f*SCALE , se.getHeight() * SCALE * 0.35f);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
     private void createSoundBar() {
-        Rectangle r1 = new Rectangle(0,0, 400, 20);
-        Rectangle r2 = new Rectangle(0,0, 100, 20);
-        buttons[4] = new SoundBar(r1, r2, view);
+        //music soundbar
+        Rectangle r1 = new Rectangle(GAME_WIDTH/2, yMusicSoundbar, 400, 20);
+        Rectangle r2 = new Rectangle(GAME_WIDTH/2, yMusicSoundbar, 100, 20);
+        buttons[4] = new SoundBar(r1, r2, view, true);
 
-        r1 = new Rectangle(0,40, 400, 20);
-        r2 = new Rectangle(0,40, 400, 20);
-        buttons[5] = new SoundBar(r1, r2, view);
+        //se soundbar
+        r1 = new Rectangle(GAME_WIDTH/2, ySoundEffectBar, 400, 20);
+        r2 = new Rectangle(GAME_WIDTH/2, ySoundEffectBar, 400, 20);
+        buttons[5] = new SoundBar(r1, r2, view, false);
     }
 
 
@@ -150,6 +189,13 @@ public class OptionMenu extends AbstractMenu{
         // chiede al menu principale di disegnare il background, senza dover ricaricare le immagini dello sfondo
         view.getMainMenu().drawBackground(g2);
         drawButtons(g2);
+        drawText(g2);
+    }
+
+    private void drawText(Graphics2D g2) {
+        g2.drawImage(diff, ViewUtils.getCenteredXPos(diff.getWidth()), GAME_HEIGHT/2, null);
+        g2.drawImage(music, (int)(50*SCALE), yMusicSoundbar, null);
+        g2.drawImage(se, (int)(50*SCALE), ySoundEffectBar, null);
     }
 
     public void mouseDraggedInOption(MouseEvent e) {

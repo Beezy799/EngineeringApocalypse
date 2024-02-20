@@ -8,18 +8,27 @@ import java.awt.event.MouseEvent;
 public class SoundBar extends AbstractMenuButton{
 
     private Rectangle backgroundRect, volumeRect;
-    public SoundBar(Rectangle r1, Rectangle r2, IView v){
+    private boolean isMusicVolume;
+
+    public SoundBar(Rectangle r1, Rectangle r2, IView v, boolean b){
         backgroundRect = r1;
         volumeRect = r2;
         bounds = r1;
         view = v;
+        isMusicVolume = b;
     }
     @Override
     public void draw(Graphics2D g2) {
         g2.setColor(Color.red);
         g2.draw(backgroundRect);
 
-        volumeRect.width = (int) (view.getVolume() * backgroundRect.width);
+        if(isMusicVolume){
+            volumeRect.width = (int) (view.getVolume() * backgroundRect.width);
+        }
+        else{
+            volumeRect.width = (int) (view.getSeVolume() * backgroundRect.width);
+        }
+
         if(mouseOver){
             g2.setColor(Color.CYAN);
         }
@@ -36,7 +45,12 @@ public class SoundBar extends AbstractMenuButton{
         int xRect = bounds.x;
 
         volumeRect.width = cursorX - xRect;
-        view.setVolume((float) volumeRect.width /backgroundRect.width);
+        if(isMusicVolume){
+            view.setVolume((float) volumeRect.width/backgroundRect.width);
+        }
+        else {
+            view.setSeVolume((float) volumeRect.width /backgroundRect.width);
+        }
     }
 
     public void reactToDrag(MouseEvent e) {
@@ -44,12 +58,17 @@ public class SoundBar extends AbstractMenuButton{
         int xRect = bounds.x;
 
         volumeRect.width = cursorX - xRect;
-        view.setVolume((float) volumeRect.width /backgroundRect.width);
+        if(isMusicVolume){
+            view.setVolume((float) volumeRect.width /backgroundRect.width);
+        }
+        else{
+            view.setSeVolume((float) volumeRect.width /backgroundRect.width);
+        }
 
     }
 
     @Override
     public void reactToEnter() {
-
+        
     }
 }

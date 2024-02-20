@@ -29,6 +29,7 @@ private PauseMenu pauseMenu;
 private AvatarMenu avatarMenu;
 
 private float volume = 0f;
+private float seVolume = 0f;
 
     public IView(IController cont, IModel mod) {
 
@@ -117,5 +118,13 @@ private float volume = 0f;
     public void setVolume(float volume) {
         this.volume = volume;
         System.out.println(volume);
+    }
+
+    public float getSeVolume(){
+        return seVolume;
+    }
+
+    public void setSeVolume (float v) {
+        seVolume = v;
     }
 }
