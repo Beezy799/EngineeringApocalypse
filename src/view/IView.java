@@ -14,6 +14,8 @@ import src.view.menu.MainMenu;
 import src.view.menu.OptionMenu;
 import src.view.menu.PauseMenu;
 
+import static src.model.Constants.SoundConstants.MENU_MUSIC;
+
 public class IView {
 
 private IModel model;
@@ -28,8 +30,8 @@ private OptionMenu optionMenu;
 private PauseMenu pauseMenu;
 private AvatarMenu avatarMenu;
 
-private float musicVolume = 0f;
-private float seVolume = 0f;
+private SoundManager soundManager;
+
 
     public IView(IController cont, IModel mod) {
 
@@ -41,6 +43,7 @@ private float seVolume = 0f;
         pauseMenu = new PauseMenu();
         avatarMenu = new AvatarMenu(this);
 
+        soundManager = new SoundManager();
 
         mouseInputs = new MouseInputs(this);
         gamePanel = new GamePanel(this, mouseInputs);
@@ -48,6 +51,8 @@ private float seVolume = 0f;
         gameWindow.setVisible(true);
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
+
+      //  soundManager.playMusic(MENU_MUSIC);
     }
 
     //chiede al pannello di creare il suo ambiente grafico, g, che poi userà per disegnare il frame successivo
@@ -112,19 +117,19 @@ private float seVolume = 0f;
     }
 
     public float getMusicVolume() {
-        return musicVolume;
+        return soundManager.getMusicVolume();
     }
 
     public void setMusicVolume(float musicVolume) {
-        this.musicVolume = musicVolume;
-        System.out.println("syso in Iview"+musicVolume);
+        this.soundManager.setMusicVolume(musicVolume);
+        System.out.println("syso in Iview" + musicVolume);
     }
 
     public float getSeVolume(){
-        return seVolume;
+        return soundManager.getSEVolume();
     }
 
     public void setSeVolume (float v) {
-        seVolume = v;
+        soundManager.setSEVolume(v);
     }
 }

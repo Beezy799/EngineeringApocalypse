@@ -69,6 +69,17 @@ public class SoundBar extends AbstractMenuButton{
 
     @Override
     public void reactToEnter() {
-        
+
+        int cursorX = (int)view.getCursorPosition().getX();
+        int xRect = bounds.x;
+
+        volumeRect.width = cursorX - xRect;
+        if(isMusicVolume){
+            view.setMusicVolume((float) volumeRect.width/backgroundRect.width);
+        }
+        else {
+            view.setSeVolume((float) volumeRect.width /backgroundRect.width);
+
+        }
     }
 }

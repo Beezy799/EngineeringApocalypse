@@ -11,36 +11,36 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import static src.model.Constants.SoundConstants.*;
+
 public class SoundManager {
     //il volume è un numero da 0 a 1
     private float musicVolume = 0.2f, seVolume = 0.2f;
     private Clip music, soundEffect;
     private URL soundURL[] = new URL[15];
-    public static final int MENU_MUSIC = 0, AULA_STUDIO = 1, DORMITORIO = 2, BIBLIOTECA = 3,
-            COLPO = 4, TENDA = 5, FUOCO = 6, LABORATORIO = 7, BOSS_SECOND_PHASE = 8, CAFFE = 9,
-            APPUNTI = 10, CFU = 11, DIALOGUE = 12, BOSS_FIRTST_PHASE = 13;
+
 
     // tutti i percorsi dei file dei suoni vengono inseriti in un array
     public SoundManager() {
-        soundURL[MENU_MUSIC] = getClass().getResource("/sound/menuLeggera.wav");
-        soundURL[AULA_STUDIO] = getClass().getResource("/sound/salaStudioLeggera.wav");
-        soundURL[DORMITORIO] = getClass().getResource("/sound/dormitorioLeggera.wav");
-        soundURL[BIBLIOTECA] = getClass().getResource("/sound/biblioteca.wav");
-        soundURL[COLPO] = getClass().getResource("/sound/hitmonster.wav");
-        soundURL[TENDA] = getClass().getResource("/sound/tenda.wav");
-        soundURL[FUOCO] = getClass().getResource("/sound/burning.wav");
-        soundURL[LABORATORIO] = getClass().getResource("/sound/laboratorio.wav");
-        soundURL[BOSS_SECOND_PHASE] = getClass().getResource("/sound/bossMusic.wav");
-        soundURL[CAFFE] = getClass().getResource("/sound/powerup.wav");
-        soundURL[APPUNTI] = getClass().getResource("/sound/coin.wav");
-        soundURL[CFU] = getClass().getResource("/sound/fanfare.wav");
-        soundURL[DIALOGUE] = getClass().getResource("/sound/dialogue.wav");
-        soundURL[BOSS_FIRTST_PHASE] = getClass().getResource("/sound/bossFightFaseUno.wav");
+        soundURL[MENU_MUSIC] = getClass().getResource("/res/sound/menuLeggera.wav");
+        soundURL[AULA_STUDIO_MUSIC] = getClass().getResource("/res/sound/salaStudioLeggera.wav");
+        soundURL[DORMITORIO_MUSIC] = getClass().getResource("/res/sound/dormitorioLeggera.wav");
+        soundURL[BIBLIOTECA_MUSIC] = getClass().getResource("/res/sound/biblioteca.wav");
+        soundURL[COLPO_SE] = getClass().getResource("/res/sound/hitmonster.wav");
+        soundURL[TENDA_MUSIC] = getClass().getResource("/res/sound/tenda.wav");
+        soundURL[FUOCO_SE] = getClass().getResource("/res/sound/burning.wav");
+        soundURL[LABORATORIO_MUSIC] = getClass().getResource("/res/sound/laboratorio.wav");
+        soundURL[BOSS_SECOND_PHASE_MUSIC] = getClass().getResource("/res/sound/bossMusic.wav");
+        soundURL[CAFFE_SE] = getClass().getResource("/res/sound/powerup.wav");
+        soundURL[APPUNTI_SE] = getClass().getResource("/res/sound/coin.wav");
+        soundURL[CFU_SE] = getClass().getResource("/res/sound/fanfare.wav");
+        soundURL[DIALOGUE_SE] = getClass().getResource("/res/sound/dialogue.wav");
+        soundURL[BOSS_FIRTST_PHASE_MUSIC] = getClass().getResource("/res/sound/bossFightFaseUno.wav");
 
 
 
         setMusic(MENU_MUSIC);
-        setSE(COLPO);
+        setSE(COLPO_SE);
     }
 
     // per suonare una musica, prima bisogna dire alla clip quale file prendere
