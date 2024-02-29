@@ -8,6 +8,7 @@ import src.model.GameState;
 
 //import controller.main.Gamestate;
 
+import src.model.InputState;
 import src.view.IView;
 
 import static src.view.main.GamePanel.SCALE;
@@ -18,7 +19,6 @@ public class KeyboardInputs implements KeyListener {
 
     private int cursorSpeed = (int)(SCALE*10);
     private IView view;
-    private PlayStateInputs playStateInputs;
     
     public KeyboardInputs(IView v) {
         this.view = v;
@@ -34,6 +34,7 @@ public class KeyboardInputs implements KeyListener {
                 moveCursor(e);
                 break;
             case PLAYING:
+                handleKeypressedDuringPlayState(e);
                 break;
             case DIALOGUE:
                 break;
@@ -117,7 +118,7 @@ public class KeyboardInputs implements KeyListener {
                 }
                 break;
             case PLAYING:
-                //handleKeyReleasedPlayState(e);
+                handleKeyReleasedPlayState(e);
                 break; 
             default:
                 break;
@@ -125,27 +126,82 @@ public class KeyboardInputs implements KeyListener {
 
     }
 
-    private void handleKeyReleasedPlayState(KeyEvent e) {
-        /*switch(e.getKeyCode()) {
+    private void handleKeypressedDuringPlayState(KeyEvent e) {
+        switch(e.getKeyCode()) {
             case KeyEvent.VK_ENTER:
-                view.getController().getPlay().stopPlayerAttacking();
+                InputState.ENTER.setPressed(true);
                 break;
             case KeyEvent.VK_SPACE:
-                view.getController().stopPlayerParring();
+                InputState.SPACE.setPressed(true);
+                break;
+            case KeyEvent.VK_ESCAPE:
+                InputState.ESCAPE.setPressed(true);
                 break;
             case KeyEvent.VK_P:
-                view.getController().stopPlayerThrowing();
+                InputState.P.setPressed(true);
                 break;
             case KeyEvent.VK_E:
-                view.getController().stopPlayerInteracting();
-                break;  
-            default:
-                view.getController().resetPlayerDirection(getActionAssociatedToKey(e));
+                InputState.E.setPressed(true);
                 break;
-        }*/
+
+            //movement
+            case KeyEvent.VK_W:
+                InputState.W.setPressed(true);
+                break;
+            case KeyEvent.VK_S:
+                InputState.S.setPressed(true);
+                break;
+            case KeyEvent.VK_D:
+                InputState.D.setPressed(true);
+                break;
+            case KeyEvent.VK_A:
+                InputState.A.setPressed(true);
+                break;
+            default:
+                break;
+        }
+
     }
+
+    private void handleKeyReleasedPlayState(KeyEvent e) {
+        switch(e.getKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                InputState.ENTER.setPressed(false);
+                break;
+            case KeyEvent.VK_SPACE:
+                InputState.SPACE.setPressed(false);
+                break;
+            case KeyEvent.VK_ESCAPE:
+                InputState.ESCAPE.setPressed(false);
+                break;
+            case KeyEvent.VK_P:
+                InputState.P.setPressed(false);
+                break;
+            case KeyEvent.VK_E:
+                InputState.E.setPressed(false);
+                break;
+
+                //movement
+            case KeyEvent.VK_W:
+                InputState.W.setPressed(false);
+                break;
+            case KeyEvent.VK_S:
+                InputState.S.setPressed(false);
+                break;
+            case KeyEvent.VK_D:
+                InputState.D.setPressed(false);
+                break;
+            case KeyEvent.VK_A:
+                InputState.A.setPressed(false);
+                break;
+
+            default:
+                break;
+        }
+    }
+
         
-    public int getActionAssociatedToKey(KeyEvent e) {
+   // public int getActionAssociatedToKey(KeyEvent e) {
         
     /*      if(e.getKeyCode() == KeyEvent.VK_ENTER)
                 return EntityView.ATTACK;
@@ -171,35 +227,11 @@ public class KeyboardInputs implements KeyListener {
             else return -1;
             
         */
-        return 0;
-    }
+    //    return 0;
+  //  }
 
     @Override
     public void keyTyped(KeyEvent e) {
     }
-    
 
-    private void handleKeypressedDuringPlayState(KeyEvent e) {
-        /*switch(e.getKeyCode()) {
-            case KeyEvent.VK_ENTER:
-                view.getController().startPlayerAttack();
-                break;
-            case KeyEvent.VK_SPACE:
-                view.getController().startPlayerParry();
-                break;
-            case KeyEvent.VK_ESCAPE:
-                view.getController().goToPauseState();
-                break;
-            case KeyEvent.VK_P:
-                view.getController().startPlayerThrow();
-                break;
-            case KeyEvent.VK_E:
-                view.getController().startPlayerInteract();
-                break;  
-            default:
-                view.getController().changePlayerDirection(getActionAssociatedToKey(e));
-                break;
-        }*/
-        
-    }
 }

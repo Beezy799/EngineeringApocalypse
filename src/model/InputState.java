@@ -11,6 +11,36 @@ in quel momento (deve essere synchronized, come i metodi del playSateInput, lo s
 tastiera/mouse non può cambiare mentre il playstate lo sta prendendo) ed agisce di
 conseguenza. (vede che 'w' è stato premuto, quindi sposta il player)
  */
-public class InputState {
+public enum InputState {
+
+    //keyboard
+    W(false),
+    S(false),
+    A(false),
+    D(false),
+    SPACE(false),
+    ENTER(false),
+    P(false),
+    ESCAPE(false),
+    E(false),
+
+    //mouse
+    RIGHT_CLICK(false),
+    LEFT_CLICK(false),
+    MIDDLE_CLICK(false);
+
+    private boolean isPressed;
+
+    InputState(boolean b) {
+        isPressed = b;
+    }
+
+    public void setPressed(boolean b){
+        isPressed = b;
+    }
+
+    public boolean getPressed(){
+        return isPressed;
+    }
 
 }

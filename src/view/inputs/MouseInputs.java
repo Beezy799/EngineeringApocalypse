@@ -9,6 +9,7 @@ import javax.swing.SwingUtilities;
 
 import src.model.GameState;
 //import controller.main.Gamestate;
+import src.model.InputState;
 import src.view.IView;
 
 public class MouseInputs implements MouseListener, MouseMotionListener {
@@ -121,14 +122,14 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 	}
 
 	private void handleMouseReleasedDuringPlayState(MouseEvent e) {
-		/* if(SwingUtilities.isLeftMouseButton(e))
-			view.getController().getPlay().stopPlayerAttacking();
+		 if(SwingUtilities.isLeftMouseButton(e))
+			InputState.LEFT_CLICK.setPressed(true);
 		
 		else if(SwingUtilities.isRightMouseButton(e))
-			view.getController().getPlay().stopPlayerParring();
+			InputState.RIGHT_CLICK.setPressed(false);
 		
 		else if(SwingUtilities.isMiddleMouseButton(e))		
-				view.getController().getPlay().stopPlayerThrowing(); */
+			InputState.MIDDLE_CLICK.setPressed(true);
 		
 	}
 

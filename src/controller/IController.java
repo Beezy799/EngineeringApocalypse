@@ -2,6 +2,7 @@ package src.controller;
 
 import src.model.GameState;
 import src.model.IModel;
+import src.model.InputState;
 import src.view.IView;
 
 public class IController {
@@ -18,6 +19,7 @@ public class IController {
         switch (GameState.actualState){
             //si aggiorna solo quando stiamo nello stato di gioco
             case PLAYING:
+               updateInputs();
             break;
 
             case QUIT:
@@ -29,6 +31,21 @@ public class IController {
         }
     }
 
+    private void updateInputs() {
+
+        if (InputState.W.getPressed())
+            System.out.println("vai su");
+
+            if (InputState.S.getPressed())
+                System.out.println("vai giu");
+
+            if (InputState.D.getPressed())
+                System.out.println("vai destra");
+
+            if (InputState.A.getPressed())
+                System.out.println("vai sinistra");
+
+    }
 
     public void setModel(IModel m) {
         this.model = m;
