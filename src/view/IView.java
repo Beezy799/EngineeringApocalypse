@@ -28,7 +28,7 @@ private OptionMenu optionMenu;
 private PauseMenu pauseMenu;
 private AvatarMenu avatarMenu;
 
-private float volume = 0f;
+private float musicVolume = 0f;
 private float seVolume = 0f;
 
     public IView(IController cont, IModel mod) {
@@ -111,13 +111,13 @@ private float seVolume = 0f;
         return avatarMenu;
     }
 
-    public float getVolume() {
-        return volume;
+    public float getMusicVolume() {
+        return musicVolume;
     }
 
-    public void setVolume(float volume) {
-        this.volume = volume;
-        System.out.println(volume);
+    public void setMusicVolume(float musicVolume) {
+        this.musicVolume = musicVolume;
+        System.out.println("syso in Iview"+musicVolume);
     }
 
     public float getSeVolume(){

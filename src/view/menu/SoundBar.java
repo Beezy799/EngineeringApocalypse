@@ -23,7 +23,7 @@ public class SoundBar extends AbstractMenuButton{
         g2.draw(backgroundRect);
 
         if(isMusicVolume){
-            volumeRect.width = (int) (view.getVolume() * backgroundRect.width);
+            volumeRect.width = (int) (view.getMusicVolume() * backgroundRect.width);
         }
         else{
             volumeRect.width = (int) (view.getSeVolume() * backgroundRect.width);
@@ -46,7 +46,7 @@ public class SoundBar extends AbstractMenuButton{
 
         volumeRect.width = cursorX - xRect;
         if(isMusicVolume){
-            view.setVolume((float) volumeRect.width/backgroundRect.width);
+            view.setMusicVolume((float) volumeRect.width/backgroundRect.width);
         }
         else {
             view.setSeVolume((float) volumeRect.width /backgroundRect.width);
@@ -59,7 +59,7 @@ public class SoundBar extends AbstractMenuButton{
 
         volumeRect.width = cursorX - xRect;
         if(isMusicVolume){
-            view.setVolume((float) volumeRect.width /backgroundRect.width);
+            view.setMusicVolume((float) volumeRect.width /backgroundRect.width);
         }
         else{
             view.setSeVolume((float) volumeRect.width /backgroundRect.width);
