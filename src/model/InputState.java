@@ -7,9 +7,9 @@ Possiamo creare nel model una rappresentazione della tastiera e del mouse durant
 playstate: mettiamo un booleano per ogni tasto, se è premuto diventa true, se è rilasciato
 diventa false. (se premiamo 'w' il playStateInput dice al model di mettere w = true..)
 Il controller, durante ogni update, si fa dare dal model lo stato della tastiera/mouse
-in quel momento (deve essere synchronized, come i metodi del playSateInput, lo stato della
-tastiera/mouse non può cambiare mentre il playstate lo sta prendendo) ed agisce di
-conseguenza. (vede che 'w' è stato premuto, quindi sposta il player)
+in quel momento (deve essere synchronized, lo stato della tastiera/mouse non può cambiare
+mentre il playstate lo sta prendendo) ed agisce di conseguenza.
+(vede che 'w' è stato premuto, quindi sposta il player)
  */
 public enum InputState {
 
@@ -41,6 +41,12 @@ public enum InputState {
 
     public boolean getPressed(){
         return isPressed;
+    }
+
+    public static void resetBooleans(){
+        for(InputState input : InputState.values()){
+            input.setPressed(false);
+        }
     }
 
 }

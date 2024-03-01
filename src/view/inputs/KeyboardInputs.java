@@ -19,7 +19,7 @@ public class KeyboardInputs implements KeyListener {
 
     private int cursorSpeed = (int)(SCALE*10);
     private IView view;
-    
+
     public KeyboardInputs(IView v) {
         this.view = v;
     }
@@ -29,7 +29,7 @@ public class KeyboardInputs implements KeyListener {
         switch (GameState.actualState) {
             case START_TITLE:
                 view.changeGameStateToMainMenu();
-            break; 
+                break;
             default: //nei casi main manu , opzioni e  avatar selection
                 moveCursor(e);
                 break;
@@ -45,7 +45,7 @@ public class KeyboardInputs implements KeyListener {
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE ||
                    e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_A ||
                    e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_W) {
-                    
+
                     view.changeGameState(Gamestate.PLAYING);
                     view.getController().resetPlayerBooleans();
                 }
@@ -54,7 +54,7 @@ public class KeyboardInputs implements KeyListener {
                     view.getPlay().getRoom(view.getCurrentRoomIndex()).getNPC(index).nextDialogueLine();
                 }
                 break;
-                
+
             case BOSS_CUTSCENE:
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     view.getController().resetPlayerBooleans();
@@ -64,12 +64,12 @@ public class KeyboardInputs implements KeyListener {
                     //l'indice è sempre zero, perchè il boss è l'unico NPC della stanza
                     view.getPlay().getRoom(view.getCurrentRoomIndex()).getBossView().nextDialogueLine();
                 }
-                break; 
-                
+                break;
+
             default:
                 break;
         }  */
-    }
+        }
 
     }
 
@@ -119,7 +119,7 @@ public class KeyboardInputs implements KeyListener {
                 break;
             case PLAYING:
                 handleKeyReleasedPlayState(e);
-                break; 
+                break;
             default:
                 break;
         }
@@ -163,75 +163,75 @@ public class KeyboardInputs implements KeyListener {
 
     }
 
-    private void handleKeyReleasedPlayState(KeyEvent e) {
-        switch(e.getKeyCode()) {
-            case KeyEvent.VK_ENTER:
-                InputState.ENTER.setPressed(false);
-                break;
-            case KeyEvent.VK_SPACE:
-                InputState.SPACE.setPressed(false);
-                break;
-            case KeyEvent.VK_ESCAPE:
-                InputState.ESCAPE.setPressed(false);
-                break;
-            case KeyEvent.VK_P:
-                InputState.P.setPressed(false);
-                break;
-            case KeyEvent.VK_E:
-                InputState.E.setPressed(false);
-                break;
+        private void handleKeyReleasedPlayState(KeyEvent e) {
+            switch(e.getKeyCode()) {
+                case KeyEvent.VK_ENTER:
+                    InputState.ENTER.setPressed(false);
+                    break;
+                case KeyEvent.VK_SPACE:
+                    InputState.SPACE.setPressed(false);
+                    break;
+                case KeyEvent.VK_ESCAPE:
+                    InputState.ESCAPE.setPressed(false);
+                    break;
+                case KeyEvent.VK_P:
+                    InputState.P.setPressed(false);
+                    break;
+                case KeyEvent.VK_E:
+                    InputState.E.setPressed(false);
+                    break;
 
                 //movement
-            case KeyEvent.VK_W:
-                InputState.W.setPressed(false);
-                break;
-            case KeyEvent.VK_S:
-                InputState.S.setPressed(false);
-                break;
-            case KeyEvent.VK_D:
-                InputState.D.setPressed(false);
-                break;
-            case KeyEvent.VK_A:
-                InputState.A.setPressed(false);
-                break;
+                case KeyEvent.VK_W:
+                    InputState.W.setPressed(false);
+                    break;
+                case KeyEvent.VK_S:
+                    InputState.S.setPressed(false);
+                    break;
+                case KeyEvent.VK_D:
+                    InputState.D.setPressed(false);
+                    break;
+                case KeyEvent.VK_A:
+                    InputState.A.setPressed(false);
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
-    }
 
-        
-   // public int getActionAssociatedToKey(KeyEvent e) {
-        
+
+        // public int getActionAssociatedToKey(KeyEvent e) {
+
     /*      if(e.getKeyCode() == KeyEvent.VK_ENTER)
                 return EntityView.ATTACK;
-            
+
             else if(e.getKeyCode() == KeyEvent.VK_SPACE)
                 return EntityView.PARRY;
-            
+
             else if(e.getKeyCode() == KeyEvent.VK_P)
                 return EntityView.THROW;
-            
+
             else if(e.getKeyCode() == KeyEvent.VK_A)
                 return EntityView.LEFT;
-            
+
             else if(e.getKeyCode() == KeyEvent.VK_D)
-                return EntityView.RIGHT;    
-            
+                return EntityView.RIGHT;
+
             else if(e.getKeyCode() == KeyEvent.VK_W)
-                return EntityView.UP;   
-            
+                return EntityView.UP;
+
             else if(e.getKeyCode() == KeyEvent.VK_S)
                 return EntityView.DOWN;
-            
+
             else return -1;
-            
+
         */
-    //    return 0;
-  //  }
+        //    return 0;
+        //  }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
     }
-
-}

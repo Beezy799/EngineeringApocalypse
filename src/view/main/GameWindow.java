@@ -2,7 +2,11 @@ package src.view.main;
 
 import javax.swing.JFrame;
 
+import src.model.InputState;
 import src.view.IView;
+
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 //import src.view.ViewUtils;
 
 //classe che implementa lafinestra di gioco, la cornice dentro alla quale si visualizza il gioco
@@ -24,18 +28,18 @@ public class GameWindow extends JFrame {
 
 	//questo metodo serve per quando la finestra di gioco perde il focus
 	//resetta i boolean della direzione del personaggio
-	/*private void handleLostFocus() {
-		addWindowFocusListener(new WindowFocusListener() { 
+	private void handleLostFocus() {
+		addWindowFocusListener(new WindowFocusListener() {
 			@Override
 			public void windowLostFocus(WindowEvent e) {
-				view.getController().getPlay().getPlayer().resetBooleans(); 	
+				InputState.resetBooleans();
 			}
 			@Override
 			public void windowGainedFocus(WindowEvent e) {
 				
 			}
 		});
-	}*/
+	}
 
 
 }

@@ -52,7 +52,7 @@ private SoundManager soundManager;
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
 
-      //  soundManager.playMusic(MENU_MUSIC);
+        soundManager.playMusic(MENU_MUSIC);
     }
 
     //chiede al pannello di creare il suo ambiente grafico, g, che poi userà per disegnare il frame successivo

@@ -13,7 +13,7 @@ public class IController {
     public void setView(IView v) {
         this.view = v;
     }
-
+    public void setModel(IModel m) { this.model = m; }
 
     public void updateGame() {
         switch (GameState.actualState){
@@ -31,27 +31,37 @@ public class IController {
         }
     }
 
-    private void updateInputs() {
+    private synchronized void updateInputs() {
 
+        //movement inputs
         if (InputState.W.getPressed())
             System.out.println("vai su");
 
-            if (InputState.S.getPressed())
-                System.out.println("vai giu");
+        if (InputState.S.getPressed())
+            System.out.println("vai giu");
 
-            if (InputState.D.getPressed())
-                System.out.println("vai destra");
+        if (InputState.D.getPressed())
+            System.out.println("vai destra");
 
-            if (InputState.A.getPressed())
-                System.out.println("vai sinistra");
+        if (InputState.A.getPressed())
+            System.out.println("vai sinistra");
 
+        //azioni
+        if (InputState.ENTER.getPressed())
+            System.out.println("attacca");
+
+        if (InputState.SPACE.getPressed())
+            System.out.println("para");
+
+        if (InputState.E.getPressed())
+            System.out.println("interagisci");
+
+        if (InputState.P.getPressed())
+            System.out.println("spara");
+
+        if (InputState.ESCAPE.getPressed())
+            GameState.actualState = GameState.PAUSE;
     }
-
-    public void setModel(IModel m) {
-        this.model = m;
-    }
-
-    //prova per modifica 
 
     
 }
