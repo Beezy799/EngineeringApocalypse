@@ -11,6 +11,8 @@ in quel momento (deve essere synchronized, lo stato della tastiera/mouse non pu√
 mentre il playstate lo sta prendendo) ed agisce di conseguenza.
 (vede che 'w' √® stato premuto, quindi sposta il player)
  */
+
+//serve per salvarti lo stato del tasto ;
 public enum InputState {
 
     //keyboard

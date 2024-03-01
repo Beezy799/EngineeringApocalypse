@@ -19,7 +19,7 @@ public class IController {
         switch (GameState.actualState){
             //si aggiorna solo quando stiamo nello stato di gioco
             case PLAYING:
-               updateInputs();
+               updateInputs(); // guarda lo stato della tastiera
             break;
 
             case QUIT:

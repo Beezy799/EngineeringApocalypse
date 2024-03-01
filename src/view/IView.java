@@ -5,6 +5,7 @@ import java.awt.*;
 import src.controller.IController;
 import src.model.GameState;
 import src.model.IModel;
+import src.view.entityView.PlayerView;
 import src.view.gameBegin.StartTitle;
 import src.view.inputs.MouseInputs;
 import src.view.main.GamePanel;
@@ -32,6 +33,8 @@ private AvatarMenu avatarMenu;
 
 private SoundManager soundManager;
 
+private PlayerView playerView;
+
 
     public IView(IController cont, IModel mod) {
 
@@ -53,6 +56,8 @@ private SoundManager soundManager;
         gamePanel.requestFocus();
 
         soundManager.playMusic(MENU_MUSIC);
+
+        playerView = new PlayerView();
     }
 
     //chiede al pannello di creare il suo ambiente grafico, g, che poi userà per disegnare il frame successivo
@@ -74,6 +79,9 @@ private SoundManager soundManager;
                 break;
             case OPTIONS:
                 optionMenu.draw(g2);
+                break;
+            case PLAYING:
+                playerView.draw(g2);
                 break;
             default:
                 break;
@@ -122,7 +130,6 @@ private SoundManager soundManager;
 
     public void setMusicVolume(float musicVolume) {
         this.soundManager.setMusicVolume(musicVolume);
-        System.out.println("syso in Iview" + musicVolume);
     }
 
     public float getSeVolume(){

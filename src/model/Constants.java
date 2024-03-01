@@ -8,6 +8,12 @@ public class Constants {
                 CAFFE_SE = 9, APPUNTI_SE = 10, CFU_SE = 11, DIALOGUE_SE = 12, BOSS_FIRTST_PHASE_MUSIC = 13;
     }
 
+    public class EntityConstants{
+        public static final int DOWN = 0, RIGHT = 1, LEFT = 2, UP = 3;
+        public static final int  IDLE = 0, MOVE = 1, ATTACK = 2, PARRY = 3, THROW = 4, DIE = 5, SLEEP = 6;
+
+    }
+
 
 
 }
