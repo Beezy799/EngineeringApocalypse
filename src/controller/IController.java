@@ -18,13 +18,17 @@ public class IController {
 
     public IController(){
         lock = new ReentrantLock();
-        playerController = new PlayerController();
+        playerController = new PlayerController(this);
     }
 
     public void setView(IView v) {
         this.view = v;
     }
     public void setModel(IModel m) { this.model = m; }
+
+    public PlayerController getPlayerController(){
+        return playerController;
+    }
 
     public void updateGame() {
         switch (GameState.actualState){
@@ -78,5 +82,8 @@ public class IController {
         lock.unlock();
     }
 
-    
+
+    public IView getView() {
+        return view;
+    }
 }

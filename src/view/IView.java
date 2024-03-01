@@ -57,7 +57,7 @@ private PlayerView playerView;
 
         soundManager.playMusic(MENU_MUSIC);
 
-        playerView = new PlayerView();
+        playerView = new PlayerView(this);
     }
 
     //chiede al pannello di creare il suo ambiente grafico, g, che poi userà per disegnare il frame successivo
@@ -103,6 +103,10 @@ private PlayerView playerView;
     public Point getCursorPosition(){
         return gamePanel.getMousePosition();
     }
+
+    public IController getController(){
+        return controller;
+    }
     
     public MainMenu getMainMenu(){
         return this.mainMenu;
@@ -138,5 +142,9 @@ private PlayerView playerView;
 
     public void setSeVolume (float v) {
         soundManager.setSEVolume(v);
+    }
+
+    public PlayerView getPlayerWiew() {
+        return playerView;
     }
 }

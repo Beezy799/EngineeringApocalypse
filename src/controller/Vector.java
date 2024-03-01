@@ -7,8 +7,10 @@ public class Vector {
     public Vector (){
         x = 0;
         y = 0;
-        module = 0;
+        module = 1;
     }
+
+
 
     public void setX(float x) {
         this.x = x;

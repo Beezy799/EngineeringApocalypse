@@ -1,5 +1,6 @@
 package src.view.entityView;
 
+import src.view.IView;
 import src.view.ViewUtils;
 import src.view.main.GamePanel;
 
@@ -12,6 +13,7 @@ import javax.imageio.ImageIO;
 
 public class PlayerView {
 
+    private IView view;
     //campo 0 = tipo(ragazzo-ragazza), primo campo = azione, secondo = direzione, terzo = sprite
     private BufferedImage[][][][] playerAnimation;
     private static int RAGAZZO = 0, RAGAZZA = 1;
@@ -21,10 +23,74 @@ public class PlayerView {
     private int numSprite;  //indica in quale sprite dell'animazione siamo
     private int currentAction = IDLE;
 
-    public PlayerView() {
+    private int currenDirection = DOWN;
+
+    public PlayerView(IView v) {
+        this.view = v;
 
         loadImages();
 
+    }
+
+    public void draw(Graphics2D g2) {
+        animationCounter++;
+        setDirection();
+
+        if (animationCounter > animationSpeed) {
+            numSprite++;
+            // perchè la prima slide si deve vedere solo una volta
+            //setParryAniIndex();
+
+            if (numSprite >= getAnimationLenght() && currentAction != PARRY) {
+                numSprite = 0;
+                //endAttackAnimation = true;
+            }
+            animationCounter = 0;
+        }
+
+        System.out.println(currenDirection);
+        g2.drawImage(playerAnimation[RAGAZZO][IDLE][currenDirection][numSprite], 0, 0, null );
+    }
+
+    private void setDirection() {
+
+    }
+
+    public int getAnimationLenght() {
+        if (currentAction == IDLE)
+            return 4;
+        else if (currentAction == MOVE)
+            return 6;
+        else if (currentAction == ATTACK)
+            return 5;
+        else if (currentAction == DIE)
+            return 9;
+        else if (currentAction == PARRY)
+            return 2;
+        else if (currentAction == THROW)
+            return 2;
+
+        return 0;
+    }
+
+    public void setCurrenDirection(float xDir, float yDir){
+       // float XDir = view.getController().getPlayerController().getMovementVector().getX(); //ci restituisce la posizione del player
+
+        if(xDir > 0) {
+            currenDirection = RIGHT;
+        }
+        else if(xDir < 0) {
+            currenDirection = LEFT;
+        }
+
+       // float YDir = view.getController().getPlayerController().getMovementVector().getY(); //ci restituisce la posizione del player
+
+        if(yDir > 0) {
+            currenDirection = UP;
+        }
+        else if(yDir < 0) {
+            currenDirection = DOWN;
+        }
     }
 
     private void loadImages() {
@@ -446,43 +512,8 @@ public class PlayerView {
         }
     }
 
-    public void draw(Graphics2D g2) {
-        animationCounter++;
-
-        if (animationCounter > animationSpeed) {
-            numSprite++;
-            // perchè la prima slide si deve vedere solo una volta
-            //setParryAniIndex();
-
-            if (numSprite >= getAnimationLenght() && currentAction != PARRY) {
-                numSprite = 0;
-                //endAttackAnimation = true;
-            }
-            animationCounter = 0;
-        }
-        g2.drawImage(playerAnimation[RAGAZZO][IDLE][DOWN][numSprite], 0, 0, null );
-    }
-
-    public int getAnimationLenght() {
-        if (currentAction == IDLE)
-            return 4;
-        else if (currentAction == MOVE)
-            return 6;
-        else if (currentAction == ATTACK)
-            return 5;
-        else if (currentAction == DIE)
-            return 9;
-        else if (currentAction == PARRY)
-            return 2;
-        else if (currentAction == THROW)
-            return 2;
-
-        return 0;
-    }
-
-
 
 } //end class
 
-//ciao
+
 

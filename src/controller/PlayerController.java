@@ -2,14 +2,24 @@ package src.controller;
 
 public class PlayerController {
 
+    private IController controller;
     private float xPosPlayer , yPosPlayer; //posizione del player
     private  Vector movementVector; //"direzione" del player
-    public PlayerController(){
+    public PlayerController(IController c){
+        controller = c;
         movementVector = new Vector();
     }
 
     public void update(){
+        updatePosition();
+        //dice al playerView di cambiare direzione
+        controller.getView().getPlayerWiew().setCurrenDirection(movementVector.getX(), movementVector.getY());
         resetDirectionVector();
+    }
+
+    private void updatePosition() {
+        xPosPlayer += movementVector.getX();
+        yPosPlayer += movementVector.getY();
     }
 
     private void resetDirectionVector() {
