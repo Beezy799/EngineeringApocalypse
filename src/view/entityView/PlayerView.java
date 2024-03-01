@@ -17,6 +17,7 @@ public class PlayerView {
     //campo 0 = tipo(ragazzo-ragazza), primo campo = azione, secondo = direzione, terzo = sprite
     private BufferedImage[][][][] playerAnimation;
     private static int RAGAZZO = 0, RAGAZZA = 1;
+    private int gender = RAGAZZO;
     private int animationCounter; //aumenta di 1 ad ogni repaint, si azzera quando raggiunge animationspeed,
     // e in quel momento cambia sprite
     private int animationSpeed = 20;
@@ -29,12 +30,13 @@ public class PlayerView {
         this.view = v;
 
         loadImages();
-
     }
 
     public void draw(Graphics2D g2) {
         animationCounter++;
-        setDirection();
+
+        int x = (int)view.getController().getPlayerController().getxPosPlayer();
+        int y = (int)view.getController().getPlayerController().getyPosPlayer();
 
         if (animationCounter > animationSpeed) {
             numSprite++;
@@ -48,12 +50,7 @@ public class PlayerView {
             animationCounter = 0;
         }
 
-        System.out.println(currenDirection);
-        g2.drawImage(playerAnimation[RAGAZZO][IDLE][currenDirection][numSprite], 0, 0, null );
-    }
-
-    private void setDirection() {
-
+        g2.drawImage(playerAnimation[gender][currentAction][currenDirection][numSprite], x, -y, null );
     }
 
     public int getAnimationLenght() {
@@ -74,7 +71,13 @@ public class PlayerView {
     }
 
     public void setCurrenDirection(float xDir, float yDir){
-       // float XDir = view.getController().getPlayerController().getMovementVector().getX(); //ci restituisce la posizione del player
+
+        if(yDir > 0) {
+            currenDirection = UP;
+        }
+        else if(yDir < 0) {
+            currenDirection = DOWN;
+        }
 
         if(xDir > 0) {
             currenDirection = RIGHT;
@@ -83,14 +86,6 @@ public class PlayerView {
             currenDirection = LEFT;
         }
 
-       // float YDir = view.getController().getPlayerController().getMovementVector().getY(); //ci restituisce la posizione del player
-
-        if(yDir > 0) {
-            currenDirection = UP;
-        }
-        else if(yDir < 0) {
-            currenDirection = DOWN;
-        }
     }
 
     private void loadImages() {
@@ -512,6 +507,9 @@ public class PlayerView {
         }
     }
 
+    public void setGender(int i){
+        gender = i;
+    }
 
 } //end class
 

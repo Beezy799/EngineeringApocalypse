@@ -21,9 +21,12 @@ public class AvatarMenuButton extends  AbstractMenuButton{
     private  int animationSpeed = 20; // serve a regolare la velocità gif
     private int animationLenght = 6; //durata gif
     private int numSprite = 0; //indice della sprite disegnata
+    private int gender;
+
+    private IView view;
 
 
-    public AvatarMenuButton (BufferedImage[] img, Rectangle b, GameState nS, String s){
+    public AvatarMenuButton (BufferedImage[] img, Rectangle b, GameState nS, String s, int g, IView v){
         skillsDescription = s;
         int fontSize = (int)(15*SCALE);
         descriptionFont = new Font("Arial", Font.PLAIN, fontSize);
@@ -33,9 +36,10 @@ public class AvatarMenuButton extends  AbstractMenuButton{
             gifButton[i] = img[i];
         }
 
-
         this.bounds = b;
         this.newState = nS;
+        this.gender = g;
+        this.view = v;
     }
 
     @Override
@@ -83,11 +87,13 @@ public class AvatarMenuButton extends  AbstractMenuButton{
 //metodo per reagire ad enter come se fosse un clic
     @Override
     public void reactToMouse(MouseEvent e) {
+        view.getPlayerWiew().setGender(gender);
         GameState.actualState = newState;
     }
 
     @Override
     public void reactToEnter() {
+        view.getPlayerWiew().setGender(gender);
         GameState.actualState = newState;
     }
 

@@ -12,6 +12,8 @@ import src.model.GameState;
 import src.view.IView;
 import src.view.ViewUtils;
 
+import static src.model.Constants.EntityConstants.RAGAZZA;
+import static src.model.Constants.EntityConstants.RAGAZZO;
 import static src.view.main.GamePanel.*;
 
 //menu per la selezione dell'avatar
@@ -69,7 +71,7 @@ public class AvatarMenu extends AbstractMenu{
         int boyButtonX = ViewUtils.getCenteredXPos(gifAnimationBoy[0].getWidth()) - (int)(80*SCALE);
         int boyButtonY = (int)(150*SCALE);
         Rectangle rect = new Rectangle(boyButtonX,boyButtonY, gifAnimationBoy[0].getWidth(), gifAnimationBoy[0].getHeight());
-        buttons[1] = new AvatarMenuButton(gifAnimationBoy, rect, GameState.PLAYING, s);
+        buttons[1] = new AvatarMenuButton(gifAnimationBoy, rect, GameState.PLAYING, s, RAGAZZO, view);
     }
 
 
@@ -94,7 +96,7 @@ public class AvatarMenu extends AbstractMenu{
         int girlButtonX = ViewUtils.getCenteredXPos(gifAnimationGirl[0].getWidth()) + (int)(80*SCALE);
         int girlButtonY = (int)(150*SCALE);
         Rectangle rect = new Rectangle(girlButtonX, girlButtonY, gifAnimationGirl[0].getWidth(), gifAnimationGirl[0].getHeight());
-        buttons[2] = new AvatarMenuButton(gifAnimationGirl, rect, GameState.PLAYING, s);
+        buttons[2] = new AvatarMenuButton(gifAnimationGirl, rect, GameState.PLAYING, s, RAGAZZA, view);
     }
 
 

@@ -5,6 +5,10 @@ public class PlayerController {
     private IController controller;
     private float xPosPlayer , yPosPlayer; //posizione del player
     private  Vector movementVector; //"direzione" del player
+
+    //creare macchina a stati player
+
+
     public PlayerController(IController c){
         controller = c;
         movementVector = new Vector();
