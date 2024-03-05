@@ -89,18 +89,24 @@ public class IController {
         }
 
 
-
         //azioni
         if (InputState.ENTER.getPressed()) {
             playerController.changeActualState(EntityStates.ATTACKING);
+            playerController.lockState();
         }
 
+        //se il giocatore preme spazio, il player resta in parring finché non rilascia il tasto
         if (InputState.SPACE.getPressed()) {
             playerController.changeActualState(EntityStates.PARRING);
+            playerController.lockState();
+        }
+        else if(!InputState.SPACE.getPressed() && playerController.getCurrentState() == EntityStates.PARRING){
+            playerController.unlockState();
         }
 
+
         if (InputState.E.getPressed()) {
-            playerController.changeActualState(EntityStates.SPEAKING);
+            playerController.changeActualState(EntityStates.DYING);
         }
 
         if (InputState.P.getPressed()) {

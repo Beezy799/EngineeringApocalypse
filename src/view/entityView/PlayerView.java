@@ -1,6 +1,7 @@
 package src.view.entityView;
 
 import src.model.EntityStates;
+import src.model.GameState;
 import src.view.IView;
 import src.view.ViewUtils;
 import src.view.main.GamePanel;
@@ -35,20 +36,54 @@ public class PlayerView {
     }
 
     public void draw(Graphics2D g2) {
-        animationCounter++;
 
         getCurrentStateFromController();
+
+        switch (currentState){
+            case IDLE:
+                normalDraw(g2);
+                break;
+            case MOVE:
+                normalDraw(g2);
+                break;
+            case ATTACKING:
+                specialDraw(g2);
+                break;
+            case THROWING:
+                specialDraw(g2);
+                break;
+            case PARRING:
+                parringDraw(g2);
+                break;
+            case DYING:
+                dyingDraw(g2);
+                break;
+
+        }
+
+    }
+
+    //finita l'animazione della morte, il gioco va nello stato game over
+    private void dyingDraw(Graphics2D g2) {
+        animationCounter++;
+
         getCurrentDirectionFromController();
+
+        //siccome l'animazione della morte è solo in due direzioni,
+        if(currenDirection == UP)
+            currenDirection = LEFT;
+
+        if(currenDirection == DOWN)
+            currenDirection = RIGHT;
 
         int x = (int)view.getController().getPlayerController().getxPosPlayer();
         int y = (int)view.getController().getPlayerController().getyPosPlayer();
 
         if (animationCounter > animationSpeed) {
             numSprite++;
-            // perchè la prima slide si deve vedere solo una volta
-            //setParryAniIndex();
 
             if (numSprite >= getAnimationLenght()) {
+                view.changeGameState(GameState.GAME_OVER);
                 numSprite = 0;
             }
             animationCounter = 0;
@@ -57,13 +92,84 @@ public class PlayerView {
         g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite], x, -y, null );
     }
 
+    private void parringDraw(Graphics2D g2) {
+        animationCounter++;
+
+        getCurrentDirectionFromController();
+
+        int x = (int)view.getController().getPlayerController().getxPosPlayer();
+        int y = (int)view.getController().getPlayerController().getyPosPlayer();
+
+        if (animationCounter > animationSpeed) {
+            numSprite++;
+
+            if (numSprite >= getAnimationLenght()) {
+                //sblocca lo stato una volta finita l'animazione
+                //il playercontroller resta nello stato attack o throw fino alla fine dell'animazione
+                //finita l'anmazione, dice al controller di sbloccare lo stato e aggiornarlo
+
+                //arrivato all'ultima sprite resta lì
+                numSprite = getAnimationLenght() - 1;
+               // view.getController().getPlayerController().unlockState();
+            }
+            animationCounter = 0;
+        }
+
+        g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite], x, -y, null );
+    }
+
+    private void specialDraw(Graphics2D g2) {
+        //disegna l'animazione fino alla fine
+        animationCounter++;
+
+        getCurrentDirectionFromController();
+
+        int x = (int)view.getController().getPlayerController().getxPosPlayer();
+        int y = (int)view.getController().getPlayerController().getyPosPlayer();
+
+        if (animationCounter > animationSpeed) {
+            numSprite++;
+
+            if (numSprite >= getAnimationLenght()) {
+                //sblocca lo stato una volta finita l'animazione
+                //il playercontroller resta nello stato attack o throw fino alla fine dell'animazione
+                //finita l'anmazione, dice al controller di sbloccare lo stato e aggiornarlo
+                view.getController().getPlayerController().unlockState();
+                numSprite = 0;
+            }
+            animationCounter = 0;
+        }
+
+        g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite], x, -y, null );
+    }
+
+    private void normalDraw(Graphics2D g2) {
+        animationCounter++;
+
+        getCurrentDirectionFromController();
+
+        int x = (int)view.getController().getPlayerController().getxPosPlayer();
+        int y = (int)view.getController().getPlayerController().getyPosPlayer();
+
+        if (animationCounter > animationSpeed) {
+            numSprite++;
+
+            if (numSprite >= getAnimationLenght()) {
+                numSprite = 0;
+            }
+            animationCounter = 0;
+        }
+
+        g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite], x, -y, null );
+
+    }
     private void getCurrentStateFromController() {
         currentState = view.getController().getPlayerController().getCurrentState();
+        //se è cambiata l'azione, resetta il valore di numSprite, visto che le azioni hanno numero sprite diverso
         if(previousState != currentState){
             previousState = currentState;
             numSprite = 0;
         }
-
     }
 
     private void getCurrentDirectionFromController() {

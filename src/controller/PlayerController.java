@@ -7,8 +7,8 @@ public class PlayerController {
     private IController controller;
     private float xPosPlayer , yPosPlayer; //posizione del player
     private  Vector movementVector; //"direzione" del player
-
     private EntityStates actualState = EntityStates.IDLE;
+    private boolean stateLocked = false;
 
     public PlayerController(IController c){
         controller = c;
@@ -23,8 +23,21 @@ public class PlayerController {
             case MOVE:
                 updatePosition();
                 break;
+            case ATTACKING:
+                break;
+            case PARRING:
+                break;
+            case THROWING:
+                break;
+            case SPEAKING:
+                break;
+            case DYING:
+                lockState();
+                break;
+
         }
 
+        System.out.println(actualState);
     }
 
     private void updatePosition() {
@@ -82,7 +95,17 @@ public class PlayerController {
         //possiamo mettere un controllo in modo che il player
         //cambia stato solo in determinate occasioni (qunado para/attacca non può cambiare stato
         //finchè non finisce l'azione o non lascia il tasto
-        actualState = newState;
+        if(stateLocked == false) {
+            actualState = newState;
+        }
+    }
+
+    public void unlockState(){
+        stateLocked = false;
+    }
+
+    public void lockState(){
+        stateLocked = true;
     }
 
     public EntityStates getCurrentState(){
