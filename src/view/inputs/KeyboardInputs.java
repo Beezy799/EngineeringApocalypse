@@ -28,7 +28,9 @@ public class KeyboardInputs implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (GameState.actualState) {
             case START_TITLE:
-                view.changeGameStateToMainMenu();
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    view.changeGameStateToMainMenu();
+                }
                 break;
             default: //nei casi main manu , opzioni e  avatar selection
                 moveCursor(e);

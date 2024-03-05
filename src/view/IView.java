@@ -21,7 +21,6 @@ public class IView {
 
 private IModel model;
 private IController controller;
-
 private GameWindow gameWindow;
 private GamePanel gamePanel;
 private MouseInputs mouseInputs;
@@ -30,9 +29,7 @@ private MainMenu mainMenu;
 private OptionMenu optionMenu;
 private PauseMenu pauseMenu;
 private AvatarMenu avatarMenu;
-
 private SoundManager soundManager;
-
 private PlayerView playerView;
 
 
@@ -40,23 +37,23 @@ private PlayerView playerView;
 
         this.controller = cont;
         this.model = mod;
+
         startTitle = new StartTitle(this);
         mainMenu = new MainMenu();
         optionMenu = new OptionMenu(this);
         pauseMenu = new PauseMenu();
         avatarMenu = new AvatarMenu(this);
 
-        soundManager = new SoundManager();
-
         mouseInputs = new MouseInputs(this);
         gamePanel = new GamePanel(this, mouseInputs);
+
         gameWindow = new GameWindow(gamePanel, this);
         gameWindow.setVisible(true);
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
 
+        soundManager = new SoundManager();
         soundManager.playMusic(MENU_MUSIC);
-
         playerView = new PlayerView(this);
     }
 

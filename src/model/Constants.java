@@ -11,7 +11,6 @@ public class Constants {
     public class EntityConstants{
         public final static int RAGAZZO = 0, RAGAZZA = 1;
         public static final int DOWN = 0, RIGHT = 1, LEFT = 2, UP = 3;
-        public static final int  IDLE = 0, MOVE = 1, ATTACK = 2, PARRY = 3, THROW = 4, DIE = 5, SLEEP = 6;
 
     }
 

@@ -1,5 +1,6 @@
 package src.controller;
 
+import src.model.EntityStates;
 import src.model.GameState;
 import src.model.IModel;
 import src.model.InputState;
@@ -26,6 +27,10 @@ public class IController {
     }
     public void setModel(IModel m) { this.model = m; }
 
+    public IView getView() {
+        return view;
+    }
+
     public PlayerController getPlayerController(){
         return playerController;
     }
@@ -34,8 +39,9 @@ public class IController {
         switch (GameState.actualState){
             //si aggiorna solo quando stiamo nello stato di gioco
             case PLAYING:
+               playerController.resetDirectionVector();
                updateInputs(); // guarda lo stato della tastiera
-                playerController.update();
+               playerController.update();
             break;
 
             case QUIT:
@@ -48,33 +54,58 @@ public class IController {
     }
 
     private void updateInputs() {
+        //il lock blocca le risorse usate dalla funzione finchè essa non ha finito
+        //anche se premo un tasto, lo stato della tatiera non cambia--> rende sincronizzate le cose
         lock.lock();
-        //movement inputs
-        if (InputState.W.getPressed())
+
+        //serve per riportare il player allo stato iniziale quando il tasto è rilasciato
+        boolean setMoving = false;
+        //movement inputs, setta la direzione del player e fa muovere il player
+        if (InputState.W.getPressed()) {
             playerController.setDirectionUp();
+            setMoving = true;
+        }
 
-        if (InputState.S.getPressed())
+        if (InputState.S.getPressed()) {
             playerController.setDirectionDown();
+            setMoving = true;
+        }
 
-        if (InputState.D.getPressed())
+        if (InputState.D.getPressed()) {
             playerController.setDirectionRight();
+            setMoving = true;
+        }
 
-        if (InputState.A.getPressed())
+        if (InputState.A.getPressed()) {
             playerController.setDirectionLeft();
+            setMoving = true;
+        }
+
+        if(setMoving == true) {
+            playerController.changeActualState(EntityStates.MOVE);
+        }
+        else {
+            playerController.changeActualState(EntityStates.IDLE);
+        }
+
 
 
         //azioni
-        if (InputState.ENTER.getPressed())
-            System.out.println("attacca");
+        if (InputState.ENTER.getPressed()) {
+            playerController.changeActualState(EntityStates.ATTACKING);
+        }
 
-        if (InputState.SPACE.getPressed())
-            System.out.println("para");
+        if (InputState.SPACE.getPressed()) {
+            playerController.changeActualState(EntityStates.PARRING);
+        }
 
-        if (InputState.E.getPressed())
-            System.out.println("interagisci");
+        if (InputState.E.getPressed()) {
+            playerController.changeActualState(EntityStates.SPEAKING);
+        }
 
-        if (InputState.P.getPressed())
-            System.out.println("spara");
+        if (InputState.P.getPressed()) {
+            playerController.changeActualState(EntityStates.THROWING);
+        }
 
         if (InputState.ESCAPE.getPressed())
             GameState.actualState = GameState.PAUSE;
@@ -82,8 +113,4 @@ public class IController {
         lock.unlock();
     }
 
-
-    public IView getView() {
-        return view;
-    }
 }

@@ -1,13 +1,14 @@
 package src.controller;
 
+import src.model.EntityStates;
+
 public class PlayerController {
 
     private IController controller;
     private float xPosPlayer , yPosPlayer; //posizione del player
     private  Vector movementVector; //"direzione" del player
 
-    //creare macchina a stati player
-
+    private EntityStates actualState = EntityStates.IDLE;
 
     public PlayerController(IController c){
         controller = c;
@@ -15,18 +16,24 @@ public class PlayerController {
     }
 
     public void update(){
-        updatePosition();
-        //dice al playerView di cambiare direzione
-        controller.getView().getPlayerWiew().setCurrenDirection(movementVector.getX(), movementVector.getY());
-        resetDirectionVector();
+        //in base allo stato attuale il player agirà in modo diverso
+        switch (actualState){
+            case IDLE:
+                break;
+            case MOVE:
+                updatePosition();
+                break;
+        }
+
     }
 
     private void updatePosition() {
+        //resetDirectionVector();
         xPosPlayer += movementVector.getX();
         yPosPlayer += movementVector.getY();
     }
 
-    private void resetDirectionVector() {
+    public void resetDirectionVector() {
         movementVector.setX(0);
         movementVector.setY(0);
     }
@@ -69,5 +76,16 @@ public class PlayerController {
 
     public void setDirectionLeft() {
         movementVector.setX(movementVector.getX() - 1);
+    }
+
+    public void changeActualState(EntityStates newState){
+        //possiamo mettere un controllo in modo che il player
+        //cambia stato solo in determinate occasioni (qunado para/attacca non può cambiare stato
+        //finchè non finisce l'azione o non lascia il tasto
+        actualState = newState;
+    }
+
+    public EntityStates getCurrentState(){
+        return actualState;
     }
 }
