@@ -10,6 +10,8 @@ public class IModel {
 
     public IModel(IController contr){
         this.controller = contr;
+        Map map = new Map();
+        map.readFile();
     }
 
     public void setView(IView v) {
