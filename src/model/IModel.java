@@ -11,7 +11,7 @@ public class IModel {
     public IModel(IController contr){
         this.controller = contr;
         Map map = new Map();
-        map.readFile();
+        map.loadMap("res/esempio.json");
     }
 
     public void setView(IView v) {
