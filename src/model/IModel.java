@@ -12,6 +12,8 @@ public class IModel {
         this.controller = contr;
         Map map = new Map();
         map.loadMap("res/esempio.json");
+        Tileset tileset = new Tileset();
+        tileset.loadTileset("res/tileset.json");
     }
 
     public void setView(IView v) {

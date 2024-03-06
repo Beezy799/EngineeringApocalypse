@@ -47,11 +47,13 @@ public class Map {
         }
         JSONObject jsonObject = (JSONObject) jsonObj;
 
+
+
         //prendo le dimensioni della stanza
-        int height = Integer.parseInt(jsonObject.get("height").toString());
+        int height = ((Long) jsonObject.get("height")).intValue();
         System.out.println("height = " + height);
 
-        int length = Integer.parseInt(jsonObject.get("length").toString());
+        int length = ((Long) jsonObject.get("length")).intValue();
         System.out.println("length = " + length);
 
         strati[FIRST_LAYER] = new int[height][length];
@@ -59,6 +61,12 @@ public class Map {
         strati[THIRD_LAYER] = new int[height][length];
         strati[FOURTH_LAYER] = new int[height][length];
 
+        //per passare da un lungo array di numeri ad una matrice, spezziamo l'array in height array
+        //più piccoli lunghi length, che mettiamo nelle righe della matrice attraverso il modulo %
+
+        //row = -1 perchè quando fa il controllo nel ciclo for, se i modulo lunghezza è = 0
+        //aumenta row.. siccome i parte da 0, se row = 0, aumenta subito row alla prima
+        //iterazione e si salta row = 0.
         int row = -1;
         int col = 0;
 
@@ -70,7 +78,7 @@ public class Map {
                 col = 0;
             }
             col = i % length;
-            strati[FIRST_LAYER][row][col] = Integer.parseInt(firstLayerJson.get(i).toString());
+            strati[FIRST_LAYER][row][col] = ((Long)firstLayerJson.get(i)).intValue();
         }
 
 
@@ -84,7 +92,7 @@ public class Map {
                 col = 0;
             }
             col = i % length;
-            strati[SECOND_LAYER][row][col] = Integer.parseInt(secondLayerJson.get(i).toString());
+            strati[SECOND_LAYER][row][col] = ((Long)secondLayerJson.get(i)).intValue();
         }
 
 
@@ -98,7 +106,7 @@ public class Map {
                 col = 0;
             }
             col = i % length;
-            strati[THIRD_LAYER][row][col] = Integer.parseInt(thirdLayerJson.get(i).toString());
+            strati[THIRD_LAYER][row][col] = ((Long)thirdLayerJson.get(i)).intValue();
         }
 
 
@@ -112,7 +120,7 @@ public class Map {
                 col = 0;
             }
             col = i % length;
-            strati[FOURTH_LAYER][row][col] = Integer.parseInt(fouthLayerJson.get(i).toString());
+            strati[FOURTH_LAYER][row][col] = ((Long)fouthLayerJson.get(i)).intValue();
         }
 
         try {
@@ -133,6 +141,22 @@ public class Map {
             System.out.println("///////////////////////////////////////////");
         }
 
+    }
+
+    public int[][] getFirstLayer() {
+        return strati[FIRST_LAYER];
+    }
+
+    public int[][] getSecondLayer() {
+        return strati[SECOND_LAYER];
+    }
+
+    public int[][] getTthirdLayer() {
+        return strati[THIRD_LAYER];
+    }
+
+    public int[][] getFouthLayer() {
+        return strati[FOURTH_LAYER];
     }
 
 }

@@ -1,0 +1,32 @@
+{
+
+"tiles" : [
+
+    {
+        "tipo" : "trasparenza", 
+        "solid" : false,
+        "bounds" : [0, 0, 0, 0],
+        "number" : 1
+    },
+
+     {
+        "tipo" : "erba1",
+        "solid" : false,
+        "bounds" : [0, 0, 0, 0],
+        "number" : 1
+    },
+
+    {
+        "tipo" : "erba2",
+        "solid" : false,
+        "bounds" : [0, 0, 0, 0],
+        "number" : 2
+    }
+
+
+]
+
+
+
+
+}
