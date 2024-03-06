@@ -1,4 +1,4 @@
-package src.model;
+package src.model.mapModel;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -131,7 +131,7 @@ public class Map {
         }
 
         //stampa matrici
-        for(int i = 0; i < 4; i++) {
+    /*    for(int i = 0; i < 4; i++) {
             for (int y = 0; y < height; y++) {
                 for (int z = 0; z < length; z++) {
                     System.out.print(strati[i][y][z] + " ");
@@ -140,7 +140,7 @@ public class Map {
             }
             System.out.println("///////////////////////////////////////////");
         }
-
+                        */
     }
 
     public int[][] getFirstLayer() {

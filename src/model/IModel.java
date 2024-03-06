@@ -1,6 +1,8 @@
 package src.model;
 
 import src.controller.IController;
+import src.model.mapModel.Map;
+import src.model.mapModel.TilesetModel;
 import src.view.IView;
 
 public class IModel {
@@ -12,7 +14,7 @@ public class IModel {
         this.controller = contr;
         Map map = new Map();
         map.loadMap("res/esempio.json");
-        Tileset tileset = new Tileset();
+        TilesetModel tileset = new TilesetModel();
         tileset.loadTileset("res/tileset.json");
     }
 
