@@ -3,10 +3,10 @@
 "tiles" : [
 
     {
-        "tipo" : "trasparenza", 
+        "tipo" : "nulla",
         "solid" : false,
         "bounds" : [0, 0, 0, 0],
-        "number" : 1
+        "number" : 0
     },
 
      {
@@ -21,12 +21,159 @@
         "solid" : false,
         "bounds" : [0, 0, 0, 0],
         "number" : 2
-    }
+    },
 
+  {
+      "tipo" : "erba3",
+      "solid" : false,
+      "bounds" : [0, 0, 0, 0],
+      "number" : 3
+  },
+
+  {
+    "tipo" : "pavimento_biblioteca",
+    "solid" : false,
+    "bounds" : [0, 0, 0, 0],
+    "number" : 4
+  },
+
+  {
+    "tipo" : "pavimento_sala_tudio",
+    "solid" : false,
+    "bounds" : [0, 0, 0, 0],
+    "number" : 5
+  },
+
+  {
+    "tipo" : "pavimento_laboratorio",
+    "solid" : false,
+    "bounds" : [0, 0, 0, 0],
+    "number" : 6
+  },
+
+  {
+    "tipo" : "pavimento_dormitorio",
+    "solid" : false,
+    "bounds" : [0, 0, 0, 0],
+    "number" : 7
+  },
+
+  {
+    "tipo" : "tavolone sopra sinistra",
+    "solid" : true,
+    "bounds" : [0,20,32,12],
+    "number" : 8
+  },
+
+  {
+    "tipo" : "tavolone sopra centro",
+    "solid" : true,
+    "bounds" : [0,20,32,12],
+    "number" : 9
+  },
+
+  {
+    "tipo" : "tavolone sopra destra",
+    "solid" : true,
+    "bounds" : [0,20,32,12],
+    "number" : 10
+  },
+
+  {
+    "tipo" : "tavolone centro sinistra con allungamento in alto a destra",
+    "solid" : true,
+    "bounds" : [ 0,0,32,32],
+    "number" : 11
+  },
+
+  {
+    "tipo" : "tavolone sotto centro",
+    "solid" : true,
+    "bounds" : [ 0,0,32,32],
+    "number" : 12
+  },
+  {
+    "tipo" : "panca alto",
+    "solid" : true,
+    "bounds" : [0,20,32,12],
+    "number" : 13
+  },
+  {
+    "tipo" : "tavolone centro sinistra con allungamento in basso a destra",
+    "solid" :true,
+    "bounds" : [0,0,32,32],
+    "number" : 14
+  },
+  {
+    "tipo" : "tavolone alto centro",
+    "solid" :true,
+    "bounds" : [0,20,32,12],
+    "number" : 15
+  },
+  {
+    "tipo" : "tavolone centro destra con allungamento in basso a sinistra",
+    "solid" :true,
+    "bounds" : [0,0,32,32],
+    "number" : 16
+  },
+  {
+    "tipo" : "panca centro",
+    "solid" :true,
+    "bounds" : [0,0,32,32],
+    "number" : 17
+  },
+  {
+    "tipo" : "tavolone basso sinistra",
+    "solid" :true,
+    "bounds" : [0,0,32,32],
+    "number" : 18
+  },
+  {
+    "tipo" : "tavolone sotto centro",
+    "solid" :true,
+    "bounds" : [0,0,32,32],
+    "number" : 19
+  },
+  {
+    "tipo" : "tavolone sotto destra",
+    "solid" :true,
+    "bounds" : [0,0,32,32],
+    "number" : 20
+  },
+  {
+    "tipo" : "panca sotto",
+    "solid" :true,
+    "bounds" : [0,0,32,32],
+    "number" : 21
+  },
+  {
+    "tipo" : "libreria tutta marrone sopra",
+    "solid" :true,
+    "bounds" : [2,2,28,30],
+    "number" : 22
+  },
+  {
+    "tipo" : "libreria tutta marrone centro",
+    "solid" :true,
+    "bounds" : [2,0,28,32],
+    "number" : 23
+  },
+  {
+    "tipo" : "libreria tutta marrone sotto",
+    "solid" :true,
+    "bounds" : [2,0,28,30],
+    "number" : 24
+  }
 
 ]
 
-
-
-
 }
+
+
+
+
+
+
+
+
+

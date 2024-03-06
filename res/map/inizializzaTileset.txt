@@ -1,0 +1,401 @@
+0 valore nullo di default di tiled ; false; 0,0,0,0
+
+1 prato1 ; false; 0,0,0,0
+
+2 prato2 ; false; 0,0,0,0
+
+3 prato3 ; false; 0,0,0,0									
+
+4 biblioteca ; false; 0,0,0,0
+
+5 sala studio ; false; 0,0,0,0
+
+6 laboratorio ; false; 0,0,0,0
+
+7 dormitorio ; false; 0,0,0,0
+
+///////////////////////////////////////////////
+
+8 tavolone sopra sinistra ; true; 0,20,32,12
+
+9 tavolone sopra centro ; true; 0,20,32,12
+
+10 tavolone sopra destra ; true; 0,20,32,12
+
+11 tavolone centro sinistra con allungamento in alto a destra ; true; 0,0,32,32
+
+12 tavolone sotto centro ; true; 0,0,32,32
+
+13 panca alto ; true; 0,20,32,12
+
+14 tavolone centro sinistra con allungamento in basso a destra ; true; 0,0,32,32
+
+15 tavolone alto centro ; true; 0,20,32,12
+
+16 tavolone centro destra con allungamento in basso a sinistra ; true; 0,0,32,32
+
+17 panca centro ; true; 0,0,32,32
+
+18 tavolone basso sinistra ; true; 0,0,32,32
+
+19 tavolone sotto centro ; true; 0,0,32,32
+
+20 tavolone sotto destra ; true; 0,0,32,32
+
+21 panca sotto ; true; 0,0,32,32
+
+22 libreria tutta marrone sopra ; true; 2,2,28,30
+
+23 libreria tutta marrone centro ; true; 2,0,28,32
+
+24 libreria tutta marrone sotto ; true; 2,0,28,30
+
+25 libreria larga con libri sopra sinistra ; true; 0,0,32,32
+
+26 libreria larga con libri sotto sinistra ; true; 0,0,32,30
+
+27 libreria larga con libri, sopra destra ; true; 0,0,30,32
+
+28 libreria larga con libri, sotto destra ; true; 0,0,30,30
+
+29 libreria stretta con libri, sopra ; true; 2,0,28,32
+
+30 libreria stretta con libri, sotto ; true; 2,0,28,30
+
+31 libreria larga con libri2, sopra sinistra ; true; 0,12,32,20
+
+32 libreria larga con libri2, sopra destra ; true; 0,12,30,20
+
+33 libreria larga con libri2, centro sinistra ; true; 0,0,32,32
+
+34 libreria larga con libri2, centro destra ; true; 0,0,30,32
+
+35 libreria tutta marrone2, sopra	; true; 2,2,28,30
+
+36 libreria tutta marrone2, sotto ; true; 2,0,28,32
+
+37 pianta sopra ; true; 0,0,32,32
+
+38 pianta sotto ; true; 2,0,28,26
+
+39 frigo sopra ; true; 2,6,28,26
+
+40 frigo sotto ; true; 2,0,28,30
+
+41 letto sopra sinistra ; true; 8,16,24,16
+
+42 letto sopra destra ; true; 0,16,20,16
+
+43 letto centro sinistra ; true; 4,0,28,32
+
+44 letto centro destra ; true; 0,0,24,32
+
+45 letto sotto sinistra ; true; 4,0,28,26
+
+46 letto sotto destra ; true; 0,0,24,26
+
+47 divano sopra sinistra ; true; 0,6,32,26
+
+48 divano sotto sinistra ; true; 0,0,32,26
+
+49 divano sopra centro ; true; 0,6,32,26
+
+50 divano sotto cento ; true; 0,0,32,26
+
+51 divano sopra destra ; true; 0,6,32,26
+
+52 divano sotto destra ; true; 0,0,32,26
+
+53 sgabello ; true; 2,4,28,24
+
+54 tavolone2, sopra sinistra ; true; 2,6,30,26
+
+55 tavolone2, sopra centro ; true; 0,6,32,26
+
+56 tavolone2, centro sinistra ; true; 0,0,32,32
+
+57 tavolone2, centro centro ; true; 0,0,32,32
+
+58 tavolone2, centro destra ; true; 0,0,30,32
+
+59 tavolone2, sotto sinistra ; true; 2,0,30,32
+
+60 tavolone2, sotto centro ; true; 0,0,32,32
+
+61 tavolone2, sotto destra ; true; 0,0,30,32
+
+62 panca verticale, sopra ; true; 2,6,28,26
+
+63 panca verticale, centro ; true; 2,0,28,32
+
+64 panca verticale, sotto ; true; 2,0,28,32
+
+65 banco sopra sinistra ; true; 0,12,32,20
+
+66 banco sopra destra ; true; 0,12,32,20
+
+67 banco sotto sinistra ; true; 0,0,32,18
+
+68 banco sotto destra ; true; 0,0,32,18
+
+69 armadio rosa sopra ; true; 1,2,28,30
+
+70 armadio rosa centro ; true; 1,0,28,32
+
+71 armadio rosa sotto ; true; 0,0,28,30
+
+72 armadietto rosa sopra ; true; 2,4,28,28
+
+73 armadietto rosa sotto ; true; 2,0,28,30
+
+74 statua allo studente caduto ; true; 9,0,15,32
+
+75 muro davanti sinistra ; true; 0,0,32,32
+
+76 muro davanti centro ; true; 0,0,32,32
+
+77 muro davanti destra ; true; 0,0,32,32
+
+78 muro lato sinistra ; true; 0,0,8,32
+
+79 muro dietro sinistra ; true; 0,0,32,32
+
+80 muro dietro destra ; true; 0,0,32,32
+
+81 muro lato destra ; true; 24,0,8,32
+
+82 distributore rosso sopra ; true; 0,0,32,32
+
+83 distributore rosso sotto ; true; 0,0,32,32
+
+84 distributore blu sopra ; true; 0,0,32,32
+
+85 distributore blu sotto ; true; 0,0,32,32
+
+86 tavolo gioco sopra sinistra ; true; 0,0,32,32
+
+87 tavolo gioco sopra destra ; true; 0,0,32,32
+
+88 tavolo gioco centro sinistra ; true; 0,0,32,32
+
+89 tavolo gioco centro destra ; true; 0,0,32,32
+
+90 tavolo gioco sotto sinistra ; true; 0,0,32,30
+
+91 tavolo gioco sotto destra ; true; 0,0,32,30
+
+92 comodino sopra ; true; 0,7,32,25
+
+93 comodino sotto ; true; 0,0,32,32
+
+94 tenda sopra sinistra ; true; 0,0,32,32
+
+95 tenda sopra centro ; true; 0,0,32,32
+
+96 tenda sopra destra ; true; 0,0,32,32
+
+97 tenda centro sinistra ; true; 0,0,32,32
+
+98 tenda centro centro ; true; 0,0,32,32
+
+99 tenda centro destra ; true; 0,0,32,32
+
+100 tenda sotto sinistra ; true; 0,0,32,32
+
+101 tenda sotto destra ; true; 0,0,32,32
+
+102 piano sopra sinistra ; true; 0,0,32,32
+
+103 piano sopra destra ; true; 2,0,30,32
+
+104 piano centro sinistra ; true; 0,10,32,22
+
+105 piano centro destra ; true; 0,2,30,32
+
+106 piano sotto sinistra ; true; 0,2,30,32
+
+107 piano sotto destra ; true; 0,0,32,32
+
+108 divano vertivale, sopra ; true; 2,0,30,32
+
+109 divano vertivale, centro ; true; 2,0,30,32
+
+110 divano vertivale, sotto ; true; 2,0,30,28
+
+111 tavolone centro destra con allungato in alto a sinistra ; true; 0,0,32,32
+
+112 tavolone2, centro snistra ; true; 2,0,30,32
+
+113 tavolone2, alto destra ; true; 0,6,30,26
+
+114 pc giallo sopra ; true; 4,10,24,22
+
+115 pc bianco sopra ; true; 4,10,24,22
+
+116 pc rosso sotto ; true; 1,0,30,26
+
+117 oscilloscopio sotto ; true; 0,0,32,16
+
+118 supercomputer sopra ; true; 0,0,32,32
+
+
+
+questi sono qelli animati
+
+
+
+119 tv sopra sinistra ; true; 4,6,28,26
+
+120 tv sopra destra ; true; 0,6,28,26
+
+121 tv sotto sinistra ; true; 4,0,28,28
+
+122 tv sotto destra ; true; 0,0,28,28
+
+123 oscilloscopio sopra ; true; 0,4,32,28
+
+124 pc giallo sotto ; true; 4,0,24,30
+
+125 pc bianco sotto	; true; 4,0,24,30
+
+126 pc rosso sopra ; true; 1,0,30,32
+
+127 supercomputer sotto ; true; 0,0,32,32
+
+
+strato tre
+//////////////////////////////////////////
+
+128 lavagna alto sinistra ; false; 0,0,0,0
+
+129 lavagna alto centro1 ; false; 0,0,0,0
+
+130 lavagna alto centro2 ; false; 0,0,0,0
+
+131 lavagna alto destra ; false; 0,0,0,0
+
+132 lavagna basso sinistra ; false; 0,0,0,0
+
+133 lavagna basso centro1 ; false; 0,0,0,0
+
+134 lavagna basso centro2 ; false; 0,0,0,0
+
+135 lavagna basso destra ; false; 0,0,0,0
+
+136 comunicazione ; false; 0,0,0,0
+
+137 porta marrone alto sinistra ; false; 0,0,0,0
+
+138 porta marrone alto centro ; false; 0,0,0,0
+
+139 porta marrone alto destra ; false; 0,0,0,0
+
+140 porta marrone basso sinistra ; false; 0,0,0,0
+
+141 porta marrone basso centro ; false; 0,0,0,0
+
+142 porta marrone basso destra ; false; 0,0,0,0
+
+143 porta nera alto sinistra ; false; 0,0,0,0
+
+144 porta nera alto centro ; false; 0,0,0,0
+
+145 porta nera alto destra ; false; 0,0,0,0
+
+146 porta nera basso sinistra ; false; 0,0,0,0
+
+147 porta nera basso centro ; false; 0,0,0,0
+
+148 porta nera basso destra ; false; 0,0,0,0
+
+149 porta vetro alto sinistra ; false; 0,0,0,0
+
+150 porta vetro alto destra ; false; 0,0,0,0
+
+151 porta vetro basso sinistra ; false; 0,0,0,0
+
+152 porta vetro basso destra ; false; 0,0,0,0
+
+153 scala rossa alto sinistra ; false; 0,0,0,0
+
+154 scala rossa alto destra ; false; 0,0,0,0
+
+155 scala rossa centro lato sinistra ; false; 0,0,0,0
+
+156 scala rossa centro centro ; false; 0,0,0,0
+
+156 scala rossa centro lato destro ; false; 0,0,0,0
+
+158 scala rossa basso lato sinistro ; false; 0,0,0,0
+
+159 scala rossa centro basso ; false; 0,0,0,0
+
+160 scala rossa basso lato destro ; false; 0,0,0,0
+
+161 scala grigia alto sinistra ; false; 0,0,0,0
+
+162 scala grigia alto centro ; false; 0,0,0,0
+
+163 scala grigia centro sinistra ; false; 0,0,0,0
+
+164 scala grigia centro ; false; 0,0,0,0
+
+165 scala grigia basso sinistra ; false; 0,0,0,0
+
+166 scala grigia centro basso ; false; 0,0,0,0
+
+167 finestra sinistra ; false; 0,0,0,0
+
+168 finestra centro ; false; 0,0,0,0
+
+169 finestra destra ; false; 0,0,0,0
+
+170 portatile blu ; false; 0,0,0,0
+
+171 libro aperto ; false; 0,0,0,0
+
+172 caffè ; false; 0,0,0,0
+
+173 tappeto alto sinistra ; false; 0,0,0,0
+
+174 tappeto alto centro ; false; 0,0,0,0
+
+175 tappeto alto destra ; false; 0,0,0,0
+
+176 tappeto centro sinistra ; false; 0,0,0,0
+
+177 tappeto centro centro ; false; 0,0,0,0
+
+178 tappeto centro destra ; false; 0,0,0,0
+
+179 tappeto basso sinistra ; false; 0,0,0,0
+
+180 tappeto basso centro ; false; 0,0,0,0
+
+181 tappeto basso destra ; false; 0,0,0,0
+
+182 albero alto sinistra ; false; 0,0,0,0
+
+183 albero alto destra ; false; 0,0,0,0
+
+184 albero basso sinistra ; false; 0,0,0,0
+
+185 albero basso destra ; false; 0,0,0,0
+
+186 albero da un tile ; false; 0,0,0,0
+
+187 sporco verde ; false; 0,0,0,0
+
+188 sporco marrone ; false; 0,0,0,0
+
+189 pc diagonale sinistra ; false; 0,0,0,0
+
+190 pc diagonale destra ; false; 0,0,0,0
+
+191 pila di libri ; false; 0,0,0,0
+
+192 libro arancione ; false; 0,0,0,0
+
+193 portatile grigio aperto ; false; 0,0,0,0
+
+194 schemi ; false; 0,0,0,0

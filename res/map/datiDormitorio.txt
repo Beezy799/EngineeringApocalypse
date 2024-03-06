@@ -1,0 +1,8 @@
+per i passaggi l'ordine è posx posy larghezza altezza nuovax nuovay indiceStanza e cfu richiesti
+per gli NPC l'ordine è tipo posx posy 
+
+;passaggio all'aula studio, 25, 23, 32, 32, 34, 41, 2, 0
+
+-gatto, gatto, 19, 15, 32, 32
+
++luce, 36, 21, 32, 32, luce

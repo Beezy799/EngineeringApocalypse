@@ -10,6 +10,7 @@ import src.view.gameBegin.StartTitle;
 import src.view.inputs.MouseInputs;
 import src.view.main.GamePanel;
 import src.view.main.GameWindow;
+import src.view.mapView.TilesetView;
 import src.view.menu.AvatarMenu;
 import src.view.menu.MainMenu;
 import src.view.menu.OptionMenu;
@@ -31,6 +32,8 @@ private PauseMenu pauseMenu;
 private AvatarMenu avatarMenu;
 private SoundManager soundManager;
 private PlayerView playerView;
+
+private TilesetView tilesetView;
 
 
     public IView(IController cont, IModel mod) {
@@ -55,6 +58,8 @@ private PlayerView playerView;
         soundManager = new SoundManager();
         soundManager.playMusic(MENU_MUSIC);
         playerView = new PlayerView(this);
+
+        tilesetView = new TilesetView();
     }
 
     //chiede al pannello di creare il suo ambiente grafico, g, che poi userà per disegnare il frame successivo
@@ -78,6 +83,7 @@ private PlayerView playerView;
                 optionMenu.draw(g2);
                 break;
             case PLAYING:
+                g2.drawImage(tilesetView.getTileImage(3),0 ,0, null);
                 playerView.draw(g2);
                 break;
             default:

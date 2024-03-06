@@ -48,13 +48,9 @@ public class Map {
         JSONObject jsonObject = (JSONObject) jsonObj;
 
 
-
         //prendo le dimensioni della stanza
         int height = ((Long) jsonObject.get("height")).intValue();
-        System.out.println("height = " + height);
-
         int length = ((Long) jsonObject.get("length")).intValue();
-        System.out.println("length = " + length);
 
         strati[FIRST_LAYER] = new int[height][length];
         strati[SECOND_LAYER] = new int[height][length];
@@ -130,17 +126,21 @@ public class Map {
             throw new RuntimeException(e);
         }
 
-        //stampa matrici
-    /*    for(int i = 0; i < 4; i++) {
-            for (int y = 0; y < height; y++) {
-                for (int z = 0; z < length; z++) {
+        //per debug
+        //printLayers();
+
+    }
+
+    private void printLayers() {
+        for(int i = 0; i < 4; i++) {
+            for (int y = 0; y < strati[0].length; y++) {
+                for (int z = 0; z < strati[0][0].length; z++) {
                     System.out.print(strati[i][y][z] + " ");
                 }
                 System.out.println();
             }
-            System.out.println("///////////////////////////////////////////");
+            System.out.println("//////////////////strato " + (i+1) + "S//////////////////////////////////");
         }
-                        */
     }
 
     public int[][] getFirstLayer() {
