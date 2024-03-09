@@ -2,8 +2,12 @@ package src.model;
 
 import src.controller.IController;
 import src.model.mapModel.Map;
+import src.model.mapModel.Rooms;
 import src.model.mapModel.TilesetModel;
 import src.view.IView;
+
+import java.io.File;
+import java.net.URL;
 
 public class IModel {
 
@@ -12,10 +16,11 @@ public class IModel {
 
     public IModel(IController contr){
         this.controller = contr;
-        Map map = new Map();
-        map.loadMap("res/esempio.json");
+
+        int v = Rooms.AULA_STUDIO.getValorePerProvare();
+
         TilesetModel tileset = new TilesetModel();
-        tileset.loadTileset("res/tileset.json");
+        //tileset.loadTileset("res/map/tileset.json");
     }
 
     public void setView(IView v) {
@@ -26,6 +31,5 @@ public class IModel {
         GameState.actualState = nextGameState;
     }
     
-
 
 }

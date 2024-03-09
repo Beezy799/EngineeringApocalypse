@@ -5,7 +5,7 @@ import src.model.EntityStates;
 public class PlayerController {
 
     private IController controller;
-    private float xPosPlayer , yPosPlayer; //posizione del player
+    private float xPosPlayer = 0, yPosPlayer = 0; //posizione del player
     private  Vector movementVector; //"direzione" del player
     private EntityStates actualState = EntityStates.IDLE;
     private boolean stateLocked = false;
@@ -37,7 +37,6 @@ public class PlayerController {
 
         }
 
-        System.out.println(actualState);
     }
 
     private void updatePosition() {
@@ -76,11 +75,11 @@ public class PlayerController {
     }
 
     public void setDirectionUp() {
-        movementVector.setY(movementVector.getY() + 1);
+        movementVector.setY(movementVector.getY() - 1);
     }
 
     public void setDirectionDown() {
-        movementVector.setY(movementVector.getY() - 1);
+        movementVector.setY(movementVector.getY() + 1);
     }
 
     public void setDirectionRight() {

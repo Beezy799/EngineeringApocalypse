@@ -1,10 +1,12 @@
 package src.view;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import src.controller.IController;
 import src.model.GameState;
 import src.model.IModel;
+import src.model.mapModel.Rooms;
 import src.view.entityView.PlayerView;
 import src.view.gameBegin.StartTitle;
 import src.view.inputs.MouseInputs;
@@ -31,9 +33,8 @@ private OptionMenu optionMenu;
 private PauseMenu pauseMenu;
 private AvatarMenu avatarMenu;
 private SoundManager soundManager;
-private PlayerView playerView;
+PlayStateView playStateView;
 
-private TilesetView tilesetView;
 
 
     public IView(IController cont, IModel mod) {
@@ -55,11 +56,12 @@ private TilesetView tilesetView;
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
 
-        soundManager = new SoundManager();
-        soundManager.playMusic(MENU_MUSIC);
-        playerView = new PlayerView(this);
+        playStateView = new PlayStateView(this);
 
-        tilesetView = new TilesetView();
+        soundManager = new SoundManager();
+        //soundManager.playMusic(MENU_MUSIC);
+
+
     }
 
     //chiede al pannello di creare il suo ambiente grafico, g, che poi userà per disegnare il frame successivo
@@ -83,12 +85,15 @@ private TilesetView tilesetView;
                 optionMenu.draw(g2);
                 break;
             case PLAYING:
-                g2.drawImage(tilesetView.getTileImage(3),0 ,0, null);
-                playerView.draw(g2);
+                drawPlayState(g2);
                 break;
             default:
                 break;
         }
+    }
+
+    private void drawPlayState(Graphics2D g2) {
+        playStateView.draw(g2);
     }
 
     public void changeGameStateToMainMenu() {
@@ -148,6 +153,6 @@ private TilesetView tilesetView;
     }
 
     public PlayerView getPlayerWiew() {
-        return playerView;
+        return playStateView.getPlayerView();
     }
 }

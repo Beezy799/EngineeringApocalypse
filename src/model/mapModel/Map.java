@@ -127,7 +127,7 @@ public class Map {
         }
 
         //per debug
-        //printLayers();
+        printLayers();
 
     }
 
@@ -139,7 +139,7 @@ public class Map {
                 }
                 System.out.println();
             }
-            System.out.println("//////////////////strato " + (i+1) + "S//////////////////////////////////");
+            System.out.println("//////////////////strato " + (i+1) + "//////////////////////////////////");
         }
     }
 

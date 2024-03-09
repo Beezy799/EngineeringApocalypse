@@ -28,6 +28,10 @@ public class PlayerView {
     private EntityStates previousState = EntityStates.IDLE;
     private int currenDirection = DOWN;
 
+    //la posizione del player è sempre al centro della finestra di gioco
+    public static final int xOnScreen = GamePanel.GAME_WIDTH/2 - GamePanel.TILES_SIZE/2;
+    public static final int yOnScreen = GamePanel.GAME_HEIGHT/2 - GamePanel.TILES_SIZE/2;
+
 
     public PlayerView(IView v) {
         this.view = v;
@@ -58,8 +62,14 @@ public class PlayerView {
             case DYING:
                 dyingDraw(g2);
                 break;
-
         }
+
+        g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite],
+                                                                                  xOnScreen, yOnScreen,null);
+
+        //disegna la sua posizione come un piccolo quadratino
+        g2.fillRect(xOnScreen, yOnScreen, 5, 5);
+
 
     }
 
@@ -76,9 +86,6 @@ public class PlayerView {
         if(currenDirection == DOWN)
             currenDirection = RIGHT;
 
-        int x = (int)view.getController().getPlayerController().getxPosPlayer();
-        int y = (int)view.getController().getPlayerController().getyPosPlayer();
-
         if (animationCounter > animationSpeed) {
             numSprite++;
 
@@ -89,16 +96,12 @@ public class PlayerView {
             animationCounter = 0;
         }
 
-        g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite], x, -y, null );
     }
 
     private void parringDraw(Graphics2D g2) {
         animationCounter++;
 
         getCurrentDirectionFromController();
-
-        int x = (int)view.getController().getPlayerController().getxPosPlayer();
-        int y = (int)view.getController().getPlayerController().getyPosPlayer();
 
         if (animationCounter > animationSpeed) {
             numSprite++;
@@ -115,7 +118,6 @@ public class PlayerView {
             animationCounter = 0;
         }
 
-        g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite], x, -y, null );
     }
 
     private void specialDraw(Graphics2D g2) {
@@ -123,9 +125,6 @@ public class PlayerView {
         animationCounter++;
 
         getCurrentDirectionFromController();
-
-        int x = (int)view.getController().getPlayerController().getxPosPlayer();
-        int y = (int)view.getController().getPlayerController().getyPosPlayer();
 
         if (animationCounter > animationSpeed) {
             numSprite++;
@@ -140,16 +139,12 @@ public class PlayerView {
             animationCounter = 0;
         }
 
-        g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite], x, -y, null );
     }
 
     private void normalDraw(Graphics2D g2) {
         animationCounter++;
 
         getCurrentDirectionFromController();
-
-        int x = (int)view.getController().getPlayerController().getxPosPlayer();
-        int y = (int)view.getController().getPlayerController().getyPosPlayer();
 
         if (animationCounter > animationSpeed) {
             numSprite++;
@@ -159,8 +154,6 @@ public class PlayerView {
             }
             animationCounter = 0;
         }
-
-        g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite], x, -y, null );
 
     }
     private void getCurrentStateFromController() {
@@ -177,10 +170,10 @@ public class PlayerView {
         float vectorX = view.getController().getPlayerController().getMovementVector().getX();
         float vectorY = view.getController().getPlayerController().getMovementVector().getY();
 
-        if(vectorY > 0) {
+        if(vectorY < 0) {
             currenDirection = UP;
         }
-        else if(vectorY < 0) {
+        else if(vectorY > 0) {
             currenDirection = DOWN;
         }
 
@@ -359,36 +352,6 @@ public class PlayerView {
 
     }
 
-    /*private void loadSleepImages(BufferedImage image, BufferedImage temp) {
-        playerAnimation[RAGAZZO][SLEEP] = new BufferedImage[1][6];        //ci sono 1 direzioni, ogni direzione ha 6 immagini
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/player/SleepingBoy.png"));
-
-            for (int i = 0; i < 6; i++) {
-                temp = image.getSubimage(i * 31, 0, 31, 37);
-                temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
-                playerAnimation[RAGAZZO][SLEEP][DOWN][i] = temp;
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        playerAnimation[RAGAZZA][SLEEP] = new BufferedImage[1][6];        //ci sono 1 direzioni, ogni direzione ha 6 immagini
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/player/SleepingGirl.png"));
-
-            for (int i = 0; i < 6; i++) {
-                temp = image.getSubimage(i * 28, 0, 28, 36);
-                temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
-                playerAnimation[RAGAZZA][SLEEP][DOWN][i] = temp;
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    } */
 
     private void loadDeathImages(BufferedImage image, BufferedImage temp) {
         playerAnimation[RAGAZZO][EntityStates.DYING.getConstantInAnimationArray()] = new BufferedImage[2][9];        //ci sono 4 direzioni, ogni direzione ha 5 immagini
