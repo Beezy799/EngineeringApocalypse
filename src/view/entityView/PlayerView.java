@@ -28,9 +28,13 @@ public class PlayerView {
     private EntityStates previousState = EntityStates.IDLE;
     private int currenDirection = DOWN;
 
+    //siccome il giocatore viene disegnato dal punto in alto a sinistra, bisogna aggiungere un
+    //offset per disegnarlo al centro dello schermo
+    public static int xOffset = GamePanel.TILES_SIZE/2 - (int)(3*GamePanel.SCALE);
+    public static int yOffset = GamePanel.TILES_SIZE/2;
     //la posizione del player è sempre al centro della finestra di gioco
-    public static final int xOnScreen = GamePanel.GAME_WIDTH/2 - GamePanel.TILES_SIZE/2;
-    public static final int yOnScreen = GamePanel.GAME_HEIGHT/2 - GamePanel.TILES_SIZE/2;
+    public static final int xOnScreen = GamePanel.GAME_WIDTH/2 - xOffset;
+    public static final int yOnScreen = GamePanel.GAME_HEIGHT/2 - yOffset;
 
 
     public PlayerView(IView v) {
@@ -64,11 +68,18 @@ public class PlayerView {
                 break;
         }
 
+        //disegna il giocatore
         g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite],
                                                                                   xOnScreen, yOnScreen,null);
 
+        //disegna la zona occupata dalla sprite
+        g2.drawRect(xOnScreen, yOnScreen,
+                playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite].getWidth(),
+                playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite].getHeight());
+
         //disegna la sua posizione come un piccolo quadratino
-        g2.fillRect(xOnScreen, yOnScreen, 5, 5);
+        g2.setColor(Color.red);
+        g2.fillRect(GamePanel.CENTER_X_GAME_PANEL, GamePanel.CENTER_Y_GAME_PANEL, 5, 5);
 
 
     }
@@ -221,7 +232,6 @@ public class PlayerView {
 
     }
 
-
     private void loadThrowImages(BufferedImage image, BufferedImage temp) {
         playerAnimation[RAGAZZO][EntityStates.THROWING.getConstantInAnimationArray()] = new BufferedImage[4][2];        //ci sono 4 direzioni, ogni direzione ha 2 immagini
         try {
@@ -351,7 +361,6 @@ public class PlayerView {
         }
 
     }
-
 
     private void loadDeathImages(BufferedImage image, BufferedImage temp) {
         playerAnimation[RAGAZZO][EntityStates.DYING.getConstantInAnimationArray()] = new BufferedImage[2][9];        //ci sono 4 direzioni, ogni direzione ha 5 immagini

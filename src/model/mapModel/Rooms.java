@@ -10,8 +10,7 @@ public enum Rooms {
     //lista eventi
 
 
-    AULA_STUDIO("res/map/e.json");      //rivedere perchè nel jar il percorso non funziona
-
+    AULA_STUDIO("/res/map/e.json");
 
     private Map map;
     private int valorePerProvare;
@@ -20,7 +19,7 @@ public enum Rooms {
     Rooms(String mapPath){
       map = new Map();
       map.loadMap(mapPath);
-      System.out.println("stanza creata");
+      //System.out.println("stanza creata");
     }
 
     public static Rooms actualRoom = AULA_STUDIO;

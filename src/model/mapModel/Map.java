@@ -1,14 +1,10 @@
 package src.model.mapModel;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
-
-import java.io.Reader;
 
 
 public class Map {
@@ -22,21 +18,19 @@ public class Map {
 
 
     public void loadMap(String mapPath) {
-
-        strati = new int[4][][];
-
         //roba per leggere il file
-        JSONParser parser = new JSONParser();
-        Reader reader = null;
+        BufferedReader reader = null;
 
         try {
-            reader = new FileReader(mapPath);
+            InputStream is = getClass().getResourceAsStream(mapPath);
+            reader = new BufferedReader(new InputStreamReader(is));
         }
-        catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        catch (Exception e){
+            e.printStackTrace();
         }
 
         //per leggere il file di tipo json
+        JSONParser parser = new JSONParser();
         Object jsonObj = null;
         try {
             jsonObj = parser.parse(reader);
@@ -47,6 +41,8 @@ public class Map {
         }
         JSONObject jsonObject = (JSONObject) jsonObj;
 
+
+        strati = new int[4][][];
 
         //prendo le dimensioni della stanza
         int height = ((Long) jsonObject.get("height")).intValue();
@@ -127,7 +123,7 @@ public class Map {
         }
 
         //per debug
-        printLayers();
+        //printLayers();
 
     }
 

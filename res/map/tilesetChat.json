@@ -1,0 +1,1195 @@
+{
+    "tiles": [
+
+        {
+            "tipo" : "nulla",
+            "solid" : false,
+            "bounds" : [0, 0, 0, 0],
+            "number" : 0
+        },
+      {
+        "tipo": "prato1",
+        "solid": false,
+        "bounds": [0, 0, 0, 0],
+        "number": 1
+      },
+      {
+        "tipo": "prato2",
+        "solid": false,
+        "bounds": [0, 0, 0, 0],
+        "number": 2
+      },
+      {
+        "tipo": "prato3",
+        "solid": false,
+        "bounds": [0, 0, 0, 0],
+        "number": 3
+      },
+      {
+        "tipo": "biblioteca",
+        "solid": false,
+        "bounds": [0, 0, 0, 0],
+        "number": 4
+      },
+      {
+        "tipo": "sala studio",
+        "solid": false,
+        "bounds": [0, 0, 0, 0],
+        "number": 5
+      },
+      {
+        "tipo": "laboratorio",
+        "solid": false,
+        "bounds": [0, 0, 0, 0],
+        "number": 6
+      },
+      {
+        "tipo": "dormitorio",
+        "solid": false,
+        "bounds": [0, 0, 0, 0],
+        "number": 7
+      },
+
+
+
+
+
+
+
+      {
+        "tipo": "tavolone sopra sinistra",
+        "solid": true,
+        "bounds": [0, 20, 32, 12],
+        "number": 8
+      },
+      {
+        "tipo": "tavolone sopra centro",
+        "solid": true,
+        "bounds": [0, 20, 32, 12],
+        "number": 9
+      },
+      {
+        "tipo": "tavolone sopra destra",
+        "solid": true,
+        "bounds": [0, 20, 32, 12],
+        "number": 10
+      },
+      {
+        "tipo": "tavolone centro sinistra con allungamento in alto a destra",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 11
+      },
+      {
+        "tipo": "tavolone sotto centro",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 12
+      },
+      {
+        "tipo": "panca alto",
+        "solid": true,
+        "bounds": [0, 20, 32, 12],
+        "number": 13
+      },
+      {
+        "tipo": "tavolone centro sinistra con allungamento in basso a destra",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 14
+      },
+      {
+        "tipo": "tavolone alto centro",
+        "solid": true,
+        "bounds": [0, 20, 32, 12],
+        "number": 15
+      },
+      {
+        "tipo": "tavolone centro destra con allungamento in basso a sinistra",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 16
+      },
+      {
+        "tipo": "panca centro",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 17
+      },
+      {
+        "tipo": "tavolone basso sinistra",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 18
+      },
+      {
+        "tipo": "tavolone sotto centro",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 19
+      },
+      {
+        "tipo": "tavolone sotto destra",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 20
+      },
+      {
+        "tipo": "panca sotto",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 21
+      },
+      {
+        "tipo": "libreria tutta marrone sopra",
+        "solid": true,
+        "bounds": [2, 2, 28, 30],
+        "number": 22
+      },
+      {
+        "tipo": "libreria tutta marrone centro",
+        "solid": true,
+        "bounds": [2, 0, 28, 32],
+        "number": 23
+      },
+      {
+        "tipo": "libreria tutta marrone sotto",
+        "solid": true,
+        "bounds": [2, 0, 28, 30],
+        "number": 24
+      },
+      {
+        "tipo": "libreria larga con libri sopra sinistra",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 25
+      },
+      {
+        "tipo": "libreria larga con libri sotto sinistra",
+        "solid": true,
+        "bounds": [0, 0, 32, 30],
+        "number": 26
+      },
+      {
+        "tipo": "libreria larga con libri sopra destra",
+        "solid": true,
+        "bounds": [0, 0, 30, 32],
+        "number": 27
+      },
+      {
+        "tipo": "libreria larga con libri sotto destra",
+        "solid": true,
+        "bounds": [0, 0, 30, 30],
+        "number": 28
+      },
+      {
+        "tipo": "libreria stretta con libri sopra",
+        "solid": true,
+        "bounds": [2, 0, 28, 32],
+        "number": 29
+      },
+      {
+        "tipo": "libreria stretta con libri sotto",
+        "solid": true,
+        "bounds": [2, 0, 28, 30],
+        "number": 30
+      },
+      {
+        "tipo": "libreria larga con libri2 sopra sinistra",
+        "solid": true,
+        "bounds": [0, 12, 32, 20],
+        "number": 31
+      },
+      {
+        "tipo": "libreria larga con libri2 sopra destra",
+        "solid": true,
+        "bounds": [0, 12, 30, 20],
+        "number": 32
+      },
+      {
+        "tipo": "libreria larga con libri2 centro sinistra",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 33
+      },
+      {
+        "tipo": "libreria larga con libri2 centro destra",
+        "solid": true,
+        "bounds": [0, 0, 30, 32],
+        "number": 34
+      },
+      {
+        "tipo": "libreria tutta marrone2 sopra",
+        "solid": true,
+        "bounds": [2, 2, 28, 30],
+        "number": 35
+      },
+      {
+        "tipo": "libreria tutta marrone2 sotto",
+        "solid": true,
+        "bounds": [2, 0, 28, 32],
+        "number": 36
+      },
+      {
+        "tipo": "pianta sopra",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 37
+      },
+      {
+        "tipo": "pianta sotto",
+        "solid": true,
+        "bounds": [2, 0, 28, 26],
+        "number": 38
+      },
+      {
+        "tipo": "frigo sopra",
+        "solid": true,
+        "bounds": [2, 6, 28, 26],
+        "number": 39
+      },
+      {
+        "tipo": "frigo sotto",
+        "solid": true,
+        "bounds": [2, 0, 28, 30],
+        "number": 40
+      },
+      {
+        "tipo": "letto sopra sinistra",
+        "solid": true,
+        "bounds": [8, 16, 24, 16],
+        "number": 41
+      },
+      {
+        "tipo": "letto sopra destra",
+        "solid": true,
+        "bounds": [0, 16, 20, 16],
+        "number": 42
+      },
+      {
+        "tipo": "letto centro sinistra",
+        "solid": true,
+        "bounds": [4, 0, 28, 32],
+        "number": 43
+      },
+      {
+        "tipo": "letto centro destra",
+        "solid": true,
+        "bounds": [0, 0, 24, 32],
+        "number": 44
+      },
+      {
+        "tipo": "letto sotto sinistra",
+        "solid": true,
+        "bounds": [4, 0, 28, 26],
+        "number": 45
+      },
+      {
+        "tipo": "letto sotto destra",
+        "solid": true,
+        "bounds": [0, 0, 24, 26],
+        "number": 46
+      },
+      {
+        "tipo": "divano sopra sinistra",
+        "solid": true,
+        "bounds": [0, 6, 32, 26],
+        "number": 47
+      },
+      {
+        "tipo": "divano sotto sinistra",
+        "solid": true,
+        "bounds": [0, 0, 32, 26],
+        "number": 48
+      },
+      {
+        "tipo": "divano sopra centro",
+        "solid": true,
+        "bounds": [0, 6, 32, 26],
+        "number": 49
+      },
+      {
+        "tipo": "divano sotto cento",
+        "solid": true,
+        "bounds": [0, 0, 32, 26],
+        "number": 50
+      },
+      {
+        "tipo": "divano sopra destra",
+        "solid": true,
+        "bounds": [0, 6, 32, 26],
+        "number": 51
+      },
+      {
+        "tipo": "divano sotto destra",
+        "solid": true,
+        "bounds": [0, 0, 32, 26],
+        "number": 52
+      },
+      {
+        "tipo": "sgabello",
+        "solid": true,
+        "bounds": [2, 4, 28, 24],
+        "number": 53
+      },
+      {
+        "tipo": "tavolone2 sopra sinistra",
+        "solid": true,
+        "bounds": [2, 6, 30, 26],
+        "number": 54
+      },
+      {
+        "tipo": "tavolone2 sopra centro",
+        "solid": true,
+        "bounds": [0, 6, 32, 26],
+        "number": 55
+      },
+      {
+        "tipo": "tavolone2 centro sinistra",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 56
+      },
+      {
+        "tipo": "tavolone2 centro centro",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 57
+      },
+      {
+        "tipo": "tavolone2 centro destra",
+        "solid": true,
+        "bounds": [0, 0, 30, 32],
+        "number": 58
+      },
+      {
+        "tipo": "tavolone2 sotto sinistra",
+        "solid": true,
+        "bounds": [2, 0, 30, 32],
+        "number": 59
+      },
+      {
+        "tipo": "tavolone2 sotto centro",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 60
+      },
+      {
+        "tipo": "tavolone2 sotto destra",
+        "solid": true,
+        "bounds": [0, 0, 30, 32],
+        "number": 61
+      },
+      {
+        "tipo": "panca verticale sopra",
+        "solid": true,
+        "bounds": [2, 6, 28, 26],
+        "number": 62
+      },
+      {
+        "tipo": "panca verticale centro",
+        "solid": true,
+        "bounds": [2, 0, 28, 32],
+        "number": 63
+      },
+      {
+        "tipo": "panca verticale sotto",
+        "solid": true,
+        "bounds": [2, 0, 28, 32],
+        "number": 64
+      },
+      {
+        "tipo": "banco sopra sinistra",
+        "solid": true,
+        "bounds": [0, 12, 32, 20],
+        "number": 65
+      },
+      {
+        "tipo": "banco sopra destra",
+        "solid": true,
+        "bounds": [0, 12, 32, 20],
+        "number": 66
+      },
+      {
+        "tipo": "banco centro",
+        "solid": true,
+        "bounds": [0, 0, 32, 32],
+        "number": 67
+      },
+      {
+        "tipo": "banco sotto sinistra",
+        "solid": true,
+        "bounds": [0, 0, 32, 20],
+        "number": 68
+      },
+      {
+        "tipo": "banco sotto destra",
+        "solid": true,
+        "bounds": [0, 0, 32, 20],
+        "number": 69
+      },
+      {
+        "tipo": "ringhiera",
+        "solid": true,
+        "bounds": [2, 2, 28, 30],
+        "number": 70
+      },
+      {
+        "tipo": "barra di appoggio",
+        "solid": true,
+        "bounds": [0, 2, 32, 30],
+        "number": 71
+      },
+      {
+        "tipo": "ringhiera sopra",
+        "solid": true,
+        "bounds": [0, 0, 32, 8],
+        "number": 72
+      },
+      {
+        "tipo": "ringhiera sotto",
+        "solid": true,
+        "bounds": [0, 24, 32, 8],
+        "number": 73
+      },
+    {
+      "tipo": "statua allo studente caduto",
+      "solid": true,
+      "bounds": [9, 0, 15, 32],
+      "number": 74
+    },
+    {
+      "tipo": "muro davanti sinistra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 75
+    },
+    {
+      "tipo": "muro davanti centro",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 76
+    },
+    {
+      "tipo": "muro davanti destra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 77
+    },
+    {
+      "tipo": "muro lato sinistra",
+      "solid": true,
+      "bounds": [0, 0, 8, 32],
+      "number": 78
+    },
+    {
+      "tipo": "muro dietro sinistra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 79
+    },
+    {
+      "tipo": "muro dietro destra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 80
+    },
+    {
+      "tipo": "muro lato destra",
+      "solid": true,
+      "bounds": [24, 0, 8, 32],
+      "number": 81
+    },
+    {
+      "tipo": "distributore rosso sopra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 82
+    },
+    {
+      "tipo": "distributore rosso sotto",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 83
+    },
+    {
+      "tipo": "distributore blu sopra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 84
+    },
+    {
+      "tipo": "distributore blu sotto",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 85
+    },
+    {
+      "tipo": "tavolo gioco sopra sinistra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 86
+    },
+    {
+      "tipo": "tavolo gioco sopra destra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 87
+    },
+    {
+      "tipo": "tavolo gioco centro sinistra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 88
+    },
+    {
+      "tipo": "tavolo gioco centro destra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 89
+    },
+    {
+      "tipo": "tavolo gioco sotto sinistra",
+      "solid": true,
+      "bounds": [0, 0, 32, 30],
+      "number": 90
+    },
+    {
+      "tipo": "tavolo gioco sotto destra",
+      "solid": true,
+      "bounds": [0, 0, 32, 30],
+      "number": 91
+    },
+    {
+      "tipo": "comodino sopra",
+      "solid": true,
+      "bounds": [0, 7, 32, 25],
+      "number": 92
+    },
+    {
+      "tipo": "comodino sotto",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 93
+    },
+    {
+      "tipo": "tenda sopra sinistra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 94
+    },
+    {
+      "tipo": "tenda sopra centro",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 95
+    },
+    {
+      "tipo": "tenda sopra destra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 96
+    },
+    {
+      "tipo": "tenda centro sinistra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 97
+    },
+    {
+      "tipo": "tenda centro centro",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 98
+    },
+    {
+      "tipo": "tenda centro destra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 99
+    },
+    {
+      "tipo": "tenda sotto sinistra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 100
+    },
+    {
+      "tipo": "tenda sotto destra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 101
+    },
+    {
+      "tipo": "piano sopra sinistra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 102
+    },
+    {
+      "tipo": "piano sopra destra",
+      "solid": true,
+      "bounds": [2, 0, 30, 32],
+      "number": 103
+    },
+    {
+      "tipo": "piano centro sinistra",
+      "solid": true,
+      "bounds": [0, 10, 32, 22],
+      "number": 104
+    },
+    {
+      "tipo": "piano centro destra",
+      "solid": true,
+      "bounds": [0, 2, 30, 32],
+      "number": 105
+    },
+    {
+      "tipo": "piano sotto sinistra",
+      "solid": true,
+      "bounds": [0, 2, 30, 32],
+      "number": 106
+    },
+    {
+      "tipo": "piano sotto destra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 107
+    },
+    {
+      "tipo": "divano vertivale, sopra",
+      "solid": true,
+      "bounds": [2, 0, 30, 32],
+      "number": 108
+    },
+    {
+      "tipo": "divano vertivale, centro",
+      "solid": true,
+      "bounds": [2, 0, 30, 32],
+      "number": 109
+    },
+    {
+      "tipo": "divano vertivale, sotto",
+      "solid": true,
+      "bounds": [2, 0, 30, 28],
+      "number": 110
+    },
+    {
+      "tipo": "tavolone centro destra con allungato in alto a sinistra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 111
+    },
+    {
+      "tipo": "tavolone2, centro snistra",
+      "solid": true,
+      "bounds": [2, 0, 30, 32],
+      "number": 112
+    },
+    {
+      "tipo": "tavolone2, alto destra",
+      "solid": true,
+      "bounds": [0, 6, 30, 26],
+      "number": 113
+    },
+    {
+      "tipo": "pc giallo sopra",
+      "solid": true,
+      "bounds": [4, 10, 24, 22],
+      "number": 114
+    },
+    {
+      "tipo": "pc bianco sopra",
+      "solid": true,
+      "bounds": [4, 10, 24, 22],
+      "number": 115
+    },
+    {
+      "tipo": "pc rosso sotto",
+      "solid": true,
+      "bounds": [1, 0, 30, 26],
+      "number": 116
+    },
+    {
+      "tipo": "oscilloscopio sotto",
+      "solid": true,
+      "bounds": [0, 0, 32, 16],
+      "number": 117
+    },
+    {
+      "tipo": "supercomputer sopra",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 118
+    },
+
+
+
+
+
+    {
+      "tipo": "tv sopra sinistra",
+      "solid": true,
+      "bounds": [4, 6, 28, 26],
+      "number": 119
+    },
+    {
+      "tipo": "tv sopra destra",
+      "solid": true,
+      "bounds": [0, 6, 28, 26],
+      "number": 120
+    },
+    {
+      "tipo": "tv sotto sinistra",
+      "solid": true,
+      "bounds": [4, 0, 28, 28],
+      "number": 121
+    },
+    {
+      "tipo": "tv sotto destra",
+      "solid": true,
+      "bounds": [0, 0, 28, 28],
+      "number": 122
+    },
+    {
+      "tipo": "oscilloscopio sopra",
+      "solid": true,
+      "bounds": [0, 4, 32, 28],
+      "number": 123
+    },
+    {
+      "tipo": "pc giallo sotto",
+      "solid": true,
+      "bounds": [4, 0, 24, 30],
+      "number": 124
+    },
+    {
+      "tipo": "pc bianco sotto",
+      "solid": true,
+      "bounds": [4, 0, 24, 30],
+      "number": 125
+    },
+    {
+      "tipo": "pc rosso sopra",
+      "solid": true,
+      "bounds": [1, 0, 30, 32],
+      "number": 126
+    },
+    {
+      "tipo": "supercomputer sotto",
+      "solid": true,
+      "bounds": [0, 0, 32, 32],
+      "number": 127
+    },
+
+
+
+
+
+
+    {
+    "tipo": "lavagna alto sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 128
+    },
+    {
+    "tipo": "lavagna alto centro1",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 129
+    },
+    {
+    "tipo": "lavagna alto centro2",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 130
+    },
+    {
+    "tipo": "lavagna alto destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 131
+    },
+    {
+    "tipo": "lavagna basso sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 132
+    },
+    {
+    "tipo": "lavagna basso centro1",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 133
+    },
+    {
+    "tipo": "lavagna basso centro2",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 134
+    },
+    {
+    "tipo": "lavagna basso destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 135
+    },
+    {
+    "tipo": "comunicazione",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 136
+    },
+    {
+    "tipo": "porta marrone alto sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 137
+    },
+    {
+    "tipo": "porta marrone alto centro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 138
+    },
+    {
+    "tipo": "porta marrone alto destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 139
+    },
+    {
+    "tipo": "porta marrone basso sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 140
+    },
+    {
+    "tipo": "porta marrone basso centro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 141
+    },
+    {
+    "tipo": "porta marrone basso destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 142
+    },
+    {
+    "tipo": "porta nera alto sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 143
+    },
+    {
+    "tipo": "porta nera alto centro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 144
+    },
+    {
+    "tipo": "porta nera alto destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 145
+    },
+    {
+    "tipo": "porta nera basso sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 146
+    },
+    {
+    "tipo": "porta nera basso centro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 147
+    },
+    {
+    "tipo": "porta nera basso destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 148
+    },
+    {
+    "tipo": "porta vetro alto sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 149
+    },
+    {
+    "tipo": "porta vetro alto destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 150
+    },
+    {
+    "tipo": "porta vetro basso sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 151
+    },
+    {
+    "tipo": "porta vetro basso destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 152
+    },
+    {
+    "tipo": "scala rossa alto sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 153
+    },
+    {
+    "tipo": "scala rossa alto destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 154
+    },
+    {
+    "tipo": "scala rossa centro lato sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 155
+    },
+    {
+    "tipo": "scala rossa centro centro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 156
+    },
+    {
+    "tipo": "scala rossa centro lato destro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 157
+    },
+    {
+    "tipo": "scala rossa basso lato sinistro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 158
+    },
+    {
+    "tipo": "scala rossa centro basso",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 159
+    },
+    {
+    "tipo": "scala rossa basso lato destro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 160
+    },
+    {
+    "tipo": "scala grigia alto sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 161
+    },
+    {
+    "tipo": "scala grigia alto centro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 162
+    },
+    {
+    "tipo": "scala grigia centro sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 163
+    },
+    {
+    "tipo": "scala grigia centro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 164
+    },
+    {
+    "tipo": "scala grigia basso sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 165
+    },
+    {
+    "tipo": "scala grigia centro basso",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 166
+    },
+    {
+    "tipo": "finestra sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 167
+    },
+    {
+    "tipo": "finestra centro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 168
+    },
+    {
+    "tipo": "finestra destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 169
+    },
+    {
+    "tipo": "portatile blu",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 170
+    },
+    {
+    "tipo": "libro aperto",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 171
+    },
+    {
+    "tipo": "caffè",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 172
+    },
+    {
+    "tipo": "tappeto alto sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 173
+    },
+    {
+    "tipo": "tappeto alto centro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 174
+    },
+    {
+    "tipo": "tappeto alto destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 175
+    },
+    {
+    "tipo": "tappeto centro sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 176
+    },
+    {
+    "tipo": "tappeto centro centro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 177
+    },
+    {
+    "tipo": "tappeto centro destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 178
+    },
+    {
+    "tipo": "tappeto basso sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 179
+    },
+    {
+    "tipo": "tappeto basso centro",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 180
+    },
+    {
+    "tipo": "tappeto basso destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 181
+    },
+    {
+    "tipo": "albero alto sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 182
+    },
+    {
+    "tipo": "albero alto destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 183
+    },
+    {
+    "tipo": "albero basso sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 184
+    },
+    {
+    "tipo": "albero basso destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 185
+    },
+    {
+    "tipo": "albero da un tile",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 186
+    },
+    {
+    "tipo": "sporco verde",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 187
+    },
+    {
+    "tipo": "sporco marrone",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 188
+    },
+    {
+    "tipo": "pc diagonale sinistra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 189
+    },
+    {
+    "tipo": "pc diagonale destra",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 190
+    },
+    {
+    "tipo": "pila di libri",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 191
+    },
+    {
+    "tipo": "libro arancione",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 192
+    },
+    {
+    "tipo": "portatile grigio aperto",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 193
+    },
+    {
+    "tipo": "schemi",
+    "solid": false,
+    "bounds": [0, 0, 0, 0],
+    "number": 194
+    }
+]
+}
+
+

@@ -19,11 +19,11 @@ public class GameWindow extends JFrame {
 		view = v;
 		setTitle("ENGINEERING ADVENTURE");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
+		setResizable(true);
 		getContentPane().add(gp);
 		pack();
 		setLocationRelativeTo(null);
-		//handleLostFocus();
+		handleLostFocus();
 	}
 
 	//questo metodo serve per quando la finestra di gioco perde il focus

@@ -15,7 +15,7 @@ import static src.model.Constants.SoundConstants.*;
 
 public class SoundManager {
     //il volume è un numero da 0 a 1
-    private float musicVolume = 0.2f, seVolume = 0.2f;
+    private float musicVolume = 0.30f, seVolume = 0.2f;
     private Clip music, soundEffect;
     private URL soundURL[] = new URL[15];
 
@@ -40,7 +40,9 @@ public class SoundManager {
 
 
         setMusic(MENU_MUSIC);
+        setMusicVolume(musicVolume);
         setSE(COLPO_SE);
+        setSEVolume(seVolume);
     }
 
     // per suonare una musica, prima bisogna dire alla clip quale file prendere
@@ -94,6 +96,7 @@ public class SoundManager {
 
     public void playMusic(int i) {
         setMusic(i);
+        setMusicVolume(musicVolume);
         music.start();
     }
 

@@ -21,6 +21,7 @@ public class IModel {
 
         TilesetModel tileset = new TilesetModel();
         //tileset.loadTileset("res/map/tileset.json");
+
     }
 
     public void setView(IView v) {

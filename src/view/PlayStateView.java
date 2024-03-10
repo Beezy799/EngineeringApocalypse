@@ -6,7 +6,6 @@ import src.view.main.GamePanel;
 import src.view.mapView.TilesetView;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class PlayStateView {
 
@@ -20,8 +19,8 @@ public class PlayStateView {
         tilesetView = new TilesetView();
     }
     public void draw(Graphics2D g2){
-        //per disegnare i tile nella giusta posizione sullo schermo, ci prendiamo la posizione del player nella mappa
-        //ci troviamo la posizione del tile relativa al player e capiamo dove si trova il tile sullo schermo, sapendo
+        //per disegnare gli oggetti nella giusta posizione sullo schermo, ci prendiamo la posizione del player nella mappa
+        //ci troviamo la posizione dell'oggetto relativa al player e capiamo dove esso si trova sullo schermo, sapendo
         //che il player è sempre al centro
         int xPlayer = (int)iView.getController().getPlayerController().getxPosPlayer();
         int yPlayer = (int)iView.getController().getPlayerController().getyPosPlayer();
@@ -35,23 +34,35 @@ public class PlayStateView {
 
     private void drawFirstLayer(Graphics2D g2, int xPlayerpos, int yPlayerPos) {
 
+        //prende la mappa
         int[][] tileNumbers = Rooms.actualRoom.getMap().getFirstLayer();
 
         for(int righe = 0; righe < tileNumbers.length; righe++){
             for(int colonne = 0; colonne < tileNumbers[0].length; colonne++){
-                int firstTileNumber = tileNumbers[righe][colonne];
 
+                //prende dalla mappa il numero del tile in quella posizione
+                int tileNumber = tileNumbers[righe][colonne];
+
+                //prende la posizione del tile all'interno della mappa
                 int tileXPositionOnMap = colonne * GamePanel.TILES_SIZE;
                 int tileYPositionOnMap = righe * GamePanel.TILES_SIZE;
 
+                //vede quanto dista il tile dal player
                 int xDistanceFromPlayer = tileXPositionOnMap - xPlayerpos;
                 int yDistanceFromPlayer = tileYPositionOnMap - yPlayerPos;
 
-                int xScreen = PlayerView.xOnScreen + xDistanceFromPlayer;
-                int yScreen = PlayerView.yOnScreen + yDistanceFromPlayer;
+                //qui bisogna mettere un if: il tile viene disegnato solo se è nella finestra di gioco
+                if(Math.abs(xDistanceFromPlayer) < GamePanel.GAME_WIDTH/2 && Math.abs(yDistanceFromPlayer) < GamePanel.GAME_HEIGHT/2){
 
-                g2.drawImage(tilesetView.getTileImage(firstTileNumber), xScreen, yScreen, null);
-                g2.drawRect(xScreen, yScreen, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
+                    //la distanza del tile dal centro dello schermo è uguale alla distanza del tile dal plaer nella mappa
+                    int xScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
+                    int yScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
+
+                    g2.drawImage(tilesetView.getTileImage(tileNumber), xScreen, yScreen, null);
+                    //disegna i bordi del tile, per controllo
+                    //g2.drawRect(xScreen, yScreen, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
+                }
+
             }
         }
 
