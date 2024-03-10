@@ -7,10 +7,13 @@ import src.view.ViewUtils;
 import src.view.main.GamePanel;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import static src.model.Constants.EntityConstants.*;
+import static src.view.main.GamePanel.SCALE;
+
 import javax.imageio.ImageIO;
 
 public class PlayerView {
@@ -55,7 +58,8 @@ public class PlayerView {
                 normalDraw(g2);
                 break;
             case ATTACKING:
-                specialDraw(g2);
+                //specialDraw(g2);
+                drawOndaEnergetica(g2);
                 break;
             case THROWING:
                 specialDraw(g2);
@@ -68,10 +72,14 @@ public class PlayerView {
                 break;
         }
 
-        //disegna il giocatore
-        g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite],
-                                                                                  xOnScreen, yOnScreen,null);
-
+        try {
+            //disegna il giocatore
+            g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite],
+                    xOnScreen, yOnScreen, null);
+        }
+        catch (IndexOutOfBoundsException e){
+            e.printStackTrace();
+        }
         //disegna la zona occupata dalla sprite
         g2.drawRect(xOnScreen, yOnScreen,
                 playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite].getWidth(),
@@ -147,6 +155,214 @@ public class PlayerView {
                 view.getController().getPlayerController().unlockState();
                 numSprite = 0;
             }
+            animationCounter = 0;
+        }
+
+    }
+
+    private void drawOndaEnergetica(Graphics2D g2) {
+
+        animationCounter++;
+        String attackStream = "001010011010100101001011101011011001110101010100110111101011101001101110100111010100110101010";
+        String attackStream2 = "10101011101111010000101101100101000011110011000111111000001010001010001001010000101111001001";
+        String attackStream3 = "01110100101001101001001001101001001001101000100000010111110101001010001001010110111010001011";
+
+        // tutto lo schermo si scurice, per rendere l'attacco più epico
+        g2.setColor(Color.black);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        g2.fillRect(0,0, GamePanel.GAME_WIDTH,GamePanel.GAME_HEIGHT);
+
+        //larghezza dei due rect che formano l'onda
+        int widthAttackRect, widthattackBackgroundRect, heightAttackRect, heightAttackRectBackground;
+
+        //per disegnare le stringhe dall'alto verso il basso e viceversa
+        AffineTransform defaultAt = g2.getTransform();
+        AffineTransform at2;
+        //font degli 0,1
+        int fontSize = (int)(8*SCALE);
+        Font font = new Font("Arial", Font.PLAIN, fontSize);
+        g2.setFont(font);
+
+        switch (currenDirection){
+            case DOWN:
+                //larghezza rettangolo interno
+                widthAttackRect = 2 + animationCounter*GamePanel.TILES_SIZE/240;
+                //larghezza rect esterno mezzo trasparente
+                widthattackBackgroundRect = 2 + animationCounter*GamePanel.TILES_SIZE/120;
+
+                //il rect trasparente si allarga prima, una volta arrivato alla larghezza massima si ferma
+                if(widthattackBackgroundRect > 2 + GamePanel.TILES_SIZE)
+                    widthattackBackgroundRect = 2 + GamePanel.TILES_SIZE;
+
+                //rect trasparente
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                g2.fillRoundRect(GamePanel.CENTER_X_GAME_PANEL - widthattackBackgroundRect /2 + 4, yOnScreen + GamePanel.TILES_SIZE, widthattackBackgroundRect, yOnScreen + 10, 20, 20);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
+
+                //rect interno
+                g2.fillRoundRect(GamePanel.CENTER_X_GAME_PANEL - widthAttackRect /2 + 4, yOnScreen + GamePanel.TILES_SIZE, widthAttackRect, yOnScreen + 10, 20, 20);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+                //stream di bits
+                //trasformata per girare la stringa di bit
+                at2 = AffineTransform.getQuadrantRotateInstance(1);
+                g2.setTransform(at2);
+                g2.setColor(Color.green);
+
+                //le stringhe di bit si alternano 6 volte
+                if(animationCounter < 40)
+                    g2.drawString(attackStream, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
+                else if(animationCounter >= 40 && animationCounter < 80)
+                    g2.drawString(attackStream2, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
+                else if (animationCounter >= 80 && animationCounter < 120)
+                    g2.drawString(attackStream3, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
+                else if (animationCounter >= 120 && animationCounter < 160)
+                    g2.drawString(attackStream, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
+                else if (animationCounter >= 160 && animationCounter < 200)
+                    g2.drawString(attackStream2, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
+                else if (animationCounter >= 200 && animationCounter < 240)
+                    g2.drawString(attackStream3, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
+
+                break;
+
+            case UP:
+                //larghezza rettangolo interno
+                widthAttackRect = 2 + animationCounter*GamePanel.TILES_SIZE/240;
+                //larghezza rect esterno mezzo trasparente
+                widthattackBackgroundRect = 2 + animationCounter*GamePanel.TILES_SIZE/120;
+
+                //il rect trasparente si allarga prima, una volta arrivato alla larghezza massima si ferma
+                if(widthattackBackgroundRect > 2 + GamePanel.TILES_SIZE)
+                    widthattackBackgroundRect = 2 + GamePanel.TILES_SIZE;
+
+                //rect trasparente
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                g2.fillRoundRect(GamePanel.CENTER_X_GAME_PANEL - widthattackBackgroundRect /2 + 4, 0, widthattackBackgroundRect, yOnScreen, 20, 20);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
+
+                //rect interno
+                g2.fillRoundRect(GamePanel.CENTER_X_GAME_PANEL - widthAttackRect /2 + 4, 0, widthAttackRect, yOnScreen, 20, 20);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+                //stream di bits
+                //trasformata per girare la stringa di bit
+                at2 = AffineTransform.getQuadrantRotateInstance(1);
+                g2.setTransform(at2);
+                g2.setColor(Color.green);
+
+                //le stringhe di bit si alternano 6 volte
+                if(animationCounter < 40)
+                    g2.drawString(attackStream, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2) - 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
+                else if(animationCounter >= 40 && animationCounter < 80)
+                    g2.drawString(attackStream2, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream2, g2) - 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
+                else if (animationCounter >= 80 && animationCounter < 120)
+                    g2.drawString(attackStream3, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream3, g2) - 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
+                else if (animationCounter >= 120 && animationCounter < 160)
+                    g2.drawString(attackStream, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2) - 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
+                else if (animationCounter >= 160 && animationCounter < 200)
+                    g2.drawString(attackStream2, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream2, g2) - 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
+                else if (animationCounter >= 200 && animationCounter < 240)
+                    g2.drawString(attackStream3, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream3, g2) - 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
+
+                //gli assi tornano quelli di prima
+                g2.setTransform(defaultAt);
+                break;
+
+            case RIGHT:
+                //altezza rettangolo interno
+                heightAttackRect = 2 + animationCounter*GamePanel.TILES_SIZE/240;
+                //altezza rect esterno mezzo trasparente
+                heightAttackRectBackground = 2 + animationCounter*GamePanel.TILES_SIZE/120;
+
+                //il rect trasparente si allarga prima, una volta arrivato alla larghezza massima si ferma
+                if(heightAttackRectBackground > 2 + GamePanel.TILES_SIZE)
+                    heightAttackRectBackground = 2 + GamePanel.TILES_SIZE;
+
+                //rect trasparente
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                g2.fillRoundRect(GamePanel.CENTER_X_GAME_PANEL + 20,
+                                 GamePanel.CENTER_Y_GAME_PANEL - heightAttackRectBackground/2,
+                                GamePanel.GAME_WIDTH/2, heightAttackRectBackground, 20, 20);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
+
+                //rect trasparente
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                g2.fillRoundRect(GamePanel.CENTER_X_GAME_PANEL + 20,
+                        GamePanel.CENTER_Y_GAME_PANEL - heightAttackRectBackground/2,
+                        GamePanel.GAME_WIDTH/2, heightAttackRectBackground, 20, 20);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
+
+                //rect interno
+                g2.fillRoundRect(GamePanel.CENTER_X_GAME_PANEL + 20,
+                        GamePanel.CENTER_Y_GAME_PANEL - heightAttackRect/2,
+                        GamePanel.GAME_WIDTH/2, heightAttackRect, 20, 20);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+                g2.setColor(Color.green);
+
+                //le stringhe di bit si alternano 6 volte
+                if(animationCounter < 40)
+                    g2.drawString(attackStream, GamePanel.CENTER_X_GAME_PANEL + 20, GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream, g2)/2);
+                else if(animationCounter >= 40 && animationCounter < 80)
+                    g2.drawString(attackStream2, GamePanel.CENTER_X_GAME_PANEL + 20, GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream2, g2)/2);
+                else if (animationCounter >= 80 && animationCounter < 120)
+                    g2.drawString(attackStream3, GamePanel.CENTER_X_GAME_PANEL + 20, GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream3, g2)/2);
+                else if (animationCounter >= 120 && animationCounter < 160)
+                    g2.drawString(attackStream, GamePanel.CENTER_X_GAME_PANEL + 20, GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream, g2)/2);
+                else if (animationCounter >= 160 && animationCounter < 200)
+                    g2.drawString(attackStream2, GamePanel.CENTER_X_GAME_PANEL + 20, GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream2, g2)/2);
+                else if (animationCounter >= 200 && animationCounter < 240)
+                    g2.drawString(attackStream3, GamePanel.CENTER_X_GAME_PANEL + 20, GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream3, g2)/2);
+
+                break;
+
+            case LEFT:
+                //altezza rettangolo interno
+                heightAttackRect = 2 + animationCounter*GamePanel.TILES_SIZE/240;
+                //altezza rect esterno mezzo trasparente
+                heightAttackRectBackground = 2 + animationCounter*GamePanel.TILES_SIZE/120;
+
+                //il rect trasparente si allarga prima, una volta arrivato alla larghezza massima si ferma
+                if(heightAttackRectBackground > 2 + GamePanel.TILES_SIZE)
+                    heightAttackRectBackground = 2 + GamePanel.TILES_SIZE;
+
+                //rect trasparente
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+                g2.fillRoundRect(0 - 10,
+                                 GamePanel.CENTER_Y_GAME_PANEL - heightAttackRectBackground/2,
+                                 GamePanel.GAME_WIDTH/2, heightAttackRectBackground, 20, 20);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
+
+                //rect interno
+                g2.fillRoundRect(0 -10,
+                        GamePanel.CENTER_Y_GAME_PANEL - heightAttackRect/2,
+                        GamePanel.GAME_WIDTH/2, heightAttackRect, 20, 20);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+                g2.setColor(Color.green);
+
+                //le stringhe di bit si alternano 6 volte
+                if(animationCounter < 40)
+                    g2.drawString(attackStream, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2), GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream, g2)/2);
+                else if(animationCounter >= 40 && animationCounter < 80)
+                    g2.drawString(attackStream2, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2), GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream2, g2)/2);
+                else if (animationCounter >= 80 && animationCounter < 120)
+                    g2.drawString(attackStream3, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2), GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream3, g2)/2);
+                else if (animationCounter >= 120 && animationCounter < 160)
+                    g2.drawString(attackStream, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2), GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream, g2)/2);
+                else if (animationCounter >= 160 && animationCounter < 200)
+                    g2.drawString(attackStream2, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2), GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream2, g2)/2);
+                else if (animationCounter >= 200 && animationCounter < 240)
+                    g2.drawString(attackStream3, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2), GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream3, g2)/2);
+
+                break;
+        }
+
+        //gli assi tornano quelli di prima
+        g2.setTransform(defaultAt);
+
+        if(animationCounter >= 240) {
+            view.getController().getPlayerController().unlockState();
             animationCounter = 0;
         }
 
@@ -363,40 +579,40 @@ public class PlayerView {
     }
 
     private void loadDeathImages(BufferedImage image, BufferedImage temp) {
-        playerAnimation[RAGAZZO][EntityStates.DYING.getConstantInAnimationArray()] = new BufferedImage[2][9];        //ci sono 4 direzioni, ogni direzione ha 5 immagini
+        playerAnimation[RAGAZZO][EntityStates.DYING.getConstantInAnimationArray()] = new BufferedImage[4][9];
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/res/player/deathBoyCorr.png"));
 
             for (int i = 0; i < 9; i++) {
                 temp = image.getSubimage(i * 36, 0, 36, 37);
                 temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
-                playerAnimation[RAGAZZO][EntityStates.DYING.getConstantInAnimationArray()][0][i] = temp;
+                playerAnimation[RAGAZZO][EntityStates.DYING.getConstantInAnimationArray()][LEFT][i] = temp;
             }
 
             for (int i = 0; i < 9; i++) {
                 temp = image.getSubimage(i * 36, 37, 36, 37);
                 temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
-                playerAnimation[RAGAZZO][EntityStates.DYING.getConstantInAnimationArray()][1][i] = temp;
+                playerAnimation[RAGAZZO][EntityStates.DYING.getConstantInAnimationArray()][RIGHT][i] = temp;
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        playerAnimation[RAGAZZA][EntityStates.DYING.getConstantInAnimationArray()] = new BufferedImage[2][9];
+        playerAnimation[RAGAZZA][EntityStates.DYING.getConstantInAnimationArray()] = new BufferedImage[4][9];
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/res/player/deadGirl.png"));
 
             for (int i = 0; i < 9; i++) {
                 temp = image.getSubimage(i * 43, 0, 43, 38);
                 temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
-                playerAnimation[RAGAZZA][EntityStates.DYING.getConstantInAnimationArray()][0][i] = temp;
+                playerAnimation[RAGAZZA][EntityStates.DYING.getConstantInAnimationArray()][LEFT][i] = temp;
             }
 
             for (int i = 0; i < 9; i++) {
                 temp = image.getSubimage(i * 43, 38, 43, 38);
                 temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
-                playerAnimation[RAGAZZA][EntityStates.DYING.getConstantInAnimationArray()][1][i] = temp;
+                playerAnimation[RAGAZZA][EntityStates.DYING.getConstantInAnimationArray()][RIGHT][i] = temp;
             }
 
         } catch (IOException e) {

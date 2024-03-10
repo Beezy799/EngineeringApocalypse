@@ -58,30 +58,27 @@ public class IController {
         //anche se premo un tasto, lo stato della tatiera non cambia--> rende sincronizzate le cose
         lock.lock();
 
-        //serve per riportare il player allo stato iniziale quando il tasto è rilasciato
-        boolean setMoving = false;
         //movement inputs, setta la direzione del player e fa muovere il player
         if (InputState.W.getPressed()) {
             playerController.setDirectionUp();
-            setMoving = true;
         }
 
         if (InputState.S.getPressed()) {
             playerController.setDirectionDown();
-            setMoving = true;
         }
 
         if (InputState.D.getPressed()) {
             playerController.setDirectionRight();
-            setMoving = true;
         }
 
         if (InputState.A.getPressed()) {
             playerController.setDirectionLeft();
-            setMoving = true;
         }
 
-        if(setMoving == true) {
+        float xRisultante = playerController.getMovementVector().getX();
+        float yRisultante = playerController.getMovementVector().getY();
+
+        if(xRisultante != 0 || yRisultante != 0) {
             playerController.changeActualState(EntityStates.MOVE);
         }
         else {

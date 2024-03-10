@@ -7,7 +7,8 @@ public enum EntityStates {
     THROWING(4),
     PARRING(3),
     DYING(5),
-    SPEAKING(0);
+    SPEAKING(0),
+    HITTED(0);
 
     private int constantInAnimationArray;
 
