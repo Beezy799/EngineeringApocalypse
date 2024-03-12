@@ -6,7 +6,6 @@ public class TileModel {
 
     private String tipo;
     private boolean solid;
-
     private Hitbox hitbox;
 
     @Override

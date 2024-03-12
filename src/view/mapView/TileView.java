@@ -20,6 +20,15 @@ public class TileView {
         }
     }
 
+    //nuovo costruttore, in modo che i tile animati non cambino immagine tutti allo stesso momento
+    public TileView(BufferedImage[] images, int freq) {
+        tileAnimation = images;
+        //scala le immagini ricevute
+        for(BufferedImage image : tileAnimation) {
+            image = ViewUtils.scaleImage(image, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
+        }
+    }
+
     public BufferedImage getImage() {
         //spreca tempo per per scegliere l'immagine solo se ci sono più immagini, sennò restituisce l'unica immagine
         if(tileAnimation.length > 1)

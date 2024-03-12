@@ -58,8 +58,8 @@ public class PlayerView {
                 normalDraw(g2);
                 break;
             case ATTACKING:
-                //specialDraw(g2);
-                drawOndaEnergetica(g2);
+                specialDraw(g2);
+                //drawOndaEnergetica(g2);
                 break;
             case THROWING:
                 specialDraw(g2);
@@ -205,24 +205,28 @@ public class PlayerView {
 
                 //stream di bits
                 //trasformata per girare la stringa di bit
-                at2 = AffineTransform.getQuadrantRotateInstance(1);
-                g2.setTransform(at2);
+//                at2 = AffineTransform.getQuadrantRotateInstance(1);
+//                g2.setTransform(at2);
                 g2.setColor(Color.green);
+                g2.rotate(Math.PI / 2);
+
+                g2.drawString(attackStream, 0, -GamePanel.CENTER_X_GAME_PANEL);
 
                 //le stringhe di bit si alternano 6 volte
-                if(animationCounter < 40)
-                    g2.drawString(attackStream, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
-                else if(animationCounter >= 40 && animationCounter < 80)
-                    g2.drawString(attackStream2, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
-                else if (animationCounter >= 80 && animationCounter < 120)
-                    g2.drawString(attackStream3, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
-                else if (animationCounter >= 120 && animationCounter < 160)
-                    g2.drawString(attackStream, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
-                else if (animationCounter >= 160 && animationCounter < 200)
-                    g2.drawString(attackStream2, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
-                else if (animationCounter >= 200 && animationCounter < 240)
-                    g2.drawString(attackStream3, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
+//                if(animationCounter < 40)
+//                    g2.drawString(attackStream, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
+//                else if(animationCounter >= 40 && animationCounter < 80)
+//                    g2.drawString(attackStream2, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
+//                else if (animationCounter >= 80 && animationCounter < 120)
+//                    g2.drawString(attackStream3, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
+//                else if (animationCounter >= 120 && animationCounter < 160)
+//                    g2.drawString(attackStream, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
+//                else if (animationCounter >= 160 && animationCounter < 200)
+//                    g2.drawString(attackStream2, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
+//                else if (animationCounter >= 200 && animationCounter < 240)
+//                    g2.drawString(attackStream3, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
 
+                g2.rotate(-Math.PI / 2);
                 break;
 
             case UP:

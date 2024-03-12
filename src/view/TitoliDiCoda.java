@@ -6,7 +6,7 @@ public class TitoliDiCoda {
 
     //Francesco voice actor, beta tester
     //Bea   sprite editing
-    //Lorenzo   code reviewer
+    //Lorenzo Pizzuti  code reviewer
     //Salvatore beta tester
     //Armando   mental health
 

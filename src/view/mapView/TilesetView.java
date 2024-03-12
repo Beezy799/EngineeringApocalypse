@@ -6,6 +6,7 @@ import src.view.main.GamePanel;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class TilesetView {
 
@@ -20,11 +21,23 @@ public class TilesetView {
     public TilesetView(){
         tiles = new ArrayList<>();
         saveFirstLayerImages();
-        //saveSecondLayerImages();
-        //saveSeconAnimatedLayerImages();
+        //System.out.println("primo strato " + (tiles.size()-1));
+
+        saveSecondLayerImages();
+        //System.out.println("secondo strato " + (tiles.size()-1));
+
+        saveSeconAnimatedLayerImages();
+        //System.out.println("tempo strato " + (tiles.size()-1));
+
+        saveThirdLayerImages();
+        //System.out.println("quarto strato " + (tiles.size()-1));
     }
 
     private void saveSeconAnimatedLayerImages() {
+
+        //la frequenza di cambiamento immagine dei tile animati è randomica
+        Random randomFreq = new Random();
+
         BufferedImage sourceLayerImage = null;
         BufferedImage temp = null;
         try {
@@ -33,15 +46,33 @@ public class TilesetView {
         catch(Exception e) {
             e.printStackTrace();
         }
+        //numero tile nell'immagine
         int numberTileSecondLayer = sourceLayerImage.getHeight()/GamePanel.TILES_DEFAULT_SIZE;
+
+        //System.out.println("numero tile secondo strato animato " + numberTileSecondLayer);
+
+        //stavolta prende coppie di tile, perchè quelli animati hanno due immagini
         for(int i = 0; i < numberTileSecondLayer; i += 2) {
 
-            temp = sourceLayerImage.getSubimage(0, i*GamePanel.TILES_DEFAULT_SIZE, GamePanel.TILES_DEFAULT_SIZE, GamePanel.TILES_DEFAULT_SIZE);
-
             BufferedImage[] imagesInTile = new BufferedImage[2];
+            //prende il primo della coppia
+            temp = sourceLayerImage.getSubimage(0, i*GamePanel.TILES_DEFAULT_SIZE, GamePanel.TILES_DEFAULT_SIZE, GamePanel.TILES_DEFAULT_SIZE);
             imagesInTile[0] = temp;
 
-            tiles.add(new TileView(imagesInTile));
+            //prende il secondo
+            temp = sourceLayerImage.getSubimage(0, (i+1) * GamePanel.TILES_DEFAULT_SIZE, GamePanel.TILES_DEFAULT_SIZE, GamePanel.TILES_DEFAULT_SIZE);
+            imagesInTile[1] = temp;
+
+            //aggiunge i tile al tileset
+            if(i > 8) {
+                //la frequenza varia tra 2 e 21
+                int freq = randomFreq.nextInt(20) + 2;
+                tiles.add(new TileView(imagesInTile, freq));
+            }
+            //i tile della tv devono cambiare con la stessa freq
+            else{
+                tiles.add(new TileView(imagesInTile));
+            }
         }
     }
 
@@ -59,6 +90,9 @@ public class TilesetView {
             e.printStackTrace();
         }
         int numberTileSecondLayer = sourceLayerImage.getHeight()/GamePanel.TILES_DEFAULT_SIZE;
+
+        //System.out.println("numero tile secondo strato " + numberTileSecondLayer);
+
         for(int i = 0; i < numberTileSecondLayer; i++) {
             temp = sourceLayerImage.getSubimage(0, i*GamePanel.TILES_DEFAULT_SIZE, GamePanel.TILES_DEFAULT_SIZE, GamePanel.TILES_DEFAULT_SIZE);
             BufferedImage[] imagesInTile = new BufferedImage[1];
@@ -94,10 +128,11 @@ public class TilesetView {
         tiles.add(new TileView(nullImageTile));
 
 
-
-
         //quanti tile ci sono = altezza immagine / altezza quadratino
         int numberTileFirstLayer = sourceLayerImage.getHeight()/GamePanel.TILES_DEFAULT_SIZE;
+
+        //System.out.println("numero tile primo strato " + numberTileFirstLayer);
+
         for(int i = 0; i < numberTileFirstLayer; i++) {
             //ritaglia il tile dall'immagine originale
             temp = sourceLayerImage.getSubimage(0, i* GamePanel.TILES_DEFAULT_SIZE, GamePanel.TILES_DEFAULT_SIZE, GamePanel.TILES_DEFAULT_SIZE);
@@ -110,4 +145,21 @@ public class TilesetView {
         }
     }
 
+    private void saveThirdLayerImages() {
+        BufferedImage sourceLayerImage = null;
+        BufferedImage temp = null;
+        try {
+            sourceLayerImage = ImageIO.read(getClass().getResourceAsStream(thirdLayerPath));
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        int numberTileSecondLayer = sourceLayerImage.getHeight()/GamePanel.TILES_DEFAULT_SIZE;
+        for(int i = 0; i < numberTileSecondLayer; i++) {
+            temp = sourceLayerImage.getSubimage(0, i*GamePanel.TILES_DEFAULT_SIZE, GamePanel.TILES_DEFAULT_SIZE, GamePanel.TILES_DEFAULT_SIZE);
+            BufferedImage[] imagesInTile = new BufferedImage[1];
+            imagesInTile[0] = temp;
+            tiles.add(new TileView(imagesInTile));
+        }
+    }
 }

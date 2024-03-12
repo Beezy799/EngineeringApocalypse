@@ -10,7 +10,7 @@ public enum Rooms {
     //lista eventi
 
 
-    AULA_STUDIO("/res/map/e.json");
+    AULA_STUDIO("/res/map/dormitorio.json");
 
     private Map map;
     private int valorePerProvare;

@@ -3,7 +3,10 @@ package src.model.mapModel;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.json.simple.JSONArray;
 import src.model.Hitbox;
@@ -12,14 +15,20 @@ import src.model.Hitbox;
 public class TilesetModel {
 
     TileModel[] tiles;
+    TileCmplete[] tilesComplete;
+
+
 
     public void loadTileset(String tilesetPath){
 
         JSONParser parser = new JSONParser();
+        BufferedReader reader = null;
 
         try {
+            InputStream is = getClass().getResourceAsStream(tilesetPath);
+            reader = new BufferedReader(new InputStreamReader(is));
             // Leggi il file JSON
-            Object obj = parser.parse(new FileReader(tilesetPath));
+            Object obj = parser.parse(reader);
 
             // Crea un oggetto JSON
             JSONObject jsonObject = (JSONObject) obj;
@@ -29,6 +38,11 @@ public class TilesetModel {
 
             //ora che abbiamo il numero dei tile, possiamo creare l'array
             tiles = new TileModel[tilesJson.size()];
+            tilesComplete = new TileCmplete[tilesJson.size()];
+
+            System.out.println(tilesJson.size());
+
+
 
             // Itera attraverso gli elementi dell'array "tiles"
             for (int index = 0; index < tilesJson.size(); index++) {

@@ -20,7 +20,7 @@ public class IModel {
         int v = Rooms.AULA_STUDIO.getValorePerProvare();
 
         TilesetModel tileset = new TilesetModel();
-        //tileset.loadTileset("res/map/tileset.json");
+        tileset.loadTileset("/res/map/tilesetChat.json");
 
     }
 
