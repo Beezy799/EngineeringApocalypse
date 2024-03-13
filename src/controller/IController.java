@@ -13,24 +13,28 @@ public class IController {
     private IView view;
     private IModel model;
     private PlayerController playerController;
+    private PlayStateController playStateController;
 
     //serve per bloccare le variabili dell'inputstate mentre il controller le legge, in modo da evitare inconsistenze
     ReentrantLock lock;
 
     public IController(){
         lock = new ReentrantLock();
-        playerController = new PlayerController(this);
+        playStateController = new PlayStateController(this);
+        playerController = new PlayerController(this, playStateController);
+
     }
 
     public void setView(IView v) {
         this.view = v;
     }
     public void setModel(IModel m) { this.model = m; }
-
     public IView getView() {
         return view;
     }
-
+    public IModel getModel(){
+        return model;
+    }
     public PlayerController getPlayerController(){
         return playerController;
     }

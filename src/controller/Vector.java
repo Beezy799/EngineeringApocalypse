@@ -2,7 +2,7 @@ package src.controller;
 
 public class Vector {
 
-    private float x, y, module;
+    private int x, y, module;
 
     public Vector (){
         x = 0;
@@ -12,27 +12,27 @@ public class Vector {
 
 
 
-    public void setX(float x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public void setY(float y) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    public void setModule(float module) {
+    public void setModule(int module) {
         this.module = module;
     }
 
-    public float getX() {
+    public int getX() {
         return x;
     }
 
-    public float getY() {
+    public int getY() {
         return y;
     }
 
-    public float getModule() {
+    public int getModule() {
         return module;
     }
 }

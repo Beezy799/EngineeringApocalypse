@@ -1,25 +1,21 @@
 package src.model;
 
 import src.controller.IController;
-import src.model.mapModel.Map;
 import src.model.mapModel.Rooms;
-import src.model.mapModel.TilesetModel;
+import src.model.mapModel.Tileset;
 import src.view.IView;
-
-import java.io.File;
-import java.net.URL;
 
 public class IModel {
 
     private IController controller;
     private IView view;
 
+    private Tileset tileset;
+
     public IModel(IController contr){
         this.controller = contr;
 
-        int v = Rooms.AULA_STUDIO.getValorePerProvare();
-
-        TilesetModel tileset = new TilesetModel();
+        tileset = new Tileset();
         tileset.loadTileset("/res/map/tilesetChat.json");
 
     }
@@ -31,6 +27,9 @@ public class IModel {
     public void changeGameState(GameState nextGameState){
         GameState.actualState = nextGameState;
     }
-    
+
+    public Tileset getTileset(){
+        return tileset;
+    }
 
 }

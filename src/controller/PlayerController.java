@@ -1,18 +1,30 @@
 package src.controller;
 
 import src.model.EntityStates;
+import src.model.Hitbox;
+import src.view.main.GamePanel;
 
 public class PlayerController {
 
     private IController controller;
-    private float xPosPlayer = 0, yPosPlayer = 0; //posizione del player
+    private PlayStateController playStateController;
+    private int xPosPlayer = 20*GamePanel.TILES_SIZE, yPosPlayer = 15*GamePanel.TILES_SIZE; //posizione del player
     private  Vector movementVector; //"direzione" del player
     private EntityStates actualState = EntityStates.IDLE;
     private boolean stateLocked = false;
 
-    public PlayerController(IController c){
+    private Hitbox hitbox;
+
+    //per evitare il problema dello sticky wall, prima di aggiornare la posizione della hitbox vera, aggiorniamo questa
+    //hitbox temporanea nel punto dove andrebbe la vera hiybox dopo il movimento
+    private Hitbox tempHitbox;
+
+    public PlayerController(IController c, PlayStateController p){
         controller = c;
         movementVector = new Vector();
+        playStateController = p;
+        hitbox = new Hitbox(xPosPlayer,yPosPlayer, GamePanel.TILES_SIZE/2, GamePanel.TILES_SIZE/2);
+        tempHitbox = new Hitbox(xPosPlayer,yPosPlayer, GamePanel.TILES_SIZE/2, GamePanel.TILES_SIZE/2);
     }
 
     public void update(){
@@ -40,9 +52,42 @@ public class PlayerController {
     }
 
     private void updatePosition() {
-        //resetDirectionVector();
-        xPosPlayer += movementVector.getX();
-        yPosPlayer += movementVector.getY();
+        boolean canMove = true;
+        //sta andando a sinistra
+        if(movementVector.getX() < 0){
+            tempHitbox.setX(hitbox.getX() + movementVector.getX());
+            tempHitbox.setY(hitbox.getY() + movementVector.getY());
+            canMove = playStateController.getCollisionChecker().canGoLeft(tempHitbox);
+        }
+        //sta andando su
+        if(movementVector.getY() < 0){
+            tempHitbox.setX(hitbox.getX() + movementVector.getX());
+            tempHitbox.setY(hitbox.getY() + movementVector.getY());
+            canMove = playStateController.getCollisionChecker().canGoUp(tempHitbox);
+        }
+        //sta andando giu
+        if(movementVector.getY() > 0){
+            tempHitbox.setX(hitbox.getX() + movementVector.getX());
+            tempHitbox.setY(hitbox.getY() + movementVector.getY());
+            canMove = playStateController.getCollisionChecker().canGoDown(tempHitbox);
+        }
+        //sta andando a destra
+        if(movementVector.getX() > 0){
+            tempHitbox.setX(hitbox.getX() + movementVector.getX());
+            tempHitbox.setY(hitbox.getY() + movementVector.getY());
+            canMove = playStateController.getCollisionChecker().canGoRight(tempHitbox);
+        }
+
+
+        if(canMove){
+            xPosPlayer = xPosPlayer + movementVector.getX();
+            yPosPlayer = yPosPlayer + movementVector.getY();
+            hitbox.setX(xPosPlayer + movementVector.getX());
+            hitbox.setY(yPosPlayer + movementVector.getY());
+        }
+
+
+
     }
 
     public void resetDirectionVector() {
@@ -50,11 +95,11 @@ public class PlayerController {
         movementVector.setY(0);
     }
 
-    public void setxPosPlayer(float xPosPlayer) {
+    public void setxPosPlayer(int xPosPlayer) {
         this.xPosPlayer = xPosPlayer;
     }
 
-    public void setyPosPlayer(float yPosPlayer) {
+    public void setyPosPlayer(int yPosPlayer) {
         this.yPosPlayer = yPosPlayer;
     }
 
@@ -109,5 +154,9 @@ public class PlayerController {
 
     public EntityStates getCurrentState(){
         return actualState;
+    }
+
+    public Hitbox getHitbox(){
+        return hitbox;
     }
 }

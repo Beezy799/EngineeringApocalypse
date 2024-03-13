@@ -10,10 +10,9 @@ public enum Rooms {
     //lista eventi
 
 
-    AULA_STUDIO("/res/map/dormitorio.json");
+    DORMITORIO("/res/map/dormitorio.json");
 
     private Map map;
-    private int valorePerProvare;
 
     //costruttore
     Rooms(String mapPath){
@@ -22,14 +21,10 @@ public enum Rooms {
       //System.out.println("stanza creata");
     }
 
-    public static Rooms actualRoom = AULA_STUDIO;
+    public static Rooms actualRoom = DORMITORIO;
 
     public Map getMap(){
         return map;
-    }
-
-    public int getValorePerProvare(){
-        return valorePerProvare;
     }
 
 }

@@ -4,19 +4,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.json.simple.JSONArray;
 import src.model.Hitbox;
+import src.view.main.GamePanel;
 
+public class Tileset {
 
-public class TilesetModel {
-
-    TileModel[] tiles;
     TileCmplete[] tilesComplete;
-
 
 
     public void loadTileset(String tilesetPath){
@@ -37,12 +34,7 @@ public class TilesetModel {
             JSONArray tilesJson = (JSONArray) jsonObject.get("tiles");
 
             //ora che abbiamo il numero dei tile, possiamo creare l'array
-            tiles = new TileModel[tilesJson.size()];
             tilesComplete = new TileCmplete[tilesJson.size()];
-
-            System.out.println(tilesJson.size());
-
-
 
             // Itera attraverso gli elementi dell'array "tiles"
             for (int index = 0; index < tilesJson.size(); index++) {
@@ -55,13 +47,13 @@ public class TilesetModel {
                 //prendiamo la hitbox del tile
                 JSONArray bounds = (JSONArray) tileObject.get("bounds");
                 Hitbox hitbox = new Hitbox();
-                hitbox.setX(Integer.parseInt(bounds.get(0).toString()));
-                hitbox.setY(Integer.parseInt(bounds.get(1).toString()));
-                hitbox.setWidth(Integer.parseInt(bounds.get(2).toString()));
-                hitbox.setHeight(Integer.parseInt(bounds.get(3).toString()));
+                hitbox.setX((int)(Integer.parseInt(bounds.get(0).toString()) * GamePanel.SCALE));
+                hitbox.setY((int)(Integer.parseInt(bounds.get(1).toString()) * GamePanel.SCALE));
+                hitbox.setWidth((int)(Integer.parseInt(bounds.get(2).toString()) * GamePanel.SCALE));
+                hitbox.setHeight((int)(Integer.parseInt(bounds.get(3).toString()) * GamePanel.SCALE));
 
-                //ora che abbiamo tutti i campi, creo il tile e lo metto nell'array
-                tiles[index] = new TileModel(tipo, solid, hitbox);
+                //ora che abbiamo tutti i campi, creo il tileModel e lo metto nel corrispondete tile completo nell'array
+                tilesComplete[index] =  new TileCmplete(new TileModel(tipo, solid, hitbox));
             }
         }
         catch (Exception e) {
@@ -69,4 +61,14 @@ public class TilesetModel {
         }
 
     }
+
+
+    public TileCmplete[] getTileArray(){
+        return tilesComplete;
+    }
+
+    public TileCmplete getTile(int index){
+        return tilesComplete[index];
+    }
+
 }

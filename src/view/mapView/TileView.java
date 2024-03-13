@@ -10,7 +10,7 @@ public class TileView {
     private BufferedImage[] tileAnimation;
     private int currentImageIndex;
     private int counter;
-    private int freq = 20;
+    private int freq = 200;
 
     public TileView(BufferedImage[] images) {
         tileAnimation = images;
@@ -22,6 +22,7 @@ public class TileView {
 
     //nuovo costruttore, in modo che i tile animati non cambino immagine tutti allo stesso momento
     public TileView(BufferedImage[] images, int freq) {
+        this.freq = freq;
         tileAnimation = images;
         //scala le immagini ricevute
         for(BufferedImage image : tileAnimation) {
@@ -43,10 +44,10 @@ public class TileView {
         if (counter >= freq) {
             currentImageIndex++;
             //se l'indice è fuori dall'array, si resettano i contatori
-            if(currentImageIndex >= tileAnimation.length) {
-                counter = 0;
+            if(currentImageIndex > tileAnimation.length - 1) {
                 currentImageIndex = 0;
             }
+            counter = 0;
         }
     }
 

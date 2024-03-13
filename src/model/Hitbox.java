@@ -2,6 +2,16 @@ package src.model;
 
 public class Hitbox {
 
+    private int x, y, width, height;
+
+
+    public Hitbox(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+
     public int getX() {
         return x;
     }
@@ -16,16 +26,6 @@ public class Hitbox {
 
     public int getHeight() {
         return height;
-    }
-
-    private int x, y, width, height;
-
-
-    public Hitbox(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
     }
 
     public void setX(int x) {
@@ -54,9 +54,11 @@ public class Hitbox {
     }
 
     public boolean intersects(Hitbox r)  {
-        return r.width > 0 && r.height > 0 && width > 0 && height > 0
+        boolean schianto = r.width > 0 && r.height > 0 && width > 0 && height > 0
                 && r.x < x + width && r.x + r.width > x
                 && r.y < y + height && r.y + r.height > y;
+
+        return schianto;
     }
 
 }

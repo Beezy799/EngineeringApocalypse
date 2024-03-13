@@ -1,18 +1,15 @@
 package src.view;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import src.controller.IController;
 import src.model.GameState;
 import src.model.IModel;
-import src.model.mapModel.Rooms;
 import src.view.entityView.PlayerView;
 import src.view.gameBegin.StartTitle;
 import src.view.inputs.MouseInputs;
 import src.view.main.GamePanel;
 import src.view.main.GameWindow;
-import src.view.mapView.TilesetView;
 import src.view.menu.AvatarMenu;
 import src.view.menu.MainMenu;
 import src.view.menu.OptionMenu;
@@ -59,9 +56,7 @@ PlayStateView playStateView;
         playStateView = new PlayStateView(this);
 
         soundManager = new SoundManager();
-        //soundManager.playMusic(MENU_MUSIC);
-
-
+        soundManager.playMusic(MENU_MUSIC);
     }
 
     //chiede al pannello di creare il suo ambiente grafico, g, che poi userà per disegnare il frame successivo
@@ -154,5 +149,9 @@ PlayStateView playStateView;
 
     public PlayerView getPlayerWiew() {
         return playStateView.getPlayerView();
+    }
+
+    public IModel getModel(){
+        return model;
     }
 }

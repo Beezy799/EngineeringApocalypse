@@ -66,6 +66,7 @@ public class PlayerView {
                 break;
             case PARRING:
                 parringDraw(g2);
+                //drawShield(g2);
                 break;
             case DYING:
                 dyingDraw(g2);
@@ -88,6 +89,12 @@ public class PlayerView {
         //disegna la sua posizione come un piccolo quadratino
         g2.setColor(Color.red);
         g2.fillRect(GamePanel.CENTER_X_GAME_PANEL, GamePanel.CENTER_Y_GAME_PANEL, 5, 5);
+
+        //disegna la hitbox del giocatore
+        g2.setColor(Color.blue);
+        g2.drawRect(GamePanel.CENTER_X_GAME_PANEL, GamePanel.CENTER_Y_GAME_PANEL,
+                                            view.getController().getPlayerController().getHitbox().getWidth(),
+                                            view.getController().getPlayerController().getHitbox().getHeight());
 
 
     }
@@ -139,6 +146,45 @@ public class PlayerView {
 
     }
 
+    private void drawShield(Graphics2D g2) {
+        animationCounter++;
+
+        if (animationCounter > animationSpeed)
+            numSprite++;
+
+        if(numSprite > 5)
+            numSprite = 0;
+
+        BufferedImage image = null;
+        try {
+            if(numSprite == 0)
+                image = ImageIO.read(getClass().getResourceAsStream("/res/entity/energyShield1.png"));
+
+            else if(numSprite == 1)
+                image = ImageIO.read(getClass().getResourceAsStream("/res/entity/energyShield2.png"));
+
+            else if(numSprite == 2)
+                image = ImageIO.read(getClass().getResourceAsStream("/res/entity/energyShield3.png"));
+
+            else if(numSprite == 3)
+                image = ImageIO.read(getClass().getResourceAsStream("/res/entity/energyShield4.png"));
+
+            else if(numSprite == 4)
+                image = ImageIO.read(getClass().getResourceAsStream("/res/entity/energyShield5.png"));
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        image = ViewUtils.scaleImage(image, 2*GamePanel.TILES_SIZE, 2*GamePanel.TILES_SIZE);
+        g2.drawImage(image, GamePanel.CENTER_X_GAME_PANEL - GamePanel.TILES_SIZE, GamePanel.CENTER_Y_GAME_PANEL - GamePanel.TILES_SIZE, null);
+
+        if(animationCounter >= 240) {
+            view.getController().getPlayerController().unlockState();
+            animationCounter = 0;
+        }
+    }
+
     private void specialDraw(Graphics2D g2) {
         //disegna l'animazione fino alla fine
         animationCounter++;
@@ -169,11 +215,12 @@ public class PlayerView {
 
         // tutto lo schermo si scurice, per rendere l'attacco più epico
         g2.setColor(Color.black);
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
         g2.fillRect(0,0, GamePanel.GAME_WIDTH,GamePanel.GAME_HEIGHT);
 
         //larghezza dei due rect che formano l'onda
         int widthAttackRect, widthattackBackgroundRect, heightAttackRect, heightAttackRectBackground;
+        int x, y;
 
         //per disegnare le stringhe dall'alto verso il basso e viceversa
         AffineTransform defaultAt = g2.getTransform();
@@ -195,36 +242,35 @@ public class PlayerView {
                     widthattackBackgroundRect = 2 + GamePanel.TILES_SIZE;
 
                 //rect trasparente
+                x = GamePanel.CENTER_X_GAME_PANEL - widthattackBackgroundRect /2 + 4;
+                y = yOnScreen + GamePanel.TILES_SIZE;
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-                g2.fillRoundRect(GamePanel.CENTER_X_GAME_PANEL - widthattackBackgroundRect /2 + 4, yOnScreen + GamePanel.TILES_SIZE, widthattackBackgroundRect, yOnScreen + 10, 20, 20);
+                g2.fillRoundRect(x, y, widthattackBackgroundRect, yOnScreen + 10, 20, 20);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
 
                 //rect interno
-                g2.fillRoundRect(GamePanel.CENTER_X_GAME_PANEL - widthAttackRect /2 + 4, yOnScreen + GamePanel.TILES_SIZE, widthAttackRect, yOnScreen + 10, 20, 20);
+                x = GamePanel.CENTER_X_GAME_PANEL - widthAttackRect /2 + 4;
+                y = yOnScreen + GamePanel.TILES_SIZE;
+                g2.fillRoundRect(x, y, widthAttackRect, yOnScreen + 10, 20, 20);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
                 //stream di bits
-                //trasformata per girare la stringa di bit
-//                at2 = AffineTransform.getQuadrantRotateInstance(1);
-//                g2.setTransform(at2);
                 g2.setColor(Color.green);
                 g2.rotate(Math.PI / 2);
 
-                g2.drawString(attackStream, 0, -GamePanel.CENTER_X_GAME_PANEL);
-
                 //le stringhe di bit si alternano 6 volte
-//                if(animationCounter < 40)
-//                    g2.drawString(attackStream, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
-//                else if(animationCounter >= 40 && animationCounter < 80)
-//                    g2.drawString(attackStream2, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
-//                else if (animationCounter >= 80 && animationCounter < 120)
-//                    g2.drawString(attackStream3, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
-//                else if (animationCounter >= 120 && animationCounter < 160)
-//                    g2.drawString(attackStream, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
-//                else if (animationCounter >= 160 && animationCounter < 200)
-//                    g2.drawString(attackStream2, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
-//                else if (animationCounter >= 200 && animationCounter < 240)
-//                    g2.drawString(attackStream3, GamePanel.CENTER_Y_GAME_PANEL + 10, -GamePanel.CENTER_X_GAME_PANEL);
+                if(animationCounter < 40)
+                    g2.drawString(attackStream, GamePanel.CENTER_Y_GAME_PANEL, -GamePanel.CENTER_X_GAME_PANEL);
+                else if(animationCounter >= 40 && animationCounter < 80)
+                    g2.drawString(attackStream2, GamePanel.CENTER_Y_GAME_PANEL, -GamePanel.CENTER_X_GAME_PANEL);
+                else if (animationCounter >= 80 && animationCounter < 120)
+                    g2.drawString(attackStream3, GamePanel.CENTER_Y_GAME_PANEL, -GamePanel.CENTER_X_GAME_PANEL);
+                else if (animationCounter >= 120 && animationCounter < 160)
+                    g2.drawString(attackStream, GamePanel.CENTER_Y_GAME_PANEL, -GamePanel.CENTER_X_GAME_PANEL);
+                else if (animationCounter >= 160 && animationCounter < 200)
+                    g2.drawString(attackStream2, GamePanel.CENTER_Y_GAME_PANEL, -GamePanel.CENTER_X_GAME_PANEL);
+                else if (animationCounter >= 200 && animationCounter < 240)
+                    g2.drawString(attackStream3, GamePanel.CENTER_Y_GAME_PANEL, -GamePanel.CENTER_X_GAME_PANEL);
 
                 g2.rotate(-Math.PI / 2);
                 break;
@@ -240,36 +286,36 @@ public class PlayerView {
                     widthattackBackgroundRect = 2 + GamePanel.TILES_SIZE;
 
                 //rect trasparente
+                x = GamePanel.CENTER_X_GAME_PANEL - widthattackBackgroundRect /2 + 4;
+                y = 0;
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-                g2.fillRoundRect(GamePanel.CENTER_X_GAME_PANEL - widthattackBackgroundRect /2 + 4, 0, widthattackBackgroundRect, yOnScreen, 20, 20);
+                g2.fillRoundRect(x, y, widthattackBackgroundRect, yOnScreen, 20, 20);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
 
                 //rect interno
-                g2.fillRoundRect(GamePanel.CENTER_X_GAME_PANEL - widthAttackRect /2 + 4, 0, widthAttackRect, yOnScreen, 20, 20);
+                x = GamePanel.CENTER_X_GAME_PANEL - widthAttackRect /2 + 4;
+                g2.fillRoundRect(x, y, widthAttackRect, yOnScreen, 20, 20);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
                 //stream di bits
-                //trasformata per girare la stringa di bit
-                at2 = AffineTransform.getQuadrantRotateInstance(1);
-                g2.setTransform(at2);
                 g2.setColor(Color.green);
+                g2.rotate(Math.PI / 2);
 
                 //le stringhe di bit si alternano 6 volte
                 if(animationCounter < 40)
-                    g2.drawString(attackStream, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2) - 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
+                    g2.drawString(attackStream, -GamePanel.CENTER_Y_GAME_PANEL + 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
                 else if(animationCounter >= 40 && animationCounter < 80)
-                    g2.drawString(attackStream2, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream2, g2) - 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
+                    g2.drawString(attackStream2, -GamePanel.CENTER_Y_GAME_PANEL + 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
                 else if (animationCounter >= 80 && animationCounter < 120)
-                    g2.drawString(attackStream3, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream3, g2) - 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
+                    g2.drawString(attackStream3, -GamePanel.CENTER_Y_GAME_PANEL + 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
                 else if (animationCounter >= 120 && animationCounter < 160)
-                    g2.drawString(attackStream, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2) - 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
+                    g2.drawString(attackStream, -GamePanel.CENTER_Y_GAME_PANEL + 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
                 else if (animationCounter >= 160 && animationCounter < 200)
-                    g2.drawString(attackStream2, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream2, g2) - 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
+                    g2.drawString(attackStream2, -GamePanel.CENTER_Y_GAME_PANEL + 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
                 else if (animationCounter >= 200 && animationCounter < 240)
-                    g2.drawString(attackStream3, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream3, g2) - 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
+                    g2.drawString(attackStream3, -GamePanel.CENTER_Y_GAME_PANEL + 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
 
-                //gli assi tornano quelli di prima
-                g2.setTransform(defaultAt);
+                g2.rotate(-Math.PI / 2);
                 break;
 
             case RIGHT:
@@ -361,9 +407,6 @@ public class PlayerView {
 
                 break;
         }
-
-        //gli assi tornano quelli di prima
-        g2.setTransform(defaultAt);
 
         if(animationCounter >= 240) {
             view.getController().getPlayerController().unlockState();
@@ -629,7 +672,7 @@ public class PlayerView {
     private void loadAttackImages(BufferedImage image, BufferedImage temp) {
         playerAnimation[RAGAZZO][EntityStates.ATTACKING.getConstantInAnimationArray()] = new BufferedImage[4][5];        //ci sono 4 direzioni, ogni direzione ha 5 immagini
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/res/player/attaccoRagazzo.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/player/attaccoRagazzo1.png"));
 
             for (int i = 0; i < 5; i++) {
                 temp = image.getSubimage(i * 26, 0, 26, 42);
@@ -644,7 +687,7 @@ public class PlayerView {
             }
 
             for (int i = 0; i < 5; i++) {
-                temp = image.getSubimage(i * 35, 80, 35, 36);
+                temp = image.getSubimage(i * 35, 80, 35, 37);
                 temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
                 playerAnimation[RAGAZZO][EntityStates.ATTACKING.getConstantInAnimationArray()][LEFT][i] = temp;
             }
@@ -822,7 +865,8 @@ public class PlayerView {
     }
 
     public void setGender(int i){
-        gender = i;
+        if(gender == RAGAZZO || gender == RAGAZZA)
+            gender = i;
     }
 
 } //end class
