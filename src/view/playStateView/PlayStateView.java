@@ -1,12 +1,14 @@
-package src.view;
+package src.view.playStateView;
 
-import src.model.Hitbox;
 import src.model.mapModel.Rooms;
+import src.view.IView;
 import src.view.entityView.PlayerView;
 import src.view.main.GamePanel;
 import src.view.mapView.TileImageLoader;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class PlayStateView {
 
@@ -14,26 +16,65 @@ public class PlayStateView {
     private TileImageLoader tileImageLoader;
     private PlayerView playerView;
 
+    private ArrayList<SortableElement> elementsAboveTheFloor;
+
     public PlayStateView(IView v){
         iView = v;
         playerView = new PlayerView(v);
         tileImageLoader = new TileImageLoader(v);
         tileImageLoader = null;
+        elementsAboveTheFloor = new ArrayList<>();
     }
 
     public void draw(Graphics2D g2){
         //per disegnare gli oggetti nella giusta posizione sullo schermo, ci prendiamo la posizione del player nella mappa
         //ci troviamo la posizione dell'oggetto relativa al player e capiamo dove esso si trova sullo schermo, sapendo
         //che il player è sempre al centro
-        int xPlayer = (int)iView.getController().getPlayerController().getxPosPlayer();
-        int yPlayer = (int)iView.getController().getPlayerController().getyPosPlayer();
+        int xPlayer = iView.getController().getPlayerController().getxPosPlayer();
+        int yPlayer = iView.getController().getPlayerController().getyPosPlayer();
 
         drawFirstLayer(g2, xPlayer, yPlayer);
         drawSecondLayer(g2, xPlayer, yPlayer);
-        drawThirdLayer(g2, xPlayer, yPlayer);
-        drawFourthLayer(g2, xPlayer, yPlayer);
 
-        playerView.draw(g2);
+        //mettimao i tile dei livelli 3 e 4 nella lista
+        addTilesToSortList();
+        //mettiamo le creature, per ora solo il giocatore
+        elementsAboveTheFloor.add(playerView);
+        //ordiniamo la lista
+        //collections è una classe di utilità che implementa un algoritmo veloce di ordinamento
+        Collections.sort(elementsAboveTheFloor);
+        //disegnamo le cose in ordine
+        drawAllEnementsAboveTheFloor(g2, xPlayer, yPlayer);
+        //svuotiamo la lista, perchè verrà ridisegnato ogni volta
+        elementsAboveTheFloor.clear();
+
+    }
+
+    private void drawAllEnementsAboveTheFloor(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
+        for(int i = 0; i < elementsAboveTheFloor.size(); i++)
+            elementsAboveTheFloor.get(i).draw(g2, xPlayerMap, yPlayerMap);
+    }
+
+    private void addTilesToSortList() {
+        int[][] thirdLayer = Rooms.actualRoom.getMap().getTthirdLayer();
+        for(int row = 0; row < thirdLayer.length; row++){
+            for(int col = 0; col < thirdLayer[0].length; col++){
+                if(thirdLayer[row][col] > 0) {
+                    SortableTile tileToAdd = new SortableTile(iView, thirdLayer[row][col], 3, col, row);
+                    elementsAboveTheFloor.add(tileToAdd);
+                }
+            }
+        }
+
+        int[][] fourthLayer = Rooms.actualRoom.getMap().getFouthLayer();
+        for(int row = 0; row < fourthLayer.length; row++){
+            for(int col = 0; col < fourthLayer[0].length; col++){
+                if(fourthLayer[row][col] > 0) {
+                    SortableTile tileToAdd = new SortableTile(iView, fourthLayer[row][col], 4, col, row);
+                    elementsAboveTheFloor.add(tileToAdd);
+                }
+            }
+        }
     }
 
     private void drawFirstLayer(Graphics2D g2, int xPlayerpos, int yPlayerPos) {

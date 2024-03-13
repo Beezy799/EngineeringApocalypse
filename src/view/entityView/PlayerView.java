@@ -5,6 +5,7 @@ import src.model.GameState;
 import src.view.IView;
 import src.view.ViewUtils;
 import src.view.main.GamePanel;
+import src.view.playStateView.SortableElement;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -16,7 +17,7 @@ import static src.view.main.GamePanel.SCALE;
 
 import javax.imageio.ImageIO;
 
-public class PlayerView {
+public class PlayerView extends SortableElement {
 
     private IView view;
     //campo 0 = tipo(ragazzo-ragazza), primo campo = azione, secondo = direzione, terzo = sprite
@@ -43,10 +44,12 @@ public class PlayerView {
     public PlayerView(IView v) {
         this.view = v;
 
+        typeElemtToSort = 5;
+        yPosMapForSort = view.getController().getPlayerController().getyPosPlayer();
         loadImages();
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2, int x, int y) {
 
         getCurrentStateFromController();
 
@@ -92,11 +95,10 @@ public class PlayerView {
 
         //disegna la hitbox del giocatore
         g2.setColor(Color.blue);
-        g2.drawRect(GamePanel.CENTER_X_GAME_PANEL, GamePanel.CENTER_Y_GAME_PANEL,
-                                            view.getController().getPlayerController().getHitbox().getWidth(),
-                                            view.getController().getPlayerController().getHitbox().getHeight());
-
-
+        g2.drawRect(GamePanel.CENTER_X_GAME_PANEL - GamePanel.TILES_SIZE/4,
+                       GamePanel.CENTER_Y_GAME_PANEL,
+                       view.getController().getPlayerController().getHitbox().getWidth(),
+                       view.getController().getPlayerController().getHitbox().getHeight());
     }
 
     //finita l'animazione della morte, il gioco va nello stato game over
@@ -867,6 +869,10 @@ public class PlayerView {
     public void setGender(int i){
         if(gender == RAGAZZO || gender == RAGAZZA)
             gender = i;
+    }
+
+    public void setYposMapToSort(int playerPos){
+        this.yPosMapForSort = playerPos - yOffset;
     }
 
 } //end class

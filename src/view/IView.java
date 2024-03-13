@@ -14,6 +14,7 @@ import src.view.menu.AvatarMenu;
 import src.view.menu.MainMenu;
 import src.view.menu.OptionMenu;
 import src.view.menu.PauseMenu;
+import src.view.playStateView.PlayStateView;
 
 import static src.model.Constants.SoundConstants.MENU_MUSIC;
 
