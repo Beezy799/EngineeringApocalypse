@@ -10,7 +10,13 @@ public enum Rooms {
     //lista eventi
 
 
-    DORMITORIO("/res/map/dormitorio.json");
+    DORMITORIO("/res/map/dormitorio.json"),
+    BIBLIOTECA("/res/map/biblioteca.json"),
+    STUDIO_PROF("/res/map/studioProf.json"),
+    LABORATORIO("/res/map/laboratorio.json"),
+    AULA_STUDIO("/res/map/aulaStudio.json"),
+
+    TENDA("/res/map/tenda.json");
 
     private Map map;
 
@@ -18,10 +24,9 @@ public enum Rooms {
     Rooms(String mapPath){
       map = new Map();
       map.loadMap(mapPath);
-      //System.out.println("stanza creata");
     }
 
-    public static Rooms actualRoom = DORMITORIO;
+    public static Rooms actualRoom = TENDA;
 
     public Map getMap(){
         return map;
