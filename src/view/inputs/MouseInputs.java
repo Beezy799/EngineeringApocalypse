@@ -52,6 +52,9 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 		case PAUSE:
 			view.getPause().mouseMoved(e);
 			break;
+			case COMMAND_EXPLAINATION:
+				view.getCommandsExplaination().mouseMoved(e);
+				break;
 		default:
 			break;
 
@@ -88,11 +91,13 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 		case PAUSE:
 			view.getPause().mousePressed(e);
 			break;
+			case COMMAND_EXPLAINATION:
+				view.getCommandsExplaination().mousePressed(e);
+				break;
 		default:
 			break;
 		}
 	}
-	
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
@@ -112,6 +117,9 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 		case PAUSE:
 			view.getPause().mouseReleased(e);
 			break;
+			 case COMMAND_EXPLAINATION:
+				 view.getCommandsExplaination().mouseReleased(e);
+				 break;
 /*		case DIALOGUE:
 			int index = view.getController().getPlay().getPlayer().getIndexOfEntityInteract();
 			view.getPlay().getRoom(view.getCurrentRoomIndex()).getNPC(index).nextDialogueLine();

@@ -10,13 +10,8 @@ import src.view.gameBegin.StartTitle;
 import src.view.inputs.MouseInputs;
 import src.view.main.GamePanel;
 import src.view.main.GameWindow;
-import src.view.menu.AvatarMenu;
-import src.view.menu.MainMenu;
-import src.view.menu.OptionMenu;
-import src.view.menu.PauseMenu;
+import src.view.menu.*;
 import src.view.playStateView.PlayStateView;
-
-import static src.model.Constants.SoundConstants.MENU_MUSIC;
 
 public class IView {
 
@@ -25,6 +20,7 @@ private IController controller;
 private GameWindow gameWindow;
 private GamePanel gamePanel;
 private MouseInputs mouseInputs;
+private CommandsExplaination commandsExplaination;
 private StartTitle startTitle;
 private MainMenu mainMenu;
 private OptionMenu optionMenu;
@@ -45,6 +41,7 @@ PlayStateView playStateView;
         optionMenu = new OptionMenu(this);
         pauseMenu = new PauseMenu();
         avatarMenu = new AvatarMenu(this);
+        commandsExplaination = new CommandsExplaination(this);
 
         mouseInputs = new MouseInputs(this);
         gamePanel = new GamePanel(this, mouseInputs);
@@ -82,6 +79,9 @@ PlayStateView playStateView;
                 break;
             case PLAYING:
                 drawPlayState(g2);
+                break;
+            case COMMAND_EXPLAINATION:
+                commandsExplaination.draw(g2);
                 break;
             default:
                 break;
@@ -154,5 +154,9 @@ PlayStateView playStateView;
 
     public IModel getModel(){
         return model;
+    }
+
+    public CommandsExplaination getCommandsExplaination(){
+        return commandsExplaination;
     }
 }

@@ -32,15 +32,15 @@ public class KeyboardInputs implements KeyListener {
                     view.changeGameStateToMainMenu();
                 }
                 break;
-            default: //nei casi main manu , opzioni e  avatar selection
-                moveCursor(e);
-                break;
             case PLAYING:
                 handleKeypressedDuringPlayState(e);
                 break;
             case DIALOGUE:
                 break;
             case BOSS_CUTSCENE:
+                break;
+            default: //nei casi main manu , opzioni e  avatar selection
+                moveCursor(e);
                 break;
 
 /*          case DIALOGUE:
@@ -122,6 +122,10 @@ public class KeyboardInputs implements KeyListener {
             case PLAYING:
                 handleKeyReleasedPlayState(e);
                 break;
+            case COMMAND_EXPLAINATION:
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    view.getCommandsExplaination().enterReleased(e);
+                }
             default:
                 break;
         }

@@ -39,17 +39,18 @@ public class MainMenu extends AbstractMenu{
     public MainMenu(){
 
         //lo eredita
-        buttons = new AbstractMenuButton[4];
+        buttons = new AbstractMenuButton[5];
 
         createPlayButton();
         createOptionButton();
         createResumeButton();
+        createCommandsButton();
         createQuitButton();
         loadBackgroundImages();
         createTitle();
 
     }
-    
+
     private void createTitle() {
         try {
             title = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/logo.png"));
@@ -138,17 +139,43 @@ public class MainMenu extends AbstractMenu{
             e.printStackTrace();
         }       
         //creiamo bottone con rettangolo+immagini
-        buttons[2] = new MenuButton(restartImages, restartRectangle, GameState.OPTIONS); 
+        buttons[2] = new MenuButton(restartImages, restartRectangle, GameState.COMMAND_EXPLAINATION);
        
     }
 
-    //quarto bottone: rinuncia
+    //quarto bottone, comandi
+    private void createCommandsButton() {
+        //rettangolo
+        int widthCommandButton = (int)(120*SCALE);
+        int heightCommandButton = (int)(12*SCALE);
+        int xCommandButton = ViewUtils.getCenteredXPos(widthCommandButton);
+        int yCommandButton = (int)(250 * SCALE) + 3*distanceBetweenButtons;
+        Rectangle quitRectangle = new Rectangle(xCommandButton,yCommandButton,widthCommandButton,heightCommandButton);
+        //immagini
+        BufferedImage[] commandImages = new BufferedImage[3];
+        BufferedImage temp;
+        try {
+            temp = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/comandi1.png"));
+            commandImages[0] = ViewUtils.scaleImage(temp, widthCommandButton, heightCommandButton);
+            temp = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/comandi2.png"));
+            commandImages[1] = ViewUtils.scaleImage(temp, widthCommandButton, heightCommandButton);
+            temp = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/comandi3.png"));
+            commandImages[2] = ViewUtils.scaleImage(temp, widthCommandButton, heightCommandButton);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        //creiamo bottone con rettangolo+immagini
+        buttons[3] = new MenuButton(commandImages, quitRectangle, GameState.COMMAND_EXPLAINATION);
+    }
+
+    //quinto bottone: rinuncia
     private void createQuitButton() {
         //rettangolo
         int widthQuitButton = (int)(250*SCALE); 
         int heightQuitButton = (int)(14*SCALE);
         int xQuitButton = ViewUtils.getCenteredXPos(widthQuitButton);
-        int yQuitButton = (int)(250 * SCALE) + 3*distanceBetweenButtons;
+        int yQuitButton = (int)(250 * SCALE) + 4*distanceBetweenButtons;
         Rectangle quitRectangle = new Rectangle(xQuitButton,yQuitButton,widthQuitButton,heightQuitButton);
         //immagini
         BufferedImage[] quitImages = new BufferedImage[3];
@@ -165,7 +192,7 @@ public class MainMenu extends AbstractMenu{
             e.printStackTrace();
         }       
         //creiamo bottone con rettangolo+immagini
-        buttons[3] = new MenuButton(quitImages, quitRectangle, GameState.QUIT);
+        buttons[4] = new MenuButton(quitImages, quitRectangle, GameState.QUIT);
         
     }
    

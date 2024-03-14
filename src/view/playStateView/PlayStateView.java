@@ -151,8 +151,8 @@ public class PlayStateView {
         //prende la mappa
         int[][] tileNumbers = Rooms.actualRoom.getMap().getSecondLayer();
 
-        for(int righe = rowFirstTileToDraw; righe <= rowFirstTileToDraw + GamePanel.TILES_IN_HEIGHT; righe++){
-            for(int colonne = colFirstTileToDraw; colonne <= colFirstTileToDraw + GamePanel.TILES_IN_WIDTH; colonne++){
+        for(int righe = rowFirstTileToDraw; righe <= rowFirstTileToDraw + GamePanel.TILES_IN_HEIGHT + 1; righe++){
+            for(int colonne = colFirstTileToDraw; colonne <= colFirstTileToDraw + GamePanel.TILES_IN_WIDTH + 1; colonne++){
 
                 //prende dalla mappa il numero del tile in quella posizione
                 int tileNumber = 0;
