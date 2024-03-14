@@ -26,7 +26,7 @@ public enum Rooms {
       map.loadMap(mapPath);
     }
 
-    public static Rooms actualRoom = TENDA;
+    public static Rooms actualRoom = AULA_STUDIO;
 
     public Map getMap(){
         return map;

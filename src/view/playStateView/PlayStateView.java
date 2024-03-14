@@ -39,7 +39,7 @@ public class PlayStateView {
         drawSecondLayer(g2, xPlayer, yPlayer);
 
         //mettimao i tile dei livelli 3 e 4 nella lista
-        addTilesToSortList();
+        addTilesToSortList(xPlayer, yPlayer);
         //mettiamo le creature, per ora solo il giocatore
         playerView.setYposMapToSort(iView.getController().getPlayerController().getyPosPlayer());
         elementsAboveTheFloor.add(playerView);
@@ -59,175 +59,127 @@ public class PlayStateView {
             elementsAboveTheFloor.get(i).draw(g2, xPlayerMap, yPlayerMap);
     }
 
-    private void addTilesToSortList() {
+    private void addTilesToSortList(int xPlayerPos, int yPlayerPos) {
+
+        //per non perdere tempo, visitiamo solo la parte di matrice dove sono i tile da disegnare
+        int colFirstTileToDraw = xPlayerPos/GamePanel.TILES_SIZE - 10;
+        int rowFirstTileToDraw = yPlayerPos/GamePanel.TILES_SIZE - 8;
+
         int[][] thirdLayer = Rooms.actualRoom.getMap().getTthirdLayer();
-        for(int row = 0; row < thirdLayer.length; row++){
-            for(int col = 0; col < thirdLayer[0].length; col++){
-                if(thirdLayer[row][col] > 0) {
-                    SortableTile tileToAdd = new SortableTile(iView, thirdLayer[row][col], 3, col, row);
+        for(int row = rowFirstTileToDraw; row <= rowFirstTileToDraw + GamePanel.TILES_IN_HEIGHT + 1; row++){
+            for(int col = colFirstTileToDraw; col <= colFirstTileToDraw + GamePanel.TILES_IN_WIDTH + 1; col++) {
+                int tileIndex = 0;
+                try {
+                    tileIndex = thirdLayer[row][col];
+                }
+                catch (ArrayIndexOutOfBoundsException e) {
+                    tileIndex = 0;
+                }
+                if (tileIndex > 0) {
+                    SortableTile tileToAdd = new SortableTile(iView, tileIndex, 3, col, row);
                     elementsAboveTheFloor.add(tileToAdd);
                 }
             }
         }
 
         int[][] fourthLayer = Rooms.actualRoom.getMap().getFouthLayer();
-        for(int row = 0; row < fourthLayer.length; row++){
-            for(int col = 0; col < fourthLayer[0].length; col++){
-                if(fourthLayer[row][col] > 0) {
-                    SortableTile tileToAdd = new SortableTile(iView, fourthLayer[row][col], 4, col, row);
+        for(int row = rowFirstTileToDraw; row <= rowFirstTileToDraw + GamePanel.TILES_IN_HEIGHT + 1; row++){
+            for(int col = colFirstTileToDraw; col <= colFirstTileToDraw + GamePanel.TILES_IN_WIDTH + 1; col++){
+                int tileIndex = 0;
+                try{
+                    tileIndex = fourthLayer[row][col];
+                }
+                catch (ArrayIndexOutOfBoundsException e){
+                    tileIndex = 0;
+                }
+                if(tileIndex > 0) {
+                    SortableTile tileToAdd = new SortableTile(iView, tileIndex, 4, col, row);
                     elementsAboveTheFloor.add(tileToAdd);
                 }
             }
         }
     }
 
-    private void drawFirstLayer(Graphics2D g2, int xPlayerpos, int yPlayerPos) {
+    private void drawFirstLayer(Graphics2D g2, int xPlayerPos, int yPlayerPos) {
+
+        //per non perdere tempo, visitiamo solo la parte di matrice dove sono i tile da disegnare
+        int colFirstTileToDraw = xPlayerPos/GamePanel.TILES_SIZE - 10;
+        int rowFirstTileToDraw = yPlayerPos/GamePanel.TILES_SIZE - 8;
 
         //prende la mappa
         int[][] tileNumbers = Rooms.actualRoom.getMap().getFirstLayer();
 
-        for(int righe = 0; righe < tileNumbers.length; righe++){
-            for(int colonne = 0; colonne < tileNumbers[0].length; colonne++){
+        for(int righe = rowFirstTileToDraw; righe <= rowFirstTileToDraw + GamePanel.TILES_IN_HEIGHT + 1; righe++){
+            for(int colonne = colFirstTileToDraw; colonne <= colFirstTileToDraw + GamePanel.TILES_IN_WIDTH + 1; colonne++){
 
                 //prende dalla mappa il numero del tile in quella posizione
-                int tileNumber = tileNumbers[righe][colonne];
+                int tileNumber = 0;
+                try {
+                    tileNumber = tileNumbers[righe][colonne];
+                }
+                catch (ArrayIndexOutOfBoundsException e){
+                    tileNumber = 0;
+                }
 
                 //prende la posizione del tile all'interno della mappa
                 int tileXPositionOnMap = colonne * GamePanel.TILES_SIZE;
                 int tileYPositionOnMap = righe * GamePanel.TILES_SIZE;
 
                 //vede quanto dista il tile dal player
-                int xDistanceFromPlayer = tileXPositionOnMap - xPlayerpos;
+                int xDistanceFromPlayer = tileXPositionOnMap - xPlayerPos;
                 int yDistanceFromPlayer = tileYPositionOnMap - yPlayerPos;
 
-                //qui bisogna mettere un if: il tile viene disegnato solo se è nella finestra di gioco
-                if(Math.abs(xDistanceFromPlayer) < GamePanel.GAME_WIDTH/2 && Math.abs(yDistanceFromPlayer) < GamePanel.GAME_HEIGHT/2){
+                //la distanza del tile dal centro dello schermo è uguale alla distanza del tile dal plaer nella mappa
+                int xScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
+                int yScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
 
-                    //la distanza del tile dal centro dello schermo è uguale alla distanza del tile dal plaer nella mappa
-                    int xScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
-                    int yScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
-
-                    if(tileNumber > 0) {
-                        g2.drawImage(iView.getModel().getTileset().getTile(tileNumber).getTileView().getImage(), xScreen, yScreen, null);
-                        //disegna i bordi del tile, per controllo
-                        g2.drawRect(xScreen, yScreen, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
-                    }
+                if(tileNumber > 0) {
+                    g2.drawImage(iView.getModel().getTileset().getTile(tileNumber).getTileView().getImage(), xScreen, yScreen, null);
+                    //disegna i bordi del tile, per controllo
+                    g2.drawRect(xScreen, yScreen, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
                 }
-
             }
         }
 
-
     }
 
-    private void drawSecondLayer(Graphics2D g2, int xPlayer, int yPlayer) {
+    private void drawSecondLayer(Graphics2D g2, int xPlayerPos, int yPlayerPos) {
+        //per non perdere tempo, visitiamo solo la parte di matrice dove sono i tile da disegnare
+        int colFirstTileToDraw = xPlayerPos/GamePanel.TILES_SIZE - 10;
+        int rowFirstTileToDraw = yPlayerPos/GamePanel.TILES_SIZE - 8;
+
         //prende la mappa
         int[][] tileNumbers = Rooms.actualRoom.getMap().getSecondLayer();
 
-        for(int righe = 0; righe < tileNumbers.length; righe++){
-            for(int colonne = 0; colonne < tileNumbers[0].length; colonne++){
+        for(int righe = rowFirstTileToDraw; righe <= rowFirstTileToDraw + GamePanel.TILES_IN_HEIGHT; righe++){
+            for(int colonne = colFirstTileToDraw; colonne <= colFirstTileToDraw + GamePanel.TILES_IN_WIDTH; colonne++){
 
                 //prende dalla mappa il numero del tile in quella posizione
-                int tileNumber = tileNumbers[righe][colonne];
+                int tileNumber = 0;
+                try {
+                    tileNumber = tileNumbers[righe][colonne];
+                }
+                catch (ArrayIndexOutOfBoundsException e){
+                    tileNumber = 0;
+                }
 
                 //prende la posizione del tile all'interno della mappa
                 int tileXPositionOnMap = colonne * GamePanel.TILES_SIZE;
                 int tileYPositionOnMap = righe * GamePanel.TILES_SIZE;
 
                 //vede quanto dista il tile dal player
-                int xDistanceFromPlayer = tileXPositionOnMap - xPlayer;
-                int yDistanceFromPlayer = tileYPositionOnMap - yPlayer;
+                int xDistanceFromPlayer = tileXPositionOnMap - xPlayerPos;
+                int yDistanceFromPlayer = tileYPositionOnMap - yPlayerPos;
 
-                //qui bisogna mettere un if: il tile viene disegnato solo se è nella finestra di gioco
-                if(Math.abs(xDistanceFromPlayer) < GamePanel.GAME_WIDTH/2 && Math.abs(yDistanceFromPlayer) < GamePanel.GAME_HEIGHT/2){
+                //la distanza del tile dal centro dello schermo è uguale alla distanza del tile dal plaer nella mappa
+                int xScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
+                int yScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
 
-                    //la distanza del tile dal centro dello schermo è uguale alla distanza del tile dal plaer nella mappa
-                    int xScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
-                    int yScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
-
-                    if(tileNumber > 0) {
-                        g2.drawImage(iView.getModel().getTileset().getTile(tileNumber).getTileView().getImage(), xScreen, yScreen, null);
-                        //disegna i bordi del tile, per controllo
-                        //g2.drawRect(xScreen, yScreen, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
-                    }
+                if(tileNumber > 0) {
+                    g2.drawImage(iView.getModel().getTileset().getTile(tileNumber).getTileView().getImage(), xScreen, yScreen, null);
+                    //disegna i bordi del tile, per controllo
+                    g2.drawRect(xScreen, yScreen, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
                 }
-
-            }
-        }
-    }
-
-    private void drawThirdLayer(Graphics2D g2, int xPlayer, int yPlayer) {
-        //prende la mappa
-        int[][] tileNumbers = Rooms.actualRoom.getMap().getTthirdLayer();
-
-        for(int righe = 0; righe < tileNumbers.length; righe++){
-            for(int colonne = 0; colonne < tileNumbers[0].length; colonne++){
-
-                //prende dalla mappa il numero del tile in quella posizione
-                int tileNumber = tileNumbers[righe][colonne];
-
-                //prende la posizione del tile all'interno della mappa
-                int tileXPositionOnMap = colonne * GamePanel.TILES_SIZE;
-                int tileYPositionOnMap = righe * GamePanel.TILES_SIZE;
-
-                //vede quanto dista il tile dal player
-                int xDistanceFromPlayer = tileXPositionOnMap - xPlayer;
-                int yDistanceFromPlayer = tileYPositionOnMap - yPlayer;
-
-                //qui bisogna mettere un if: il tile viene disegnato solo se è nella finestra di gioco
-                if(Math.abs(xDistanceFromPlayer) < GamePanel.GAME_WIDTH/2 && Math.abs(yDistanceFromPlayer) < GamePanel.GAME_HEIGHT/2){
-
-                    //la distanza del tile dal centro dello schermo è uguale alla distanza del tile dal plaer nella mappa
-                    int xScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
-                    int yScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
-
-                    if(tileNumber > 0) {
-                        g2.drawImage(iView.getModel().getTileset().getTile(tileNumber).getTileView().getImage(), xScreen, yScreen, null);
-                        int x = xScreen + iView.getModel().getTileset().getTile(tileNumber).getTileModel().getHitbox().getX();
-                        int y = yScreen + iView.getModel().getTileset().getTile(tileNumber).getTileModel().getHitbox().getY();
-                        int w = iView.getModel().getTileset().getTile(tileNumber).getTileModel().getHitbox().getWidth();
-                        int h = iView.getModel().getTileset().getTile(tileNumber).getTileModel().getHitbox().getHeight();
-                        g2.setColor(Color.red);
-                        g2.drawRect(x, y, w, h);
-                    }
-                }
-
-            }
-        }
-    }
-
-    private void drawFourthLayer(Graphics2D g2, int xPlayer, int yPlayer) {
-        //prende la mappa
-        int[][] tileNumbers = Rooms.actualRoom.getMap().getFouthLayer();
-
-        for(int righe = 0; righe < tileNumbers.length; righe++){
-            for(int colonne = 0; colonne < tileNumbers[0].length; colonne++){
-
-                //prende dalla mappa il numero del tile in quella posizione
-                int tileNumber = tileNumbers[righe][colonne];
-
-                //prende la posizione del tile all'interno della mappa
-                int tileXPositionOnMap = colonne * GamePanel.TILES_SIZE;
-                int tileYPositionOnMap = righe * GamePanel.TILES_SIZE;
-
-                //vede quanto dista il tile dal player
-                int xDistanceFromPlayer = tileXPositionOnMap - xPlayer;
-                int yDistanceFromPlayer = tileYPositionOnMap - yPlayer;
-
-                //qui bisogna mettere un if: il tile viene disegnato solo se è nella finestra di gioco
-                if(Math.abs(xDistanceFromPlayer) < GamePanel.GAME_WIDTH/2 && Math.abs(yDistanceFromPlayer) < GamePanel.GAME_HEIGHT/2){
-
-                    //la distanza del tile dal centro dello schermo è uguale alla distanza del tile dal plaer nella mappa
-                    int xScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
-                    int yScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
-
-                    if(tileNumber > 0) {
-                        g2.drawImage(iView.getModel().getTileset().getTile(tileNumber).getTileView().getImage(), xScreen, yScreen, null);
-                        //disegna i bordi del tile, per controllo
-                        //g2.drawRect(xScreen, yScreen, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
-                    }
-                }
-
             }
         }
     }

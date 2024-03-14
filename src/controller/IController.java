@@ -4,6 +4,7 @@ import src.model.EntityStates;
 import src.model.GameState;
 import src.model.IModel;
 import src.model.InputState;
+import src.model.mapModel.Rooms;
 import src.view.IView;
 
 import java.util.concurrent.locks.ReentrantLock;
@@ -108,7 +109,8 @@ public class IController {
 
 
         if (InputState.E.getPressed()) {
-            playerController.changeActualState(EntityStates.DYING);
+            Rooms.actualRoom = Rooms.LABORATORIO;
+            //playerController.changeActualState(EntityStates.DYING);
         }
 
         if (InputState.P.getPressed() || InputState.MIDDLE_CLICK.getPressed()) {

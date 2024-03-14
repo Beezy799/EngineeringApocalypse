@@ -37,10 +37,10 @@ public class SortableTile extends SortableElement{
         int xPosOnScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
         int yPosOnScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
 
-        if(Math.abs(xDistanceFromPlayer) < GamePanel.GAME_WIDTH/2 && Math.abs(yDistanceFromPlayer) < GamePanel.GAME_HEIGHT/2) {
+        //if(Math.abs(xDistanceFromPlayer) < GamePanel.GAME_WIDTH/2 && Math.abs(yDistanceFromPlayer) < GamePanel.GAME_HEIGHT/2) {
             BufferedImage img = view.getModel().getTileset().getTile(tileIndex).getTileView().getImage();
             g2.drawImage(img, xPosOnScreen, yPosOnScreen, null);
-        }
+        //}
     }
 
 }

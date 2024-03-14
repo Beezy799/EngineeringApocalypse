@@ -19,16 +19,16 @@ public class PlayerController {
     private int notes = 0;
 
     private Hitbox hitbox;
-
-    //la posizione della hitbox è data dal punto in alto a sinistra, manetre la posizione del player è al centro della
-    //sua hitbox. La hitbox del player è un quadrato grande mezzo tile
-    private final int XhitboxOffset = GamePanel.TILES_SIZE/2;
-
     //per evitare il problema dello sticky wall, prima di aggiornare la posizione della hitbox vera, aggiorniamo questa
     //hitbox temporanea nel punto dove andrebbe la vera hiybox dopo il movimento
     private Hitbox tempHitbox;
-    private final int hitboxWidth =  (int)(0.76*GamePanel.TILES_SIZE);
+    private final int hitboxWidth =  (int)(0.75*GamePanel.TILES_SIZE);
     private final int hitboxHeight = GamePanel.TILES_SIZE/2;
+
+    //la posizione della hitbox è data dal punto in alto a sinistra, manetre la posizione del player è al centro della
+    //sua hitbox. La hitbox del player è un quadrato grande mezzo tile
+    private final int XhitboxOffset = hitboxWidth/2;
+
 
     public PlayerController(IController c, PlayStateController p){
         controller = c;
