@@ -123,13 +123,13 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
 	private void handleMouseReleasedDuringPlayState(MouseEvent e) {
 		 if(SwingUtilities.isLeftMouseButton(e))
-			InputState.LEFT_CLICK.setPressed(true);
+			InputState.LEFT_CLICK.setPressed(false);
 		
 		else if(SwingUtilities.isRightMouseButton(e))
 			InputState.RIGHT_CLICK.setPressed(false);
 		
 		else if(SwingUtilities.isMiddleMouseButton(e))		
-			InputState.MIDDLE_CLICK.setPressed(true);
+			InputState.MIDDLE_CLICK.setPressed(false);
 		
 	}
 
@@ -142,14 +142,14 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 	}
 
 	private void handleMousePressedDuringPlayState(MouseEvent e) {
-		/* if(SwingUtilities.isLeftMouseButton(e))
-			view.getController().getPlay().startPlayerAttacking();
+		if(SwingUtilities.isLeftMouseButton(e))
+			InputState.LEFT_CLICK.setPressed(true);
 
 		else if(SwingUtilities.isRightMouseButton(e))
-			view.getController().getPlay().startPlayerParring();
+			InputState.RIGHT_CLICK.setPressed(true);
 
 		else if(SwingUtilities.isMiddleMouseButton(e))
-				view.getController().getPlay().startPlayerThrowing(); */
+			InputState.MIDDLE_CLICK.setPressed(true);
 
 	}
 

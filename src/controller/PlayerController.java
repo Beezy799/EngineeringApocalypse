@@ -13,22 +13,29 @@ public class PlayerController {
     private EntityStates actualState = EntityStates.IDLE;
     private boolean stateLocked = false;
 
+
+    private int life = 100;
+    private int cfu = 0;
+    private int notes = 0;
+
     private Hitbox hitbox;
 
     //la posizione della hitbox è data dal punto in alto a sinistra, manetre la posizione del player è al centro della
     //sua hitbox. La hitbox del player è un quadrato grande mezzo tile
-    private int XhitboxOffset = GamePanel.TILES_SIZE/4;
+    private final int XhitboxOffset = GamePanel.TILES_SIZE/2;
 
     //per evitare il problema dello sticky wall, prima di aggiornare la posizione della hitbox vera, aggiorniamo questa
     //hitbox temporanea nel punto dove andrebbe la vera hiybox dopo il movimento
     private Hitbox tempHitbox;
+    private final int hitboxWidth =  (int)(0.76*GamePanel.TILES_SIZE);
+    private final int hitboxHeight = GamePanel.TILES_SIZE/2;
 
     public PlayerController(IController c, PlayStateController p){
         controller = c;
-        movementVector = new Vector();
+        movementVector = new Vector(2);
         playStateController = p;
-        hitbox = new Hitbox(xPosPlayer - XhitboxOffset, yPosPlayer, GamePanel.TILES_SIZE/2, GamePanel.TILES_SIZE/2);
-        tempHitbox = new Hitbox(xPosPlayer - XhitboxOffset, yPosPlayer, GamePanel.TILES_SIZE/2, GamePanel.TILES_SIZE/2);
+        hitbox = new Hitbox(xPosPlayer - XhitboxOffset, yPosPlayer, hitboxWidth, hitboxHeight);
+        tempHitbox = new Hitbox(xPosPlayer - XhitboxOffset, yPosPlayer, hitboxWidth, hitboxHeight);
     }
 
     public void update(){
@@ -56,39 +63,44 @@ public class PlayerController {
     }
 
     private void updatePosition() {
-        boolean canMove = true;
 
         //sta andando a sinistra
         if(movementVector.getX() < 0){
             tempHitbox.setX(hitbox.getX() + movementVector.getX());
-            canMove = playStateController.getCollisionChecker().canGoLeft(tempHitbox);
-            tempHitbox.setX(hitbox.getX());
+            tempHitbox.setY(hitbox.getY());
+            if(playStateController.getCollisionChecker().canGoLeft(tempHitbox)){
+                xPosPlayer += movementVector.getX();
+                hitbox.setX((xPosPlayer - XhitboxOffset));
+            }
+
         }
         //sta andando a destra
         else if(movementVector.getX() > 0){
             tempHitbox.setX(hitbox.getX() + movementVector.getX());
-            canMove = playStateController.getCollisionChecker().canGoRight(tempHitbox);
-            tempHitbox.setX(hitbox.getX());
+            tempHitbox.setY(hitbox.getY());
+            if(playStateController.getCollisionChecker().canGoRight(tempHitbox)){
+                xPosPlayer += movementVector.getX();
+                hitbox.setX((xPosPlayer - XhitboxOffset));
+            }
         }
         //sta andando su
         if(movementVector.getY() < 0){
+            tempHitbox.setX(hitbox.getX());
             tempHitbox.setY(hitbox.getY() + movementVector.getY());
-            canMove = playStateController.getCollisionChecker().canGoUp(tempHitbox);
-            tempHitbox.setY(hitbox.getY());
+            if(playStateController.getCollisionChecker().canGoUp(tempHitbox)){
+                yPosPlayer += movementVector.getY();
+                hitbox.setY(yPosPlayer);
+            }
+
         }
         //sta andando giu
         else if(movementVector.getY() > 0){
+            tempHitbox.setX(hitbox.getX());
             tempHitbox.setY(hitbox.getY() + movementVector.getY());
-            canMove = playStateController.getCollisionChecker().canGoDown(tempHitbox);
-            tempHitbox.setY(hitbox.getY());
-        }
-
-        if(canMove){
-            xPosPlayer = xPosPlayer + movementVector.getX();
-            yPosPlayer = yPosPlayer + movementVector.getY();
-            hitbox.setX((xPosPlayer + movementVector.getX() - XhitboxOffset));
-            hitbox.setY(yPosPlayer + movementVector.getY());
-            controller.getView().getPlayerWiew().setYposMapToSort(yPosPlayer);
+            if(playStateController.getCollisionChecker().canGoDown(tempHitbox)){
+                yPosPlayer += movementVector.getY();
+                hitbox.setY(yPosPlayer);
+            }
         }
 
     }
@@ -161,5 +173,29 @@ public class PlayerController {
 
     public Hitbox getHitbox(){
         return hitbox;
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
+
+    public int getCfu() {
+        return cfu;
+    }
+
+    public void setCfu(int cfu) {
+        this.cfu = cfu;
+    }
+
+    public int getNotes() {
+        return notes;
+    }
+
+    public void setNotes(int notes) {
+        this.notes = notes;
     }
 }

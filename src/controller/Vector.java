@@ -10,6 +10,12 @@ public class Vector {
         module = 1;
     }
 
+    public Vector (int m){
+        x = 0;
+        y = 0;
+        module = m;
+    }
+
 
 
     public void setX(int x) {
@@ -25,10 +31,18 @@ public class Vector {
     }
 
     public int getX() {
-        return x;
+        return x*module;
     }
 
     public int getY() {
+        return y*module;
+    }
+
+    public int getNomalizedX(){
+        return x;
+    }
+
+    public int getNormalizedY(){
         return y;
     }
 

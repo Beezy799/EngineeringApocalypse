@@ -15,6 +15,7 @@ public class PlayStateView {
     private IView iView;
     private TileImageLoader tileImageLoader;
     private PlayerView playerView;
+    private PlayUI playUI;
 
     private ArrayList<SortableElement> elementsAboveTheFloor;
 
@@ -24,6 +25,7 @@ public class PlayStateView {
         tileImageLoader = new TileImageLoader(v);
         tileImageLoader = null;
         elementsAboveTheFloor = new ArrayList<>();
+        playUI = new PlayUI(this);
     }
 
     public void draw(Graphics2D g2){
@@ -39,6 +41,7 @@ public class PlayStateView {
         //mettimao i tile dei livelli 3 e 4 nella lista
         addTilesToSortList();
         //mettiamo le creature, per ora solo il giocatore
+        playerView.setYposMapToSort(iView.getController().getPlayerController().getyPosPlayer());
         elementsAboveTheFloor.add(playerView);
         //ordiniamo la lista
         //collections è una classe di utilità che implementa un algoritmo veloce di ordinamento
@@ -48,6 +51,7 @@ public class PlayStateView {
         //svuotiamo la lista, perchè verrà ridisegnato ogni volta
         elementsAboveTheFloor.clear();
 
+        playUI.draw(g2);
     }
 
     private void drawAllEnementsAboveTheFloor(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
@@ -230,5 +234,9 @@ public class PlayStateView {
 
     public PlayerView getPlayerView(){
         return  playerView;
+    }
+
+    public IView getView() {
+        return iView;
     }
 }
