@@ -21,17 +21,12 @@ public class CommandsExplaination extends AbstractMenu {
 
 
     private final int heightFirstString = (int)(90* SCALE);
-    private String movementExplaination = "Cammina:   w, a, s, d";
-    private String attackExplaination = "Attacca:   invio, opure";
-    private String parryExplaination = "Parati:   spazio, oppure";
-    private String throwExplaination = "Lancia Appunti:   p, oppure ";
-    private String interactExplaination = "Interagisci:   e";
-    private String pauseExplaination = "Pausa caffè:   esc";
-
-
-
-
-
+    private String movementExplaination = "CAMMINA:   w, a, s, d";
+    private String attackExplaination = "ATTACCA:   invio, opure";
+    private String parryExplaination = "PARATI:   spazio, oppure";
+    private String throwExplaination = "LANCIA APPUNTI:   p, oppure ";
+    private String interactExplaination = "INTERAGISCI:   e";
+    private String pauseExplaination = "PAUSA:   esc";
     private BufferedImage rightClick, leftClick, middleClick;
 
 
@@ -89,30 +84,31 @@ public class CommandsExplaination extends AbstractMenu {
 
     public void draw(Graphics2D g2){
         view.getMainMenu().drawBackground(g2);
-
+        //disegna il bottone "indietro"
         drawButtons(g2);
-
+        //si prepara a scrivere le stringhe
         g2.setFont(descriptionFont);
         g2.setColor(Color.red);
-
+        //movimento
         g2.drawString(movementExplaination, ViewUtils.getXforCenterText(movementExplaination, g2), heightFirstString);
-
+        //attacco
         g2.drawString(attackExplaination, ViewUtils.getXforCenterText(attackExplaination, g2), heightFirstString + distanceBetweenString);
-        int xLeftClickImage = ViewUtils.getXforCenterText(attackExplaination, g2) + ViewUtils.getStringLenght(attackExplaination, g2) + (int)(30* SCALE);
+        int xLeftClickImage = ViewUtils.getXforCenterText(attackExplaination, g2) + ViewUtils.getStringLenght(attackExplaination, g2) + (int)(20* SCALE);
         int yLeftClickImage = heightFirstString + distanceBetweenString - ViewUtils.getStringHeight(attackExplaination, g2);
         g2.drawImage(leftClick, xLeftClickImage, yLeftClickImage, null);
-
+        //parata
         g2.drawString(parryExplaination, ViewUtils.getXforCenterText(parryExplaination, g2), heightFirstString + 2*distanceBetweenString);
-        int xRightClickImage = ViewUtils.getXforCenterText(parryExplaination, g2) + ViewUtils.getStringLenght(parryExplaination, g2) + (int)(30* SCALE);
+        int xRightClickImage = ViewUtils.getXforCenterText(parryExplaination, g2) + ViewUtils.getStringLenght(parryExplaination, g2) + (int)(20* SCALE);
         int yRightClickImage = heightFirstString + 2*distanceBetweenString - ViewUtils.getStringHeight(parryExplaination, g2);
         g2.drawImage(rightClick, xRightClickImage, yRightClickImage, null);
-
+        //lancio
         g2.drawString(throwExplaination, ViewUtils.getXforCenterText(throwExplaination, g2), heightFirstString + 3*distanceBetweenString);
-        int xMiddleClickImage = ViewUtils.getXforCenterText(throwExplaination, g2) + ViewUtils.getStringLenght(throwExplaination, g2) + (int)(30* SCALE);
+        int xMiddleClickImage = ViewUtils.getXforCenterText(throwExplaination, g2) + ViewUtils.getStringLenght(throwExplaination, g2) + (int)(20* SCALE);
         int yMiddleClickImage = heightFirstString + 3*distanceBetweenString - ViewUtils.getStringHeight(throwExplaination, g2);
         g2.drawImage(middleClick, xMiddleClickImage, yMiddleClickImage, null);
-
+        //interagisci
         g2.drawString(interactExplaination, ViewUtils.getXforCenterText(interactExplaination, g2), heightFirstString + 4*distanceBetweenString);
+        //pausa
         g2.drawString(pauseExplaination, ViewUtils.getXforCenterText(pauseExplaination, g2), heightFirstString + 5*distanceBetweenString);
 
     }

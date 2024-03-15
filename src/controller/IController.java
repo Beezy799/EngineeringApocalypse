@@ -109,7 +109,7 @@ public class IController {
 
 
         if (InputState.E.getPressed()) {
-            Rooms.actualRoom = Rooms.LABORATORIO;
+            //Rooms.actualRoom = Rooms.TENDA;
             //playerController.changeActualState(EntityStates.DYING);
         }
 

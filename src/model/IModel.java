@@ -32,4 +32,8 @@ public class IModel {
         return tileset;
     }
 
+    public IController getController(){
+        return controller;
+    }
+
 }
