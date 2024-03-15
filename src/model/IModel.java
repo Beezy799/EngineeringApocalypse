@@ -18,6 +18,8 @@ public class IModel {
         tileset = new Tileset();
         tileset.loadTileset("/res/map/tilesetChat.json");
 
+        //una volta finito di crearsi, passa il suo riferimento alle stanze
+        Rooms.setModel(this);
     }
 
     public void setView(IView v) {

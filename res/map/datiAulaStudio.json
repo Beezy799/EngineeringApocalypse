@@ -1,0 +1,60 @@
+{
+
+  "passaggi": [
+    {
+      "nuova stanza": "BIBLIOTECA",
+      "xPosPassaggio": 34,
+      "yPosPassaggio": 7,
+      "larghezza": 32,
+      "altezza": 32,
+      "nuvaxPlayer": 27,
+      "nuovayPlater": 10,
+      "cfuRichiesti": 0,
+      "messaggio": ""
+    },{
+      "nuova stanza": "DORMITORIO",
+      "xPosPassaggio": 34,
+      "yPosPassaggio": 42,
+      "larghezza": 64,
+      "altezza": 32,
+      "nuvaxPlayer": 28,
+      "nuovayPlater": 24,
+      "cfuRichiesti": 0,
+      "messaggio": ""
+    },{
+      "nuova stanza": "TENDA",
+      "xPosPassaggio": 26,
+      "yPosPassaggio": 10,
+      "larghezza": 32,
+      "altezza": 32,
+      "nuvaxPlayer": 14,
+      "nuovayPlater": 15,
+      "cfuRichiesti": 0,
+      "messaggio": ""
+    },{
+      "nuova stanza": "LABORATORIO",
+      "xPosPassaggio": 15,
+      "yPosPassaggio": 6,
+      "larghezza": 32,
+      "altezza": 34,
+      "nuvaxPlayer": 20,
+      "nuovayPlater": 24,
+      "cfuRichiesti": 0,
+      "messaggio": ""
+    },{
+      "nuova stanza": "AULA_STUDIO",
+      "xPosPassaggio": 16,
+      "yPosPassaggio": 42,
+      "larghezza": 32,
+      "altezza": 32,
+      "nuvaxPlayer": 0,
+      "nuovayPlater": 0,
+      "cfuRichiesti": 999,
+      "messaggio": "la segreteria è aperta tutti i giorni dalle 8:00 alle 8:01"
+    }
+  ]
+
+
+}
+
+

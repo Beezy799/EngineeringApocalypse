@@ -1,0 +1,15 @@
+{
+  "passaggi": [
+    {
+      "nuova stanza": "AULA_STUDIO",
+      "xPosPassaggio": 24,
+      "yPosPassaggio": 32,
+      "larghezza": 32,
+      "altezza": 32,
+      "nuvaxPlayer": 14,
+      "nuovayPlater": 9,
+      "cfuRichiesti": 999,
+      "messaggio": "sei arrivato fin qui.. non puoi tirarti indietro adesso"
+    }
+  ]
+}

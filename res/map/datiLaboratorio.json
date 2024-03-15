@@ -1,0 +1,26 @@
+{
+  "passaggi": [
+    {
+      "nuova stanza": "AULA_STUDIO",
+      "xPosPassaggio": 19,
+      "yPosPassaggio": 25,
+      "larghezza": 96,
+      "altezza": 32,
+      "nuvaxPlayer": 15,
+      "nuovayPlater": 8,
+      "cfuRichiesti": 0,
+      "messaggio": ""
+    },
+    {
+      "nuova stanza": "STUDIO_PROF",
+      "xPosPassaggio": 14,
+      "yPosPassaggio": 7,
+      "larghezza": 32,
+      "altezza": 34,
+      "nuvaxPlayer": 26,
+      "nuovayPlater": 32,
+      "cfuRichiesti": 180,
+      "messaggio": "non sei ancora degno di essere ricevuto dal prof"
+    }
+  ]
+}

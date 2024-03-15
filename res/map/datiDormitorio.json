@@ -1,18 +1,15 @@
 {
-
   "passaggi": [
     {
       "nuova stanza": "AULA_STUDIO",
-      "xPosPassaggio": 14,
-      "yPosPassaggio": 16,
-      "larghezza": 64,
+      "xPosPassaggio": 25,
+      "yPosPassaggio": 23,
+      "larghezza": 32,
       "altezza": 32,
-      "nuvaxPlayer": 26,
-      "nuovayPlater": 12,
+      "nuvaxPlayer": 34,
+      "nuovayPlater": 41,
       "cfuRichiesti": 0,
       "messaggio": ""
     }
   ]
-
-
 }

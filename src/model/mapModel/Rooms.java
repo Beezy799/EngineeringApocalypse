@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import src.model.Hitbox;
+import src.model.IModel;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,27 +13,21 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+//è una lista delle possibili stanze dove diciamo la stanza attuale
+//possiamo associare qui ad ogni stanza la sua musica e altre cose relative alla stanza se servono
 public enum Rooms {
-
-    //è una lista delle possibili stanze dove diciamo la stanza attuale
-    //possiamo associare qui ad ogni stanza la sua musica e altre cose relative alla stanza se servono
-
     //lista delle entitàModel  --> EntityModel = [EntityController, EntityView]
-    //lista dei passaggi
     //lista eventi
-
-
-    //DORMITORIO("/res/map/dormitorio.json"),
-    //BIBLIOTECA("/res/map/biblioteca.json"),
-    //STUDIO_PROF("/res/map/studioProf.json"),
-    //LABORATORIO("/res/map/laboratorio.json"),
-    //AULA_STUDIO("/res/map/aulaStudio.json"),
-
+    DORMITORIO("/res/map/dormitorio.json", "/res/map/datiDormitorio.json"),
+    BIBLIOTECA("/res/map/biblioteca.json", "/res/map/datiBiblioteca.json"),
+    STUDIO_PROF("/res/map/studioProf.json", "/res/map/datiStudioProf.json"),
+    LABORATORIO("/res/map/laboratorio.json", "/res/map/datiLaboratorio.json"),
+    AULA_STUDIO("/res/map/aulaStudio.json", "/res/map/datiAulaStudio.json"),
     TENDA("/res/map/tenda.json", "/res/map/datiTenda.json");
 
     private Map map;
     private ArrayList<Passage> passages;
-    //array di entità
+    private static IModel model;
 
     //costruttore
     Rooms(String mapPath, String pathRoomData){
@@ -80,8 +75,9 @@ public enum Rooms {
             int nuovayPlayer = Integer.parseInt(passage.get("nuovayPlater").toString());
             int cfuRichiesti = Integer.parseInt(passage.get("cfuRichiesti").toString());
 
+            String m = passage.get("messaggio").toString();
             Hitbox borders = new Hitbox(xPosPassaggio, yPosPassaggio, larghezza, altezza);
-            passages.add(new Passage(borders, nextRoom, nuovaxPlayer, nuovayPlayer, cfuRichiesti));
+            passages.add(new Passage(borders, nextRoom, nuovaxPlayer, nuovayPlayer, cfuRichiesti, m));
         }
     }
 
@@ -89,6 +85,19 @@ public enum Rooms {
 
     public Map getMap(){
         return map;
+    }
+    public ArrayList<Passage> getPassages(){
+        return passages;
+    }
+
+    //le stanze si salvano il riferimento al model
+    public static void setModel(IModel m){
+        model = m;
+    }
+
+    //le stanze passano il riferimento al model
+    public static IModel getModel(){
+        return model;
     }
 
 }

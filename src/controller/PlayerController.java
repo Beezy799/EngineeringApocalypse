@@ -2,13 +2,14 @@ package src.controller;
 
 import src.model.EntityStates;
 import src.model.Hitbox;
+import src.model.mapModel.Rooms;
 import src.view.main.GamePanel;
 
 public class PlayerController {
 
     private IController controller;
     private PlayStateController playStateController;
-    private int xPosPlayer = 20*GamePanel.TILES_SIZE, yPosPlayer = 15*GamePanel.TILES_SIZE; //posizione del player
+    private int xPosPlayer = 21*GamePanel.TILES_SIZE, yPosPlayer = 15*GamePanel.TILES_SIZE; //posizione del player
     private  Vector movementVector; //"direzione" del player
     private EntityStates actualState = EntityStates.IDLE;
     private boolean stateLocked = false;
@@ -42,9 +43,11 @@ public class PlayerController {
         //in base allo stato attuale il player agirà in modo diverso
         switch (actualState){
             case IDLE:
+                checkIfIsAbovePassage();
                 break;
             case MOVE:
                 updatePosition();
+                checkIfIsAbovePassage();
                 break;
             case ATTACKING:
                 break;
@@ -57,9 +60,17 @@ public class PlayerController {
             case DYING:
                 lockState();
                 break;
-
         }
 
+    }
+
+    private void checkIfIsAbovePassage() {
+        for(int i = 0; i < Rooms.actualRoom.getPassages().size(); i++){
+            Hitbox passageBorders = Rooms.actualRoom.getPassages().get(i).getBorders();
+            if(hitbox.intersects(passageBorders)){
+                Rooms.actualRoom.getPassages().get(i).changeRoom(cfu);
+            }
+        }
     }
 
     private void updatePosition() {
@@ -112,10 +123,12 @@ public class PlayerController {
 
     public void setxPosPlayer(int xPosPlayer) {
         this.xPosPlayer = xPosPlayer;
+        hitbox.setX(xPosPlayer);
     }
 
     public void setyPosPlayer(int yPosPlayer) {
         this.yPosPlayer = yPosPlayer;
+        hitbox.setY(yPosPlayer);
     }
 
     public void setMovementVector(Vector movementVector) {
