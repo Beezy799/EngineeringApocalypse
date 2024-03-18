@@ -13,6 +13,8 @@ import src.view.main.GameWindow;
 import src.view.menu.*;
 import src.view.playStateView.PlayStateView;
 
+import static src.model.Constants.SoundConstants.MENU_MUSIC;
+
 public class IView {
 
 private IModel model;
@@ -27,6 +29,8 @@ private OptionMenu optionMenu;
 private PauseMenu pauseMenu;
 private AvatarMenu avatarMenu;
 private SoundManager soundManager;
+
+private TransitionState transitionState;
 PlayStateView playStateView;
 
 
@@ -54,7 +58,9 @@ PlayStateView playStateView;
         playStateView = new PlayStateView(this);
 
         soundManager = new SoundManager();
-        //soundManager.playMusic(MENU_MUSIC);
+        soundManager.playMusic(MENU_MUSIC);
+
+        transitionState = new TransitionState(this);
     }
 
     //chiede al pannello di creare il suo ambiente grafico, g, che poi userà per disegnare il frame successivo
@@ -83,6 +89,9 @@ PlayStateView playStateView;
             case COMMAND_EXPLAINATION:
                 commandsExplaination.draw(g2);
                 break;
+            case TRANSITION_STATE:
+                transitionState.draw(g2);
+            break;
             default:
                 break;
         }
@@ -158,5 +167,13 @@ PlayStateView playStateView;
 
     public CommandsExplaination getCommandsExplaination(){
         return commandsExplaination;
+    }
+
+    public SoundManager getSoundManager(){
+        return soundManager;
+    }
+
+    public TransitionState getTransitionState(){
+        return transitionState;
     }
 }

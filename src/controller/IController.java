@@ -1,9 +1,6 @@
 package src.controller;
 
-import src.model.EntityStates;
-import src.model.GameState;
-import src.model.IModel;
-import src.model.InputState;
+import src.model.*;
 import src.model.mapModel.Rooms;
 import src.view.IView;
 
@@ -117,8 +114,12 @@ public class IController {
             playerController.changeActualState(EntityStates.THROWING);
         }
 
-        if (InputState.ESCAPE.getPressed())
-            GameState.actualState = GameState.PAUSE;
+        if (InputState.ESCAPE.getPressed()) {
+            view.getSoundManager().stopMusic();
+            view.getSoundManager().playMusic(Constants.SoundConstants.MENU_MUSIC);
+            GameState.actualState = GameState.MAIN_MENU;
+            InputState.ESCAPE.setPressed(false);
+        }
 
         lock.unlock();
     }

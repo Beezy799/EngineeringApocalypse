@@ -22,6 +22,8 @@ public class SoundManager {
 
     // tutti i percorsi dei file dei suoni vengono inseriti in un array
     public SoundManager() {
+        soundURL = new URL[15];
+
         soundURL[MENU_MUSIC] = getClass().getResource("/res/sound/menuLeggera.wav");
         soundURL[AULA_STUDIO_MUSIC] = getClass().getResource("/res/sound/salaStudioLeggera.wav");
         soundURL[DORMITORIO_MUSIC] = getClass().getResource("/res/sound/dormitorioLeggera.wav");
@@ -102,6 +104,7 @@ public class SoundManager {
 
     public void loopMusic(int i) {
         setMusic(i);
+        setMusicVolume(musicVolume);
         music.loop(Clip.LOOP_CONTINUOUSLY);
     }
 

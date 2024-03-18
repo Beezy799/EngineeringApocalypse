@@ -6,8 +6,8 @@
       "yPosPassaggio": 25,
       "larghezza": 96,
       "altezza": 32,
-      "nuvaxPlayer": 15,
-      "nuovayPlater": 8,
+      "nuovaxPlayer": 15,
+      "nuovayPlayer": 8,
       "cfuRichiesti": 0,
       "messaggio": ""
     },
@@ -17,8 +17,8 @@
       "yPosPassaggio": 7,
       "larghezza": 32,
       "altezza": 34,
-      "nuvaxPlayer": 26,
-      "nuovayPlater": 32,
+      "nuovaxPlayer": 26,
+      "nuovayPlayer": 32,
       "cfuRichiesti": 180,
       "messaggio": "non sei ancora degno di essere ricevuto dal prof"
     }

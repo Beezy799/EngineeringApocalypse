@@ -1,13 +1,13 @@
 package src.model.mapModel;
 
-import src.model.Hitbox;
-import src.model.IModel;
+import src.model.*;
+import src.view.SoundManager;
 import src.view.main.GamePanel;
 
 public class Passage {
 
     private Hitbox borders;
-    private Rooms nextRoom;
+    private String nextRoomName;
 
     //posizione nella nuova stanza
     private int xNext, yNext;
@@ -26,42 +26,49 @@ public class Passage {
         xNext = xN * GamePanel.TILES_SIZE;
         yNext = yN * GamePanel.TILES_SIZE;
         cfuRequired = cfu;
-        setNextRoom(nextRoomName);
+
+        this.nextRoomName = nextRoomName;
+
         message = m;
     }
 
-    private void setNextRoom(String nextRoomName) {
+    //da rivedere, perchè basta un errore nel nome della stanza per mandare tutto a puttane
+    private Rooms getNextRoom(String nextRoomName) {
         if(nextRoomName.equals("TENDA")){
-            nextRoom = Rooms.TENDA;
+            return Rooms.TENDA;
         }
         else if(nextRoomName.equals("DORMITORIO")){
-            nextRoom = Rooms.DORMITORIO;
+            return Rooms.DORMITORIO;
         }
         else if(nextRoomName.equals("LABORATORIO")){
-            nextRoom = Rooms.LABORATORIO;
+            return Rooms.LABORATORIO;
         }
         else if(nextRoomName.equals("AULA_STUDIO")){
-            nextRoom = Rooms.AULA_STUDIO;
+            return Rooms.AULA_STUDIO;
         }
         else if(nextRoomName.equals("BIBLIOTECA")){
-            nextRoom = Rooms.BIBLIOTECA;
+            return Rooms.BIBLIOTECA;
         }
         else if(nextRoomName.equals("STUDIO_PROF")){
-            nextRoom = Rooms.STUDIO_PROF;
+            return Rooms.STUDIO_PROF;
         }
+        return null;
     }
 
     public void changeRoom(int cfuPlayer){
         if(cfuPlayer >= cfuRequired) {
-            //cambia x, y del player
-            try{
-                Rooms.getModel().getController().getPlayerController().setxPosPlayer(xNext);
-                Rooms.getModel().getController().getPlayerController().setyPosPlayer(yNext);
-            }
-            catch (NullPointerException e){
-                e.printStackTrace();
-            }
-            Rooms.actualRoom = nextRoom;
+
+            InputState.resetBooleans();
+            //salva nel model i dati di dove si troverà il giocatore
+            Rooms.getModel().savePassageData(getxNext(), getyNext(), getNextRoom(nextRoomName));
+            //il personaggio si ferma
+            Rooms.getModel().getController().getPlayerController().changeActualState(EntityStates.IDLE);
+            //settiamo il gamestate nella stransizione
+            Rooms.getModel().getView().getTransitionState().setNext(GameState.PLAYING);
+            Rooms.getModel().getView().getTransitionState().setPrev(GameState.PLAYING);
+
+            GameState.actualState = GameState.TRANSITION_STATE;
+
         }
         else{
             //mostra il messaggio
@@ -72,4 +79,15 @@ public class Passage {
         return borders;
     }
 
+    public String getNextRoomName() {
+        return nextRoomName;
+    }
+
+    public int getxNext() {
+        return xNext;
+    }
+
+    public int getyNext() {
+        return yNext;
+    }
 }

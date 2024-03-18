@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import src.model.Constants;
 import src.model.Hitbox;
 import src.model.IModel;
 
@@ -18,22 +19,25 @@ import java.util.ArrayList;
 public enum Rooms {
     //lista delle entitàModel  --> EntityModel = [EntityController, EntityView]
     //lista eventi
-    DORMITORIO("/res/map/dormitorio.json", "/res/map/datiDormitorio.json"),
-    BIBLIOTECA("/res/map/biblioteca.json", "/res/map/datiBiblioteca.json"),
-    STUDIO_PROF("/res/map/studioProf.json", "/res/map/datiStudioProf.json"),
-    LABORATORIO("/res/map/laboratorio.json", "/res/map/datiLaboratorio.json"),
-    AULA_STUDIO("/res/map/aulaStudio.json", "/res/map/datiAulaStudio.json"),
-    TENDA("/res/map/tenda.json", "/res/map/datiTenda.json");
+    DORMITORIO("/res/map/dormitorio.json", "/res/map/datiDormitorio.json", Constants.SoundConstants.DORMITORIO_MUSIC),
+    BIBLIOTECA("/res/map/biblioteca.json", "/res/map/datiBiblioteca.json", Constants.SoundConstants.BIBLIOTECA_MUSIC),
+    STUDIO_PROF("/res/map/studioProf.json", "/res/map/datiStudioProf.json", Constants.SoundConstants.BOSS_FIRTST_PHASE_MUSIC),
+    LABORATORIO("/res/map/laboratorio.json", "/res/map/datiLaboratorio.json", Constants.SoundConstants.LABORATORIO_MUSIC),
+    AULA_STUDIO("/res/map/aulaStudio.json", "/res/map/datiAulaStudio.json", Constants.SoundConstants.AULA_STUDIO_MUSIC),
+    TENDA("/res/map/tenda.json", "/res/map/datiTenda.json", Constants.SoundConstants.TENDA_MUSIC);
 
     private Map map;
     private ArrayList<Passage> passages;
     private static IModel model;
+    private int musicIndex;
 
     //costruttore
-    Rooms(String mapPath, String pathRoomData){
+    Rooms(String mapPath, String pathRoomData, int m){
       map = new Map();
       map.loadMap(mapPath);
+      musicIndex = m;
       passages = new ArrayList<>();
+
       loadPassagesAndEntities(pathRoomData);
     }
 
@@ -71,8 +75,8 @@ public enum Rooms {
             int yPosPassaggio = Integer.parseInt(passage.get("yPosPassaggio").toString());
             int larghezza = Integer.parseInt(passage.get("larghezza").toString());
             int altezza = Integer.parseInt(passage.get("altezza").toString());
-            int nuovaxPlayer = Integer.parseInt(passage.get("nuvaxPlayer").toString());
-            int nuovayPlayer = Integer.parseInt(passage.get("nuovayPlater").toString());
+            int nuovaxPlayer = Integer.parseInt(passage.get("nuovaxPlayer").toString());
+            int nuovayPlayer = Integer.parseInt(passage.get("nuovayPlayer").toString());
             int cfuRichiesti = Integer.parseInt(passage.get("cfuRichiesti").toString());
 
             String m = passage.get("messaggio").toString();
@@ -81,7 +85,7 @@ public enum Rooms {
         }
     }
 
-    public static Rooms actualRoom = TENDA;
+    public static Rooms actualRoom = BIBLIOTECA;
 
     public Map getMap(){
         return map;
@@ -95,9 +99,16 @@ public enum Rooms {
         model = m;
     }
 
-    //le stanze passano il riferimento al model
+    //le stanze passano il riferimento del model perchè si creano prima di lui.
+    //il model, quando ha finito di crearsi, passa il suo riferimento a questa classe
+    //le varie stanze contengono cose che hanno bisogno del model e con questo stratagemma
+    //possiamo passare loro il model
     public static IModel getModel(){
         return model;
+    }
+
+    public int getMusicIndex(){
+        return musicIndex;
     }
 
 }

@@ -9,8 +9,10 @@ public class IModel {
 
     private IController controller;
     private IView view;
-
     private Tileset tileset;
+
+    private int xPlayerBeforeTransition, yPlayerBeforeTransition;
+    private Rooms roomBeforeTransition;
 
     public IModel(IController contr){
         this.controller = contr;
@@ -38,4 +40,22 @@ public class IModel {
         return controller;
     }
 
+    public IView getView(){
+        return view;
+    }
+
+    //siccome durante la transizione dobbiamo disegnare la vecchia posizione del player, ci salviamo qui
+    //dove finirà il player finita la trasizione
+    public void savePassageData(int xPlayer, int yPlayer, Rooms nextRoom) {
+        xPlayerBeforeTransition = xPlayer;
+        yPlayerBeforeTransition = yPlayer;
+        roomBeforeTransition = nextRoom;
+    }
+
+    //finita la transizione, il player si troverà finalmente nella nuova posizione
+    public void resumeGameAfterTransition() {
+        controller.getPlayerController().setxPosPlayer(xPlayerBeforeTransition);
+        controller.getPlayerController().setyPosPlayer(yPlayerBeforeTransition);
+        Rooms.actualRoom = roomBeforeTransition;
+    }
 }

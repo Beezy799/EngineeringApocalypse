@@ -2,6 +2,7 @@ package src.view.menu;
 
 import src.model.GameState;
 import src.view.IView;
+import src.view.SoundManager;
 import src.view.ViewUtils;
 
 
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import static src.model.Constants.SoundConstants.DORMITORIO_MUSIC;
 import static src.view.main.GamePanel.SCALE;
 
 //questa classe serve per gestire le "gif" degli avantar nel menu di selezione
@@ -87,14 +89,17 @@ public class AvatarMenuButton extends  AbstractMenuButton{
 //metodo per reagire ad enter come se fosse un clic
     @Override
     public void reactToMouse(MouseEvent e) {
-        view.getPlayerWiew().setGender(gender);
-        GameState.actualState = newState;
+//        view.getPlayerWiew().setGender(gender);
+//        GameState.actualState = newState;
+        reactToEnter();
     }
 
     @Override
     public void reactToEnter() {
         view.getPlayerWiew().setGender(gender);
         GameState.actualState = newState;
+        view.getSoundManager().stopMusic();
+        view.getSoundManager().playMusic(DORMITORIO_MUSIC);
     }
 
     @Override

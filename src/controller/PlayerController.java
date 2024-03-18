@@ -65,11 +65,21 @@ public class PlayerController {
     }
 
     private void checkIfIsAbovePassage() {
-        for(int i = 0; i < Rooms.actualRoom.getPassages().size(); i++){
-            Hitbox passageBorders = Rooms.actualRoom.getPassages().get(i).getBorders();
-            if(hitbox.intersects(passageBorders)){
-                Rooms.actualRoom.getPassages().get(i).changeRoom(cfu);
+        try {
+            int passageIndex = -1;
+            for (int i = 0; i < Rooms.actualRoom.getPassages().size(); i++) {
+                Hitbox passageBorders = Rooms.actualRoom.getPassages().get(i).getBorders();
+                if (hitbox.intersects(passageBorders)) {
+                    passageIndex = i;
+                    break;
+                }
             }
+            if(passageIndex > -1){
+                Rooms.actualRoom.getPassages().get(passageIndex).changeRoom(cfu);
+            }
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
         }
     }
 
@@ -123,7 +133,7 @@ public class PlayerController {
 
     public void setxPosPlayer(int xPosPlayer) {
         this.xPosPlayer = xPosPlayer;
-        hitbox.setX(xPosPlayer);
+        hitbox.setX(xPosPlayer - XhitboxOffset);
     }
 
     public void setyPosPlayer(int yPosPlayer) {
