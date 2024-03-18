@@ -43,7 +43,7 @@ PlayStateView playStateView;
         startTitle = new StartTitle(this);
         mainMenu = new MainMenu();
         optionMenu = new OptionMenu(this);
-        pauseMenu = new PauseMenu();
+        pauseMenu = new PauseMenu(this);
         avatarMenu = new AvatarMenu(this);
         commandsExplaination = new CommandsExplaination(this);
 
@@ -92,6 +92,9 @@ PlayStateView playStateView;
             case TRANSITION_STATE:
                 transitionState.draw(g2);
             break;
+            case PAUSE:
+                playStateView.draw(g2);
+                pauseMenu.draw(g2);
             default:
                 break;
         }

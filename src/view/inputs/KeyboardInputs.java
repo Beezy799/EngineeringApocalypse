@@ -6,14 +6,10 @@ import java.awt.event.KeyListener;
 
 import src.model.GameState;
 
-//import controller.main.Gamestate;
-
 import src.model.InputState;
 import src.view.IView;
 
 import static src.view.main.GamePanel.SCALE;
-//import view.playState.entityView.EntityView;
-
 
 public class KeyboardInputs implements KeyListener {
 
@@ -29,7 +25,7 @@ public class KeyboardInputs implements KeyListener {
         switch (GameState.actualState) {
             case START_TITLE:
                 if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    view.changeGameStateToMainMenu();
+                    GameState.actualState = GameState.MAIN_MENU;
                 }
                 break;
             case PLAYING:
@@ -126,6 +122,12 @@ public class KeyboardInputs implements KeyListener {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER) {
                     view.getCommandsExplaination().enterReleased(e);
                 }
+                break;
+            case PAUSE:
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    view.getPause().enterReleased(e);
+                }
+                break;
             default:
                 break;
         }
@@ -169,7 +171,7 @@ public class KeyboardInputs implements KeyListener {
 
     }
 
-        private void handleKeyReleasedPlayState(KeyEvent e) {
+    private void handleKeyReleasedPlayState(KeyEvent e) {
             switch(e.getKeyCode()) {
                 case KeyEvent.VK_ENTER:
                     InputState.ENTER.setPressed(false);
@@ -206,38 +208,9 @@ public class KeyboardInputs implements KeyListener {
             }
         }
 
-
-        // public int getActionAssociatedToKey(KeyEvent e) {
-
-    /*      if(e.getKeyCode() == KeyEvent.VK_ENTER)
-                return EntityView.ATTACK;
-
-            else if(e.getKeyCode() == KeyEvent.VK_SPACE)
-                return EntityView.PARRY;
-
-            else if(e.getKeyCode() == KeyEvent.VK_P)
-                return EntityView.THROW;
-
-            else if(e.getKeyCode() == KeyEvent.VK_A)
-                return EntityView.LEFT;
-
-            else if(e.getKeyCode() == KeyEvent.VK_D)
-                return EntityView.RIGHT;
-
-            else if(e.getKeyCode() == KeyEvent.VK_W)
-                return EntityView.UP;
-
-            else if(e.getKeyCode() == KeyEvent.VK_S)
-                return EntityView.DOWN;
-
-            else return -1;
-
-        */
-        //    return 0;
-        //  }
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-        }
+    @Override
+    public void keyTyped(KeyEvent e) {
 
     }
+
+}

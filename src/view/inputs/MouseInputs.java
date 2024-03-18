@@ -66,7 +66,7 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 	public void mouseClicked(MouseEvent e) {
 	 	switch (GameState.actualState) {
 		case START_TITLE:
-			view.changeGameStateToMainMenu();
+			GameState.actualState = GameState.MAIN_MENU;
 			break;
 		default:
 			break;

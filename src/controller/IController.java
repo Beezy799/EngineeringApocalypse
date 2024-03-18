@@ -115,9 +115,7 @@ public class IController {
         }
 
         if (InputState.ESCAPE.getPressed()) {
-            view.getSoundManager().stopMusic();
-            view.getSoundManager().playMusic(Constants.SoundConstants.MENU_MUSIC);
-            GameState.actualState = GameState.MAIN_MENU;
+            GameState.actualState = GameState.PAUSE;
             InputState.ESCAPE.setPressed(false);
         }
 
