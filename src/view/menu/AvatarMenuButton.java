@@ -99,7 +99,6 @@ public class AvatarMenuButton extends  AbstractMenuButton{
         view.getPlayerWiew().setGender(gender);
         GameState.actualState = newState;
         view.getSoundManager().stopMusic();
-        view.getSoundManager().playMusic(DORMITORIO_MUSIC);
     }
 
     @Override

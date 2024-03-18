@@ -19,8 +19,8 @@ import java.util.ArrayList;
 public enum Rooms {
     //lista delle entitàModel  --> EntityModel = [EntityController, EntityView]
     //lista eventi
-    DORMITORIO("/res/map/dormitorio.json", "/res/map/datiDormitorio.json", Constants.SoundConstants.DORMITORIO_MUSIC),
     BIBLIOTECA("/res/map/biblioteca.json", "/res/map/datiBiblioteca.json", Constants.SoundConstants.BIBLIOTECA_MUSIC),
+    DORMITORIO("/res/map/dormitorio.json", "/res/map/datiDormitorio.json", Constants.SoundConstants.DORMITORIO_BUIO),
     STUDIO_PROF("/res/map/studioProf.json", "/res/map/datiStudioProf.json", Constants.SoundConstants.BOSS_FIRTST_PHASE_MUSIC),
     LABORATORIO("/res/map/laboratorio.json", "/res/map/datiLaboratorio.json", Constants.SoundConstants.LABORATORIO_MUSIC),
     AULA_STUDIO("/res/map/aulaStudio.json", "/res/map/datiAulaStudio.json", Constants.SoundConstants.AULA_STUDIO_MUSIC),

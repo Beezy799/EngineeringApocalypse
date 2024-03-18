@@ -61,6 +61,7 @@ public class PlayerView extends SortableElement {
                 normalDraw(g2);
                 break;
             case ATTACKING:
+                animationSpeed = 15;
                 specialDraw(g2);
                 //drawOndaEnergetica(g2);
                 break;
@@ -85,13 +86,13 @@ public class PlayerView extends SortableElement {
             e.printStackTrace();
         }
         //disegna la zona occupata dalla sprite
-        g2.drawRect(xOnScreen, yOnScreen,
-                playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite].getWidth(),
-                playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite].getHeight());
+//        g2.drawRect(xOnScreen, yOnScreen,
+//                playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite].getWidth(),
+//                playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite].getHeight());
 
         //disegna la sua posizione come un piccolo quadratino
-        g2.setColor(Color.red);
-        g2.fillRect(GamePanel.CENTER_X_GAME_PANEL, GamePanel.CENTER_Y_GAME_PANEL, 5, 5);
+//        g2.setColor(Color.red);
+//        g2.fillRect(GamePanel.CENTER_X_GAME_PANEL, GamePanel.CENTER_Y_GAME_PANEL, 5, 5);
 
         //disegna la hitbox del giocatore
         g2.setColor(Color.blue);
@@ -202,6 +203,7 @@ public class PlayerView extends SortableElement {
                 //finita l'anmazione, dice al controller di sbloccare lo stato e aggiornarlo
                 view.getController().getPlayerController().unlockState();
                 numSprite = 0;
+                animationSpeed = 20;
             }
             animationCounter = 0;
         }

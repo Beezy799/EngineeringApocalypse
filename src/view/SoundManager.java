@@ -24,20 +24,21 @@ public class SoundManager {
     public SoundManager() {
         soundURL = new URL[15];
 
-        soundURL[MENU_MUSIC] = getClass().getResource("/res/sound/menuLeggera.wav");
-        soundURL[AULA_STUDIO_MUSIC] = getClass().getResource("/res/sound/salaStudioLeggera.wav");
-        soundURL[DORMITORIO_MUSIC] = getClass().getResource("/res/sound/dormitorioLeggera.wav");
+        soundURL[MENU_MUSIC] = getClass().getResource("/res/sound/menu.wav");
+        soundURL[AULA_STUDIO_MUSIC] = getClass().getResource("/res/sound/sala studio.wav");
+        soundURL[DORMITORIO_MUSIC] = getClass().getResource("/res/sound/dormitorio.wav");
         soundURL[BIBLIOTECA_MUSIC] = getClass().getResource("/res/sound/biblioteca.wav");
         soundURL[COLPO_SE] = getClass().getResource("/res/sound/hitmonster.wav");
         soundURL[TENDA_MUSIC] = getClass().getResource("/res/sound/tenda.wav");
         soundURL[FUOCO_SE] = getClass().getResource("/res/sound/burning.wav");
-        soundURL[LABORATORIO_MUSIC] = getClass().getResource("/res/sound/laboratorio.wav");
+        soundURL[LABORATORIO_MUSIC] = getClass().getResource("/res/sound/laboratorio epica.wav");
         soundURL[BOSS_SECOND_PHASE_MUSIC] = getClass().getResource("/res/sound/bossMusic.wav");
         soundURL[CAFFE_SE] = getClass().getResource("/res/sound/powerup.wav");
         soundURL[APPUNTI_SE] = getClass().getResource("/res/sound/coin.wav");
         soundURL[CFU_SE] = getClass().getResource("/res/sound/fanfare.wav");
         soundURL[DIALOGUE_SE] = getClass().getResource("/res/sound/dialogue.wav");
         soundURL[BOSS_FIRTST_PHASE_MUSIC] = getClass().getResource("/res/sound/bossFightFaseUno.wav");
+        soundURL[DORMITORIO_BUIO] = getClass().getResource("/res/sound/dormitorio buio.wav");
 
 
 
@@ -118,7 +119,6 @@ public class SoundManager {
         setSEVolume(seVolume);
     }
 
-
     public void setSEVolume(float v) {
         if (v > 0f && v < 1f) {
             this.seVolume = v;
@@ -140,7 +140,6 @@ public class SoundManager {
             }
         }
     }
-
 
     // metodo che funziona bene
     public void setMusicVolume(float v) {
