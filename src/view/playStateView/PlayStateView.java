@@ -57,7 +57,7 @@ public class PlayStateView {
         elementsAboveTheFloor.clear();
 
         playUI.draw(g2);
-        //ghostView.draw(g2);
+        Rooms.actualRoom.getEntities().get(0).getEntityView().draw(g2, xPlayer, yPlayer);
     }
 
     private void drawAllEnementsAboveTheFloor(Graphics2D g2, int xPlayerMap, int yPlayerMap) {

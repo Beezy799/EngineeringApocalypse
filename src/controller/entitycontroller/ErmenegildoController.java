@@ -1,5 +1,6 @@
 package src.controller.entitycontroller;
 
+import src.model.EntityStates;
 import src.model.Hitbox;
 
 public class ErmenegildoController extends EntityController {

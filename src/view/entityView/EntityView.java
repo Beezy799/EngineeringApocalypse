@@ -1,6 +1,7 @@
 package src.view.entityView;
 
 import src.model.EntityStates;
+import src.model.mapModel.Rooms;
 import src.view.IView;
 import src.view.main.GamePanel;
 import src.view.playStateView.SortableElement;
@@ -19,9 +20,7 @@ public abstract class EntityView extends SortableElement {
     int indexInEntityArray;
 
     protected IView view;
-
     protected BufferedImage[][][] animation;    //azione,direzione,sprite
-
     protected EntityStates currentState = EntityStates.IDLE;
     protected EntityStates previousState = EntityStates.IDLE;
     protected int currentDirection = DOWN;
@@ -73,8 +72,22 @@ public abstract class EntityView extends SortableElement {
         }
     }
 
-    private void getCurrentStateFromController() {
-        currentState = view.getModel().getCurrentStateOfEntity(indexInEntityArray);
+    protected void getCurrentStateFromController() {
+        try {
+//            if(view == null)
+//                System.out.println("v");
+//
+//            if(view.getModel() == null)
+//                System.out.println("m");
+//
+//            if(Rooms.actualRoom == null)
+//                System.out.println("r");
+
+            currentState = view.getModel().getCurrentStateOfEntity(indexInEntityArray);
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
         //se è cambiata l'azione, resetta il valore di numSprite, visto che le azioni hanno numero sprite diverso
         if(previousState != currentState){
             previousState = currentState;
@@ -82,7 +95,7 @@ public abstract class EntityView extends SortableElement {
         }
     }
 
-    private void getCurrentDirectionFromController() {
+    protected void getCurrentDirectionFromController() {
 
         float vectorX = view.getModel().getCurrentDirectionOfEntity(indexInEntityArray).getX();
         float vectorY = view.getModel().getCurrentDirectionOfEntity(indexInEntityArray).getY();

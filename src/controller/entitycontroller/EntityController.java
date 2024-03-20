@@ -5,10 +5,10 @@ import src.model.EntityStates;
 import src.model.Hitbox;
 
 public class EntityController {
-    private Hitbox hitbox;
-    private int xPos, yPos;
-    private EntityStates currentState = EntityStates.IDLE;
-    private Vector movementVector;
+    protected Hitbox hitbox;
+    protected int xPos, yPos;
+    protected EntityStates currentState = EntityStates.IDLE;
+    protected Vector movementVector;
 
     public EntityController(Hitbox h , int x, int y){
         xPos = x;

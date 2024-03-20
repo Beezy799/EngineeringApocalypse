@@ -64,7 +64,7 @@ PlayStateView playStateView;
         transitionState = new TransitionState(this);
 
         for(Rooms room : Rooms.values()){
-            room.loadEntities();
+            room.loadEntities(this);
         }
     }
 

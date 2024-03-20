@@ -8,6 +8,7 @@ import src.controller.entitycontroller.ErmenegildoController;
 import src.model.Constants;
 import src.model.Hitbox;
 import src.model.IModel;
+import src.view.IView;
 import src.view.entityView.EntityView;
 import src.view.entityView.ErmenegildoView;
 
@@ -91,7 +92,7 @@ public enum Rooms {
         }
     }
 
-    public void loadEntities(){
+    public void loadEntities(IView view){
 //        BufferedReader reader = null;
 //
 //        try {
@@ -115,9 +116,10 @@ public enum Rooms {
 //        JSONObject jsonObject = (JSONObject) jsonObj;
 
 
-        ErmenegildoView ev = new ErmenegildoView(model.getView(), 0);
-        ErmenegildoController ec = new ErmenegildoController(new Hitbox(0,0,0,0), 0, 0);
+        ErmenegildoView ev = new ErmenegildoView(view, 0);
+        ErmenegildoController ec = new ErmenegildoController(new Hitbox(0,0,0,0), 12, 11);
         EntityComplete erm = new EntityComplete(ec, ev);
+        entityCompletes.add(erm);
 
 
     }

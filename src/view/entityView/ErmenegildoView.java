@@ -1,11 +1,13 @@
 package src.view.entityView;
 
 import src.model.EntityStates;
+import src.model.mapModel.Rooms;
 import src.view.IView;
 import src.view.ViewUtils;
 import src.view.main.GamePanel;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -16,6 +18,8 @@ public class ErmenegildoView extends EntityView{
 
     public ErmenegildoView(IView v, int i) {
         super(v, i);
+        loadImages();
+        loadRunImages();
     }
 
     private void loadImages() {
@@ -67,4 +71,5 @@ public class ErmenegildoView extends EntityView{
 
         return 0;
     }
+
 }
