@@ -16,6 +16,7 @@ public class PlayerController {
     private Vector movementVector; //"direzione" del player
     private EntityStates actualState = EntityStates.IDLE;
     private boolean stateLocked = false;
+    private boolean nearEntity;
 
 
     private int life = 100;
@@ -47,10 +48,12 @@ public class PlayerController {
         switch (actualState){
             case IDLE:
                 checkIfIsAbovePassage();
+                checkInteraction();
                 break;
             case MOVE:
                 updatePosition();
                 checkIfIsAbovePassage();
+                checkInteraction();
                 break;
             case ATTACKING:
                 break;
@@ -65,6 +68,30 @@ public class PlayerController {
                 break;
         }
 
+    }
+
+    private void checkInteraction() {
+        try {
+            int entityIndex = -1;
+            for (int i = 0; i < Rooms.actualRoom.getPassages().size(); i++) {
+                Hitbox entityInteractionBorders = Rooms.actualRoom.getEntities().get(i).getEntityController().getInteractionHitbox();
+                if (hitbox.intersects(entityInteractionBorders)) {
+                    entityIndex = i;
+                    break;
+                }
+            }
+            if(entityIndex > -1){
+                nearEntity = true;
+                controller.setIndexEntityInteraction(entityIndex);
+                controller.getView().getPlayStateView().getPlayUI().setMessageToShow("premi E per parlare");
+            }
+            else {
+                nearEntity = false;
+            }
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     private void checkIfIsAbovePassage() {
@@ -242,5 +269,13 @@ public class PlayerController {
 
     public void setNotes(int notes) {
         this.notes = notes;
+    }
+
+    public boolean isNearEntity() {
+        return nearEntity;
+    }
+
+    public void setNearEntity(boolean nearEntity) {
+        this.nearEntity = nearEntity;
     }
 }

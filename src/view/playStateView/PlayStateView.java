@@ -211,4 +211,8 @@ public class PlayStateView {
     public IView getView() {
         return iView;
     }
+
+    public PlayUI getPlayUI(){
+        return playUI;
+    }
 }

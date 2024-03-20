@@ -132,13 +132,13 @@ public class PlayUI {
         if(showMessage) {
 
             counterMessage++;
-            if(counterMessage < 360) {
+            if(counterMessage < 240) {
 
                 g2.setFont(fontDisplay);
 
                 //per disegnare il messaggio al centro dello schermo, circa
                 int x = ViewUtils.getXforCenterText(message, g2);
-                int y = GamePanel.GAME_HEIGHT/2 + (int)(20*GamePanel.SCALE);
+                int y = GamePanel.GAME_HEIGHT/2 + (int)(30*GamePanel.SCALE);
                 int width = ViewUtils.getStringLenght(message, g2);
                 int height = ViewUtils.getStringHeight(message, g2);
 
@@ -164,6 +164,7 @@ public class PlayUI {
 
     public void setMessageToShow(String s) {
         message = s;
+        setThereIsAMessageToShow(true);
     }
 
     public void setThereIsAMessageToShow(boolean thereIsAMessageToShow) {

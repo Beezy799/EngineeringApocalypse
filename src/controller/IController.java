@@ -15,6 +15,8 @@ public class IController {
     private PlayStateController playStateController;
     private PathFinder pathFinder;
 
+    private int indexEntityInteraction;
+
     //serve per bloccare le variabili dell'inputstate mentre il controller le legge, in modo da evitare inconsistenze
     ReentrantLock lock;
 
@@ -47,6 +49,7 @@ public class IController {
                updateInputs(); // guarda lo stato della tastiera
                playerController.update();
                //pathFinder.createGraph();
+
             break;
 
             case QUIT:
@@ -109,8 +112,10 @@ public class IController {
 
 
         if (InputState.E.getPressed()) {
-            //Rooms.actualRoom = Rooms.TENDA;
-            //playerController.changeActualState(EntityStates.DYING);
+            if(playerController.isNearEntity()){
+                playerController.setNearEntity(false);
+                GameState.actualState = GameState.DIALOGUE;
+            }
         }
 
         if (InputState.P.getPressed() || InputState.MIDDLE_CLICK.getPressed()) {
@@ -129,4 +134,11 @@ public class IController {
         return pathFinder;
     }
 
+    public int getIndexEntityInteraction() {
+        return indexEntityInteraction;
+    }
+
+    public void setIndexEntityInteraction(int indexEntityInteraction) {
+        this.indexEntityInteraction = indexEntityInteraction;
+    }
 }

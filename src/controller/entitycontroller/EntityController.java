@@ -7,7 +7,7 @@ import src.view.main.GamePanel;
 
 public class EntityController {
 
-    protected Hitbox hitbox;
+    protected Hitbox hitbox, interactionHitbox;
     protected int XhitboxOffset, YhitboxOffset;
     protected int xPos, yPos;
     protected EntityStates currentState = EntityStates.IDLE;
@@ -64,5 +64,9 @@ public class EntityController {
 
     public int getYhitboxOffset() {
         return YhitboxOffset;
+    }
+
+    public Hitbox getInteractionHitbox(){
+        return interactionHitbox;
     }
 }

@@ -184,4 +184,8 @@ PlayStateView playStateView;
     public TransitionState getTransitionState(){
         return transitionState;
     }
+
+    public PlayStateView getPlayStateView(){
+        return playStateView;
+    }
 }
