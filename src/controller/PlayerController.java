@@ -124,6 +124,7 @@ public class PlayerController {
             }
         }
 
+        //System.out.println(yPosPlayer/GamePanel.TILES_SIZE + ", " + xPosPlayer/GamePanel.TILES_SIZE);
     }
 
     public void resetDirectionVector() {

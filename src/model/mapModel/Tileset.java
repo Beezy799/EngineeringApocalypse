@@ -13,7 +13,7 @@ import src.view.main.GamePanel;
 
 public class Tileset {
 
-    TileCmplete[] tilesComplete;
+    TileComplete[] tilesComplete;
 
 
     public void loadTileset(String tilesetPath){
@@ -34,7 +34,7 @@ public class Tileset {
             JSONArray tilesJson = (JSONArray) jsonObject.get("tiles");
 
             //ora che abbiamo il numero dei tile, possiamo creare l'array
-            tilesComplete = new TileCmplete[tilesJson.size()];
+            tilesComplete = new TileComplete[tilesJson.size()];
 
             // Itera attraverso gli elementi dell'array "tiles"
             for (int index = 0; index < tilesJson.size(); index++) {
@@ -53,7 +53,7 @@ public class Tileset {
                 hitbox.setHeight((int)(Integer.parseInt(bounds.get(3).toString()) * GamePanel.SCALE));
 
                 //ora che abbiamo tutti i campi, creo il tileModel e lo metto nel corrispondete tile completo nell'array
-                tilesComplete[index] =  new TileCmplete(new TileModel(tipo, solid, hitbox));
+                tilesComplete[index] =  new TileComplete(new TileModel(tipo, solid, hitbox));
             }
         }
         catch (Exception e) {
@@ -63,11 +63,11 @@ public class Tileset {
     }
 
 
-    public TileCmplete[] getTileArray(){
+    public TileComplete[] getTileArray(){
         return tilesComplete;
     }
 
-    public TileCmplete getTile(int index){
+    public TileComplete getTile(int index){
         return tilesComplete[index];
     }
 

@@ -5,6 +5,7 @@ import java.awt.*;
 import src.controller.IController;
 import src.model.GameState;
 import src.model.IModel;
+import src.model.mapModel.Rooms;
 import src.view.entityView.PlayerView;
 import src.view.gameBegin.StartTitle;
 import src.view.inputs.MouseInputs;
@@ -61,6 +62,10 @@ PlayStateView playStateView;
         soundManager.playMusic(MENU_MUSIC);
 
         transitionState = new TransitionState(this);
+
+        for(Rooms room : Rooms.values()){
+            room.loadEntities();
+        }
     }
 
     //chiede al pannello di creare il suo ambiente grafico, g, che poi userà per disegnare il frame successivo

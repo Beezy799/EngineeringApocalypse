@@ -2,13 +2,14 @@ package src.view;
 
 public class TitoliDiCoda {
 
-    //musica, fairy fountain con arpa
+    private String Francesco = "Francesco, voice actor";
+    private String Bea = "Bea, sprite editing";
+    private String Lorenzo = "Lorenzo, code creative feedback";
 
-    //Francesco voice actor, beta tester
-    //Bea   sprite editing
-    //Lorenzo Pizzuti  code reviewer
-    //Salvatore beta tester
-    //Armando   mental health
+    private String Armando = "Armando, mental health helper";
 
+    private String Umberto = "Umberto, game designer";
+
+    private String betaTesters = "Flavio, Amin, Aiman, Matteo";
 
 }

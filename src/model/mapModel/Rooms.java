@@ -4,9 +4,12 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import src.controller.entitycontroller.ErmenegildoController;
 import src.model.Constants;
 import src.model.Hitbox;
 import src.model.IModel;
+import src.view.entityView.EntityView;
+import src.view.entityView.ErmenegildoView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,20 +31,23 @@ public enum Rooms {
 
     private Map map;
     private ArrayList<Passage> passages;
+    private ArrayList<EntityComplete> entityCompletes;
     private static IModel model;
     private int musicIndex;
+    private String dataPath;
 
-    //costruttore
+    //costruttore della singola stanza
     Rooms(String mapPath, String pathRoomData, int m){
       map = new Map();
       map.loadMap(mapPath);
       musicIndex = m;
       passages = new ArrayList<>();
-
-      loadPassagesAndEntities(pathRoomData);
+      entityCompletes = new ArrayList<>();
+      loadPassagesAndEvents(pathRoomData);
+      dataPath = pathRoomData;
     }
 
-    private void loadPassagesAndEntities(String pathRoomData) {
+    private void loadPassagesAndEvents(String pathRoomData) {
         //roba per leggere il file
         BufferedReader reader = null;
 
@@ -85,13 +91,50 @@ public enum Rooms {
         }
     }
 
-    public static Rooms actualRoom = BIBLIOTECA;
+    public void loadEntities(){
+//        BufferedReader reader = null;
+//
+//        try {
+//            InputStream is = getClass().getResourceAsStream(dataPath);
+//            reader = new BufferedReader(new InputStreamReader(is));
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+//
+//        //per leggere il file di tipo json
+//        JSONParser parser = new JSONParser();
+//        Object jsonObj = null;
+//        try {
+//            jsonObj = parser.parse(reader);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        } catch (ParseException e) {
+//            throw new RuntimeException(e);
+//        }
+//        JSONObject jsonObject = (JSONObject) jsonObj;
+
+
+        ErmenegildoView ev = new ErmenegildoView(model.getView(), 0);
+        ErmenegildoController ec = new ErmenegildoController(new Hitbox(0,0,0,0), 0, 0);
+        EntityComplete erm = new EntityComplete(ec, ev);
+
+
+    }
+
 
     public Map getMap(){
         return map;
     }
     public ArrayList<Passage> getPassages(){
         return passages;
+    }
+    public int getMusicIndex(){
+        return musicIndex;
+    }
+
+    public ArrayList<EntityComplete> getEntities(){
+        return entityCompletes;
     }
 
     //le stanze si salvano il riferimento al model
@@ -106,9 +149,6 @@ public enum Rooms {
     public static IModel getModel(){
         return model;
     }
-
-    public int getMusicIndex(){
-        return musicIndex;
-    }
+    public static Rooms actualRoom = BIBLIOTECA;
 
 }

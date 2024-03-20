@@ -1,6 +1,8 @@
 package src.model;
 
 import src.controller.IController;
+import src.controller.Vector;
+import src.controller.pathFinding.Node;
 import src.model.mapModel.Rooms;
 import src.model.mapModel.Tileset;
 import src.view.IView;
@@ -10,9 +12,9 @@ public class IModel {
     private IController controller;
     private IView view;
     private Tileset tileset;
-
     private int xPlayerBeforeTransition, yPlayerBeforeTransition;
     private Rooms roomBeforeTransition;
+    private Rooms rooms;
 
     public IModel(IController contr){
         this.controller = contr;
@@ -22,6 +24,8 @@ public class IModel {
 
         //una volta finito di crearsi, passa il suo riferimento alle stanze
         Rooms.setModel(this);
+
+        //controller.getPathFinder().existPath(new Node(9,12), new Node(9, 13));
     }
 
     public void setView(IView v) {
@@ -58,4 +62,21 @@ public class IModel {
         controller.getPlayerController().setyPosPlayer(yPlayerBeforeTransition);
         Rooms.actualRoom = roomBeforeTransition;
     }
+
+    public int getEntityXpos(int index){
+        return Rooms.actualRoom.getEntities().get(index).getEntityController().getxPos();
+    }
+    public int getEntityYpos(int index){
+        return Rooms.actualRoom.getEntities().get(index).getEntityController().getyPos();
+    }
+
+    public EntityStates getCurrentStateOfEntity(int entityIndex){
+        return Rooms.actualRoom.getEntities().get(entityIndex).getEntityController().getCurrentState();
+    }
+
+    public Vector getCurrentDirectionOfEntity(int entityIndex){
+        return Rooms.actualRoom.getEntities().get(entityIndex).getEntityController().getMovementVector();
+    }
+
+
 }

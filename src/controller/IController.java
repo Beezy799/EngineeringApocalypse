@@ -1,5 +1,6 @@
 package src.controller;
 
+import src.controller.pathFinding.PathFinder;
 import src.model.*;
 import src.model.mapModel.Rooms;
 import src.view.IView;
@@ -12,6 +13,7 @@ public class IController {
     private IModel model;
     private PlayerController playerController;
     private PlayStateController playStateController;
+    private PathFinder pathFinder;
 
     //serve per bloccare le variabili dell'inputstate mentre il controller le legge, in modo da evitare inconsistenze
     ReentrantLock lock;
@@ -20,7 +22,7 @@ public class IController {
         lock = new ReentrantLock();
         playStateController = new PlayStateController(this);
         playerController = new PlayerController(this, playStateController);
-
+        pathFinder = new PathFinder(this);
     }
 
     public void setView(IView v) {
@@ -44,6 +46,7 @@ public class IController {
                playerController.resetDirectionVector();
                updateInputs(); // guarda lo stato della tastiera
                playerController.update();
+               //pathFinder.createGraph();
             break;
 
             case QUIT:
@@ -122,5 +125,8 @@ public class IController {
         lock.unlock();
     }
 
+    public PathFinder getPathFinder(){
+        return pathFinder;
+    }
 
 }

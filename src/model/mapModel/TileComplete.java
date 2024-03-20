@@ -5,12 +5,12 @@ import src.view.mapView.TileView;
 
 //i tile completi contengono sia la hitbox che le immagini, in questo modo evitiamo di creare due array
 //di oggetti che logicamente sono collegati ma fisicamente sono separati ed hanno in comune solo l'indice
-public class TileCmplete {
+public class TileComplete {
     private TileModel tileModel;
     private TileView tileView;
 
 
-    public TileCmplete(TileModel tilem){
+    public TileComplete(TileModel tilem){
         this.tileModel = tilem;
     }
     public TileView getTileView() {
