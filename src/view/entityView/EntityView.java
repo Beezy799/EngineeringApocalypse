@@ -24,11 +24,15 @@ public abstract class EntityView extends SortableElement {
     protected EntityStates currentState = EntityStates.IDLE;
     protected EntityStates previousState = EntityStates.IDLE;
     protected int currentDirection = DOWN;
+    //la posizione non coincide col punto in alto a
+    // sinistra dell'immagine, quindi dobbiamo compensare
+    protected int yOffset, xOffset;
 
 
     public EntityView(IView v, int i){
         view = v;
         indexInEntityArray = i;
+        typeElemtToSort = 5;
     }
 
 
@@ -62,14 +66,24 @@ public abstract class EntityView extends SortableElement {
         //riproponiamo la stessa distanza nello schermo
         int xPosOnScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
         int yPosOnScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
+        g2.drawImage(animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite], xPosOnScreen - xOffset, yPosOnScreen - yOffset, null);
+
+        //disegna la zona occupata dalla sprite
+        g2.drawRect(xPosOnScreen - xOffset, yPosOnScreen - yOffset,
+                animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite].getWidth(),
+                animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite].getHeight());
+        //disegna la posizione
+        g2.fillRect(xPosOnScreen, yPosOnScreen, 5, 5);
 
 
-        try {
-            g2.drawImage(animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite], xPosOnScreen, yPosOnScreen, null);
-        }
-        catch (ArrayIndexOutOfBoundsException a) {
-            a.printStackTrace();
-        }
+        g2.setColor(Color.red);
+        int hitboxW = Rooms.actualRoom.getEntities().get(indexInEntityArray).getEntityController().getHitbox().getWidth();
+        int hitboxH = Rooms.actualRoom.getEntities().get(indexInEntityArray).getEntityController().getHitbox().getHeight();
+        int xoffsetH = Rooms.actualRoom.getEntities().get(indexInEntityArray).getEntityController().getXhitboxOffset();
+        int yoffsetH = Rooms.actualRoom.getEntities().get(indexInEntityArray).getEntityController().getYhitboxOffset();
+
+        g2.drawRect(xPosOnScreen - xoffsetH, yPosOnScreen - yoffsetH, hitboxW, hitboxH);
+
     }
 
     protected void getCurrentStateFromController() {
@@ -118,4 +132,8 @@ public abstract class EntityView extends SortableElement {
 
     protected abstract int getAnimationLenght();
 
+    //ci serve per essere sicuri che l'entità sappia dove si trova prima di essere ordinata
+    public void updatePositionForSort() {
+         yPosMapForSort = view.getModel().getEntityYpos(indexInEntityArray);
+    }
 }

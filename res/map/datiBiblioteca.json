@@ -12,8 +12,15 @@
       "cfuRichiesti": 0,
       "messaggio": ""
     }
+  ],
+  "entita": [
+    {
+      "nome": "Ermenegildo",
+      "riga": 17,
+      "colonna": 12,
+      "hitboxWidth": 16,
+      "hitboxHeight": 35
+    }
   ]
 
-
 }
-

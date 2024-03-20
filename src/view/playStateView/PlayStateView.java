@@ -1,7 +1,9 @@
 package src.view.playStateView;
 
+import src.model.mapModel.EntityComplete;
 import src.model.mapModel.Rooms;
 import src.view.IView;
+import src.view.entityView.EntityView;
 import src.view.entityView.GhostView;
 import src.view.entityView.PlayerView;
 import src.view.main.GamePanel;
@@ -45,9 +47,8 @@ public class PlayStateView {
 
         //mettimao i tile dei livelli 3 e 4 nella lista
         addTilesToSortList(xPlayer, yPlayer);
-        //mettiamo le creature, per ora solo il giocatore
-        playerView.setYposMapToSort(iView.getController().getPlayerController().getyPosPlayer());
-        elementsAboveTheFloor.add(playerView);
+        //mettiamo le creature, compreso il giocatore
+        addEntitiesToSortList(xPlayer, yPlayer);
         //ordiniamo la lista
         //collections è una classe di utilità che implementa un algoritmo veloce di ordinamento
         Collections.sort(elementsAboveTheFloor);
@@ -57,7 +58,20 @@ public class PlayStateView {
         elementsAboveTheFloor.clear();
 
         playUI.draw(g2);
-        Rooms.actualRoom.getEntities().get(0).getEntityView().draw(g2, xPlayer, yPlayer);
+    }
+
+    private void addEntitiesToSortList(int xPlayer, int yPlayer) {
+
+        playerView.setYposMapToSort(iView.getController().getPlayerController().getyPosPlayer());
+        elementsAboveTheFloor.add(playerView);
+
+        //scandisce la lista delle entità della stanza attuale
+        for(EntityComplete entity : Rooms.actualRoom.getEntities()){
+            entity.getEntityView().updatePositionForSort();
+            elementsAboveTheFloor.add(entity.getEntityView());
+        }
+
+
     }
 
     private void drawAllEnementsAboveTheFloor(Graphics2D g2, int xPlayerMap, int yPlayerMap) {

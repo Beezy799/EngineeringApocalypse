@@ -14,7 +14,7 @@ public class PathFinder {
 
     public PathFinder(IController c){
         controller = c;
-        createGraph();
+        //createGraph();
     }
 
     public void createGraph(){

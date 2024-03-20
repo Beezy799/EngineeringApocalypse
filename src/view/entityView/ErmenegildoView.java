@@ -30,6 +30,9 @@ public class ErmenegildoView extends EntityView{
 
         loadRunImages();
         loadIdleImages();
+
+        xOffset = animation[0][0][0].getWidth()/2;
+        yOffset = animation[0][0][0].getHeight()/2;
     }
 
     private void loadRunImages() {

@@ -1,5 +1,8 @@
-package src.controller;
+package src.controller.entitycontroller;
 
+import src.controller.IController;
+import src.controller.PlayStateController;
+import src.controller.Vector;
 import src.model.EntityStates;
 import src.model.Hitbox;
 import src.model.mapModel.Rooms;
@@ -10,7 +13,7 @@ public class PlayerController {
     private IController controller;
     private PlayStateController playStateController;
     private int xPosPlayer = 21*GamePanel.TILES_SIZE, yPosPlayer = 15*GamePanel.TILES_SIZE; //posizione del player
-    private  Vector movementVector; //"direzione" del player
+    private Vector movementVector; //"direzione" del player
     private EntityStates actualState = EntityStates.IDLE;
     private boolean stateLocked = false;
 
@@ -89,9 +92,11 @@ public class PlayerController {
         if(movementVector.getX() < 0){
             tempHitbox.setX(hitbox.getX() + movementVector.getX());
             tempHitbox.setY(hitbox.getY());
-            if(playStateController.getCollisionChecker().canGoLeft(tempHitbox)){
-                xPosPlayer += movementVector.getX();
-                hitbox.setX((xPosPlayer - XhitboxOffset));
+            if(playStateController.getCollisionChecker().canGoLeft(tempHitbox)){       //controlla i tile
+                if(!isEntityCollision()){                               //controlla le entità, se non c'è collisione
+                    xPosPlayer += movementVector.getX();                //aggiorna la posizione
+                    hitbox.setX((xPosPlayer - XhitboxOffset));
+                }
             }
 
         }
@@ -100,8 +105,10 @@ public class PlayerController {
             tempHitbox.setX(hitbox.getX() + movementVector.getX());
             tempHitbox.setY(hitbox.getY());
             if(playStateController.getCollisionChecker().canGoRight(tempHitbox)){
-                xPosPlayer += movementVector.getX();
-                hitbox.setX((xPosPlayer - XhitboxOffset));
+                if(!isEntityCollision()){
+                    xPosPlayer += movementVector.getX();
+                    hitbox.setX((xPosPlayer - XhitboxOffset));
+                }
             }
         }
         //sta andando su
@@ -109,8 +116,10 @@ public class PlayerController {
             tempHitbox.setX(hitbox.getX());
             tempHitbox.setY(hitbox.getY() + movementVector.getY());
             if(playStateController.getCollisionChecker().canGoUp(tempHitbox)){
-                yPosPlayer += movementVector.getY();
-                hitbox.setY(yPosPlayer);
+                if(!isEntityCollision()) {
+                    yPosPlayer += movementVector.getY();
+                    hitbox.setY(yPosPlayer);
+                }
             }
 
         }
@@ -119,12 +128,24 @@ public class PlayerController {
             tempHitbox.setX(hitbox.getX());
             tempHitbox.setY(hitbox.getY() + movementVector.getY());
             if(playStateController.getCollisionChecker().canGoDown(tempHitbox)){
-                yPosPlayer += movementVector.getY();
-                hitbox.setY(yPosPlayer);
+                if(!isEntityCollision()) {
+                    yPosPlayer += movementVector.getY();
+                    hitbox.setY(yPosPlayer);
+                }
             }
         }
 
         //System.out.println(yPosPlayer/GamePanel.TILES_SIZE + ", " + xPosPlayer/GamePanel.TILES_SIZE);
+    }
+
+    private boolean isEntityCollision() {
+        boolean collision = false;
+        for(int i = 0; i < Rooms.actualRoom.getEntities().size(); i++){
+            Hitbox hitboxEntity = Rooms.actualRoom.getEntities().get(i).getEntityController().getHitbox();
+            if(hitboxEntity.intersects(tempHitbox))
+                collision = true;
+        }
+        return collision;
     }
 
     public void resetDirectionVector() {

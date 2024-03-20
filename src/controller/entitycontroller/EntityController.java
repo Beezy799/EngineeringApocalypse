@@ -3,18 +3,31 @@ package src.controller.entitycontroller;
 import src.controller.Vector;
 import src.model.EntityStates;
 import src.model.Hitbox;
+import src.view.main.GamePanel;
 
 public class EntityController {
+
     protected Hitbox hitbox;
+    protected int XhitboxOffset, YhitboxOffset;
     protected int xPos, yPos;
     protected EntityStates currentState = EntityStates.IDLE;
     protected Vector movementVector;
 
     public EntityController(Hitbox h , int x, int y){
-        xPos = x;
-        yPos = y;
+        xPos = x * GamePanel.TILES_SIZE;
+        yPos = y * GamePanel.TILES_SIZE;
+
         hitbox = h;
+        hitbox.setWidth((int)(hitbox.getWidth()*GamePanel.SCALE));
+        hitbox.setHeight((int)(hitbox.getHeight()*GamePanel.SCALE));
+        XhitboxOffset = hitbox.getWidth()/2;
+        YhitboxOffset = hitbox.getHeight()/2;
+        hitbox.setX(xPos - XhitboxOffset);
+        hitbox.setY(yPos - YhitboxOffset);
+
         movementVector = new Vector(2);
+        XhitboxOffset = hitbox.getWidth()/2;
+        YhitboxOffset = hitbox.getHeight()/2;
     }
 
     public void setxPos(int xPos) {
@@ -43,5 +56,13 @@ public class EntityController {
 
     public Vector getMovementVector(){
         return movementVector;
+    }
+
+    public int getXhitboxOffset() {
+        return XhitboxOffset;
+    }
+
+    public int getYhitboxOffset() {
+        return YhitboxOffset;
     }
 }

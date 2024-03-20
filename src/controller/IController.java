@@ -1,8 +1,8 @@
 package src.controller;
 
+import src.controller.entitycontroller.PlayerController;
 import src.controller.pathFinding.PathFinder;
 import src.model.*;
-import src.model.mapModel.Rooms;
 import src.view.IView;
 
 import java.util.concurrent.locks.ReentrantLock;

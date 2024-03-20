@@ -93,33 +93,45 @@ public enum Rooms {
     }
 
     public void loadEntities(IView view){
-//        BufferedReader reader = null;
-//
-//        try {
-//            InputStream is = getClass().getResourceAsStream(dataPath);
-//            reader = new BufferedReader(new InputStreamReader(is));
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
-//        //per leggere il file di tipo json
-//        JSONParser parser = new JSONParser();
-//        Object jsonObj = null;
-//        try {
-//            jsonObj = parser.parse(reader);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        } catch (ParseException e) {
-//            throw new RuntimeException(e);
-//        }
-//        JSONObject jsonObject = (JSONObject) jsonObj;
+        BufferedReader reader = null;
 
+        try {
+            InputStream is = getClass().getResourceAsStream(dataPath);
+            reader = new BufferedReader(new InputStreamReader(is));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
-        ErmenegildoView ev = new ErmenegildoView(view, 0);
-        ErmenegildoController ec = new ErmenegildoController(new Hitbox(0,0,0,0), 12, 11);
-        EntityComplete erm = new EntityComplete(ec, ev);
-        entityCompletes.add(erm);
+        //per leggere il file di tipo json
+        JSONParser parser = new JSONParser();
+        Object jsonObj = null;
+        try {
+            jsonObj = parser.parse(reader);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        JSONObject jsonObject = (JSONObject) jsonObj;
+
+        JSONArray entitiesInRoom = (JSONArray) jsonObject.get("entita");
+        for(int i = 0; i < entitiesInRoom.size(); i++) {
+
+            JSONObject entityData = (JSONObject) entitiesInRoom.get(i);
+
+            String nome = entityData.get("nome").toString();
+            int riga = Integer.parseInt(entityData.get("riga").toString());
+            int colonna = Integer.parseInt(entityData.get("colonna").toString());
+            int hitboxWidht = Integer.parseInt(entityData.get("hitboxWidth").toString());
+            int hitboxHeight = Integer.parseInt(entityData.get("hitboxHeight").toString());
+
+            ErmenegildoView ev = new ErmenegildoView(view, i);
+            ErmenegildoController ec = new ErmenegildoController(new Hitbox(0, 0, hitboxWidht, hitboxHeight), colonna, riga);
+            EntityComplete erm = new EntityComplete(ec, ev);
+            entityCompletes.add(erm);
+
+        }
 
 
     }

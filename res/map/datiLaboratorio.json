@@ -22,5 +22,28 @@
       "cfuRichiesti": 180,
       "messaggio": "non sei ancora degno di essere ricevuto dal prof"
     }
+  ],
+  "entita": [
+    {
+      "nome": "robot",
+      "riga": 11,
+      "colonna": 15,
+      "hitboxWidth": 18,
+      "hitboxHeight": 13
+    },
+    {
+      "nome": "robot",
+      "riga": 14,
+      "colonna": 21,
+      "hitboxWidth": 20,
+      "hitboxHeight": 23
+    },
+    {
+      "nome": "robot",
+      "riga": 23,
+      "colonna": 17,
+      "hitboxWidth": 32,
+      "hitboxHeight": 37
+    }
   ]
 }
