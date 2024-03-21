@@ -25,6 +25,7 @@ public class IController {
         playStateController = new PlayStateController(this);
         playerController = new PlayerController(this, playStateController);
         pathFinder = new PathFinder(this);
+        pathFinder.createGraph();
     }
 
     public void setView(IView v) {
@@ -48,8 +49,6 @@ public class IController {
                playerController.resetDirectionVector();
                updateInputs(); // guarda lo stato della tastiera
                playerController.update();
-               //pathFinder.createGraph();
-
             break;
 
             case QUIT:
@@ -114,6 +113,7 @@ public class IController {
         if (InputState.E.getPressed()) {
             if(playerController.isNearEntity()){
                 playerController.setNearEntity(false);
+                InputState.E.setPressed(false);
                 GameState.actualState = GameState.DIALOGUE;
             }
         }

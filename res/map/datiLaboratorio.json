@@ -27,23 +27,17 @@
     {
       "nome": "robot",
       "riga": 11,
-      "colonna": 15,
-      "hitboxWidth": 18,
-      "hitboxHeight": 13
+      "colonna": 15
     },
     {
       "nome": "robot",
       "riga": 14,
-      "colonna": 21,
-      "hitboxWidth": 20,
-      "hitboxHeight": 23
+      "colonna": 21
     },
     {
       "nome": "robot",
       "riga": 23,
-      "colonna": 17,
-      "hitboxWidth": 32,
-      "hitboxHeight": 37
+      "colonna": 17
     }
   ]
 }

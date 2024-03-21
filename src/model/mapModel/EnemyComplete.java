@@ -2,14 +2,13 @@ package src.model.mapModel;
 
 import src.controller.entitycontroller.EntityController;
 import src.view.entityView.EntityView;
+import src.view.entityView.NpcView;
 
-
-public class EntityComplete {
-
+public class EnemyComplete {
     private EntityView entityView;
     private EntityController entityController;
 
-    public EntityComplete(EntityController c, EntityView v){
+    public EnemyComplete(EntityController c, NpcView v){
         this.entityController = c;
         this.entityView = v;
 
@@ -21,7 +20,5 @@ public class EntityComplete {
     public EntityController getEntityController(){
         return entityController;
     }
-
-
 
 }

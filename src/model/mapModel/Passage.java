@@ -12,7 +12,6 @@ public class Passage {
     //posizione nella nuova stanza
     private int xNext, yNext;
     private int cfuRequired;
-    private IModel model;
     private String message;
 
     public Passage(Hitbox h, String nextRoomName, int xN, int yN, int cfu, String m){
@@ -32,7 +31,6 @@ public class Passage {
         message = m;
     }
 
-    //da rivedere, perchè basta un errore nel nome della stanza per mandare tutto a puttane
     private Rooms getNextRoom(String nextRoomName) {
         if(nextRoomName.equals("TENDA")){
             return Rooms.TENDA;
@@ -71,7 +69,7 @@ public class Passage {
 
         }
         else{
-            //mostra il messaggio
+            Rooms.getModel().getView().getPlayStateView().getPlayUI().setMessageToShow(message);
         }
     }
 

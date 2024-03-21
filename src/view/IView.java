@@ -63,9 +63,10 @@ PlayStateView playStateView;
 
         transitionState = new TransitionState(this);
 
-        for(Rooms room : Rooms.values()){
-            room.loadEntities(this);
-        }
+        //quando la view ha finito di crearsi, può dire al model di inserire le entità nelle stanze
+        //perchè ora la parte view delle entità esiste
+        model.loadEntitiesInRooms(this);
+
     }
 
     //chiede al pannello di creare il suo ambiente grafico, g, che poi userà per disegnare il frame successivo
@@ -100,6 +101,11 @@ PlayStateView playStateView;
             case PAUSE:
                 playStateView.draw(g2);
                 pauseMenu.draw(g2);
+                break;
+            case DIALOGUE:
+                playStateView.draw(g2);
+                playStateView.getPlayUI().drawDialogue(g2);
+                break;
             default:
                 break;
         }

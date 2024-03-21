@@ -73,8 +73,8 @@ public class PlayerController {
     private void checkInteraction() {
         try {
             int entityIndex = -1;
-            for (int i = 0; i < Rooms.actualRoom.getPassages().size(); i++) {
-                Hitbox entityInteractionBorders = Rooms.actualRoom.getEntities().get(i).getEntityController().getInteractionHitbox();
+            for (int i = 0; i < Rooms.actualRoom.getNpc().size(); i++) {
+                Hitbox entityInteractionBorders = Rooms.actualRoom.getNpc().get(i).getEntityController().getInteractionHitbox();
                 if (hitbox.intersects(entityInteractionBorders)) {
                     entityIndex = i;
                     break;
@@ -167,8 +167,8 @@ public class PlayerController {
 
     private boolean isEntityCollision() {
         boolean collision = false;
-        for(int i = 0; i < Rooms.actualRoom.getEntities().size(); i++){
-            Hitbox hitboxEntity = Rooms.actualRoom.getEntities().get(i).getEntityController().getHitbox();
+        for(int i = 0; i < Rooms.actualRoom.getNpc().size(); i++){
+            Hitbox hitboxEntity = Rooms.actualRoom.getNpc().get(i).getEntityController().getHitbox();
             if(hitboxEntity.intersects(tempHitbox))
                 collision = true;
         }

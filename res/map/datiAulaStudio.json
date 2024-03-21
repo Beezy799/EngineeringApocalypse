@@ -54,30 +54,7 @@
       "messaggio": "la segreteria è aperta tutti i giorni dalle 8:00 alle 8:01"
     }
   ],
-  "entita": [
-    {
-      "nome": "prof",
-      "riga": 29,
-      "colonna": 8,
-      "hitboxWidth": 18,
-      "hitboxHeight": 13
-    },
-    {
-      "nome": "pupa",
-      "riga": 36,
-      "colonna": 39,
-      "hitboxWidth": 20,
-      "hitboxHeight": 23
-    },
-    {
-      "nome": "nullafacente",
-      "riga": 11,
-      "colonna": 27,
-      "hitboxWidth": 32,
-      "hitboxHeight": 37
-    }
-  ]
-
+  "entita": []
 
 }
 

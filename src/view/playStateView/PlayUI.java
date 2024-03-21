@@ -16,21 +16,28 @@ import src.view.ViewUtils;
 // classe che mostra a video le informazioni come il punteggio, la vita, le munizioni...
 public class PlayUI {
 
+    private PlayStateView play;
+
     //per i messaggi tipo "hai preso appnti" etc
     private Font fontDisplay = new Font("Arial", Font.PLAIN, (int)(20*GamePanel.SCALE));
     private String message = "";
+    private int counterMessage = 0;
+    private boolean showMessage;
 
+    //per disegnare i dati del player
     private BufferedImage noteIcon, cfuIcon;
     private BufferedImage[] lifeIcons;
 
     //per disegnare il numero corrispondente alla vita, alle munizioni...
     private String dataToShow = "";
+
+    //dove disegnare le varie cose
     private int yPosDataUI = (int)(5*GamePanel.SCALE);
     private int xPosDataUI = (int)(20*GamePanel.SCALE);
 
-    private PlayStateView play;
-    private int counterMessage = 0;
-    private boolean showMessage;
+    //per disegnare i dialoghi
+
+
 
 
     public PlayUI(PlayStateView p) {
@@ -171,4 +178,35 @@ public class PlayUI {
         this.showMessage = thereIsAMessageToShow;
     }
 
+    public void drawDialogue(Graphics2D g2) {
+
+        //disegna il rect di background
+        g2.setColor(Color.black);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+        g2.fillRoundRect(0, GamePanel.GAME_HEIGHT/2 + GamePanel.GAME_HEIGHT/4, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT/4, 30, 30);
+
+        //disegna il rettangolino bianco di contorno
+        g2.setColor(Color.white);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        g2.drawRoundRect((int)(5*GamePanel.SCALE), GamePanel.GAME_HEIGHT/2 + GamePanel.GAME_HEIGHT/4 + (int)(5*GamePanel.SCALE),
+                GamePanel.GAME_WIDTH - (int)(10*GamePanel.SCALE), GamePanel.GAME_HEIGHT/4 - (int)(10*GamePanel.SCALE), 30, 30);
+
+        //disegna il testo
+        String text = null;
+
+        //prende l'indice dell'npc con cui parla il player, va nella stanza e prende quell'npc, prende le stringhe di dialogo da lì, poi le disegna
+        int index = play.getView().getController().getIndexEntityInteraction();
+        text = play.getView().getModel().getEntityDialogue(index);
+
+
+        g2.setFont(fontDisplay);
+
+        int y = GamePanel.GAME_HEIGHT/2 + GamePanel.GAME_HEIGHT/4 + (int)(30*GamePanel.SCALE);
+
+        for(String line : text.split("\n ")) {
+            g2.drawString(line, (int)(10*GamePanel.SCALE), y);
+            y += 40;
+        }
+
+    }
 }

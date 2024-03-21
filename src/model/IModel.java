@@ -2,7 +2,6 @@ package src.model;
 
 import src.controller.IController;
 import src.controller.Vector;
-import src.controller.pathFinding.Node;
 import src.model.mapModel.Rooms;
 import src.model.mapModel.Tileset;
 import src.view.IView;
@@ -64,19 +63,30 @@ public class IModel {
     }
 
     public int getEntityXpos(int index){
-        return Rooms.actualRoom.getEntities().get(index).getEntityController().getxPos();
+        return Rooms.actualRoom.getNpc().get(index).getEntityController().getxPos();
     }
     public int getEntityYpos(int index){
-        return Rooms.actualRoom.getEntities().get(index).getEntityController().getyPos();
+        return Rooms.actualRoom.getNpc().get(index).getEntityController().getyPos();
     }
 
     public EntityStates getCurrentStateOfEntity(int entityIndex){
-        return Rooms.actualRoom.getEntities().get(entityIndex).getEntityController().getCurrentState();
+        return Rooms.actualRoom.getNpc().get(entityIndex).getEntityController().getCurrentState();
     }
 
     public Vector getCurrentDirectionOfEntity(int entityIndex){
-        return Rooms.actualRoom.getEntities().get(entityIndex).getEntityController().getMovementVector();
+        return Rooms.actualRoom.getNpc().get(entityIndex).getEntityController().getMovementVector();
     }
 
+    public void loadEntitiesInRooms(IView iView) {
+        for(Rooms room : Rooms.values())
+            room.loadEntities(iView);
+    }
 
+    public void setEntityNextDialogue(int entityIndex){
+        Rooms.actualRoom.getNpc().get(entityIndex).getNpcView().setNextDialogueLine();
+    }
+
+    public String getEntityDialogue(int entityIndex){
+        return Rooms.actualRoom.getNpc().get(entityIndex).getNpcView().getDialogue();
+    }
 }

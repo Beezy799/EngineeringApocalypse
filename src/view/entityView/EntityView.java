@@ -35,7 +35,6 @@ public abstract class EntityView extends SortableElement {
         typeElemtToSort = 5;
     }
 
-
     @Override
     public void draw(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
 
@@ -56,16 +55,14 @@ public abstract class EntityView extends SortableElement {
         int entityXPosMap = view.getModel().getEntityXpos(indexInEntityArray);
         int entityYPosMap = view.getModel().getEntityYpos(indexInEntityArray);
 
-
-
         //distanza dell'entita dal giocatore nella mappa
         int xDistanceFromPlayer = entityXPosMap - xPlayerMap;
         int yDistanceFromPlayer = entityYPosMap - yPlayerMap;
 
-
         //riproponiamo la stessa distanza nello schermo
         int xPosOnScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
         int yPosOnScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
+
         g2.drawImage(animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite], xPosOnScreen - xOffset, yPosOnScreen - yOffset, null);
 
         //disegna la zona occupata dalla sprite
@@ -77,18 +74,18 @@ public abstract class EntityView extends SortableElement {
 
         //disegna la sua hitbox
         g2.setColor(Color.red);
-        int hitboxW = Rooms.actualRoom.getEntities().get(indexInEntityArray).getEntityController().getHitbox().getWidth();
-        int hitboxH = Rooms.actualRoom.getEntities().get(indexInEntityArray).getEntityController().getHitbox().getHeight();
-        int xoffsetH = Rooms.actualRoom.getEntities().get(indexInEntityArray).getEntityController().getXhitboxOffset();
-        int yoffsetH = Rooms.actualRoom.getEntities().get(indexInEntityArray).getEntityController().getYhitboxOffset();
+        int hitboxW = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getHitbox().getWidth();
+        int hitboxH = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getHitbox().getHeight();
+        int xoffsetH = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getXhitboxOffset();
+        int yoffsetH = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getYhitboxOffset();
         g2.drawRect(xPosOnScreen - xoffsetH, yPosOnScreen - yoffsetH, hitboxW, hitboxH);
 
         //disegna interaction
         g2.setColor(Color.green);
-        int inthitboxW = Rooms.actualRoom.getEntities().get(indexInEntityArray).getEntityController().getInteractionHitbox().getWidth();
-        int inthitboxH = Rooms.actualRoom.getEntities().get(indexInEntityArray).getEntityController().getInteractionHitbox().getHeight();
-        int intxoffsetH = Rooms.actualRoom.getEntities().get(indexInEntityArray).getEntityController().getInteractionHitbox().getWidth()/2;
-        int intyoffsetH = Rooms.actualRoom.getEntities().get(indexInEntityArray).getEntityController().getInteractionHitbox().getHeight()/2;
+        int inthitboxW = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getInteractionHitbox().getWidth();
+        int inthitboxH = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getInteractionHitbox().getHeight();
+        int intxoffsetH = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getInteractionHitbox().getWidth()/2;
+        int intyoffsetH = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getInteractionHitbox().getHeight()/2;
         g2.drawRect(xPosOnScreen - intxoffsetH, yPosOnScreen - intyoffsetH, inthitboxW, inthitboxH);
 
     }

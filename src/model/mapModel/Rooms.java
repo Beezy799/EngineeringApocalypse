@@ -9,7 +9,6 @@ import src.model.Constants;
 import src.model.Hitbox;
 import src.model.IModel;
 import src.view.IView;
-import src.view.entityView.EntityView;
 import src.view.entityView.ErmenegildoView;
 
 import java.io.BufferedReader;
@@ -32,7 +31,8 @@ public enum Rooms {
 
     private Map map;
     private ArrayList<Passage> passages;
-    private ArrayList<EntityComplete> entityCompletes;
+    private ArrayList<NpcComplete> npcList;
+    private ArrayList<EnemyComplete> enemyList;
     private static IModel model;
     private int musicIndex;
     private String dataPath;
@@ -43,7 +43,8 @@ public enum Rooms {
       map.loadMap(mapPath);
       musicIndex = m;
       passages = new ArrayList<>();
-      entityCompletes = new ArrayList<>();
+      npcList = new ArrayList<>();
+      enemyList = new ArrayList<>();
       loadPassagesAndEvents(pathRoomData);
       dataPath = pathRoomData;
     }
@@ -123,16 +124,23 @@ public enum Rooms {
             String nome = entityData.get("nome").toString();
             int riga = Integer.parseInt(entityData.get("riga").toString());
             int colonna = Integer.parseInt(entityData.get("colonna").toString());
-            int hitboxWidht = Integer.parseInt(entityData.get("hitboxWidth").toString());
-            int hitboxHeight = Integer.parseInt(entityData.get("hitboxHeight").toString());
 
-            ErmenegildoView ev = new ErmenegildoView(view, i);
-            ErmenegildoController ec = new ErmenegildoController(new Hitbox(0, 0, hitboxWidht, hitboxHeight), colonna, riga);
-            EntityComplete erm = new EntityComplete(ec, ev);
-            entityCompletes.add(erm);
+            switch (nome){
+                case "Ermenegildo":
+                    ErmenegildoView ev = new ErmenegildoView(view, i);
+                    ErmenegildoController ec = new ErmenegildoController(colonna, riga);
+                    NpcComplete erm = new NpcComplete(ec, ev);
+                    npcList.add(erm);
+                    break;
+//                case "pupa":
+//                    PupaView pv = new PupaView(view, i);
+//                    PupaController pc = new PupaController(colonna, riga);
+//                    EntityComplete pupa = new EntityComplete(pc, pv);
+//                    entityCompletes.add(pupa);
+//                    break;
+            }
 
         }
-
 
     }
 
@@ -147,9 +155,15 @@ public enum Rooms {
         return musicIndex;
     }
 
-    public ArrayList<EntityComplete> getEntities(){
-        return entityCompletes;
+    public ArrayList<NpcComplete> getNpc(){
+        return npcList;
     }
+    public ArrayList<EnemyComplete> getEnemy(){
+        return enemyList;
+    }
+
+
+
 
     //le stanze si salvano il riferimento al model
     public static void setModel(IModel m){

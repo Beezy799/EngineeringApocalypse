@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 
 import src.model.GameState;
 
+import src.model.IModel;
 import src.model.InputState;
 import src.view.IView;
 
@@ -31,42 +32,32 @@ public class KeyboardInputs implements KeyListener {
             case PLAYING:
                 handleKeypressedDuringPlayState(e);
                 break;
-            case DIALOGUE:
-                break;
-            case BOSS_CUTSCENE:
-                break;
-            default: //nei casi main manu , opzioni e  avatar selection
-                moveCursor(e);
-                break;
-
-/*          case DIALOGUE:
+          case DIALOGUE:
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE ||
                    e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_A ||
                    e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_W) {
 
-                    view.changeGameState(Gamestate.PLAYING);
-                    view.getController().resetPlayerBooleans();
+                    GameState.actualState = GameState.PLAYING;
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    int index = view.getController().getIndexOfInteractingEntity();
-                    view.getPlay().getRoom(view.getCurrentRoomIndex()).getNPC(index).nextDialogueLine();
+                    int index = view.getController().getIndexEntityInteraction();
+                    view.getModel().setEntityNextDialogue(index);
                 }
                 break;
+            default: //nei casi main manu , opzioni e  avatar selection
+                moveCursor(e);
+                break;
+//            case BOSS_CUTSCENE:
+//                if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+//                    view.getController().resetPlayerBooleans();
+//                    view.changeGameState(Gamestate.PLAYING);
+//                }
+//                else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+//                    //l'indice è sempre zero, perchè il boss è l'unico NPC della stanza
+//                    view.getPlay().getRoom(view.getCurrentRoomIndex()).getBossView().nextDialogueLine();
+//                }
+//                break;
 
-            case BOSS_CUTSCENE:
-                if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    view.getController().resetPlayerBooleans();
-                    view.changeGameState(Gamestate.PLAYING);
-                }
-                else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    //l'indice è sempre zero, perchè il boss è l'unico NPC della stanza
-                    view.getPlay().getRoom(view.getCurrentRoomIndex()).getBossView().nextDialogueLine();
-                }
-                break;
-
-            default:
-                break;
-        }  */
         }
 
     }

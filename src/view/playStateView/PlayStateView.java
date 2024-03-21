@@ -1,10 +1,9 @@
 package src.view.playStateView;
 
-import src.model.mapModel.EntityComplete;
+import src.model.mapModel.EnemyComplete;
+import src.model.mapModel.NpcComplete;
 import src.model.mapModel.Rooms;
 import src.view.IView;
-import src.view.entityView.EntityView;
-import src.view.entityView.GhostView;
 import src.view.entityView.PlayerView;
 import src.view.main.GamePanel;
 import src.view.mapView.TileImageLoader;
@@ -20,8 +19,6 @@ public class PlayStateView {
     private PlayerView playerView;
     private PlayUI playUI;
 
-    private GhostView ghostView;
-
     private ArrayList<SortableElement> elementsAboveTheFloor;
 
     public PlayStateView(IView v){
@@ -31,8 +28,6 @@ public class PlayStateView {
         tileImageLoader = null;
         elementsAboveTheFloor = new ArrayList<>();
         playUI = new PlayUI(this);
-
-        ghostView = new GhostView();
     }
 
     public void draw(Graphics2D g2){
@@ -66,11 +61,15 @@ public class PlayStateView {
         elementsAboveTheFloor.add(playerView);
 
         //scandisce la lista delle entità della stanza attuale
-        for(EntityComplete entity : Rooms.actualRoom.getEntities()){
-            entity.getEntityView().updatePositionForSort();
-            elementsAboveTheFloor.add(entity.getEntityView());
+        for(NpcComplete npc : Rooms.actualRoom.getNpc()){
+            npc.getNpcView().updatePositionForSort();
+            elementsAboveTheFloor.add(npc.getNpcView());
         }
 
+        for(EnemyComplete enemy : Rooms.actualRoom.getEnemy()){
+            enemy.getEntityView().updatePositionForSort();
+            elementsAboveTheFloor.add(enemy.getEntityView());
+        }
 
     }
 

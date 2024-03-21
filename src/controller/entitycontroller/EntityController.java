@@ -13,19 +13,21 @@ public class EntityController {
     protected EntityStates currentState = EntityStates.IDLE;
     protected Vector movementVector;
 
-    public EntityController(Hitbox h , int x, int y){
+    public EntityController(int x, int y){
         xPos = x * GamePanel.TILES_SIZE;
         yPos = y * GamePanel.TILES_SIZE;
 
-        hitbox = h;
-        hitbox.setWidth((int)(hitbox.getWidth()*GamePanel.SCALE));
-        hitbox.setHeight((int)(hitbox.getHeight()*GamePanel.SCALE));
+        movementVector = new Vector(2);
+
+    }
+
+    protected void setHitbox(int hitboxWidth, int hitboxHeight) {
+        hitbox = new Hitbox(xPos, yPos, (int)(hitboxWidth*GamePanel.SCALE), (int)(hitboxHeight*GamePanel.SCALE));
         XhitboxOffset = hitbox.getWidth()/2;
         YhitboxOffset = hitbox.getHeight()/2;
         hitbox.setX(xPos - XhitboxOffset);
         hitbox.setY(yPos - YhitboxOffset);
 
-        movementVector = new Vector(2);
         XhitboxOffset = hitbox.getWidth()/2;
         YhitboxOffset = hitbox.getHeight()/2;
     }

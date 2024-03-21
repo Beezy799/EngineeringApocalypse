@@ -14,19 +14,15 @@ import java.io.IOException;
 import static src.model.EntityStates.IDLE;
 import static src.model.EntityStates.MOVE;
 
-public class ErmenegildoView extends EntityView{
-
-    private String[] dialogues;
-    private int dialogueIndex = -1;
+public class ErmenegildoView extends NpcView{
 
     public ErmenegildoView(IView v, int i) {
         super(v, i);
         loadImages();
         loadRunImages();
-        loadDialogues();
     }
 
-    private void loadDialogues() {
+    protected void loadDialogues() {
         dialogues = new String[11];
         dialogues[0] = "ciao, sei una matricola?";
         dialogues[1] = "che invidia, io sono qui da un po'...\n il prof Luke Crickets mi ha bocciato 100 volte";
@@ -97,14 +93,6 @@ public class ErmenegildoView extends EntityView{
         return 0;
     }
 
-    public String getNextDialogueLine(){
-        dialogueIndex++;
-
-        if(dialogueIndex >= dialogues.length)
-            dialogueIndex = dialogues.length;
-
-        return dialogues[dialogueIndex];
-    }
 
 
 
