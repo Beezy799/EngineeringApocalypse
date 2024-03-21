@@ -32,6 +32,27 @@ public class EntityController {
         YhitboxOffset = hitbox.getHeight()/2;
     }
 
+    public void turnToPlayer(int playerX, int playerY){
+        if(playerX >= xPos){
+            movementVector.setX(1);
+        }
+        else {
+            movementVector.setX(-1);
+        }
+
+        //se stanno sulla stessa colonna, si gira verso l'alto o versoil basso
+        if(xPos/GamePanel.TILES_SIZE == playerX/GamePanel.TILES_SIZE){
+           if(playerY >= yPos){
+               movementVector.setY(1);
+               movementVector.setX(0);
+           }
+            else {
+               movementVector.setY(-1);
+               movementVector.setX(0);
+           }
+        }
+
+    }
     public void setxPos(int xPos) {
         this.xPos = xPos;
     }

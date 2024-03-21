@@ -5,11 +5,15 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import src.controller.entitycontroller.ErmenegildoController;
+import src.controller.entitycontroller.ProfController;
+import src.controller.entitycontroller.PupaController;
 import src.model.Constants;
 import src.model.Hitbox;
 import src.model.IModel;
 import src.view.IView;
 import src.view.entityView.ErmenegildoView;
+import src.view.entityView.ProfView;
+import src.view.entityView.PupaView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -132,12 +136,18 @@ public enum Rooms {
                     NpcComplete erm = new NpcComplete(ec, ev);
                     npcList.add(erm);
                     break;
-//                case "pupa":
-//                    PupaView pv = new PupaView(view, i);
-//                    PupaController pc = new PupaController(colonna, riga);
-//                    EntityComplete pupa = new EntityComplete(pc, pv);
-//                    entityCompletes.add(pupa);
-//                    break;
+                case "pupa":
+                    PupaView pv = new PupaView(view, i);
+                    PupaController pc = new PupaController(colonna, riga);
+                    NpcComplete pupa = new NpcComplete(pc, pv);
+                    npcList.add(pupa);
+                    break;
+                case "prof":
+                    ProfView prv = new ProfView(view, i);
+                    ProfController prc = new ProfController(colonna, riga);
+                    NpcComplete prof = new NpcComplete(prc, prv);
+                    npcList.add(prof);
+                    break;
             }
 
         }
@@ -177,6 +187,6 @@ public enum Rooms {
     public static IModel getModel(){
         return model;
     }
-    public static Rooms actualRoom = BIBLIOTECA;
+    public static Rooms actualRoom = AULA_STUDIO;
 
 }

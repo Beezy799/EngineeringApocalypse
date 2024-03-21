@@ -14,9 +14,7 @@ import static src.model.Constants.EntityConstants.*;
 import static src.model.EntityStates.IDLE;
 import static src.model.EntityStates.MOVE;
 
-public class PupaView extends EntityView{
-    private String[] dialogues;
-    int dialogueIndex = -1;
+public class PupaView extends NpcView{
 
     public PupaView(IView v, int i) {
         super(v, i);
@@ -24,17 +22,17 @@ public class PupaView extends EntityView{
         animation = new BufferedImage[2][][];
         animation[0] = new BufferedImage[4][1];		//ci sono 4 direzioni, ogni direzione ha 1 immagini
         animation[1] = new BufferedImage[4][4];		//ci sono 4 direzioni, ogni direzione ha 4 immagini
-        loadIdleImages();
-        loadRunImages();
-        setDialogues();
 
-        xOffset = (int)(0 * GamePanel.SCALE); //3;
-        yOffset = (int)(0 * GamePanel.SCALE); //3;
+        loadRunImages();
+        loadIdleImages();
+
+        xOffset = animation[0][0][0].getWidth()/2;
+        yOffset = animation[0][0][0].getHeight()/2;
         animationSpeed = 40;
 
     }
 
-    private void setDialogues() {
+    protected void loadDialogues() {
         dialogues = new String[6];
         dialogues[0] = "Fortuna che ci sei !";
         dialogues[1] = "Nel dormitorio è saltata la luce, non vedo più niente !";
@@ -142,4 +140,5 @@ public class PupaView extends EntityView{
             e.printStackTrace();
         }
     }
+
 }

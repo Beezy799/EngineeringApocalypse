@@ -3,7 +3,9 @@ package src.controller;
 import src.controller.entitycontroller.PlayerController;
 import src.controller.pathFinding.PathFinder;
 import src.model.*;
+import src.model.mapModel.Rooms;
 import src.view.IView;
+import src.view.main.GamePanel;
 
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -114,6 +116,9 @@ public class IController {
             if(playerController.isNearEntity()){
                 playerController.setNearEntity(false);
                 InputState.E.setPressed(false);
+                int playerX = playerController.getxPosPlayer();
+                int playerY = playerController.getyPosPlayer();
+                Rooms.actualRoom.getNpc().get(indexEntityInteraction).getEntityController().turnToPlayer(playerX, playerY);
                 GameState.actualState = GameState.DIALOGUE;
             }
         }
