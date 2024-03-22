@@ -1,5 +1,6 @@
 package src.controller.entitycontroller;
 
+import src.controller.IController;
 import src.model.Hitbox;
 import src.view.main.GamePanel;
 
@@ -8,8 +9,8 @@ public class PupaController extends EntityController{
     private final int hitboxWidth = 16;
     private final int hitboxHeight = 35;
 
-    public PupaController(int x, int y) {
-        super(x, y);
+    public PupaController(int x, int y, IController c) {
+        super(x, y, c);
 
         setHitbox(hitboxWidth, hitboxHeight);
 

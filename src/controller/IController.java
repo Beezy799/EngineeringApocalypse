@@ -1,8 +1,10 @@
 package src.controller;
 
+import src.controller.entitycontroller.EntityController;
 import src.controller.entitycontroller.PlayerController;
 import src.controller.pathFinding.PathFinder;
 import src.model.*;
+import src.model.mapModel.NpcComplete;
 import src.model.mapModel.Rooms;
 import src.view.IView;
 import src.view.main.GamePanel;
@@ -51,6 +53,9 @@ public class IController {
                playerController.resetDirectionVector();
                updateInputs(); // guarda lo stato della tastiera
                playerController.update();
+               for(NpcComplete npc : Rooms.actualRoom.getNpc()){
+                   npc.getEntityController().randomMove();
+               }
             break;
 
             case QUIT:
@@ -145,5 +150,9 @@ public class IController {
 
     public void setIndexEntityInteraction(int indexEntityInteraction) {
         this.indexEntityInteraction = indexEntityInteraction;
+    }
+
+    public PlayStateController getPlayStateController(){
+        return playStateController;
     }
 }

@@ -20,6 +20,7 @@ public class ErmenegildoView extends NpcView{
         super(v, i);
         loadImages();
         loadRunImages();
+        animationSpeed = 30;
     }
 
     protected void loadDialogues() {

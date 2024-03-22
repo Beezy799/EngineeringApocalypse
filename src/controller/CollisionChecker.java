@@ -12,7 +12,6 @@ public class CollisionChecker {
         control = c;
     }
 
-
     public boolean canGoLeft(Hitbox tempHitbox) {
         int hitboxPlayerRow = tempHitbox.getY() / GamePanel.TILES_SIZE;
         int hitboxPlayerCol = tempHitbox.getX() / GamePanel.TILES_SIZE;
@@ -43,7 +42,6 @@ public class CollisionChecker {
         }
         return true;
     }
-
 
     public boolean canGoUp(Hitbox tempHitbox) {
         int hitboxPlayerRow = tempHitbox.getY() / GamePanel.TILES_SIZE;
@@ -106,8 +104,6 @@ public class CollisionChecker {
         }
         return true;
     }
-
-
 
     //prende la hitbox corrispondente al numero del tile e la trasla nella posizione dove si trova il tile
     private Hitbox getHitboxOfTile(int tileIndex, int playerRow, int playerCol) {

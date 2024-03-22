@@ -132,19 +132,19 @@ public enum Rooms {
             switch (nome){
                 case "Ermenegildo":
                     ErmenegildoView ev = new ErmenegildoView(view, i);
-                    ErmenegildoController ec = new ErmenegildoController(colonna, riga);
+                    ErmenegildoController ec = new ErmenegildoController(colonna, riga, model.getController());
                     NpcComplete erm = new NpcComplete(ec, ev);
                     npcList.add(erm);
                     break;
                 case "pupa":
                     PupaView pv = new PupaView(view, i);
-                    PupaController pc = new PupaController(colonna, riga);
+                    PupaController pc = new PupaController(colonna, riga, model.getController());
                     NpcComplete pupa = new NpcComplete(pc, pv);
                     npcList.add(pupa);
                     break;
                 case "prof":
                     ProfView prv = new ProfView(view, i);
-                    ProfController prc = new ProfController(colonna, riga);
+                    ProfController prc = new ProfController(colonna, riga, model.getController());
                     NpcComplete prof = new NpcComplete(prc, prv);
                     npcList.add(prof);
                     break;
@@ -187,6 +187,6 @@ public enum Rooms {
     public static IModel getModel(){
         return model;
     }
-    public static Rooms actualRoom = AULA_STUDIO;
+    public static Rooms actualRoom = BIBLIOTECA;
 
 }

@@ -49,6 +49,11 @@ public class Vector {
     public int getModule() {
         return module;
     }
+
+    public void resetDirections(){
+        setX(0);
+        setY(0);
+    }
 }
 
 //ciao
