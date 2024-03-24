@@ -162,8 +162,9 @@ public class PlayerController {
             }
         }
 
-        //System.out.println(yPosPlayer/GamePanel.TILES_SIZE + ", " + xPosPlayer/GamePanel.TILES_SIZE);
+        System.out.println(yPosPlayer/GamePanel.TILES_SIZE + ", " + xPosPlayer/GamePanel.TILES_SIZE);
     }
+
 
     private boolean isEntityCollision() {
         boolean collision = false;

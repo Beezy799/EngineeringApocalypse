@@ -2,6 +2,7 @@ package src.controller;
 
 import src.controller.entitycontroller.EntityController;
 import src.controller.entitycontroller.PlayerController;
+import src.controller.pathFinding.Node;
 import src.controller.pathFinding.PathFinder;
 import src.model.*;
 import src.model.mapModel.NpcComplete;
@@ -54,7 +55,7 @@ public class IController {
                updateInputs(); // guarda lo stato della tastiera
                playerController.update();
                for(NpcComplete npc : Rooms.actualRoom.getNpc()){
-                   npc.getEntityController().randomMove();
+                   npc.getEntityController().update();
                }
             break;
 
@@ -129,7 +130,17 @@ public class IController {
         }
 
         if (InputState.P.getPressed() || InputState.MIDDLE_CLICK.getPressed()) {
-            playerController.changeActualState(EntityStates.THROWING);
+            //playerController.changeActualState(EntityStates.THROWING);
+
+            Node start = new Node(playerController.getyPosPlayer()/GamePanel.TILES_SIZE, playerController.getxPosPlayer()/GamePanel.TILES_SIZE);
+            Node goal = new Node(12, 11);
+            pathFinder.setNodes(start, goal);
+            //pathFinder.isSolid(start);
+            pathFinder.existPath(start, goal);
+            System.out.println("p " +playerController.getyPosPlayer()/GamePanel.TILES_SIZE + ", " + playerController.getxPosPlayer()/GamePanel.TILES_SIZE);
+            System.out.println();
+
+            InputState.P.setPressed(false);
         }
 
         if (InputState.ESCAPE.getPressed()) {

@@ -1,24 +1,37 @@
 package src.controller.entitycontroller;
 
 import src.controller.IController;
+import src.model.EntityStates;
 import src.model.Hitbox;
 import src.view.main.GamePanel;
 
 public class ProfController extends EntityController{
 
     private final int hitboxWidth = 16;
-    private final int hitboxHeight = 35;
+    private final int hitboxHeight = 30;
 
-    public ProfController(int x, int y, IController c) {
-        super(x, y, c);
+    public ProfController(int x, int y, IController c, int index) {
+        super(x, y, c, index);
         setHitbox(hitboxWidth, hitboxHeight);
 
-        int interactionHitboxWidth = 2* GamePanel.TILES_SIZE;
-        int interactionHitboxHeight = 2*GamePanel.TILES_SIZE;
+        YhitboxOffset = hitbox.getHeight()/4;
+        hitbox.setY(hitbox.getY() + YhitboxOffset);
 
-        interactionHitbox = new Hitbox( x * GamePanel.TILES_SIZE - interactionHitboxWidth/2,
-                y * GamePanel.TILES_SIZE - interactionHitboxHeight/2,
-                interactionHitboxWidth,
-                interactionHitboxHeight);
+        movementVector.setX(-1);
     }
+
+    @Override
+    public void update() {
+        switch(currentState){
+            case MOVE:
+                moveNearDoor(13, 18);
+                break;
+            default:
+                currentState = EntityStates.MOVE;
+                break;
+        }
+    }
+
+
 }
+

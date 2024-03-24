@@ -1,5 +1,6 @@
 package src.controller;
 
+import src.controller.entitycontroller.EntityController;
 import src.model.Hitbox;
 import src.model.mapModel.Rooms;
 import src.view.main.GamePanel;
@@ -151,4 +152,25 @@ public class CollisionChecker {
         }
         return true;
     }
+
+    public boolean isNotCollisionWithoOtherEntities(EntityController entity){
+        boolean notcollisionNpc = true;
+
+        for(int i = 0; i < Rooms.actualRoom.getNpc().size(); i++){
+            EntityController other = Rooms.actualRoom.getNpc().get(i).getEntityController();
+
+            //per controllare che non guardi l'intersezione con la sua stessa hitbox
+            boolean isThesameEntity = (entity.getIndex() == other.getIndex());
+            if(entity.getTempHitbox().intersects(other.getHitbox()) && !isThesameEntity) {
+                notcollisionNpc = false;
+            }
+        }
+
+        //deve controllare anche il giocatore
+        boolean collisionPlayer = control.getPlayerController().getHitbox().intersects(entity.getTempHitbox());
+
+        return notcollisionNpc && !collisionPlayer;
+
+    }
+
 }

@@ -91,8 +91,8 @@ public class PlayerView extends SortableElement {
 //                playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite].getHeight());
 
         //disegna la sua posizione come un piccolo quadratino
-//        g2.setColor(Color.red);
-//        g2.fillRect(GamePanel.CENTER_X_GAME_PANEL, GamePanel.CENTER_Y_GAME_PANEL, 5, 5);
+        g2.setColor(Color.red);
+        g2.fillRect(GamePanel.CENTER_X_GAME_PANEL, GamePanel.CENTER_Y_GAME_PANEL, 5, 5);
 
         //disegna la hitbox del giocatore
         g2.setColor(Color.blue);

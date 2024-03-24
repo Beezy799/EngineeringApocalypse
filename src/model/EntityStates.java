@@ -2,6 +2,7 @@ package src.model;
 
 public enum EntityStates {
     IDLE(0),
+
     MOVE(1),
     ATTACKING(2),
     THROWING(4),

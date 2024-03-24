@@ -12,7 +12,7 @@ import static src.model.Constants.EntityConstants.*;
 import static src.model.EntityStates.IDLE;
 import static src.model.EntityStates.MOVE;
 
-public class EntityController {
+public abstract class EntityController {
 
     protected Hitbox hitbox, interactionHitbox, tempHitbox;
     protected int XhitboxOffset, YhitboxOffset;
@@ -23,7 +23,9 @@ public class EntityController {
     protected Random randomGenerator;
     protected IController controller;
 
-    public EntityController(int x, int y, IController c){
+    protected int index;
+
+    public EntityController(int x, int y, IController c, int index){
         xPos = x * GamePanel.TILES_SIZE;
         yPos = y * GamePanel.TILES_SIZE;
 
@@ -31,15 +33,16 @@ public class EntityController {
         movementVector = new Vector(2);
         randomGenerator = new Random();
         controller = c;
+        this.index = index;
     }
 
     // molti npc si muovono a caso nella stanza usando questo medoto
     public void randomMove() {
         actionCounter++;
         //ogni due secondi cambia azione e direzione
-        if(actionCounter >= 400) {
-            choseDirection();
+        if(actionCounter >= 200) {
             choseAction();
+            choseDirection();
             actionCounter = 0;
         }
 
@@ -79,25 +82,34 @@ public class EntityController {
         if(movementVector.getX() > 0) {
             tempHitbox.setX(hitbox.getX() + speed);
             tempHitbox.setY(hitbox.getY());
-            canGo = controller.getPlayStateController().getCollisionChecker().canGoRight(tempHitbox);
+            boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoRight(tempHitbox);
+            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithoOtherEntities(this);
+            canGo = solidTiles && entities;
         }
         //se va a sinistra
         else if(movementVector.getX() < 0) {
             tempHitbox.setX(hitbox.getX() - speed);
             tempHitbox.setY(hitbox.getY());
-            canGo = controller.getPlayStateController().getCollisionChecker().canGoLeft(tempHitbox);
+            boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoLeft(tempHitbox);
+            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithoOtherEntities(this);
+            canGo = solidTiles && entities;
         }
         //su
         if(movementVector.getY() < 0) {
             tempHitbox.setY(hitbox.getY() - speed);
             tempHitbox.setX(hitbox.getX());
-            canGo = controller.getPlayStateController().getCollisionChecker().canGoUp(tempHitbox);
+            boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoUp(tempHitbox);
+            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithoOtherEntities(this);
+            canGo = solidTiles && entities;
+
         }
         //giu
         else if(movementVector.getY() > 0) {
             tempHitbox.setY(hitbox.getY() + speed);
             tempHitbox.setX(hitbox.getX());
-            canGo = controller.getPlayStateController().getCollisionChecker().canGoDown(tempHitbox);
+            boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoDown(tempHitbox);
+            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithoOtherEntities(this);
+            canGo = solidTiles && entities;
         }
 
         return canGo;
@@ -136,6 +148,88 @@ public class EntityController {
         }
     }
 
+    public void turnToPlayer(int playerX, int playerY){
+        movementVector.resetDirections();
+        //controllo se la posizione del player è in un fascio largo un tile che ha centro nella posizione della
+        //entità. questo fascio è come se fosse una sorta di colonna
+        if(xPos - GamePanel.TILES_SIZE/2 <= playerX && playerX <= xPos + GamePanel.TILES_SIZE/2){
+
+            if(playerY > yPos){
+                movementVector.setY(1);
+            }
+            else{
+                movementVector.setY(-1);
+            }
+        }
+        //se non si trova in questo fascio, si gira a destra o a sinistra in base alla posizione x del player
+        else{
+            if(playerX > xPos){
+                movementVector.setX(1);
+            }
+            else{
+                movementVector.setX(-1);
+            }
+        }
+
+        currentState = IDLE;
+
+    }
+    protected void moveNearDoor(int xLeft, int xRight) {
+
+        if(movementVector.getX() > 0){
+            goRight(xRight);
+        }
+        else {
+            goLeft(xLeft);
+        }
+    }
+
+    protected void goLeft(int xLeft){
+        //se non ha raggiunto il punto puù a sinistra, continua ad andare a sinsitra
+        if(xPos > xLeft * GamePanel.TILES_SIZE){
+            //se va a sinistra
+            tempHitbox.setX(hitbox.getX() - speed);
+            tempHitbox.setY(hitbox.getY());
+
+            boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoLeft(tempHitbox);
+            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithoOtherEntities(this);
+            boolean canGo = solidTiles && entities;
+
+            if(canGo){
+                setxPos(getxPos() - speed);
+                hitbox.setX(xPos - XhitboxOffset);
+                interactionHitbox.setX(xPos - interactionHitbox.getWidth()/2);
+            }
+        }
+        else{
+            //se è arrivato a destinazione, cambia direzione e va a detra
+            movementVector.setX(1);
+        }
+    }
+
+    protected void goRight(int xRight){
+        //se non ha raggiunto il punto puù a sinistra, continua ad andare a sinsitra
+        if(xPos < xRight * GamePanel.TILES_SIZE){
+            //se va a detsra
+            tempHitbox.setX(hitbox.getX() + speed);
+            tempHitbox.setY(hitbox.getY());
+
+            boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoRight(tempHitbox);
+            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithoOtherEntities(this);
+            boolean canGo = solidTiles && entities;
+
+            if(canGo){
+                setxPos(getxPos() + speed);
+                hitbox.setX(xPos + XhitboxOffset);
+                interactionHitbox.setX(xPos - interactionHitbox.getWidth()/2);
+            }
+        }
+        else{
+            //se è arrivato a destinazione, cambia direzione e va a detra
+            movementVector.setX(-1);
+        }
+    }
+
     protected void setHitbox(int hitboxWidth, int hitboxHeight) {
         hitbox = new Hitbox(xPos, yPos, (int)(hitboxWidth*GamePanel.SCALE), (int)(hitboxHeight*GamePanel.SCALE));
         XhitboxOffset = hitbox.getWidth()/2;
@@ -146,7 +240,8 @@ public class EntityController {
         XhitboxOffset = hitbox.getWidth()/2;
         YhitboxOffset = hitbox.getHeight()/2;
 
-        tempHitbox = new Hitbox(hitbox.getX(), hitbox.getY(), hitboxWidth, hitboxHeight);
+        tempHitbox = new Hitbox(hitbox.getX(), hitbox.getY(), (int)(hitboxWidth*GamePanel.SCALE),
+                                                              (int)(hitboxHeight*GamePanel.SCALE));
 
         int interactionHitboxWidth = 2*GamePanel.TILES_SIZE;
         int interactionHitboxHeight = 2*GamePanel.TILES_SIZE;
@@ -157,27 +252,6 @@ public class EntityController {
                                         interactionHitboxHeight);
     }
 
-    public void turnToPlayer(int playerX, int playerY){
-        if(playerX >= xPos){
-            movementVector.setX(1);
-        }
-        else {
-            movementVector.setX(-1);
-        }
-
-        //se stanno sulla stessa colonna, si gira verso l'alto o versoil basso
-        if(xPos/GamePanel.TILES_SIZE == playerX/GamePanel.TILES_SIZE){
-           if(playerY >= yPos){
-               movementVector.setY(1);
-               movementVector.setX(0);
-           }
-            else {
-               movementVector.setY(-1);
-               movementVector.setX(0);
-           }
-        }
-
-    }
     public void setxPos(int xPos) {
         this.xPos = xPos;
     }
@@ -217,4 +291,18 @@ public class EntityController {
     public Hitbox getInteractionHitbox(){
         return interactionHitbox;
     }
+
+    public abstract void update();
+
+    public int getIndex(){
+        return index;
+    }
+
+    public Hitbox getTempHitbox(){
+        return  tempHitbox;
+    }
+
+
+
+
 }

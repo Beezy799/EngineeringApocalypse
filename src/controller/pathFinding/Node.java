@@ -1,12 +1,12 @@
 package src.controller.pathFinding;
 
-public class Node implements  Comparable{
+public class Node implements Comparable<Node>{
 
     private int pathCost;
     private int heuristic;
     private int f_cost;
     private int row, col;
-    private boolean explored, isSolid;
+    public boolean explored, isSolid, inFrontier;
     private Node parent;
 
 
@@ -14,6 +14,7 @@ public class Node implements  Comparable{
         this.col = col;
         this.row = row;
         explored = false;
+        inFrontier = false;
     }
 
 
@@ -82,26 +83,13 @@ public class Node implements  Comparable{
     }
 
     public int compareTo(Node n) {
-//        if(n.getF_cost() < this.f_cost)
-//            return 1;
-//
-//        if(n.getF_cost() > this.f_cost)
-//            return -1;
-//
-//        return 0;
-
-        if(n.getHeuristic() < this.heuristic)
+        if(n.getF_cost() < this.f_cost)
             return 1;
 
-        if(n.getHeuristic() > this.heuristic)
+        else if(n.getF_cost() > this.f_cost)
             return -1;
 
         return 0;
     }
 
-    @Override
-    public int compareTo(Object o) {
-        System.out.println("uso questo metodo demmerda");
-        return 0;
-    }
 }

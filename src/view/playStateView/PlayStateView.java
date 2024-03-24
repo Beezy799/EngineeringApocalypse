@@ -155,7 +155,7 @@ public class PlayStateView {
                 if(tileNumber > 0) {
                     g2.drawImage(iView.getModel().getTileset().getTile(tileNumber).getTileView().getImage(), xScreen, yScreen, null);
                     //disegna i bordi del tile, per controllo
-                    //g2.drawRect(xScreen, yScreen, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
+                    g2.drawRect(xScreen, yScreen, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
                 }
             }
         }
