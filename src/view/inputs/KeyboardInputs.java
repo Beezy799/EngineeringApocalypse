@@ -30,6 +30,8 @@ public class KeyboardInputs implements KeyListener {
             case PLAYING:
                 handleKeypressedDuringPlayState(e);
                 break;
+            case TRANSITION_STATE:
+                break;
             default: //nei casi main manu , opzioni e  avatar selection
                 moveCursor(e);
                 break;

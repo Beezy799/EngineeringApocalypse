@@ -44,10 +44,10 @@ public class PathFinder {
         for(int i = 0; i < roomRow; i++){
             for(int j = 0; j < roomCol; j++){
                 graph[i][j].setExplored(false);
-                graph[i][j].setF_cost(0);
+                graph[i][j].setF_cost(999);
                 graph[i][j].setPathCost(0);
                 graph[i][j].setParent(null);
-                graph[i][j].setSolid(false);
+                graph[i][j].setSolid(true);
                 graph[i][j].inFrontier = false;
             }
         }
@@ -59,11 +59,10 @@ public class PathFinder {
 
         int roomRow = Rooms.actualRoom.getMap().getFirstLayer().length;
         int roomCol = Rooms.actualRoom.getMap().getFirstLayer()[0].length;
-        for(int i = 0; i < roomRow; i++){
-            for(int j = 0; j < roomCol; j++){
+        for(int i = 7; i <= roomRow - 7; i++){
+            for(int j = 11; j <= roomCol - 11; j++){
                 if(Rooms.actualRoom.getMap().getTthirdLayer()[i][j] != 0) {
                     graph[i][j].setSolid(true);
-                    graph[i][j].setF_cost(999);
                 }
                 else{
                    setCostOfThisNode(graph[i][j], startNode, goalNode);
@@ -74,6 +73,7 @@ public class PathFinder {
         setCostOfThisNode(graph[startNode.getRow()][startNode.getCol()], startNode, goalNode);
         setCostOfThisNode(graph[goalNode.getRow()][goalNode.getCol()], startNode, goalNode);
         graph[goalNode.getRow()][goalNode.getCol()].isSolid = false;
+        drawGraph();
     }
 
     private void setCostOfThisNode(Node node, Node startNode, Node goalNode) {

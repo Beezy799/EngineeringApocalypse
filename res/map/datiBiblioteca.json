@@ -3,12 +3,12 @@
   "passaggi": [
     {
       "nuova stanza": "AULA_STUDIO",
-      "xPosPassaggio": 26,
-      "yPosPassaggio": 9,
+      "xPosPassaggio": 25,
+      "yPosPassaggio": 8,
       "larghezza": 32,
       "altezza": 32,
       "nuovaxPlayer": 34,
-      "nuovayPlayer": 9,
+      "nuovayPlayer": 10,
       "cfuRichiesti": 0,
       "messaggio": ""
     }
@@ -17,7 +17,7 @@
     {
       "nome": "Ermenegildo",
       "riga": 17,
-      "colonna": 12
+      "colonna": 11
     }
   ]
 

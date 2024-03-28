@@ -131,7 +131,7 @@ public class IController {
             //playerController.changeActualState(EntityStates.THROWING);
 
             Node start = new Node(playerController.getyPosPlayer()/GamePanel.TILES_SIZE, playerController.getxPosPlayer()/GamePanel.TILES_SIZE);
-            Node goal = new Node(12, 11);
+            Node goal = new Node(18, 27);
             pathFinder.setNodes(start, goal);
             //pathFinder.isSolid(start);
             pathFinder.existPath(start, goal);

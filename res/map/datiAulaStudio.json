@@ -4,27 +4,27 @@
     {
       "nuova stanza": "BIBLIOTECA",
       "xPosPassaggio": 34,
-      "yPosPassaggio": 7,
+      "yPosPassaggio": 8,
       "larghezza": 32,
       "altezza": 32,
-      "nuovaxPlayer": 24,
-      "nuovayPlayer": 11,
+      "nuovaxPlayer": 23,
+      "nuovayPlayer": 10,
       "cfuRichiesti": 0,
       "messaggio": ""
     },{
       "nuova stanza": "DORMITORIO",
       "xPosPassaggio": 34,
-      "yPosPassaggio": 42,
+      "yPosPassaggio": 43,
       "larghezza": 64,
       "altezza": 32,
-      "nuovaxPlayer": 28,
-      "nuovayPlayer": 24,
+      "nuovaxPlayer": 27,
+      "nuovayPlayer": 23,
       "cfuRichiesti": 0,
       "messaggio": ""
     },{
       "nuova stanza": "TENDA",
       "xPosPassaggio": 26,
-      "yPosPassaggio": 10,
+      "yPosPassaggio": 11,
       "larghezza": 32,
       "altezza": 32,
       "nuovaxPlayer": 14,
@@ -35,7 +35,7 @@
     {
       "nuova stanza": "LABORATORIO",
       "xPosPassaggio": 15,
-      "yPosPassaggio": 6,
+      "yPosPassaggio": 7,
       "larghezza": 32,
       "altezza": 34,
       "nuovaxPlayer": 20,
@@ -45,7 +45,7 @@
     },{
       "nuova stanza": "AULA_STUDIO",
       "xPosPassaggio": 16,
-      "yPosPassaggio": 42,
+      "yPosPassaggio": 43,
       "larghezza": 32,
       "altezza": 32,
       "nuovaxPlayer": 0,
@@ -63,7 +63,7 @@
     },
     {
       "nome": "prof",
-      "riga": 8,
+      "riga": 9,
       "colonna": 18
     }
   ]

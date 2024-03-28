@@ -20,8 +20,8 @@ public abstract class EntityController {
     protected Vector movementVector;
     protected int actionCounter;
     protected Random randomGenerator;
-    protected IController controller;
 
+    protected IController controller;
     protected int index;
 
     public EntityController(int x, int y, IController c, int index){
@@ -306,8 +306,8 @@ public abstract class EntityController {
         return  tempHitbox;
     }
 
-
     public void speak() {
         currentState = SPEAKING;
     }
+
 }
