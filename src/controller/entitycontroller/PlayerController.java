@@ -28,19 +28,20 @@ public class PlayerController {
     //hitbox temporanea nel punto dove andrebbe la vera hiybox dopo il movimento
     private Hitbox tempHitbox;
     private final int hitboxWidth =  (int)(0.75*GamePanel.TILES_SIZE);
-    private final int hitboxHeight = GamePanel.TILES_SIZE/2;
+    private final int hitboxHeight = 3*GamePanel.TILES_SIZE/4;
 
     //la posizione della hitbox è data dal punto in alto a sinistra, manetre la posizione del player è al centro della
     //sua hitbox. La hitbox del player è un quadrato grande mezzo tile
     private final int XhitboxOffset = hitboxWidth/2;
+    private final int YhitboxOffset = GamePanel.TILES_SIZE/4;
 
 
     public PlayerController(IController c, PlayStateController p){
         controller = c;
         movementVector = new Vector(2);
         playStateController = p;
-        hitbox = new Hitbox(xPosPlayer - XhitboxOffset, yPosPlayer, hitboxWidth, hitboxHeight);
-        tempHitbox = new Hitbox(xPosPlayer - XhitboxOffset, yPosPlayer, hitboxWidth, hitboxHeight);
+        hitbox = new Hitbox(xPosPlayer - XhitboxOffset, yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
+        tempHitbox = new Hitbox(xPosPlayer - XhitboxOffset, yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
     }
 
     public void update(){
@@ -145,7 +146,7 @@ public class PlayerController {
             if(playStateController.getCollisionChecker().canGoUp(tempHitbox)){
                 if(!isEntityCollision()) {
                     yPosPlayer += movementVector.getY();
-                    hitbox.setY(yPosPlayer);
+                    hitbox.setY(yPosPlayer - YhitboxOffset);
                 }
             }
 
@@ -157,7 +158,7 @@ public class PlayerController {
             if(playStateController.getCollisionChecker().canGoDown(tempHitbox)){
                 if(!isEntityCollision()) {
                     yPosPlayer += movementVector.getY();
-                    hitbox.setY(yPosPlayer);
+                    hitbox.setY(yPosPlayer - YhitboxOffset);
                 }
             }
         }

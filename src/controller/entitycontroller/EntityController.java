@@ -2,12 +2,13 @@ package src.controller.entitycontroller;
 
 import src.controller.IController;
 import src.controller.Vector;
+import src.controller.pathFinding.Node;
 import src.model.EntityStates;
 import src.model.Hitbox;
 import src.view.gameWindow.GamePanel;
 
+import java.util.ArrayList;
 import java.util.Random;
-
 import static src.model.Constants.EntityConstants.*;
 import static src.model.EntityStates.*;
 
@@ -22,7 +23,10 @@ public abstract class EntityController {
     protected Random randomGenerator;
 
     protected IController controller;
-    protected int index;
+    protected int entityIndex;
+
+    protected ArrayList<Node> path;
+    protected int pathNodeIndex;
 
     public EntityController(int x, int y, IController c, int index){
         xPos = x * GamePanel.TILES_SIZE;
@@ -32,7 +36,9 @@ public abstract class EntityController {
         movementVector = new Vector(2);
         randomGenerator = new Random();
         controller = c;
-        this.index = index;
+        this.entityIndex = index;
+
+        path = new ArrayList<>();
     }
 
     // molti npc si muovono a caso nella stanza usando questo medoto
@@ -118,10 +124,8 @@ public abstract class EntityController {
 
     protected void choseAction() {
         int randomAction = randomGenerator.nextInt(2);
-
         if (randomAction == 0)
             currentState = IDLE;
-
         else
             currentState = MOVE;
 
@@ -129,7 +133,6 @@ public abstract class EntityController {
 
     protected void choseDirection() {
         int randomDirection = randomGenerator.nextInt(4);
-
         movementVector.resetDirections();
 
         if(randomDirection == DOWN) {
@@ -298,8 +301,8 @@ public abstract class EntityController {
 
     public abstract void update();
 
-    public int getIndex(){
-        return index;
+    public int getEntityIndex(){
+        return entityIndex;
     }
 
     public Hitbox getTempHitbox(){
@@ -308,6 +311,51 @@ public abstract class EntityController {
 
     public void speak() {
         currentState = SPEAKING;
+    }
+
+    public void followPath(){
+        Node n = path.get(pathNodeIndex);
+        int centerX = n.getCol()*GamePanel.TILES_SIZE + GamePanel.TILES_SIZE/2;
+        int centerY = n.getRow()*GamePanel.TILES_SIZE + GamePanel.TILES_SIZE/2;
+
+        if(xPos == centerX && yPos == centerY){
+            pathNodeIndex++;
+        }
+        else {
+            goToCenterOfTile(n.getCol()*GamePanel.TILES_SIZE, n.getRow()*GamePanel.TILES_SIZE);
+        }
+    }
+
+    public void goToCenterOfTile(int xTile, int yTile){
+        int centerX = xTile + GamePanel.TILES_SIZE/2;
+        int centerY = yTile + GamePanel.TILES_SIZE/2;
+
+        movementVector.resetDirections();
+        //se sta a sinistra del centro, deve andare a destra
+        if(xPos < centerX){
+            movementVector.setX(1);
+        }
+        //se sta sopra al centro, deve scendere
+        else if(yPos < centerY){
+            movementVector.setY(1);
+        }
+        //se sta a destra, deve andare a sinistra
+        else if(xPos > centerX){
+            movementVector.setX(-1);
+        }
+        //se sta sotto al centro, deve salire
+        else if(yPos > centerY){
+            movementVector.setY(-1);
+        }
+
+        updatePosition();
+
+        if(Math.abs(xPos - centerX) < speed){
+            xPos = centerX;
+        }
+        if(Math.abs(yPos - centerY) < speed){
+            yPos = centerY;
+        }
     }
 
 }

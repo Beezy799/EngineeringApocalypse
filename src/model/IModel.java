@@ -11,8 +11,8 @@ public class IModel {
     private IController controller;
     private IView view;
     private Tileset tileset;
-    private int xPlayerBeforeTransition, yPlayerBeforeTransition;
-    private Rooms roomBeforeTransition;
+    private int xPlayerAfterTransition, yPlayerAfterTransition;
+    private Rooms roomAfterTransition;
     private Rooms rooms;
 
     public IModel(IController contr){
@@ -50,16 +50,18 @@ public class IModel {
     //siccome durante la transizione dobbiamo disegnare la vecchia posizione del player, ci salviamo qui
     //dove finirà il player finita la trasizione
     public void savePassageData(int xPlayer, int yPlayer, Rooms nextRoom) {
-        xPlayerBeforeTransition = xPlayer;
-        yPlayerBeforeTransition = yPlayer;
-        roomBeforeTransition = nextRoom;
+        xPlayerAfterTransition = xPlayer;
+        yPlayerAfterTransition = yPlayer;
+        roomAfterTransition = nextRoom;
     }
 
     //finita la transizione, il player si troverà finalmente nella nuova posizione
     public void resumeGameAfterTransition() {
-        controller.getPlayerController().setxPosPlayer(xPlayerBeforeTransition);
-        controller.getPlayerController().setyPosPlayer(yPlayerBeforeTransition);
-        Rooms.actualRoom = roomBeforeTransition;
+        controller.getPlayerController().setxPosPlayer(xPlayerAfterTransition);
+        controller.getPlayerController().setyPosPlayer(yPlayerAfterTransition);
+        Rooms.actualRoom = roomAfterTransition;
+        //il pathfinder si crea il grafo della nuova stanza
+        controller.getPathFinder().createGraph();
     }
 
     public int getEntityXpos(int index){

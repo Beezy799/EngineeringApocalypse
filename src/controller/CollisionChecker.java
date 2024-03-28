@@ -160,7 +160,7 @@ public class CollisionChecker {
             EntityController other = Rooms.actualRoom.getNpc().get(i).getEntityController();
 
             //per controllare che non guardi l'intersezione con la sua stessa hitbox
-            boolean isThesameEntity = (entity.getIndex() == other.getIndex());
+            boolean isThesameEntity = (entity.getEntityIndex() == other.getEntityIndex());
             if(entity.getTempHitbox().intersects(other.getHitbox()) && !isThesameEntity) {
                 notcollisionNpc = false;
             }

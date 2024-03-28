@@ -97,7 +97,7 @@ public class PlayerView extends SortableElement {
         //disegna la hitbox del giocatore
         g2.setColor(Color.blue);
         g2.drawRect(GamePanel.CENTER_X_GAME_PANEL - view.getController().getPlayerController().getHitbox().getWidth()/2,
-                       GamePanel.CENTER_Y_GAME_PANEL,
+                       GamePanel.CENTER_Y_GAME_PANEL - GamePanel.TILES_SIZE/4,
                        view.getController().getPlayerController().getHitbox().getWidth(),
                        view.getController().getPlayerController().getHitbox().getHeight());
     }

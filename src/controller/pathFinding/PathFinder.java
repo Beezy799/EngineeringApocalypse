@@ -28,8 +28,6 @@ public class PathFinder {
         int roomRow = Rooms.actualRoom.getMap().getFirstLayer().length;
         int roomCol = Rooms.actualRoom.getMap().getFirstLayer()[0].length;
         graph = new Node[roomRow][roomCol];
-
-        //crea solo i nodi necessari, quelli della stanza
         for(int i = 0; i < roomRow; i++){
             for(int j = 0; j < roomCol; j++){
                 graph[i][j] = new Node(i, j);
@@ -73,7 +71,7 @@ public class PathFinder {
         setCostOfThisNode(graph[startNode.getRow()][startNode.getCol()], startNode, goalNode);
         setCostOfThisNode(graph[goalNode.getRow()][goalNode.getCol()], startNode, goalNode);
         graph[goalNode.getRow()][goalNode.getCol()].isSolid = false;
-        drawGraph();
+        //drawGraph();
     }
 
     private void setCostOfThisNode(Node node, Node startNode, Node goalNode) {
@@ -109,7 +107,7 @@ public class PathFinder {
 
             //controlla se il nodo è il goal
             if(nodeToExplore.getHeuristic() == 0) {
-                trackThePath(start, nodeToExplore);
+                //trackThePath(start, nodeToExplore);
                 counter = 0;
                 frontier.clear();
                 resetNodes();
@@ -174,6 +172,7 @@ public class PathFinder {
         }
     }
 
+    //restituisce la lista di genitori del nodo soluzione, e quindi il percorso
     private void trackThePath(Node startNode, Node solution) {
         Node current = solution;
         path.clear();
@@ -185,9 +184,9 @@ public class PathFinder {
             System.out.println(i +" " + path.get(i).getRow() + ", " + path.get(i).getCol());
     }
 
-    //per debugging, per vedere se settava bene i vaolori
-    public void isSolid(Node start) {
-        System.out.println(graph[start.getRow()][start.getCol()].isSolid);
+    public ArrayList<Node> getPath(){
+        return path;
     }
+
 }
 
