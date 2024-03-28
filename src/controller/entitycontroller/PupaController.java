@@ -2,8 +2,6 @@ package src.controller.entitycontroller;
 
 import src.controller.IController;
 import src.model.EntityStates;
-import src.model.Hitbox;
-import src.view.main.GamePanel;
 
 public class PupaController extends EntityController{
 
@@ -23,6 +21,9 @@ public class PupaController extends EntityController{
             case MOVE:
                 moveNearDoor(31, 37);
                 break;
+            case SPEAKING:
+                turnToPlayer();
+                currentState = EntityStates.IDLE;
             default:
                 currentState = EntityStates.MOVE;
                 break;

@@ -1,7 +1,7 @@
 package src.view.mapView;
 
 import src.view.ViewUtils;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 
 import java.awt.image.BufferedImage;
 

@@ -2,7 +2,7 @@ package src.view.entityView;
 
 import src.view.IView;
 import src.view.ViewUtils;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

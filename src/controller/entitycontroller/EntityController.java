@@ -4,13 +4,12 @@ import src.controller.IController;
 import src.controller.Vector;
 import src.model.EntityStates;
 import src.model.Hitbox;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 
 import java.util.Random;
 
 import static src.model.Constants.EntityConstants.*;
-import static src.model.EntityStates.IDLE;
-import static src.model.EntityStates.MOVE;
+import static src.model.EntityStates.*;
 
 public abstract class EntityController {
 
@@ -37,17 +36,19 @@ public abstract class EntityController {
     }
 
     // molti npc si muovono a caso nella stanza usando questo medoto
-    public void randomMove() {
+    protected void randomMove() {
         actionCounter++;
         //ogni due secondi cambia azione e direzione
-        if(actionCounter >= 200) {
+        if (actionCounter >= 200) {
             choseAction();
             choseDirection();
             actionCounter = 0;
         }
+    }
 
+    protected void updatePosition() {
         //dopo aver scelto di muoversi, vede se può farlo, altrimenti si ferma
-        if(currentState == MOVE && canMove(tempHitbox)) {
+        if(canMove(tempHitbox)) {
 
             if(movementVector.getY() < 0) {
                 setyPos(getyPos() - speed);
@@ -75,7 +76,7 @@ public abstract class EntityController {
             currentState = IDLE;
     }
 
-    private boolean canMove(Hitbox tempHitbox) {
+    protected boolean canMove(Hitbox tempHitbox) {
         boolean canGo = false;
 
         //se va a destra
@@ -115,7 +116,7 @@ public abstract class EntityController {
         return canGo;
     }
 
-    private void choseAction() {
+    protected void choseAction() {
         int randomAction = randomGenerator.nextInt(2);
 
         if (randomAction == 0)
@@ -148,7 +149,9 @@ public abstract class EntityController {
         }
     }
 
-    public void turnToPlayer(int playerX, int playerY){
+    protected void turnToPlayer(){
+        int playerX = controller.getPlayerController().getxPosPlayer();
+        int playerY = controller.getPlayerController().getyPosPlayer();
         movementVector.resetDirections();
         //controllo se la posizione del player è in un fascio largo un tile che ha centro nella posizione della
         //entità. questo fascio è come se fosse una sorta di colonna
@@ -174,6 +177,7 @@ public abstract class EntityController {
         currentState = IDLE;
 
     }
+
     protected void moveNearDoor(int xLeft, int xRight) {
 
         if(movementVector.getX() > 0){
@@ -220,7 +224,7 @@ public abstract class EntityController {
 
             if(canGo){
                 setxPos(getxPos() + speed);
-                hitbox.setX(xPos + XhitboxOffset);
+                hitbox.setX(xPos - XhitboxOffset);
                 interactionHitbox.setX(xPos - interactionHitbox.getWidth()/2);
             }
         }
@@ -303,6 +307,7 @@ public abstract class EntityController {
     }
 
 
-
-
+    public void speak() {
+        currentState = SPEAKING;
+    }
 }

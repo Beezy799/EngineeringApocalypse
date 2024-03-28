@@ -1,9 +1,7 @@
 package src.view.menu;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -14,7 +12,7 @@ import src.view.ViewUtils;
 
 import static src.model.Constants.EntityConstants.RAGAZZA;
 import static src.model.Constants.EntityConstants.RAGAZZO;
-import static src.view.main.GamePanel.*;
+import static src.view.gameWindow.GamePanel.*;
 
 //menu per la selezione dell'avatar
 public class AvatarMenu extends AbstractMenu{

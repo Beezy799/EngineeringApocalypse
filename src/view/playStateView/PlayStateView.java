@@ -4,8 +4,8 @@ import src.model.mapModel.EnemyComplete;
 import src.model.mapModel.NpcComplete;
 import src.model.mapModel.Rooms;
 import src.view.IView;
-import src.view.entityView.PlayerView;
-import src.view.main.GamePanel;
+import src.view.PlayerView;
+import src.view.gameWindow.GamePanel;
 import src.view.mapView.TileImageLoader;
 
 import java.awt.*;

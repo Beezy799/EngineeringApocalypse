@@ -1,7 +1,7 @@
 package src.view.playStateView;
 
 import src.view.IView;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

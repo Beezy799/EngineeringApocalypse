@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import static src.view.main.GamePanel.*;
+import static src.view.gameWindow.GamePanel.*;
 
 public class OptionMenu extends AbstractMenu{
 

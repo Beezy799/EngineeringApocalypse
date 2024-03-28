@@ -3,7 +3,7 @@ package src.view.entityView;
 import src.model.EntityStates;
 import src.model.mapModel.Rooms;
 import src.view.IView;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 import src.view.playStateView.SortableElement;
 
 import java.awt.*;
@@ -63,6 +63,7 @@ public abstract class EntityView extends SortableElement {
         int xPosOnScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
         int yPosOnScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
 
+        //siccome la posizone dell'entità non coincide col punto in alto a sinistra dell'immagine, compensiamo con gli offset
         g2.drawImage(animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite], xPosOnScreen - xOffset, yPosOnScreen - yOffset, null);
 
         //disegna la zona occupata dalla sprite
@@ -92,15 +93,6 @@ public abstract class EntityView extends SortableElement {
 
     protected void getCurrentStateFromController() {
         try {
-//            if(view == null)
-//                System.out.println("v");
-//
-//            if(view.getModel() == null)
-//                System.out.println("m");
-//
-//            if(Rooms.actualRoom == null)
-//                System.out.println("r");
-
             currentState = view.getModel().getCurrentStateOfEntity(indexInEntityArray);
         }
         catch (NullPointerException e){

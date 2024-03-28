@@ -1,12 +1,11 @@
 package src.view.playStateView;
 
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;

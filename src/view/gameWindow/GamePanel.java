@@ -1,4 +1,4 @@
-package src.view.main;
+package src.view.gameWindow;
 
 import java.awt.AWTException;
 import java.awt.Color;

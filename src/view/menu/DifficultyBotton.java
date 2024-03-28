@@ -1,14 +1,13 @@
 package src.view.menu;
 
-import src.model.GameState;
 import src.view.ViewUtils;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import static src.view.main.GamePanel.GAME_HEIGHT;
-import static src.view.main.GamePanel.SCALE;
+import static src.view.gameWindow.GamePanel.GAME_HEIGHT;
+import static src.view.gameWindow.GamePanel.SCALE;
 
 public class DifficultyBotton extends AbstractMenuButton {
 

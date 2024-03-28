@@ -2,7 +2,6 @@ package src.view.menu;
 
 import src.model.GameState;
 import src.view.IView;
-import src.view.SoundManager;
 import src.view.ViewUtils;
 
 
@@ -10,8 +9,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import static src.model.Constants.SoundConstants.DORMITORIO_MUSIC;
-import static src.view.main.GamePanel.SCALE;
+import static src.view.gameWindow.GamePanel.SCALE;
 
 //questa classe serve per gestire le "gif" degli avantar nel menu di selezione
 public class AvatarMenuButton extends  AbstractMenuButton{

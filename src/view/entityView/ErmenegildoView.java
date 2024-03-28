@@ -1,13 +1,10 @@
 package src.view.entityView;
 
-import src.model.EntityStates;
-import src.model.mapModel.Rooms;
 import src.view.IView;
 import src.view.ViewUtils;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 

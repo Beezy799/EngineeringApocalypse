@@ -3,7 +3,7 @@ package src.view;
 import src.model.Constants;
 import src.model.GameState;
 import src.model.mapModel.Rooms;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;

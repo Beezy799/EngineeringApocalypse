@@ -3,15 +3,14 @@ package src.view.menu;
 import src.model.GameState;
 import src.view.IView;
 import src.view.ViewUtils;
-import src.view.main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import static src.view.main.GamePanel.GAME_HEIGHT;
-import static src.view.main.GamePanel.SCALE;
+import static src.view.gameWindow.GamePanel.GAME_HEIGHT;
+import static src.view.gameWindow.GamePanel.SCALE;
 
 public class CommandsExplaination extends AbstractMenu {
 

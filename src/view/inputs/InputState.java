@@ -1,4 +1,4 @@
-package src.model;
+package src.view.inputs;
 
 /*
 Mentre tutti gli altri gamestateInput possono comunicare col rispettivo gamestate manager,

@@ -2,8 +2,6 @@ package src.controller.entitycontroller;
 
 import src.controller.IController;
 import src.model.EntityStates;
-import src.model.Hitbox;
-import src.view.main.GamePanel;
 
 public class ErmenegildoController extends EntityController {
     private final int hitboxWidth = 16;
@@ -19,11 +17,18 @@ public class ErmenegildoController extends EntityController {
 
     public void update(){
         switch(currentState){
-            case MOVE:
+            case IDLE:
                 randomMove();
                 break;
+            case SPEAKING:
+                turnToPlayer();
+                currentState = EntityStates.IDLE;
+                break;
+            case MOVE:
+                updatePosition();
+                break;
             default:
-                currentState = EntityStates.MOVE;
+                currentState = EntityStates.IDLE;
                 break;
         }
     }

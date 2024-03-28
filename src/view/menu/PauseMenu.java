@@ -3,20 +3,19 @@ package src.view.menu;
 import src.model.GameState;
 import src.view.IView;
 import src.view.ViewUtils;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import static src.view.main.GamePanel.*;
+import static src.view.gameWindow.GamePanel.*;
 
 
 //Se durante il gioco il player preme esc, viene mostrato a schermo il menù di pausa

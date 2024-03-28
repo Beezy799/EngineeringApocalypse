@@ -6,7 +6,7 @@ import src.controller.Vector;
 import src.model.EntityStates;
 import src.model.Hitbox;
 import src.model.mapModel.Rooms;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 
 public class PlayerController {
 
@@ -162,7 +162,7 @@ public class PlayerController {
             }
         }
 
-        System.out.println(yPosPlayer/GamePanel.TILES_SIZE + ", " + xPosPlayer/GamePanel.TILES_SIZE);
+        //System.out.println(yPosPlayer/GamePanel.TILES_SIZE + ", " + xPosPlayer/GamePanel.TILES_SIZE);
     }
 
 
@@ -227,7 +227,7 @@ public class PlayerController {
         //possiamo mettere un controllo in modo che il player
         //cambia stato solo in determinate occasioni (qunado para/attacca non può cambiare stato
         //finchè non finisce l'azione o non lascia il tasto
-        if(stateLocked == false) {
+        if(!stateLocked) {
             actualState = newState;
         }
     }
@@ -278,5 +278,12 @@ public class PlayerController {
 
     public void setNearEntity(boolean nearEntity) {
         this.nearEntity = nearEntity;
+    }
+
+    public void speak() {
+        setNearEntity(false);
+        resetDirectionVector();
+        unlockState();
+        changeActualState(EntityStates.IDLE);
     }
 }

@@ -1,8 +1,8 @@
-package src.view.main;
+package src.view.gameWindow;
 
 import javax.swing.JFrame;
 
-import src.model.InputState;
+import src.view.inputs.InputState;
 import src.view.IView;
 
 import java.awt.event.WindowEvent;
@@ -24,6 +24,7 @@ public class GameWindow extends JFrame {
 		pack();
 		setLocationRelativeTo(null);
 		handleLostFocus();
+
 	}
 
 	//questo metodo serve per quando la finestra di gioco perde il focus

@@ -9,7 +9,6 @@ import javax.swing.SwingUtilities;
 
 import src.model.GameState;
 //import controller.main.Gamestate;
-import src.model.InputState;
 import src.view.IView;
 
 public class MouseInputs implements MouseListener, MouseMotionListener {

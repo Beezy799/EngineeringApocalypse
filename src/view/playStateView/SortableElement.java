@@ -36,26 +36,6 @@ public abstract class SortableElement implements Comparable<SortableElement> {
 
         return comparation;             //se sia l'altezza che il tipo sono uguali, comparation ressta 0
 
-
-//        //se sono tile dello stesso tipo non ha senso ordinarli, si risparmia tempo
-//        if (this.typeElemtToSort == e.typeElemtToSort && (this.typeElemtToSort == 0 || this.typeElemtToSort == 1))
-//            return 0;
-//
-//        else {
-//            if (this.yPosMapForSort < e.yPosMapForSort) //se si trova più in alto deve essere disegnato prima
-//                return -1;
-//
-//            else if (this.yPosMapForSort > e.yPosMapForSort) //se si trova più in basso deve essere disegnato dopo
-//                return 1;
-//
-//            else if (this.yPosMapForSort == e.yPosMapForSort) {    //se si trova nella stessa posizione, prima si disegnano
-//                if (this.typeElemtToSort < e.typeElemtToSort)                  //l'oggetto con tipo più basso
-//                    return -1;
-//                else
-//                    return 1;
-//            }
-//        }
-//        return 0;    //non dovremmo mai arrivare qui
     }
 
     public abstract void draw(Graphics2D g2, int xPlayerMap, int yPlayerMap);

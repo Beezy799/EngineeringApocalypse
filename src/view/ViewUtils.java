@@ -4,7 +4,7 @@ package src.view;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 
 // classe che contiene alcuni metodi comodi a un po' tutte le altre classi
 //(scalare immagini,posizionare scritte al centro,lunghezza scritta...)

@@ -2,7 +2,7 @@ package src.view.menu;
 
 import src.model.GameState;
 import src.view.IView;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

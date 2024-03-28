@@ -1,6 +1,5 @@
 package src.controller;
 
-import src.controller.entitycontroller.EntityController;
 import src.controller.entitycontroller.PlayerController;
 import src.controller.pathFinding.Node;
 import src.controller.pathFinding.PathFinder;
@@ -8,7 +7,8 @@ import src.model.*;
 import src.model.mapModel.NpcComplete;
 import src.model.mapModel.Rooms;
 import src.view.IView;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
+import src.view.inputs.InputState;
 
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -120,11 +120,9 @@ public class IController {
 
         if (InputState.E.getPressed()) {
             if(playerController.isNearEntity()){
-                playerController.setNearEntity(false);
-                InputState.E.setPressed(false);
-                int playerX = playerController.getxPosPlayer();
-                int playerY = playerController.getyPosPlayer();
-                Rooms.actualRoom.getNpc().get(indexEntityInteraction).getEntityController().turnToPlayer(playerX, playerY);
+                InputState.resetBooleans();
+                playerController.speak();
+                Rooms.actualRoom.getNpc().get(indexEntityInteraction).getEntityController().speak();
                 GameState.actualState = GameState.DIALOGUE;
             }
         }

@@ -1,8 +1,8 @@
 package src.model.mapModel;
 
 import src.model.*;
-import src.view.SoundManager;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
+import src.view.inputs.InputState;
 
 public class Passage {
 

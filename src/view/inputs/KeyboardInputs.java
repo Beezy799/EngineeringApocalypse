@@ -6,11 +6,9 @@ import java.awt.event.KeyListener;
 
 import src.model.GameState;
 
-import src.model.IModel;
-import src.model.InputState;
 import src.view.IView;
 
-import static src.view.main.GamePanel.SCALE;
+import static src.view.gameWindow.GamePanel.SCALE;
 
 public class KeyboardInputs implements KeyListener {
 
@@ -32,10 +30,13 @@ public class KeyboardInputs implements KeyListener {
             case PLAYING:
                 handleKeypressedDuringPlayState(e);
                 break;
-          case DIALOGUE:
+            default: //nei casi main manu , opzioni e  avatar selection
+                moveCursor(e);
+                break;
+            case DIALOGUE:
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE ||
-                   e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_A ||
-                   e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_W) {
+                        e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_A ||
+                        e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_W) {
 
                     GameState.actualState = GameState.PLAYING;
                 }
@@ -43,9 +44,6 @@ public class KeyboardInputs implements KeyListener {
                     int index = view.getController().getIndexEntityInteraction();
                     view.getModel().setEntityNextDialogue(index);
                 }
-                break;
-            default: //nei casi main manu , opzioni e  avatar selection
-                moveCursor(e);
                 break;
 //            case BOSS_CUTSCENE:
 //                if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {

@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 
 import org.json.simple.JSONArray;
 import src.model.Hitbox;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 
 public class Tileset {
 

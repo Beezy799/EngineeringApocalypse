@@ -12,9 +12,9 @@ import javax.imageio.ImageIO;
 import src.model.GameState;
 import src.view.ViewUtils;
 
-import static src.view.main.GamePanel.SCALE;
-import static src.view.main.GamePanel.GAME_HEIGHT;
-import static src.view.main.GamePanel.GAME_WIDTH;
+import static src.view.gameWindow.GamePanel.SCALE;
+import static src.view.gameWindow.GamePanel.GAME_HEIGHT;
+import static src.view.gameWindow.GamePanel.GAME_WIDTH;
 
 public class MainMenu extends AbstractMenu{
     

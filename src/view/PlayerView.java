@@ -1,10 +1,10 @@
-package src.view.entityView;
+package src.view;
 
 import src.model.EntityStates;
 import src.model.GameState;
 import src.view.IView;
 import src.view.ViewUtils;
-import src.view.main.GamePanel;
+import src.view.gameWindow.GamePanel;
 import src.view.playStateView.SortableElement;
 
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import static src.model.Constants.EntityConstants.*;
-import static src.view.main.GamePanel.SCALE;
+import static src.view.gameWindow.GamePanel.SCALE;
 
 import javax.imageio.ImageIO;
 

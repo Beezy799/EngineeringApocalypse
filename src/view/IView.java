@@ -5,12 +5,10 @@ import java.awt.*;
 import src.controller.IController;
 import src.model.GameState;
 import src.model.IModel;
-import src.model.mapModel.Rooms;
-import src.view.entityView.PlayerView;
 import src.view.gameBegin.StartTitle;
 import src.view.inputs.MouseInputs;
-import src.view.main.GamePanel;
-import src.view.main.GameWindow;
+import src.view.gameWindow.GamePanel;
+import src.view.gameWindow.GameWindow;
 import src.view.menu.*;
 import src.view.playStateView.PlayStateView;
 
