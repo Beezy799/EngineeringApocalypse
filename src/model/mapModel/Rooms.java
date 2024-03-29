@@ -10,6 +10,8 @@ import src.controller.entitycontroller.PupaController;
 import src.model.Constants;
 import src.model.Hitbox;
 import src.model.IModel;
+import src.model.events.Caffe;
+import src.model.events.Event;
 import src.view.IView;
 import src.view.entityView.ErmenegildoView;
 import src.view.entityView.ProfView;
@@ -37,6 +39,7 @@ public enum Rooms {
     private ArrayList<Passage> passages;
     private ArrayList<NpcComplete> npcList;
     private ArrayList<EnemyComplete> enemyList;
+    private ArrayList<Event> events;
     private static IModel model;
     private int musicIndex;
     private String dataPath;
@@ -49,11 +52,12 @@ public enum Rooms {
       passages = new ArrayList<>();
       npcList = new ArrayList<>();
       enemyList = new ArrayList<>();
-      loadPassagesAndEvents(pathRoomData);
+      events = new ArrayList<>();
+      loadPassages(pathRoomData);
       dataPath = pathRoomData;
     }
 
-    private void loadPassagesAndEvents(String pathRoomData) {
+    private void loadPassages(String pathRoomData) {
         //roba per leggere il file
         BufferedReader reader = null;
 
@@ -154,6 +158,52 @@ public enum Rooms {
 
     }
 
+    public void loadEvents(IModel m){
+        BufferedReader reader = null;
+
+        try {
+            InputStream is = getClass().getResourceAsStream(dataPath);
+            reader = new BufferedReader(new InputStreamReader(is));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //per leggere il file di tipo json
+        JSONParser parser = new JSONParser();
+        Object jsonObj = null;
+        try {
+            jsonObj = parser.parse(reader);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        JSONObject jsonObject = (JSONObject) jsonObj;
+
+        JSONArray eventsInRoom = (JSONArray) jsonObject.get("eventi");
+        for(int i = 0; i < eventsInRoom.size(); i++) {
+
+            JSONObject entityData = (JSONObject) eventsInRoom.get(i);
+
+            String nome = entityData.get("nome").toString();
+            int riga = Integer.parseInt(entityData.get("riga").toString());
+            int colonna = Integer.parseInt(entityData.get("colonna").toString());
+            int width = Integer.parseInt(entityData.get("larghezza").toString());
+            int height = Integer.parseInt(entityData.get("altezza").toString());
+
+            Hitbox bounds = new Hitbox(colonna, riga, width, height);
+
+            switch (nome){
+                case "Caffe":
+                    events.add(new Caffe(bounds, m, i));
+                    break;
+            }
+
+        }
+
+    }
+
 
     public Map getMap(){
         return map;
@@ -170,6 +220,10 @@ public enum Rooms {
     }
     public ArrayList<EnemyComplete> getEnemy(){
         return enemyList;
+    }
+
+    public ArrayList<Event> getEvents(){
+        return events;
     }
 
 

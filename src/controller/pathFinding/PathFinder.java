@@ -5,12 +5,11 @@ import src.model.mapModel.Rooms;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.PriorityQueue;
 
 public class PathFinder {
 
     private Node[][] graph;
-    private ArrayList<Node> frontier, path;
+    private ArrayList<Node> frontier;
     private IController controller;
 
     private int counter;
@@ -19,7 +18,6 @@ public class PathFinder {
         controller = c;
         createGraph();
         frontier = new ArrayList<>();
-        path = new ArrayList<>();
 
         resetNodes();
     }
@@ -88,16 +86,20 @@ public class PathFinder {
         node.setF_cost(gCost + hCost);
     }
 
-    public boolean existPath(Node start, Node goal){
-        setNodes(start, goal);
+    public ArrayList<Node> findPath(Node start, Node goal){
 
+        setNodes(start, goal);
+        ArrayList<Node> path = new ArrayList<>();
+
+        //goal test sul primo nodo
         Node currentNode = graph[start.getRow()][start.getCol()];
         if(currentNode.getHeuristic() == 0) {
-            return true;
+            path.add(currentNode);
+            return path;
         }
 
+        //se il primo nodo non è il goal, lo aggiunge in frontiera e parte il ciclo
         frontier.add(currentNode);
-
         while (!frontier.isEmpty() && counter < 100){
             counter++;
 
@@ -105,26 +107,28 @@ public class PathFinder {
             Node nodeToExplore = frontier.get(0);
             frontier.remove(0);
 
-            //controlla se il nodo è il goal
+            //controlla se il nodo è il goal, se sì, restituisce il percorso e si resetta tutto
             if(nodeToExplore.getHeuristic() == 0) {
-                //trackThePath(start, nodeToExplore);
+                trackThePath(start, nodeToExplore, path);
                 counter = 0;
                 frontier.clear();
                 resetNodes();
-                return true;
+                return path;
             }
 
+            //se il nodo non è il goal, esplora quelli vicini
             nodeToExplore.setExplored(true);
             expandNode(nodeToExplore.getRow(), nodeToExplore.getCol(), nodeToExplore);
             Collections.sort(frontier);
 
         }
 
+        //se alla fine la frontiera è vuota e non ha trovato il goal, non c'è un percorso e restituisce null
         System.out.println("no path, counter = " + counter + " frontier " + frontier.size());
         counter = 0;
         frontier.clear();
         resetNodes();
-        return false;
+        return null;
     }
 
     private void expandNode(int row, int col, Node parent) {
@@ -173,19 +177,14 @@ public class PathFinder {
     }
 
     //restituisce la lista di genitori del nodo soluzione, e quindi il percorso
-    private void trackThePath(Node startNode, Node solution) {
+    private void trackThePath(Node startNode, Node solution, ArrayList<Node> path) {
         Node current = solution;
-        path.clear();
         while(current.getParent() != null) {
             path.add(0, current);
             current = current.getParent();
         }
         for (int i = 0; i < path.size(); i++)
             System.out.println(i +" " + path.get(i).getRow() + ", " + path.get(i).getCol());
-    }
-
-    public ArrayList<Node> getPath(){
-        return path;
     }
 
 }

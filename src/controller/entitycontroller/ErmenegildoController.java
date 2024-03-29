@@ -16,38 +16,41 @@ public class ErmenegildoController extends EntityController {
         YhitboxOffset = hitbox.getHeight()/2;
         hitbox.setY(hitbox.getY() + YhitboxOffset);
 
-
-
-        path.add(new Node(15,16));
-        path.add(new Node(15,17));
-        path.add(new Node(15,18));
-        path.add(new Node(16,18));
-        path.add(new Node(17,18));
-        path.add(new Node(18,18));
-        path.add(new Node(18,19));
-
     }
 
     public void update(){
         switch(currentState){
             case IDLE:
                 randomMove();
+
+//                Node goal = new Node(14, 10);
+//                Node start = new Node(yPos/GamePanel.TILES_SIZE, xPos/GamePanel.TILES_SIZE);
+//
+//                controller.getPathFinder().setNodes(start, goal);
+//                path = controller.getPathFinder().findPath(start, goal);
+//
+//                if(path != null){
+//                    currentState = EntityStates.MOVE;
+//                    System.out.println("path trovato");
+//                }
+
                 break;
             case SPEAKING:
                 turnToPlayer();
                 currentState = EntityStates.IDLE;
                 break;
             case MOVE:
-                //updatePosition();
+                updatePosition();
 
-
-                if(pathNodeIndex < path.size())
-                    followPath();
-                else {
-                    currentState = EntityStates.IDLE;
-                }
+//                if(pathNodeIndex < path.size())
+//                    followPath();
+//
+//                else {
+//                    System.out.println("arrivato");
+//                    path.clear();
+//                    currentState = EntityStates.IDLE;
+//                }
                 break;
-
 
             default:
                 currentState = EntityStates.IDLE;

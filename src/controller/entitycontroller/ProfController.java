@@ -21,11 +21,18 @@ public class ProfController extends EntityController{
     @Override
     public void update() {
         switch(currentState){
+            case IDLE:
+                randomMove();
+                break;
             case MOVE:
                 moveNearDoor(13, 18);
                 break;
+            case SPEAKING:
+                turnToPlayer();
+                currentState = EntityStates.IDLE;
+                break;
             default:
-                currentState = EntityStates.MOVE;
+                currentState = EntityStates.IDLE;
                 break;
         }
     }

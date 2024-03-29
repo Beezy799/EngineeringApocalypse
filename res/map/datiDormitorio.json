@@ -12,5 +12,15 @@
       "messaggio": ""
     }
   ],
-  "entita":[]
+  "entita":[],
+
+  "eventi": [
+    {
+      "nome": "Caffe",
+      "colonna": 34,
+      "riga": 8,
+      "larghezza": 32,
+      "altezza": 32
+    }
+  ]
 }

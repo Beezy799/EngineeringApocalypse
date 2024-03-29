@@ -11,7 +11,8 @@
       "nuovayPlayer": 10,
       "cfuRichiesti": 0,
       "messaggio": ""
-    },{
+    },
+    {
       "nuova stanza": "DORMITORIO",
       "xPosPassaggio": 34,
       "yPosPassaggio": 43,
@@ -66,8 +67,17 @@
       "riga": 9,
       "colonna": 18
     }
-  ]
+  ],
 
+  "eventi": [
+    {
+      "nome": "Caffe",
+      "colonna": 34,
+      "riga": 8,
+      "larghezza": 32,
+      "altezza": 32
+    }
+  ]
 }
 
 

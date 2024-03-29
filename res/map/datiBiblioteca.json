@@ -19,6 +19,16 @@
       "riga": 15,
       "colonna": 16
     }
+  ],
+
+  "eventi": [
+    {
+      "nome": "Caffe",
+      "colonna": 23,
+      "riga": 13,
+      "larghezza": 32,
+      "altezza": 32
+    }
   ]
 
 }

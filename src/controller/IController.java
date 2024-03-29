@@ -1,7 +1,5 @@
 package src.controller;
 
-import src.controller.entitycontroller.PlayerController;
-import src.controller.pathFinding.Node;
 import src.controller.pathFinding.PathFinder;
 import src.model.*;
 import src.model.mapModel.NpcComplete;
@@ -128,15 +126,9 @@ public class IController {
         }
 
         if (InputState.P.getPressed() || InputState.MIDDLE_CLICK.getPressed()) {
-            //playerController.changeActualState(EntityStates.THROWING);
-
-            Node start = new Node(playerController.getyPosPlayer()/GamePanel.TILES_SIZE, playerController.getxPosPlayer()/GamePanel.TILES_SIZE);
-            Node goal = new Node(18, 27);
-            pathFinder.setNodes(start, goal);
-            //pathFinder.isSolid(start);
-            pathFinder.existPath(start, goal);
-            System.out.println("p " +playerController.getyPosPlayer()/GamePanel.TILES_SIZE + ", " + playerController.getxPosPlayer()/GamePanel.TILES_SIZE);
-            System.out.println();
+            playerController.changeActualState(EntityStates.THROWING);
+            System.out.println("p " +playerController.getyPosPlayer()/ GamePanel.TILES_SIZE + ", " + playerController.getxPosPlayer()/GamePanel.TILES_SIZE);
+            //System.out.println();
 
             InputState.P.setPressed(false);
         }

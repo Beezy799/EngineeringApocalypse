@@ -16,10 +16,9 @@ public class ProfView extends NpcView{
     public ProfView(IView v, int i) {
         super(v, i);
         loadImages();
-
         xOffset = animation[0][0][0].getWidth()/2;
         yOffset = animation[0][0][0].getHeight()/2;
-        animationSpeed = 40;
+        animationSpeed = 20;
     }
 
     private void loadImages() {

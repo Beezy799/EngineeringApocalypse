@@ -44,7 +44,7 @@ public abstract class EntityController {
     // molti npc si muovono a caso nella stanza usando questo medoto
     protected void randomMove() {
         actionCounter++;
-        //ogni due secondi cambia azione e direzione
+        //ogni secondo cambia azione e direzione
         if (actionCounter >= 200) {
             choseAction();
             choseDirection();
@@ -78,8 +78,9 @@ public abstract class EntityController {
             }
 
         }
-        else
+        else {
             currentState = IDLE;
+        }
     }
 
     protected boolean canMove(Hitbox tempHitbox) {

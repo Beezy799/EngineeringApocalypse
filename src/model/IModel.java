@@ -23,8 +23,7 @@ public class IModel {
 
         //una volta finito di crearsi, passa il suo riferimento alle stanze
         Rooms.setModel(this);
-
-        //controller.getPathFinder().existPath(new Node(9,12), new Node(9, 13));
+        loadEventsRooms();
     }
 
     public void setView(IView v) {
@@ -82,6 +81,11 @@ public class IModel {
     public void loadEntitiesInRooms(IView iView) {
         for(Rooms room : Rooms.values())
             room.loadEntities(iView);
+    }
+
+    public void loadEventsRooms() {
+        for(Rooms room : Rooms.values())
+            room.loadEvents(this);
     }
 
     public void setEntityNextDialogue(int entityIndex){

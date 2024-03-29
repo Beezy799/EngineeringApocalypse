@@ -1,4 +1,4 @@
-package src.controller.entitycontroller;
+package src.controller;
 
 import src.controller.IController;
 import src.controller.PlayStateController;
@@ -12,7 +12,7 @@ public class PlayerController {
 
     private IController controller;
     private PlayStateController playStateController;
-    private int xPosPlayer = 21*GamePanel.TILES_SIZE, yPosPlayer = 15*GamePanel.TILES_SIZE; //posizione del player
+    private int xPosPlayer = 19*GamePanel.TILES_SIZE, yPosPlayer = 15*GamePanel.TILES_SIZE; //posizione del player
     private Vector movementVector; //"direzione" del player
     private EntityStates actualState = EntityStates.IDLE;
     private boolean stateLocked = false;
@@ -50,11 +50,13 @@ public class PlayerController {
             case IDLE:
                 checkIfIsAbovePassage();
                 checkInteraction();
+                checkEvents();
                 break;
             case MOVE:
                 updatePosition();
                 checkIfIsAbovePassage();
                 checkInteraction();
+                checkEvents();
                 break;
             case ATTACKING:
                 break;
@@ -107,6 +109,25 @@ public class PlayerController {
             }
             if(passageIndex > -1){
                 Rooms.actualRoom.getPassages().get(passageIndex).changeRoom(cfu);
+            }
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void checkEvents(){
+        try {
+            int eventIndex = -1;
+            for (int i = 0; i < Rooms.actualRoom.getEvents().size(); i++) {
+                Hitbox eventBorders = Rooms.actualRoom.getEvents().get(i).getBounds();
+                if (hitbox.intersects(eventBorders)) {
+                    eventIndex = i;
+                    break;
+                }
+            }
+            if(eventIndex > -1){
+                Rooms.actualRoom.getEvents().get(eventIndex).interact();
             }
         }
         catch (NullPointerException e){
@@ -286,5 +307,12 @@ public class PlayerController {
         resetDirectionVector();
         unlockState();
         changeActualState(EntityStates.IDLE);
+    }
+
+    public void addLife(int gainedLife) {
+        setLife(life + gainedLife);
+        if(life > 100){
+            life = 100;
+        }
     }
 }

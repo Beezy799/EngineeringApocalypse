@@ -33,6 +33,7 @@ public abstract class EntityView extends SortableElement {
         view = v;
         indexInEntityArray = i;
         typeElemtToSort = 5;
+        animationSpeed = 30;
     }
 
     @Override
