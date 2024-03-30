@@ -9,7 +9,8 @@ public enum EntityStates {
     PARRING(3),
     DYING(5),
     SPEAKING(0),
-    HITTED(0);
+    HITTED(0),
+    CFU_FOUND(6);
 
     private int constantInAnimationArray;
 

@@ -76,6 +76,13 @@
       "riga": 8,
       "larghezza": 32,
       "altezza": 32
+    },
+    {
+      "nome": "Piano",
+      "colonna": 36,
+      "riga": 24,
+      "larghezza": 32,
+      "altezza": 32
     }
   ]
 }

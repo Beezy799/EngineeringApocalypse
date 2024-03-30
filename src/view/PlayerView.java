@@ -75,12 +75,18 @@ public class PlayerView extends SortableElement {
             case DYING:
                 dyingDraw(g2);
                 break;
+            case CFU_FOUND:
+                animationSpeed = 30;
+                specialDraw(g2);
+                animationSpeed = 20;
+                break;
         }
 
         try {
             //disegna il giocatore
             g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite],
-                    xOnScreen, yOnScreen, null);
+                                                                                     xOnScreen, yOnScreen, null);
+
         }
         catch (IndexOutOfBoundsException e){
             e.printStackTrace();
@@ -434,6 +440,7 @@ public class PlayerView extends SortableElement {
         }
 
     }
+
     private void getCurrentStateFromController() {
         currentState = view.getController().getPlayerController().getCurrentState();
         //se è cambiata l'azione, resetta il valore di numSprite, visto che le azioni hanno numero sprite diverso
@@ -477,7 +484,9 @@ public class PlayerView extends SortableElement {
             return 2;
         else if (currentState == EntityStates.THROWING)
             return 2;
-
+        else if (currentState == EntityStates.CFU_FOUND) {
+            return 4;
+        }
         return 0;
     }
 
@@ -493,7 +502,7 @@ public class PlayerView extends SortableElement {
         loadRunImages(image, temp);
         loadAttackImages(image, temp);
         loadDeathImages(image, temp);
-       // loadSleepImages(image, temp);
+        loadItemImage();
         loadParryImages(image, temp);
         loadThrowImages(image, temp);
 
@@ -862,6 +871,66 @@ public class PlayerView extends SortableElement {
                 temp = image.getSubimage(i * 31, 34 + 33 + 33, 31, 34);
                 temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
                 playerAnimation[RAGAZZA][EntityStates.MOVE.getConstantInAnimationArray()][UP][i] = temp;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadItemImage(){
+        BufferedImage image = null;
+        BufferedImage temp = null;
+        playerAnimation[RAGAZZO][EntityStates.CFU_FOUND.getConstantInAnimationArray()] = new BufferedImage[4][4];
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream("/res/player/ItemBoy.png"));
+
+            for (int i = 0; i < 4; i++) {
+                temp = image.getSubimage(i * 26, 0, 26, 34);
+                temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
+                playerAnimation[RAGAZZO][EntityStates.CFU_FOUND.getConstantInAnimationArray()][DOWN][i] = temp;
+            }
+            for (int i = 0; i < 4; i++) {
+                temp = image.getSubimage(i * 26, 0, 26, 34);
+                temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
+                playerAnimation[RAGAZZO][EntityStates.CFU_FOUND.getConstantInAnimationArray()][UP][i] = temp;
+            }
+            for (int i = 0; i < 4; i++) {
+                temp = image.getSubimage(i * 26, 0, 26, 34);
+                temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
+                playerAnimation[RAGAZZO][EntityStates.CFU_FOUND.getConstantInAnimationArray()][LEFT][i] = temp;
+            }
+            for (int i = 0; i < 4; i++) {
+                temp = image.getSubimage(i * 26, 0, 26, 34);
+                temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
+                playerAnimation[RAGAZZO][EntityStates.CFU_FOUND.getConstantInAnimationArray()][RIGHT][i] = temp;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        playerAnimation[RAGAZZA][EntityStates.CFU_FOUND.getConstantInAnimationArray()] = new BufferedImage[4][4];
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream("/res/player/ItemGirl.png"));
+
+            for (int i = 0; i < 4; i++) {
+                temp = image.getSubimage(i * 26, 0, 26, 34);
+                temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
+                playerAnimation[RAGAZZA][EntityStates.CFU_FOUND.getConstantInAnimationArray()][DOWN][i] = temp;
+            }
+            for (int i = 0; i < 4; i++) {
+                temp = image.getSubimage(i * 26, 0, 26, 34);
+                temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
+                playerAnimation[RAGAZZA][EntityStates.CFU_FOUND.getConstantInAnimationArray()][UP][i] = temp;
+            }
+            for (int i = 0; i < 4; i++) {
+                temp = image.getSubimage(i * 26, 0, 26, 34);
+                temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
+                playerAnimation[RAGAZZA][EntityStates.CFU_FOUND.getConstantInAnimationArray()][LEFT][i] = temp;
+            }
+            for (int i = 0; i < 4; i++) {
+                temp = image.getSubimage(i * 26, 0, 26, 34);
+                temp = ViewUtils.scaleImage(temp, temp.getWidth() * 1.2f * GamePanel.SCALE, temp.getHeight() * 1.2f * GamePanel.SCALE);
+                playerAnimation[RAGAZZA][EntityStates.CFU_FOUND.getConstantInAnimationArray()][RIGHT][i] = temp;
             }
         } catch (IOException e) {
             e.printStackTrace();

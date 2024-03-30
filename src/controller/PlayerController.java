@@ -315,4 +315,8 @@ public class PlayerController {
             life = 100;
         }
     }
+
+    public void addCFU(int cfu) {
+        setCfu(getCfu() + cfu);
+    }
 }

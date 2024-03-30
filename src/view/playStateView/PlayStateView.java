@@ -1,5 +1,7 @@
 package src.view.playStateView;
 
+import src.model.Hitbox;
+import src.model.events.Event;
 import src.model.mapModel.EnemyComplete;
 import src.model.mapModel.NpcComplete;
 import src.model.mapModel.Rooms;
@@ -39,6 +41,7 @@ public class PlayStateView {
 
         drawFirstLayer(g2, xPlayer, yPlayer);
         drawSecondLayer(g2, xPlayer, yPlayer);
+        drawCFU(g2, xPlayer, yPlayer);
 
         //mettimao i tile dei livelli 3 e 4 nella lista
         addTilesToSortList(xPlayer, yPlayer);
@@ -198,6 +201,22 @@ public class PlayStateView {
                     g2.drawImage(iView.getModel().getTileset().getTile(tileNumber).getTileView().getImage(), xScreen, yScreen, null);
                     //disegna i bordi del tile, per controllo
                     //g2.drawRect(xScreen, yScreen, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
+                }
+            }
+        }
+    }
+
+    private void drawCFU(Graphics2D g2, int xPlayerPos, int yPlayerPos){
+        for(Event e : Rooms.actualRoom.getEvents()){
+            if(e.getMessage().equals("ti stai avvicinando alla laurea!") && !e.isEndInteraction()){
+                Hitbox h = e.getBounds();
+                if(Math.abs(h.getX() - xPlayerPos) < 5*GamePanel.TILES_SIZE && Math.abs(h.getY() - yPlayerPos) < 5*GamePanel.TILES_SIZE){
+                    int xDistance = h.getX() - xPlayerPos;
+                    int yDistance = h.getY() - yPlayerPos;
+                    int xScreen = GamePanel.CENTER_X_GAME_PANEL + xDistance;
+                    int yScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistance;
+                    g2.setColor(Color.red);
+                    g2.drawRect(xScreen, yScreen, h.getWidth(), h.getHeight());
                 }
             }
         }

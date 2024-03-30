@@ -40,8 +40,7 @@ public abstract class Event {
 		return endInteraction;
 	}
 	
-	public String toString() {
-		String dataEvent = "dataEvent " + endInteraction + ", " + index;
-		return dataEvent;
+	public String getMessage() {
+		return message;
 	}
 }

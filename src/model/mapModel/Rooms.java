@@ -10,8 +10,10 @@ import src.controller.entitycontroller.PupaController;
 import src.model.Constants;
 import src.model.Hitbox;
 import src.model.IModel;
+import src.model.events.CFU;
 import src.model.events.Caffe;
 import src.model.events.Event;
+import src.model.events.Piano;
 import src.view.IView;
 import src.view.entityView.ErmenegildoView;
 import src.view.entityView.ProfView;
@@ -195,9 +197,16 @@ public enum Rooms {
             Hitbox bounds = new Hitbox(colonna, riga, width, height);
 
             switch (nome){
-                case "Caffe":
-                    events.add(new Caffe(bounds, m, i));
-                    break;
+            case "Caffe":
+                events.add(new Caffe(bounds, m, i));
+                break;
+
+            case "Piano":
+                events.add(new Piano(bounds, m, i));
+                break;
+            case "cfu":
+                events.add(new CFU(bounds, m, i));
+                break;
             }
 
         }
@@ -214,7 +223,6 @@ public enum Rooms {
     public int getMusicIndex(){
         return musicIndex;
     }
-
     public ArrayList<NpcComplete> getNpc(){
         return npcList;
     }

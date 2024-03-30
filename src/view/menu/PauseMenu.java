@@ -122,5 +122,10 @@ public class PauseMenu extends AbstractMenu {
     }
 
     public void mouseDraggedInPause(MouseEvent e) {
+        for(AbstractMenuButton mb : buttons){
+            if(mb.checkIfMouseIsIn(e)){
+                mb.reactToDrag(e);
+            }
+        }
     }
 }

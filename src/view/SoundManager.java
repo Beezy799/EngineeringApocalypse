@@ -15,14 +15,14 @@ import static src.model.Constants.SoundConstants.*;
 
 public class SoundManager {
     //il volume è un numero da 0 a 1
-    private float musicVolume = 0.30f, seVolume = 0.2f;
+    private float musicVolume = 0.25f, seVolume = 0.5f;
     private Clip music, soundEffect;
     private URL soundURL[] = new URL[15];
 
 
     // tutti i percorsi dei file dei suoni vengono inseriti in un array
     public SoundManager() {
-        soundURL = new URL[15];
+        soundURL = new URL[16];
 
         soundURL[MENU_MUSIC] = getClass().getResource("/res/sound/menu.wav");
         soundURL[AULA_STUDIO_MUSIC] = getClass().getResource("/res/sound/sala studio.wav");
@@ -39,7 +39,7 @@ public class SoundManager {
         soundURL[DIALOGUE_SE] = getClass().getResource("/res/sound/dialogue.wav");
         soundURL[BOSS_FIRTST_PHASE_MUSIC] = getClass().getResource("/res/sound/bossFightFaseUno.wav");
         soundURL[DORMITORIO_BUIO] = getClass().getResource("/res/sound/dormitorio buio.wav");
-
+        soundURL[PIANO_SE] = getClass().getResource("/res/sound/pianoSE.wav");
 
 
         setMusic(MENU_MUSIC);
@@ -115,14 +115,15 @@ public class SoundManager {
 
     public void playSE(int i) {
         setSE(i);
-        soundEffect.start();
         setSEVolume(seVolume);
+        soundEffect.start();
     }
 
     public void setSEVolume(float v) {
-        if (v > 0f && v < 1f) {
-            this.seVolume = v;
-            try {
+        try {
+            if (v > 0f && v < 1f) {
+                this.seVolume = v;
+
                 FloatControl gainControl = (FloatControl) soundEffect.getControl(FloatControl.Type.MASTER_GAIN);
 
                 float controlValue = 20f * (float) Math.log10(v); // siccome il suono è in decibel, bisogna convertirlo in lineare
@@ -132,12 +133,11 @@ public class SoundManager {
 
                 if(v < 0.015f)
                     gainControl.setValue(gainControl.getMinimum());
-
             }
-            catch(IllegalArgumentException iae) {
-                iae.printStackTrace();
-                System.out.println("problemi con i suond effects");
-            }
+        }
+        catch(IllegalArgumentException iae) {
+            iae.printStackTrace();
+            System.out.println("problemi con il volume della musica");
         }
     }
 

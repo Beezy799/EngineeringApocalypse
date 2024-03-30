@@ -126,9 +126,14 @@ public class IController {
         }
 
         if (InputState.P.getPressed() || InputState.MIDDLE_CLICK.getPressed()) {
-            playerController.changeActualState(EntityStates.THROWING);
-            System.out.println("p " +playerController.getyPosPlayer()/ GamePanel.TILES_SIZE + ", " + playerController.getxPosPlayer()/GamePanel.TILES_SIZE);
-            //System.out.println();
+            //playerController.changeActualState(EntityStates.THROWING);
+
+//            playerController.changeActualState(EntityStates.CFU_FOUND);
+//            playerController.getMovementVector().resetDirections();
+//            playerController.getMovementVector().setY(1);
+//            playerController.lockState();
+            //System.out.println("p " +playerController.getyPosPlayer()/ GamePanel.TILES_SIZE + ", " + playerController.getxPosPlayer()/GamePanel.TILES_SIZE);
+            //System.out.println();         8, 18
 
             InputState.P.setPressed(false);
         }
