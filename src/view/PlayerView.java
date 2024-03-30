@@ -62,8 +62,8 @@ public class PlayerView extends SortableElement {
                 break;
             case ATTACKING:
                 animationSpeed = 15;
-                specialDraw(g2);
-                //drawOndaEnergetica(g2);
+                //specialDraw(g2);
+                drawOndaEnergetica(g2);
                 break;
             case THROWING:
                 specialDraw(g2);
@@ -219,6 +219,13 @@ public class PlayerView extends SortableElement {
     private void drawOndaEnergetica(Graphics2D g2) {
 
         animationCounter++;
+
+        if(animationCounter % 5 == 0){
+            int x = view.getController().getPlayerController().getxPosPlayer();
+            view.getController().getPlayerController().setxPosPlayer(x + (animationCounter%10==0 ? 10 : - 10));
+        }
+
+
         String attackStream = "001010011010100101001011101011011001110101010100110111101011101001101110100111010100110101010";
         String attackStream2 = "10101011101111010000101101100101000011110011000111111000001010001010001001010000101111001001";
         String attackStream3 = "01110100101001101001001001101001001001101000100000010111110101001010001001010110111010001011";

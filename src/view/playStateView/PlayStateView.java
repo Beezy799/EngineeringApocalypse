@@ -7,10 +7,14 @@ import src.model.mapModel.NpcComplete;
 import src.model.mapModel.Rooms;
 import src.view.IView;
 import src.view.PlayerView;
+import src.view.ViewUtils;
 import src.view.gameWindow.GamePanel;
 import src.view.mapView.TileImageLoader;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -20,6 +24,7 @@ public class PlayStateView {
     private TileImageLoader tileImageLoader;
     private PlayerView playerView;
     private PlayUI playUI;
+    private BufferedImage cfuImage;
 
     private ArrayList<SortableElement> elementsAboveTheFloor;
 
@@ -30,6 +35,14 @@ public class PlayStateView {
         tileImageLoader = null;
         elementsAboveTheFloor = new ArrayList<>();
         playUI = new PlayUI(this);
+
+        try {
+            cfuImage = ImageIO.read(getClass().getResourceAsStream("/res/ui/punteggioPiccolo.png"));
+            cfuImage = ViewUtils.scaleImage(cfuImage, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void draw(Graphics2D g2){
@@ -215,8 +228,15 @@ public class PlayStateView {
                     int yDistance = h.getY() - yPlayerPos;
                     int xScreen = GamePanel.CENTER_X_GAME_PANEL + xDistance;
                     int yScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistance;
-                    g2.setColor(Color.red);
-                    g2.drawRect(xScreen, yScreen, h.getWidth(), h.getHeight());
+
+                    float xD = Math.abs(h.getX() - xPlayerPos);
+                    float yD = Math.abs(h.getY() - yPlayerPos);
+                    float alPhaValue = (1.2f - (xD+yD)/(10*GamePanel.TILES_SIZE));
+                    alPhaValue = (alPhaValue > 1 ? 1f : alPhaValue);
+
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alPhaValue));
+                    g2.drawImage(cfuImage, xScreen, yScreen, null);
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
                 }
             }
         }
