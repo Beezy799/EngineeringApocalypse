@@ -185,9 +185,13 @@ public abstract class EntityController {
     protected void moveNearDoor(int xLeft, int xRight) {
 
         if(movementVector.getX() > 0){
+            movementVector.resetDirections();
+            movementVector.setX(1);
             goRight(xRight);
         }
         else {
+            movementVector.resetDirections();
+            movementVector.setX(-1);
             goLeft(xLeft);
         }
     }

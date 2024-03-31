@@ -72,20 +72,20 @@ public class TransitionState {
 
         //se sta andando dal menu al play
         if(next == GameState.PLAYING && prev == GameState.SELECT_AVATAR) {
-            view.getSoundManager().playMusic(Rooms.actualRoom.getMusicIndex());
+            view.getSoundManager().loopMusic(Rooms.actualRoom.getMusicIndex());
             view.changeGameState(next);
         }
 
         //se sta cambiando stanza
         else if(next == GameState.PLAYING && prev == GameState.PLAYING) {
             view.getModel().resumeGameAfterTransition();
-            view.getSoundManager().playMusic(Rooms.actualRoom.getMusicIndex());
+            view.getSoundManager().loopMusic(Rooms.actualRoom.getMusicIndex());
             view.changeGameState(next);
         }
 
         //se sta tornando al menu iniziale
         else if(next == GameState.MAIN_MENU) {
-            view.getSoundManager().playMusic(Constants.SoundConstants.MENU_MUSIC);
+            view.getSoundManager().loopMusic(Constants.SoundConstants.MENU_MUSIC);
             view.changeGameState(next);
             resetNextPrev();
         }

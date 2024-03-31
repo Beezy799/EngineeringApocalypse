@@ -57,7 +57,7 @@ PlayStateView playStateView;
         playStateView = new PlayStateView(this);
 
         soundManager = new SoundManager();
-        soundManager.playMusic(MENU_MUSIC);
+        soundManager.loopMusic(MENU_MUSIC);
 
         transitionState = new TransitionState(this);
 

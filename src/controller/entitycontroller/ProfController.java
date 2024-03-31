@@ -15,6 +15,7 @@ public class ProfController extends EntityController{
         YhitboxOffset = hitbox.getHeight()/4;
         hitbox.setY(hitbox.getY() + YhitboxOffset);
 
+        movementVector.resetDirections();
         movementVector.setX(-1);
     }
 

@@ -220,15 +220,19 @@ public class PlayStateView {
     }
 
     private void drawCFU(Graphics2D g2, int xPlayerPos, int yPlayerPos){
+        //guarda gli eventi nella stanza
         for(Event e : Rooms.actualRoom.getEvents()){
+            //trova quelli dei cfu dal messaggio
             if(e.getMessage().equals("ti stai avvicinando alla laurea!") && !e.isEndInteraction()){
                 Hitbox h = e.getBounds();
+                //se l'evento cfu è abbastanza vicino al player, lo disegna come fosse un tile
                 if(Math.abs(h.getX() - xPlayerPos) < 5*GamePanel.TILES_SIZE && Math.abs(h.getY() - yPlayerPos) < 5*GamePanel.TILES_SIZE){
                     int xDistance = h.getX() - xPlayerPos;
                     int yDistance = h.getY() - yPlayerPos;
                     int xScreen = GamePanel.CENTER_X_GAME_PANEL + xDistance;
                     int yScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistance;
 
+                    //invece di disegnarlo e basta, aumenta la trasparenza quando è lontano e la diminuisce più si avvicina il giocatore
                     float xD = Math.abs(h.getX() - xPlayerPos);
                     float yD = Math.abs(h.getY() - yPlayerPos);
                     float alPhaValue = (1.2f - (xD+yD)/(10*GamePanel.TILES_SIZE));

@@ -95,8 +95,8 @@ public class AvatarMenuButton extends  AbstractMenuButton{
     @Override
     public void reactToEnter() {
         view.getPlayerWiew().setGender(gender);
-        GameState.actualState = newState;
         view.getSoundManager().stopMusic();
+        GameState.actualState = newState;
     }
 
     @Override

@@ -220,9 +220,14 @@ public class PlayerView extends SortableElement {
 
         animationCounter++;
 
+        // sposta la posizione del player velocemente per far sembrare un terremoto, peccato che può dare problemi per la collisione
+        // bisogna mettere una camera indipendente dal personaggio, che potrebbe servire anche nella scena col boss. Da vedere
         if(animationCounter % 5 == 0){
             int x = view.getController().getPlayerController().getxPosPlayer();
             view.getController().getPlayerController().setxPosPlayer(x + (animationCounter%10==0 ? 10 : - 10));
+            if(animationCounter == 240){
+                view.getController().getPlayerController().setxPosPlayer(x -10);
+            }
         }
 
 
