@@ -252,7 +252,7 @@ public abstract class EntityController {
         XhitboxOffset = hitbox.getWidth()/2;
         YhitboxOffset = hitbox.getHeight()/2;
 
-        tempHitbox = new Hitbox(hitbox.getX(), hitbox.getY(), (int)(hitboxWidth*GamePanel.SCALE),
+        tempHitbox = new Hitbox((int)hitbox.getX(), (int)hitbox.getY(), (int)(hitboxWidth*GamePanel.SCALE),
                                                               (int)(hitboxHeight*GamePanel.SCALE));
 
         int interactionHitboxWidth = 2*GamePanel.TILES_SIZE;

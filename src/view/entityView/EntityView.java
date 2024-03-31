@@ -108,8 +108,8 @@ public abstract class EntityView extends SortableElement {
 
     protected void getCurrentDirectionFromController() {
 
-        int vectorX = view.getModel().getCurrentDirectionOfEntity(indexInEntityArray).getX();
-        int vectorY = view.getModel().getCurrentDirectionOfEntity(indexInEntityArray).getY();
+        int vectorX = (int)view.getModel().getCurrentDirectionOfEntity(indexInEntityArray).getX();
+        int vectorY = (int)view.getModel().getCurrentDirectionOfEntity(indexInEntityArray).getY();
 
         if(vectorY < 0) {
             currentDirection = UP;

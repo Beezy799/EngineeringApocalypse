@@ -49,7 +49,6 @@ public class IController {
         switch (GameState.actualState){
             //si aggiorna solo quando stiamo nello stato di gioco
             case PLAYING:
-               playerController.resetDirectionVector();
                updateInputs(); // guarda lo stato della tastiera
                playerController.update();
                for(NpcComplete npc : Rooms.actualRoom.getNpc()){
@@ -67,6 +66,8 @@ public class IController {
     }
 
     private void updateInputs() {
+        playerController.resetDirectionVector();
+
         //il lock blocca le risorse usate dalla funzione finchè essa non ha finito
         //anche se premo un tasto, lo stato della tatiera non cambia--> rende sincronizzate le cose
         lock.lock();
@@ -93,10 +94,22 @@ public class IController {
 
         if(xRisultante != 0 || yRisultante != 0) {
             playerController.changeActualState(EntityStates.MOVE);
+
+            //se si muove in diagonale, divido la velocità per radice di due
+            float oldModuleSpeed = playerController.getSpeed();
+            if(xRisultante != 0 && yRisultante != 0){
+                float newModule = oldModuleSpeed * 0.71f;
+                playerController.getMovementVector().setModule(newModule);
+            }
+            //altrimenti lascio la velocità iniziale
+            else {
+                playerController.getMovementVector().setModule(oldModuleSpeed);
+            }
         }
         else {
             playerController.changeActualState(EntityStates.IDLE);
         }
+
 
 
         //azioni

@@ -2,7 +2,8 @@ package src.model;
 
 public class Hitbox {
 
-    private int x, y, width, height;
+    private float x, y;
+    private int width, height;
 
 
     public Hitbox(int x, int y, int width, int height) {
@@ -12,11 +13,11 @@ public class Hitbox {
         this.height = height;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
@@ -28,11 +29,11 @@ public class Hitbox {
         return height;
     }
 
-    public void setX(int x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 

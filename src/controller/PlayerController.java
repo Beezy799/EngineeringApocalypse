@@ -12,7 +12,8 @@ public class PlayerController {
 
     private IController controller;
     private PlayStateController playStateController;
-    private int xPosPlayer = 19*GamePanel.TILES_SIZE, yPosPlayer = 15*GamePanel.TILES_SIZE; //posizione del player
+    private float xPosPlayer = 19*GamePanel.TILES_SIZE, yPosPlayer = 15*GamePanel.TILES_SIZE; //posizione del player
+    private float speed = 1.7f;
     private Vector movementVector; //"direzione" del player
     private EntityStates actualState = EntityStates.IDLE;
     private boolean stateLocked = false;
@@ -27,7 +28,7 @@ public class PlayerController {
     //per evitare il problema dello sticky wall, prima di aggiornare la posizione della hitbox vera, aggiorniamo questa
     //hitbox temporanea nel punto dove andrebbe la vera hiybox dopo il movimento
     private Hitbox tempHitbox;
-    private final int hitboxWidth =  (int)(0.75*GamePanel.TILES_SIZE);
+    private final int hitboxWidth =  (int)(0.72*GamePanel.TILES_SIZE);
     private final int hitboxHeight = 3*GamePanel.TILES_SIZE/4;
 
     //la posizione della hitbox è data dal punto in alto a sinistra, manetre la posizione del player è al centro della
@@ -38,10 +39,10 @@ public class PlayerController {
 
     public PlayerController(IController c, PlayStateController p){
         controller = c;
-        movementVector = new Vector(2);
+        movementVector = new Vector(speed);
         playStateController = p;
-        hitbox = new Hitbox(xPosPlayer - XhitboxOffset, yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
-        tempHitbox = new Hitbox(xPosPlayer - XhitboxOffset, yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
+        hitbox = new Hitbox((int)xPosPlayer - XhitboxOffset, (int)yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
+        tempHitbox = new Hitbox((int)xPosPlayer - XhitboxOffset, (int)yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
     }
 
     public void update(){
@@ -218,11 +219,11 @@ public class PlayerController {
     }
 
     public int getxPosPlayer() {
-        return xPosPlayer;
+        return (int)xPosPlayer;
     }
 
     public int getyPosPlayer() {
-        return yPosPlayer;
+        return (int)yPosPlayer;
     }
 
     public Vector getMovementVector() {
@@ -230,19 +231,19 @@ public class PlayerController {
     }
 
     public void setDirectionUp() {
-        movementVector.setY(movementVector.getY() - 1);
+        movementVector.setY(movementVector.getNormalizedY() - 1);
     }
 
     public void setDirectionDown() {
-        movementVector.setY(movementVector.getY() + 1);
+        movementVector.setY(movementVector.getNormalizedY() + 1);
     }
 
     public void setDirectionRight() {
-        movementVector.setX(movementVector.getX() + 1);
+        movementVector.setX(movementVector.getNomalizedX() + 1);
     }
 
     public void setDirectionLeft() {
-        movementVector.setX(movementVector.getX() - 1);
+        movementVector.setX(movementVector.getNomalizedX() - 1);
     }
 
     public void changeActualState(EntityStates newState){
@@ -318,5 +319,9 @@ public class PlayerController {
 
     public void addCFU(int cfu) {
         setCfu(getCfu() + cfu);
+    }
+
+    public float getSpeed(){
+        return speed;
     }
 }

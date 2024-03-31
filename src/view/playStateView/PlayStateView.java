@@ -227,8 +227,8 @@ public class PlayStateView {
                 Hitbox h = e.getBounds();
                 //se l'evento cfu è abbastanza vicino al player, lo disegna come fosse un tile
                 if(Math.abs(h.getX() - xPlayerPos) < 5*GamePanel.TILES_SIZE && Math.abs(h.getY() - yPlayerPos) < 5*GamePanel.TILES_SIZE){
-                    int xDistance = h.getX() - xPlayerPos;
-                    int yDistance = h.getY() - yPlayerPos;
+                    int xDistance = (int)(h.getX() - xPlayerPos);
+                    int yDistance = (int)(h.getY() - yPlayerPos);
                     int xScreen = GamePanel.CENTER_X_GAME_PANEL + xDistance;
                     int yScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistance;
 

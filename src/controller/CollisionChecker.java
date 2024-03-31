@@ -14,8 +14,8 @@ public class CollisionChecker {
     }
 
     public boolean canGoLeft(Hitbox tempHitbox) {
-        int hitboxPlayerRow = tempHitbox.getY() / GamePanel.TILES_SIZE;
-        int hitboxPlayerCol = tempHitbox.getX() / GamePanel.TILES_SIZE;
+        int hitboxPlayerRow = (int)tempHitbox.getY() / GamePanel.TILES_SIZE;
+        int hitboxPlayerCol = (int)tempHitbox.getX() / GamePanel.TILES_SIZE;
 
         //la hitbox sta tutta sullo stesso tile oppure sfora su quello sotto?
         if(tempHitbox.getY() + tempHitbox.getHeight() < (hitboxPlayerRow + 1) * GamePanel.TILES_SIZE){
@@ -45,8 +45,8 @@ public class CollisionChecker {
     }
 
     public boolean canGoUp(Hitbox tempHitbox) {
-        int hitboxPlayerRow = tempHitbox.getY() / GamePanel.TILES_SIZE;
-        int hitboxPlayerCol = tempHitbox.getX() / GamePanel.TILES_SIZE;
+        int hitboxPlayerRow = (int)tempHitbox.getY() / GamePanel.TILES_SIZE;
+        int hitboxPlayerCol = (int)tempHitbox.getX() / GamePanel.TILES_SIZE;
 
         //la hitbox sta tutta sullo stesso tile oppure sfora su quello a destra?
         if(tempHitbox.getX() + tempHitbox.getWidth() < (hitboxPlayerCol + 1) * GamePanel.TILES_SIZE){
@@ -76,8 +76,8 @@ public class CollisionChecker {
     }
 
     public boolean canGoDown(Hitbox tempHitbox) {
-        int hitboxPlayerRow = (tempHitbox.getY() + tempHitbox.getHeight())/ GamePanel.TILES_SIZE;
-        int hitboxPlayerCol = tempHitbox.getX() / GamePanel.TILES_SIZE;
+        int hitboxPlayerRow = ((int)tempHitbox.getY() + tempHitbox.getHeight())/ GamePanel.TILES_SIZE;
+        int hitboxPlayerCol = (int)tempHitbox.getX() / GamePanel.TILES_SIZE;
 
         //la hitbox sta tutta sullo stesso tile oppure sfora su quello a destra?
         if(tempHitbox.getX() + tempHitbox.getWidth() < (hitboxPlayerCol + 1) * GamePanel.TILES_SIZE){
@@ -109,10 +109,10 @@ public class CollisionChecker {
     //prende la hitbox corrispondente al numero del tile e la trasla nella posizione dove si trova il tile
     private Hitbox getHitboxOfTile(int tileIndex, int playerRow, int playerCol) {
         //all'interno del generico tile, la hitbox può essere traslata rispetto al punto in alto a sinistra, in questo caso x, y != 0
-        int x = control.getModel().getTileset().getTile(tileIndex).getTileModel().getHitbox().getX();
+        int x = (int)control.getModel().getTileset().getTile(tileIndex).getTileModel().getHitbox().getX();
         x += playerCol*GamePanel.TILES_SIZE;
 
-        int y = control.getModel().getTileset().getTile(tileIndex).getTileModel().getHitbox().getY();
+        int y = (int)control.getModel().getTileset().getTile(tileIndex).getTileModel().getHitbox().getY();
         y += playerRow*GamePanel.TILES_SIZE;
 
         int width = control.getModel().getTileset().getTile(tileIndex).getTileModel().getHitbox().getWidth();
@@ -123,8 +123,8 @@ public class CollisionChecker {
     }
 
     public boolean canGoRight(Hitbox tempHitbox) {
-        int hitboxPlayerRow = tempHitbox.getY() / GamePanel.TILES_SIZE;
-        int hitboxPlayerCol = (tempHitbox.getX() + tempHitbox.getWidth()) / GamePanel.TILES_SIZE;
+        int hitboxPlayerRow = (int)tempHitbox.getY() / GamePanel.TILES_SIZE;
+        int hitboxPlayerCol = ((int)tempHitbox.getX() + tempHitbox.getWidth()) / GamePanel.TILES_SIZE;
 
         //la hitbox sta tutta sullo stesso tile oppure sfora su quello sotto?
         if(tempHitbox.getY() + tempHitbox.getHeight() < (hitboxPlayerRow + 1) * GamePanel.TILES_SIZE){

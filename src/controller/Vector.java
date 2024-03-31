@@ -2,7 +2,7 @@ package src.controller;
 
 public class Vector {
 
-    private int x, y, module;
+    private float x, y, module;
 
     public Vector (){
         x = 0;
@@ -10,7 +10,7 @@ public class Vector {
         module = 1;
     }
 
-    public Vector (int m){
+    public Vector (float m){
         x = 0;
         y = 0;
         module = m;
@@ -18,35 +18,35 @@ public class Vector {
 
 
 
-    public void setX(int x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 
-    public void setModule(int module) {
+    public void setModule(float module) {
         this.module = module;
     }
 
-    public int getX() {
+    public float getX() {
         return x*module;
     }
 
-    public int getY() {
+    public float getY() {
         return y*module;
     }
 
-    public int getNomalizedX(){
+    public float getNomalizedX(){
         return x;
     }
 
-    public int getNormalizedY(){
+    public float getNormalizedY(){
         return y;
     }
 
-    public int getModule() {
+    public float getModule() {
         return module;
     }
 
