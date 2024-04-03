@@ -21,6 +21,13 @@
       "riga": 8,
       "larghezza": 32,
       "altezza": 32
+    },
+    {
+      "nome": "luce",
+      "colonna": 18,
+      "riga": 19,
+      "larghezza": 32,
+      "altezza": 32
     }
   ]
 }

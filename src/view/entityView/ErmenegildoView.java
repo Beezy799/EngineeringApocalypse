@@ -17,6 +17,10 @@ public class ErmenegildoView extends NpcView{
         super(v, i);
         loadImages();
         loadRunImages();
+
+        xOffset = animation[0][0][0].getWidth()/2;
+        yOffset = animation[0][0][0].getHeight()/2;
+
         animationSpeed = 30;
     }
 
@@ -46,9 +50,6 @@ public class ErmenegildoView extends NpcView{
 
         loadRunImages();
         loadIdleImages();
-
-        xOffset = animation[0][0][0].getWidth()/2;
-        yOffset = animation[0][0][0].getHeight()/2;
     }
 
     private void loadRunImages() {

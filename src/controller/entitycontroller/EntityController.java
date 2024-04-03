@@ -4,7 +4,7 @@ import src.controller.IController;
 import src.controller.Vector;
 import src.controller.pathFinding.Node;
 import src.model.EntityStates;
-import src.model.Hitbox;
+import src.controller.Hitbox;
 import src.view.gameWindow.GamePanel;
 
 import java.util.ArrayList;

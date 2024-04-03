@@ -1,6 +1,6 @@
 package src.view.playStateView;
 
-import src.model.Hitbox;
+import src.controller.Hitbox;
 import src.model.events.Event;
 import src.model.mapModel.EnemyComplete;
 import src.model.mapModel.NpcComplete;
@@ -8,6 +8,7 @@ import src.model.mapModel.Rooms;
 import src.view.IView;
 import src.view.PlayerView;
 import src.view.ViewUtils;
+import src.view.entityView.CatView;
 import src.view.gameWindow.GamePanel;
 import src.view.mapView.TileImageLoader;
 
@@ -25,8 +26,9 @@ public class PlayStateView {
     private PlayerView playerView;
     private PlayUI playUI;
     private BufferedImage cfuImage;
-
+    private ScreenOverlay screenOverlay;
     private ArrayList<SortableElement> elementsAboveTheFloor;
+
 
     public PlayStateView(IView v){
         iView = v;
@@ -35,6 +37,7 @@ public class PlayStateView {
         tileImageLoader = null;
         elementsAboveTheFloor = new ArrayList<>();
         playUI = new PlayUI(this);
+        screenOverlay = new ScreenOverlay(this);
 
         try {
             cfuImage = ImageIO.read(getClass().getResourceAsStream("/res/ui/punteggioPiccolo.png"));
@@ -68,7 +71,10 @@ public class PlayStateView {
         //svuotiamo la lista, perchè verrà ridisegnato ogni volta
         elementsAboveTheFloor.clear();
 
+        screenOverlay.draw(g2);
+
         playUI.draw(g2);
+
     }
 
     private void addEntitiesToSortList(int xPlayer, int yPlayer) {
@@ -256,5 +262,9 @@ public class PlayStateView {
 
     public PlayUI getPlayUI(){
         return playUI;
+    }
+
+    public ScreenOverlay getScreenOverlay(){
+        return screenOverlay;
     }
 }

@@ -1,7 +1,7 @@
 package src.model.events;
 
 
-import src.model.Hitbox;
+import src.controller.Hitbox;
 import src.model.IModel;
 
 public class CutsceneProf extends Event {

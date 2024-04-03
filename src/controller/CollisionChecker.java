@@ -1,7 +1,6 @@
 package src.controller;
 
 import src.controller.entitycontroller.EntityController;
-import src.model.Hitbox;
 import src.model.mapModel.Rooms;
 import src.view.gameWindow.GamePanel;
 

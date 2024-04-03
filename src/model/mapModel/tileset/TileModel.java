@@ -1,6 +1,6 @@
-package src.model.mapModel;
+package src.model.mapModel.tileset;
 
-import src.model.Hitbox;
+import src.controller.Hitbox;
 
 public class TileModel {
 

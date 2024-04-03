@@ -4,17 +4,16 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import src.controller.entitycontroller.CatController;
 import src.controller.entitycontroller.ErmenegildoController;
 import src.controller.entitycontroller.ProfController;
 import src.controller.entitycontroller.PupaController;
 import src.model.Constants;
-import src.model.Hitbox;
+import src.controller.Hitbox;
 import src.model.IModel;
-import src.model.events.CFU;
-import src.model.events.Caffe;
-import src.model.events.Event;
-import src.model.events.Piano;
+import src.model.events.*;
 import src.view.IView;
+import src.view.entityView.CatView;
 import src.view.entityView.ErmenegildoView;
 import src.view.entityView.ProfView;
 import src.view.entityView.PupaView;
@@ -26,10 +25,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 //è una lista delle possibili stanze dove diciamo la stanza attuale
-//possiamo associare qui ad ogni stanza la sua musica e altre cose relative alla stanza se servono
 public enum Rooms {
-    //lista delle entitàModel  --> EntityModel = [EntityController, EntityView]
-    //lista eventi
     BIBLIOTECA("/res/map/biblioteca.json", "/res/map/datiBiblioteca.json", Constants.SoundConstants.BIBLIOTECA_MUSIC),
     DORMITORIO("/res/map/dormitorio.json", "/res/map/datiDormitorio.json", Constants.SoundConstants.DORMITORIO_BUIO),
     STUDIO_PROF("/res/map/studioProf.json", "/res/map/datiStudioProf.json", Constants.SoundConstants.BOSS_FIRTST_PHASE_MUSIC),
@@ -154,6 +150,12 @@ public enum Rooms {
                     NpcComplete prof = new NpcComplete(prc, prv);
                     npcList.add(prof);
                     break;
+                case "gatto":
+                    CatView cv = new CatView(view, i);
+                    CatController cc = new CatController(colonna, riga, model.getController(), i);
+                    NpcComplete cat = new NpcComplete(cc, cv);
+                    npcList.add(cat);
+                    break;
             }
 
         }
@@ -207,6 +209,9 @@ public enum Rooms {
             case "cfu":
                 events.add(new CFU(bounds, m, i));
                 break;
+            case "luce":
+                events.add(new Light(bounds, m, i));
+                break;
             }
 
         }
@@ -234,7 +239,9 @@ public enum Rooms {
         return events;
     }
 
-
+    public void setNewMusic(int i){
+        musicIndex = i;
+    }
 
 
     //le stanze si salvano il riferimento al model

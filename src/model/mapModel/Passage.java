@@ -1,5 +1,6 @@
 package src.model.mapModel;
 
+import src.controller.Hitbox;
 import src.model.*;
 import src.view.gameWindow.GamePanel;
 import src.view.inputs.InputState;

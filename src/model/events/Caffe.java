@@ -3,7 +3,7 @@ package src.model.events;
 
 import src.model.Constants;
 import src.model.EntityStates;
-import src.model.Hitbox;
+import src.controller.Hitbox;
 import src.model.IModel;
 import src.view.inputs.InputState;
 

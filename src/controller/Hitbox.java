@@ -1,4 +1,4 @@
-package src.model;
+package src.controller;
 
 public class Hitbox {
 

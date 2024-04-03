@@ -3,7 +3,7 @@ package src.model;
 import src.controller.IController;
 import src.controller.Vector;
 import src.model.mapModel.Rooms;
-import src.model.mapModel.Tileset;
+import src.model.mapModel.tileset.Tileset;
 import src.view.IView;
 
 public class IModel {

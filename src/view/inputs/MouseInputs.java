@@ -119,10 +119,10 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 			 case COMMAND_EXPLAINATION:
 				 view.getCommandsExplaination().mouseReleased(e);
 				 break;
-/*		case DIALOGUE:
-			int index = view.getController().getPlay().getPlayer().getIndexOfEntityInteract();
-			view.getPlay().getRoom(view.getCurrentRoomIndex()).getNPC(index).nextDialogueLine();
-			break;*/
+		case DIALOGUE:
+			int index = view.getController().getIndexEntityInteraction();
+			view.getModel().setEntityNextDialogue(index);
+			break;
 		default:
 			break;
 		}

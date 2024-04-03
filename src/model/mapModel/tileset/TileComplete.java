@@ -1,4 +1,4 @@
-package src.model.mapModel;
+package src.model.mapModel.tileset;
 
 import src.view.mapView.TileView;
 

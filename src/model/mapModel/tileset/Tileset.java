@@ -1,4 +1,4 @@
-package src.model.mapModel;
+package src.model.mapModel.tileset;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -8,7 +8,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.json.simple.JSONArray;
-import src.model.Hitbox;
+import src.controller.Hitbox;
+import src.model.mapModel.tileset.TileComplete;
+import src.model.mapModel.tileset.TileModel;
 import src.view.gameWindow.GamePanel;
 
 public class Tileset {

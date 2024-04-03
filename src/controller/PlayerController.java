@@ -1,10 +1,6 @@
 package src.controller;
 
-import src.controller.IController;
-import src.controller.PlayStateController;
-import src.controller.Vector;
 import src.model.EntityStates;
-import src.model.Hitbox;
 import src.model.mapModel.Rooms;
 import src.view.gameWindow.GamePanel;
 
@@ -12,8 +8,11 @@ public class PlayerController {
 
     private IController controller;
     private PlayStateController playStateController;
+
+    //velocità e posizione sono dei float, perchè così possiamo scalarli meglio
+    //inoltre il movimento diagonale non è più veloce
     private float xPosPlayer = 19*GamePanel.TILES_SIZE, yPosPlayer = 15*GamePanel.TILES_SIZE; //posizione del player
-    private float speed = 1.7f;
+    private float speed = 2f;
     private Vector movementVector; //"direzione" del player
     private EntityStates actualState = EntityStates.IDLE;
     private boolean stateLocked = false;
@@ -324,4 +323,9 @@ public class PlayerController {
     public float getSpeed(){
         return speed;
     }
+
+    public void addNotes(int n) {
+        setNotes(notes + n);
+    }
+
 }
