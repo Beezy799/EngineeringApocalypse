@@ -4,19 +4,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import src.controller.entitycontroller.CatController;
-import src.controller.entitycontroller.ErmenegildoController;
-import src.controller.entitycontroller.ProfController;
-import src.controller.entitycontroller.PupaController;
+import src.controller.entitycontroller.*;
 import src.model.Constants;
 import src.controller.Hitbox;
 import src.model.IModel;
 import src.model.events.*;
 import src.view.IView;
-import src.view.entityView.CatView;
-import src.view.entityView.ErmenegildoView;
-import src.view.entityView.ProfView;
-import src.view.entityView.PupaView;
+import src.view.entityView.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -155,6 +149,12 @@ public enum Rooms {
                     CatController cc = new CatController(colonna, riga, model.getController(), i);
                     NpcComplete cat = new NpcComplete(cc, cv);
                     npcList.add(cat);
+                    break;
+                case "nerd":
+                    NerdView nv = new NerdView(view, i);
+                    NerdController nc = new NerdController(colonna, riga, model.getController(), i);
+                    NpcComplete nerd = new NpcComplete(nc, nv);
+                    npcList.add(nerd);
                     break;
             }
 

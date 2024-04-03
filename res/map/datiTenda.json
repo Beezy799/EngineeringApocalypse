@@ -13,7 +13,13 @@
       "messaggio": ""
     }
   ],
-  "entita": [],
+  "entita": [
+    {
+      "nome": "nerd",
+      "riga": 10,
+      "colonna": 13
+    }
+  ],
 
   "eventi": [
     {
