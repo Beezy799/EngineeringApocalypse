@@ -53,8 +53,8 @@ public abstract class EntityView extends SortableElement {
         }
 
         //fatti dare dal controller la posizione dell'entity
-        int entityXPosMap = view.getModel().getEntityXpos(indexInEntityArray);
-        int entityYPosMap = view.getModel().getEntityYpos(indexInEntityArray);
+        int entityXPosMap = view.getModel().getEntityXpos(this);
+        int entityYPosMap = view.getModel().getEntityYpos(this);
 
         //distanza dell'entita dal giocatore nella mappa
         int xDistanceFromPlayer = entityXPosMap - xPlayerMap;
@@ -94,7 +94,7 @@ public abstract class EntityView extends SortableElement {
 
     protected void getCurrentStateFromController() {
         try {
-            currentState = view.getModel().getCurrentStateOfEntity(indexInEntityArray);
+            currentState = view.getModel().getCurrentStateOfEntity(this);
         }
         catch (NullPointerException e){
             e.printStackTrace();
@@ -108,8 +108,8 @@ public abstract class EntityView extends SortableElement {
 
     protected void getCurrentDirectionFromController() {
 
-        int vectorX = (int)view.getModel().getCurrentDirectionOfEntity(indexInEntityArray).getX();
-        int vectorY = (int)view.getModel().getCurrentDirectionOfEntity(indexInEntityArray).getY();
+        int vectorX = (int)view.getModel().getCurrentDirectionOfEntity(this).getX();
+        int vectorY = (int)view.getModel().getCurrentDirectionOfEntity(this).getY();
 
         if(vectorY < 0) {
             currentDirection = UP;
@@ -127,10 +127,14 @@ public abstract class EntityView extends SortableElement {
 
     }
 
+    public int getIndexInEntityArray(){
+        return indexInEntityArray;
+    }
+
     protected abstract int getAnimationLenght();
 
     //ci serve per essere sicuri che l'entità sappia dove si trova prima di essere ordinata
     public void updatePositionForSort() {
-         yPosMapForSort = view.getModel().getEntityYpos(indexInEntityArray);
+         yPosMapForSort = view.getModel().getEntityYpos(this);
     }
 }

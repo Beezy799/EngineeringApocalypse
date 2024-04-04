@@ -11,9 +11,7 @@ import java.io.IOException;
 import static src.model.Constants.EntityConstants.*;
 import static src.model.EntityStates.*;
 
-public class NullafacenteView extends EntityView{
-
-
+public class NullafacenteView extends EnemyView{
 
     public NullafacenteView(IView v, int i) {
         super(v, i);
@@ -114,7 +112,7 @@ public class NullafacenteView extends EntityView{
 
     private void loadAttackImages(BufferedImage image, BufferedImage temp) {
         try {
-            image = ImageIO.read(getClass().getResourceAsStream("/entity/nullafacente.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/res/entity/nullafacente.png"));
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -154,12 +152,15 @@ public class NullafacenteView extends EntityView{
 
     }
 
-        @Override
+    @Override
     protected int getAnimationLenght() {
         if(currentState == IDLE)
             return 1;
 
         else if(currentState == MOVE)
+            return 3;
+
+        else if(currentState == CHASE)
             return 3;
 
         else if(currentState == DYING)

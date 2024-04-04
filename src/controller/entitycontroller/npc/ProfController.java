@@ -1,9 +1,10 @@
-package src.controller.entitycontroller;
+package src.controller.entitycontroller.npc;
 
 import src.controller.IController;
+import src.controller.entitycontroller.EntityController;
 import src.model.EntityStates;
 
-public class ProfController extends EntityController{
+public class ProfController extends EntityController {
 
     private final int hitboxWidth = 16;
     private final int hitboxHeight = 30;

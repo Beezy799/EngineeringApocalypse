@@ -13,7 +13,7 @@
       "messaggio": ""
     }
   ],
-  "entita": [
+  "npc": [
     {
       "nome": "Ermenegildo",
       "riga": 15,
@@ -36,6 +36,7 @@
       "larghezza": 32,
       "altezza": 32
     }
-  ]
+  ],
+  "enemy": []
 
 }

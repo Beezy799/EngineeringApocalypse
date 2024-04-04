@@ -13,7 +13,7 @@
       "messaggio": ""
     }
   ],
-  "entita": [
+  "npc": [
     {
       "nome": "nerd",
       "riga": 10,
@@ -29,7 +29,8 @@
       "larghezza": 32,
       "altezza": 32
     }
-  ]
+  ],
+  "enemy": []
 
 
 }

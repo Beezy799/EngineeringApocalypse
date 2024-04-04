@@ -5,6 +5,8 @@ import src.controller.Vector;
 import src.model.mapModel.Rooms;
 import src.model.mapModel.tileset.Tileset;
 import src.view.IView;
+import src.view.entityView.EntityView;
+import src.view.entityView.NpcView;
 
 public class IModel {
 
@@ -63,24 +65,38 @@ public class IModel {
         controller.getPathFinder().createGraph();
     }
 
-    public int getEntityXpos(int index){
-        return Rooms.actualRoom.getNpc().get(index).getEntityController().getxPos();
+    public int getEntityXpos(EntityView ev){
+        if(ev instanceof NpcView)
+            return Rooms.actualRoom.getNpc().get(ev.getIndexInEntityArray()).getEntityController().getxPos();
+
+        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEntityController().getxPos();
     }
-    public int getEntityYpos(int index){
-        return Rooms.actualRoom.getNpc().get(index).getEntityController().getyPos();
+    public int getEntityYpos(EntityView ev){
+        if(ev instanceof NpcView)
+            return Rooms.actualRoom.getNpc().get(ev.getIndexInEntityArray()).getEntityController().getyPos();
+
+        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEntityController().getyPos();
     }
 
-    public EntityStates getCurrentStateOfEntity(int entityIndex){
-        return Rooms.actualRoom.getNpc().get(entityIndex).getEntityController().getCurrentState();
+    public EntityStates getCurrentStateOfEntity(EntityView ev){
+        if(ev instanceof NpcView)
+            return Rooms.actualRoom.getNpc().get(ev.getIndexInEntityArray()).getEntityController().getCurrentState();
+
+        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEntityController().getCurrentState();
     }
 
-    public Vector getCurrentDirectionOfEntity(int entityIndex){
-        return Rooms.actualRoom.getNpc().get(entityIndex).getEntityController().getMovementVector();
+    public Vector getCurrentDirectionOfEntity(EntityView ev){
+        if(ev instanceof NpcView)
+            return Rooms.actualRoom.getNpc().get(ev.getIndexInEntityArray()).getEntityController().getMovementVector();
+
+        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEntityController().getMovementVector();
     }
 
     public void loadEntitiesInRooms(IView iView) {
-        for(Rooms room : Rooms.values())
-            room.loadEntities(iView);
+        for(Rooms room : Rooms.values()) {
+            room.loadNPCs(iView);
+            room.loadEnemies(iView);
+        }
     }
 
     public void loadEventsRooms() {
@@ -95,4 +111,10 @@ public class IModel {
     public String getEntityDialogue(int entityIndex){
         return Rooms.actualRoom.getNpc().get(entityIndex).getNpcView().getDialogue();
     }
+
+    public void removeEnemy(int index){
+        Rooms.actualRoom.getEnemy().remove(index);
+    }
+
+
 }

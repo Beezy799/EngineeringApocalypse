@@ -1,10 +1,11 @@
-package src.controller.entitycontroller;
+package src.controller.entitycontroller.npc;
 
 import src.controller.IController;
+import src.controller.entitycontroller.EntityController;
 import src.model.EntityStates;
 
 
-public class PupaController extends EntityController{
+public class PupaController extends EntityController {
 
     private final int hitboxWidth = 28;
     private final int hitboxHeight = 30;

@@ -4,7 +4,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import src.controller.entitycontroller.*;
+import src.controller.entitycontroller.enemy.NullafacenteController;
+import src.controller.entitycontroller.npc.*;
 import src.model.Constants;
 import src.controller.Hitbox;
 import src.model.IModel;
@@ -93,7 +94,7 @@ public enum Rooms {
         }
     }
 
-    public void loadEntities(IView view){
+    public void loadNPCs(IView view){
         BufferedReader reader = null;
 
         try {
@@ -116,7 +117,7 @@ public enum Rooms {
         }
         JSONObject jsonObject = (JSONObject) jsonObj;
 
-        JSONArray entitiesInRoom = (JSONArray) jsonObject.get("entita");
+        JSONArray entitiesInRoom = (JSONArray) jsonObject.get("npc");
         for(int i = 0; i < entitiesInRoom.size(); i++) {
 
             JSONObject entityData = (JSONObject) entitiesInRoom.get(i);
@@ -160,6 +161,48 @@ public enum Rooms {
 
         }
 
+    }
+
+    public void loadEnemies(IView view) {
+        BufferedReader reader = null;
+
+        try {
+            InputStream is = getClass().getResourceAsStream(dataPath);
+            reader = new BufferedReader(new InputStreamReader(is));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //per leggere il file di tipo json
+        JSONParser parser = new JSONParser();
+        Object jsonObj = null;
+        try {
+            jsonObj = parser.parse(reader);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        JSONObject jsonObject = (JSONObject) jsonObj;
+
+        JSONArray entitiesInRoom = (JSONArray) jsonObject.get("enemy");
+        for (int i = 0; i < entitiesInRoom.size(); i++) {
+
+            JSONObject entityData = (JSONObject) entitiesInRoom.get(i);
+
+            String nome = entityData.get("nome").toString();
+            int riga = Integer.parseInt(entityData.get("riga").toString());
+            int colonna = Integer.parseInt(entityData.get("colonna").toString());
+
+            switch (nome) {
+                case "nullafacente":
+                    NullafacenteView nv = new NullafacenteView(view, i);
+                    NullafacenteController nc = new NullafacenteController(colonna, riga, model.getController(), i);
+                    EnemyComplete nullaf = new EnemyComplete(nc, nv);
+                    enemyList.add(nullaf);
+                    break;
+            }
+        }
     }
 
     public void loadEvents(IModel m){

@@ -12,7 +12,8 @@
       "messaggio": "sei arrivato fin qui.. non puoi tirarti indietro adesso"
     }
   ],
-  "entita": [ ],
+  "npc": [ ],
+  "enemy": [],
 
   "eventi": [
     {

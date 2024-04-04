@@ -12,7 +12,8 @@
       "messaggio": ""
     }
   ],
-  "entita":[],
+  "npc":[],
+  "enemy": [],
 
   "eventi": [
     {

@@ -43,7 +43,8 @@
       "nuovayPlayer": 24,
       "cfuRichiesti": 0,
       "messaggio": ""
-    },{
+    },
+    {
       "nuova stanza": "AULA_STUDIO",
       "xPosPassaggio": 16,
       "yPosPassaggio": 43,
@@ -55,8 +56,7 @@
       "messaggio": "la segreteria è aperta tutti i giorni dalle 8:00 alle 8:01"
     }
   ],
-  "entita": [
-
+  "npc": [
     {
       "nome": "pupa",
       "riga": 36,
@@ -88,6 +88,14 @@
       "riga": 24,
       "larghezza": 32,
       "altezza": 32
+    }
+  ],
+
+  "enemy": [
+    {
+      "nome": "nullafacente",
+      "riga": 15,
+      "colonna": 22
     }
   ]
 }

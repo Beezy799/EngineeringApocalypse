@@ -8,7 +8,6 @@ import src.model.mapModel.Rooms;
 import src.view.IView;
 import src.view.PlayerView;
 import src.view.ViewUtils;
-import src.view.entityView.CatView;
 import src.view.gameWindow.GamePanel;
 import src.view.mapView.TileImageLoader;
 
@@ -67,7 +66,7 @@ public class PlayStateView {
         //collections è una classe di utilità che implementa un algoritmo veloce di ordinamento
         Collections.sort(elementsAboveTheFloor);
         //disegnamo le cose in ordine
-        drawAllEnementsAboveTheFloor(g2, xPlayer, yPlayer);
+        drawAllElementsAboveTheFloor(g2, xPlayer, yPlayer);
         //svuotiamo la lista, perchè verrà ridisegnato ogni volta
         elementsAboveTheFloor.clear();
 
@@ -89,13 +88,13 @@ public class PlayStateView {
         }
 
         for(EnemyComplete enemy : Rooms.actualRoom.getEnemy()){
-            enemy.getEntityView().updatePositionForSort();
-            elementsAboveTheFloor.add(enemy.getEntityView());
+            enemy.getEnemyView().updatePositionForSort();
+            elementsAboveTheFloor.add(enemy.getEnemyView());
         }
 
     }
 
-    private void drawAllEnementsAboveTheFloor(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
+    private void drawAllElementsAboveTheFloor(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
         for(int i = 0; i < elementsAboveTheFloor.size(); i++)
             elementsAboveTheFloor.get(i).draw(g2, xPlayerMap, yPlayerMap);
     }

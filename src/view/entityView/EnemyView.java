@@ -20,6 +20,7 @@ public abstract class EnemyView extends EntityView{
 
         switch (currentState){
             case IDLE:
+            case CHASE:
             case MOVE:
                 super.draw(g2, xPlayerMap, yPlayerMap);
                 break;
@@ -55,8 +56,8 @@ public abstract class EnemyView extends EntityView{
         }
 
         //fatti dare dal controller la posizione dell'entity
-        int entityXPosMap = view.getModel().getEntityXpos(indexInEntityArray);
-        int entityYPosMap = view.getModel().getEntityYpos(indexInEntityArray);
+        int entityXPosMap = view.getModel().getEntityXpos(this);
+        int entityYPosMap = view.getModel().getEntityYpos(this);
 
         //distanza dell'entita dal giocatore nella mappa
         int xDistanceFromPlayer = entityXPosMap - xPlayerMap;
@@ -90,8 +91,8 @@ public abstract class EnemyView extends EntityView{
         }
 
         //fatti dare dal controller la posizione dell'entity
-        int entityXPosMap = view.getModel().getEntityXpos(indexInEntityArray);
-        int entityYPosMap = view.getModel().getEntityYpos(indexInEntityArray);
+        int entityXPosMap = view.getModel().getEntityXpos(this);
+        int entityYPosMap = view.getModel().getEntityYpos(this);
 
         //distanza dell'entita dal giocatore nella mappa
         int xDistanceFromPlayer = entityXPosMap - xPlayerMap;
@@ -105,4 +106,5 @@ public abstract class EnemyView extends EntityView{
         g2.drawImage(animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite], xPosOnScreen - xOffset, yPosOnScreen - yOffset, null);
 
     }
+
 }

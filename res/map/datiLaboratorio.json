@@ -23,7 +23,7 @@
       "messaggio": "non sei ancora degno di essere ricevuto dal prof"
     }
   ],
-  "entita": [
+  "npc": [
     {
       "nome": "robot",
       "riga": 11,
@@ -49,5 +49,6 @@
       "larghezza": 32,
       "altezza": 32
     }
-  ]
+  ],
+  "enemy": []
 }

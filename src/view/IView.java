@@ -73,7 +73,6 @@ PlayStateView playStateView;
 	}
 
     public void prepareNewFrame(Graphics2D g2) {
-        
         switch (GameState.actualState) {
             case START_TITLE:
                 startTitle.draw(g2);

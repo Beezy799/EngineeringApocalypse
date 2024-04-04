@@ -2,6 +2,7 @@ package src.controller;
 
 import src.controller.pathFinding.PathFinder;
 import src.model.*;
+import src.model.mapModel.EnemyComplete;
 import src.model.mapModel.NpcComplete;
 import src.model.mapModel.Rooms;
 import src.view.IView;
@@ -54,6 +55,9 @@ public class IController {
                for(NpcComplete npc : Rooms.actualRoom.getNpc()){
                    npc.getEntityController().update();
                }
+                for(EnemyComplete enemy : Rooms.actualRoom.getEnemy()){
+                    enemy.getEntityController().update();
+                }
             break;
 
             case QUIT:

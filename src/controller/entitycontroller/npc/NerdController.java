@@ -1,11 +1,12 @@
-package src.controller.entitycontroller;
+package src.controller.entitycontroller.npc;
 
 import src.controller.IController;
+import src.controller.entitycontroller.EntityController;
 import src.controller.pathFinding.Node;
 import src.model.EntityStates;
 import src.view.gameWindow.GamePanel;
 
-public class NerdController extends EntityController{
+public class NerdController extends EntityController {
 
     private final int hitboxWidth = 32;
     private final int hitboxHeight = 32;
