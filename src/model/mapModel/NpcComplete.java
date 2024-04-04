@@ -1,8 +1,7 @@
 package src.model.mapModel;
 
 import src.controller.entitycontroller.EntityController;
-import src.view.entityView.EntityView;
-import src.view.entityView.NpcView;
+import src.view.entityView.npc.NpcView;
 
 
 public class NpcComplete {

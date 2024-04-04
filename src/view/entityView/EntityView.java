@@ -14,10 +14,10 @@ import static src.model.Constants.EntityConstants.LEFT;
 
 public abstract class EntityView extends SortableElement {
 
-    int animationCounter;
-    int animationSpeed;
-    int numSprite;
-    int indexInEntityArray;
+    protected int animationCounter;
+    protected int animationSpeed;
+    protected int numSprite;
+    protected int indexInEntityArray;
 
     protected IView view;
     protected BufferedImage[][][] animation;    //azione,direzione,sprite

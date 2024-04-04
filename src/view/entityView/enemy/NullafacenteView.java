@@ -1,7 +1,8 @@
-package src.view.entityView;
+package src.view.entityView.enemy;
 
 import src.view.IView;
 import src.view.ViewUtils;
+import src.view.entityView.enemy.EnemyView;
 import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import static src.model.Constants.EntityConstants.*;
 import static src.model.EntityStates.*;
 
-public class NullafacenteView extends EnemyView{
+public class NullafacenteView extends EnemyView {
 
     public NullafacenteView(IView v, int i) {
         super(v, i);
@@ -155,6 +156,9 @@ public class NullafacenteView extends EnemyView{
     @Override
     protected int getAnimationLenght() {
         if(currentState == IDLE)
+            return 1;
+
+        else if(currentState == RECHARGE)
             return 1;
 
         else if(currentState == MOVE)

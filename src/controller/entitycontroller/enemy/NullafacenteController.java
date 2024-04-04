@@ -15,25 +15,31 @@ public class NullafacenteController extends EnemyController{
     public NullafacenteController(int x, int y, IController c, int index) {
         super(x, y, c, index);
         setHitbox(hitboxWidth, hitboxHeight);
-        interactionHitbox = new Hitbox( xPos - 15*GamePanel.TILES_SIZE/2,
-                                        yPos - 15*GamePanel.TILES_SIZE/2,
-                                        15*GamePanel.TILES_SIZE,
-                                        15*GamePanel.TILES_SIZE);
+        interactionHitbox = new Hitbox( xPos - 8*GamePanel.TILES_SIZE/2,
+                                        yPos - 8*GamePanel.TILES_SIZE/2,
+                                        8*GamePanel.TILES_SIZE,
+                                        8*GamePanel.TILES_SIZE);
     }
-
     @Override
     public void update() {
         switch (currentState){
             case IDLE:
+                //se si è fermato perchè si è bloccato
+                if(!path.isEmpty()){
+                    path.clear();
+                    pathNodeIndex = 0;
+                    currentState = EntityStates.RECHARGE;
+                }
                 //controlla se il giocatore è vicino
-                if(interactionHitbox.intersects(controller.getPlayerController().getHitbox())){
-                    Node start = new Node(yPos/ GamePanel.TILES_SIZE, xPos/GamePanel.TILES_SIZE);
-                    int playerCol = controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE;
-                    int playerRow = controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE;
+                else if(interactionHitbox.intersects(controller.getPlayerController().getHitbox())){
+                    Node start = new Node(yPos/GamePanel.TILES_SIZE, xPos/GamePanel.TILES_SIZE);
+                    int playerRow = controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE;
+                    int playerCol = controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE;
                     Node goal = new Node(playerRow, playerCol);
                     path = controller.getPathFinder().findPath(start, goal);
                     //se può raggiungerlo
                     if(path != null){
+                        pathNodeIndex = 0;
                         currentState = EntityStates.CHASE;
                     }
                     else{
@@ -50,8 +56,10 @@ public class NullafacenteController extends EnemyController{
             case MOVE:
                 if(interactionHitbox.intersects(controller.getPlayerController().getHitbox())) {
                     Node start = new Node(yPos / GamePanel.TILES_SIZE, xPos / GamePanel.TILES_SIZE);
-                    int playerCol = controller.getPlayerController().getyPosPlayer() / GamePanel.TILES_SIZE;
-                    int playerRow = controller.getPlayerController().getxPosPlayer() / GamePanel.TILES_SIZE;
+
+                    int playerRow = controller.getPlayerController().getyPosPlayer() / GamePanel.TILES_SIZE;
+                    int playerCol = controller.getPlayerController().getxPosPlayer() / GamePanel.TILES_SIZE;
+
                     Node goal = new Node(playerRow, playerCol);
                     path = controller.getPathFinder().findPath(start, goal);
                     //se può raggiungerlo
@@ -72,13 +80,14 @@ public class NullafacenteController extends EnemyController{
                     currentState = EntityStates.ATTACKING;
                 }
                 //se il player è ancora lontano, continua a seguire il percorso
-                else if (pathNodeIndex < path.size() - 1){
+                else if (pathNodeIndex < path.size()){
                     followPath();
                 }
                 //se il player non è a tiro ed ha finito il percorso
                 else {
                     pathNodeIndex = 0;
-                    currentState = EntityStates.IDLE;
+                    path.clear();
+                    currentState = EntityStates.RECHARGE;
                 }
                 break;
 

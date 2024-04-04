@@ -1,7 +1,8 @@
-package src.view.entityView;
+package src.view.entityView.npc;
 
 import src.view.IView;
 import src.view.ViewUtils;
+import src.view.entityView.npc.NpcView;
 import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import static src.model.EntityStates.IDLE;
 import static src.model.EntityStates.MOVE;
 
-public class NerdView extends NpcView{
+public class NerdView extends NpcView {
 
     public NerdView(IView v, int i) {
         super(v, i);

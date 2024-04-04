@@ -36,4 +36,5 @@ public class ScreenOverlay {
     public void setDark(boolean b){
         isDark = b;
     }
+
 }

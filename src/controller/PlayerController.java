@@ -196,7 +196,7 @@ public class PlayerController {
                 collision = true;
         }
         for(int i = 0; i < Rooms.actualRoom.getEnemy().size(); i++){
-            Hitbox hitboxEntity = Rooms.actualRoom.getEnemy().get(i).getEntityController().getHitbox();
+            Hitbox hitboxEntity = Rooms.actualRoom.getEnemy().get(i).getEnemyController().getHitbox();
             if(hitboxEntity.intersects(tempHitbox))
                 collision = true;
         }

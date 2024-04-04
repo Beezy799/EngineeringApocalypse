@@ -1,4 +1,4 @@
-package src.view.entityView;
+package src.view.entityView.enemy;
 
 import src.model.EntityStates;
 import src.view.ViewUtils;

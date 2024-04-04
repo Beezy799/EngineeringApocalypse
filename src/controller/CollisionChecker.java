@@ -1,6 +1,7 @@
 package src.controller;
 
 import src.controller.entitycontroller.EntityController;
+import src.controller.entitycontroller.enemy.EnemyController;
 import src.model.mapModel.Rooms;
 import src.view.gameWindow.GamePanel;
 
@@ -154,21 +155,30 @@ public class CollisionChecker {
 
     public boolean isNotCollisionWithoOtherEntities(EntityController entity){
         boolean notcollisionNpc = true;
+        boolean notcollisionEnemy = true;
 
         for(int i = 0; i < Rooms.actualRoom.getNpc().size(); i++){
             EntityController other = Rooms.actualRoom.getNpc().get(i).getEntityController();
-
-            //per controllare che non guardi l'intersezione con la sua stessa hitbox
-            boolean isThesameEntity = (entity.getEntityIndex() == other.getEntityIndex());
+            //per controllare che non guardi l'intersezione con la sua stessa hitbox quando è un npc
+            boolean isThesameEntity = (entity.getEntityIndex() == other.getEntityIndex() && !(entity instanceof EnemyController));
             if(entity.getTempHitbox().intersects(other.getHitbox()) && !isThesameEntity) {
                 notcollisionNpc = false;
+            }
+        }
+
+        for(int i = 0; i < Rooms.actualRoom.getEnemy().size(); i++){
+            EntityController other = Rooms.actualRoom.getEnemy().get(i).getEnemyController();
+            //per controllare che non guardi l'intersezione con la sua stessa hitbox quando è un nemico
+            boolean isThesameEntity = (entity.getEntityIndex() == other.getEntityIndex() && (entity instanceof EnemyController));
+            if(entity.getTempHitbox().intersects(other.getHitbox()) && !isThesameEntity) {
+                notcollisionEnemy = false;
             }
         }
 
         //deve controllare anche il giocatore
         boolean collisionPlayer = control.getPlayerController().getHitbox().intersects(entity.getTempHitbox());
 
-        return notcollisionNpc && !collisionPlayer;
+        return notcollisionNpc && !collisionPlayer && notcollisionEnemy;
 
     }
 

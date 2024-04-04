@@ -356,6 +356,7 @@ public abstract class EntityController {
 
         updatePosition();
 
+        //se sta vicinissimo al centro ma la velocità lo manda più lontano, continuerebbe ad oscillare
         if(Math.abs(xPos - centerX) < speed){
             xPos = centerX;
         }

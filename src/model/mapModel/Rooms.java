@@ -11,7 +11,8 @@ import src.controller.Hitbox;
 import src.model.IModel;
 import src.model.events.*;
 import src.view.IView;
-import src.view.entityView.*;
+import src.view.entityView.enemy.NullafacenteView;
+import src.view.entityView.npc.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;

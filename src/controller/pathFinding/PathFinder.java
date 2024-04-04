@@ -183,8 +183,8 @@ public class PathFinder {
             path.add(0, current);
             current = current.getParent();
         }
-        for (int i = 0; i < path.size(); i++)
-            System.out.println(i +" " + path.get(i).getRow() + ", " + path.get(i).getCol());
+//        for (int i = 0; i < path.size(); i++)
+//            System.out.println(i +" " + path.get(i).getRow() + ", " + path.get(i).getCol());
     }
 
 }

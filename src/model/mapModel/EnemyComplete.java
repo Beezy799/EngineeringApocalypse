@@ -1,26 +1,23 @@
 package src.model.mapModel;
 
-import src.controller.entitycontroller.EntityController;
 import src.controller.entitycontroller.enemy.EnemyController;
-import src.view.entityView.EnemyView;
-import src.view.entityView.EntityView;
-import src.view.entityView.NpcView;
+import src.view.entityView.enemy.EnemyView;
 
 public class EnemyComplete {
-    private EnemyView entityView;
-    private EnemyController entityController;
+    private EnemyView enemyView;
+    private EnemyController enemyController;
 
     public EnemyComplete(EnemyController c, EnemyView v){
-        this.entityController = c;
-        this.entityView = v;
+        this.enemyController = c;
+        this.enemyView = v;
 
     }
     public EnemyView getEnemyView() {
-        return entityView;
+        return enemyView;
     }
 
-    public EnemyController getEntityController(){
-        return entityController;
+    public EnemyController getEnemyController(){
+        return enemyController;
     }
 
 }

@@ -1,8 +1,9 @@
-package src.view.entityView;
+package src.view.entityView.npc;
 
 import src.view.IView;
+import src.view.entityView.EntityView;
 
-public abstract class NpcView extends EntityView{
+public abstract class NpcView extends EntityView {
     protected String[] dialogues;
     protected int dialogueIndex;
 

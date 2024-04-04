@@ -1,4 +1,4 @@
-package src.view.entityView;
+package src.view.entityView.npc;
 
 import src.view.IView;
 import src.view.ViewUtils;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import static src.model.EntityStates.IDLE;
 import static src.model.EntityStates.MOVE;
 
-public class ErmenegildoView extends NpcView{
+public class ErmenegildoView extends NpcView {
 
     public ErmenegildoView(IView v, int i) {
         super(v, i);

@@ -6,7 +6,7 @@ import src.model.mapModel.Rooms;
 import src.model.mapModel.tileset.Tileset;
 import src.view.IView;
 import src.view.entityView.EntityView;
-import src.view.entityView.NpcView;
+import src.view.entityView.npc.NpcView;
 
 public class IModel {
 
@@ -69,27 +69,27 @@ public class IModel {
         if(ev instanceof NpcView)
             return Rooms.actualRoom.getNpc().get(ev.getIndexInEntityArray()).getEntityController().getxPos();
 
-        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEntityController().getxPos();
+        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEnemyController().getxPos();
     }
     public int getEntityYpos(EntityView ev){
         if(ev instanceof NpcView)
             return Rooms.actualRoom.getNpc().get(ev.getIndexInEntityArray()).getEntityController().getyPos();
 
-        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEntityController().getyPos();
+        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEnemyController().getyPos();
     }
 
     public EntityStates getCurrentStateOfEntity(EntityView ev){
         if(ev instanceof NpcView)
             return Rooms.actualRoom.getNpc().get(ev.getIndexInEntityArray()).getEntityController().getCurrentState();
 
-        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEntityController().getCurrentState();
+        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEnemyController().getCurrentState();
     }
 
     public Vector getCurrentDirectionOfEntity(EntityView ev){
         if(ev instanceof NpcView)
             return Rooms.actualRoom.getNpc().get(ev.getIndexInEntityArray()).getEntityController().getMovementVector();
 
-        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEntityController().getMovementVector();
+        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEnemyController().getMovementVector();
     }
 
     public void loadEntitiesInRooms(IView iView) {

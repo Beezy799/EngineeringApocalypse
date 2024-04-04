@@ -1,11 +1,10 @@
-package src.view.entityView;
+package src.view.entityView.npc;
 
 import src.view.IView;
 import src.view.ViewUtils;
 import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 

@@ -56,7 +56,7 @@ public class IController {
                    npc.getEntityController().update();
                }
                 for(EnemyComplete enemy : Rooms.actualRoom.getEnemy()){
-                    enemy.getEntityController().update();
+                    enemy.getEnemyController().update();
                 }
             break;
 
