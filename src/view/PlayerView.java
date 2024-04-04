@@ -62,8 +62,8 @@ public class PlayerView extends SortableElement {
                 break;
             case ATTACKING:
                 animationSpeed = 15;
-                //specialDraw(g2);
-                drawOndaEnergetica(g2);
+                specialDraw(g2);
+                //drawOndaEnergetica(g2);
                 break;
             case THROWING:
                 specialDraw(g2);

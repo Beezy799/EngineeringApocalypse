@@ -1,8 +1,12 @@
 package src.controller.entitycontroller;
 
 import src.controller.IController;
+import src.controller.pathFinding.Node;
 import src.model.Constants;
 import src.model.EntityStates;
+import src.view.gameWindow.GamePanel;
+
+import java.util.Random;
 
 public class CatController extends EntityController {
 
@@ -22,6 +26,15 @@ public class CatController extends EntityController {
         switch(currentState){
             case IDLE:
                 randomMove();
+                if(interactionHitbox.intersects(controller.getPlayerController().getHitbox())) {
+                    currentState = EntityStates.RUNAWAY;
+                }
+                break;
+            case MOVE:
+                updatePosition();
+                if(interactionHitbox.intersects(controller.getPlayerController().getHitbox())) {
+                    currentState = EntityStates.RUNAWAY;
+                }
                 break;
             case SPEAKING:
                 if(firstInteraction){
@@ -40,9 +53,39 @@ public class CatController extends EntityController {
                 turnToPlayer();
                 currentState = EntityStates.IDLE;
                 break;
-            case MOVE:
-                updatePosition();
+
+            case RUNAWAY:
+                speed = 3;
+                movementVector.resetDirections();
+                int pX = controller.getPlayerController().getxPosPlayer();
+                int pY = controller.getPlayerController().getyPosPlayer();
+
+                //sceglie se andare su o giu
+                if(pX > hitbox.getX() && pX < hitbox.getX()+hitbox.getWidth()){
+                    //se gli sta sotto, prova a salire
+                    if(pY > yPos)
+                        movementVector.setY(-1);
+                    //se non può salire, sceglie un percorso verso uno dei due angoli in alto
+                    else
+                        movementVector.setY(1);
+                }
+                //sceglie se andare a dx o a sx
+                else {
+                    if(pX > xPos)
+                        movementVector.setX(-1);
+
+                    else
+                        movementVector.setX(1);
+                }
+                if(canMove(tempHitbox)) {
+                    tempHitbox.setY(hitbox.getY());
+                    tempHitbox.setX(hitbox.getX());
+                    updatePosition();
+                }
+                else
+                    currentState = EntityStates.HITTED;
                 break;
+
             default:
                 currentState = EntityStates.IDLE;
                 break;

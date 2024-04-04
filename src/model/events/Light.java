@@ -23,7 +23,7 @@ public class Light extends Event {
 			model.getView().getPlayStateView().getPlayUI().setMessageToShow("premi E per interagire");
 
 			if (InputState.E.getPressed()) {
-				int cfu = 10;
+				int cfu = 50;
 				model.getController().getPlayerController().addCFU(cfu);
 				model.getView().getSoundManager().playSE(Constants.SoundConstants.CFU_SE);
 				model.getView().getSoundManager().stopMusic();

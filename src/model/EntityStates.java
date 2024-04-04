@@ -9,7 +9,8 @@ public enum EntityStates {
     PARRING(3),
     DYING(5),
     SPEAKING(0),
-    HITTED(0),
+    HITTED(0),      //l'animazione di qundo viene colpito è la stessa di quando sta fermo
+    RUNAWAY(1),
     CFU_FOUND(6);
 
     private int constantInAnimationArray;

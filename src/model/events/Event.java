@@ -11,8 +11,6 @@ public abstract class Event {
 	protected Hitbox bounds;
 	protected IModel model;
 	protected String message;
-
-	//per ora, il giocatore può interagire con l'evento solo una volta
 	protected boolean endInteraction;
 	
 	

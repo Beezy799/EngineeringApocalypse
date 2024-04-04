@@ -31,7 +31,6 @@ public abstract class EntityController {
     public EntityController(int x, int y, IController c, int index){
         xPos = x * GamePanel.TILES_SIZE;
         yPos = y * GamePanel.TILES_SIZE;
-
         speed = 1;
         movementVector = new Vector(2);
         randomGenerator = new Random();
@@ -319,15 +318,17 @@ public abstract class EntityController {
     }
 
     public void followPath(){
-        Node n = path.get(pathNodeIndex);
-        int centerX = n.getCol()*GamePanel.TILES_SIZE + GamePanel.TILES_SIZE/2;
-        int centerY = n.getRow()*GamePanel.TILES_SIZE + GamePanel.TILES_SIZE/2;
+        if(pathNodeIndex < path.size()){
+            Node n = path.get(pathNodeIndex);
+            int centerX = n.getCol()*GamePanel.TILES_SIZE + GamePanel.TILES_SIZE/2;
+            int centerY = n.getRow()*GamePanel.TILES_SIZE + GamePanel.TILES_SIZE/2;
 
-        if(xPos == centerX && yPos == centerY){
-            pathNodeIndex++;
-        }
-        else {
-            goToCenterOfTile(n.getCol()*GamePanel.TILES_SIZE, n.getRow()*GamePanel.TILES_SIZE);
+            if(xPos == centerX && yPos == centerY){
+                pathNodeIndex++;
+            }
+            else {
+                goToCenterOfTile(n.getCol()*GamePanel.TILES_SIZE, n.getRow()*GamePanel.TILES_SIZE);
+            }
         }
     }
 

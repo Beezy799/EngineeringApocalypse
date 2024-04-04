@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
 
 
 //per non passare bruscamente da uno stato all'altro, disegna sfumandolo il vecchio stato
-//per tre secondi e sfuma il valore della musica
+//per tot secondi e sfuma il valore della musica
 public class TransitionState {
 
     private float counter;

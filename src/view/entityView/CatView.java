@@ -10,8 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import static src.model.Constants.EntityConstants.*;
-import static src.model.EntityStates.IDLE;
-import static src.model.EntityStates.MOVE;
+import static src.model.EntityStates.*;
 
 public class CatView extends NpcView {
 
@@ -41,6 +40,9 @@ public class CatView extends NpcView {
             return 1;
 
         else if(currentState == MOVE)
+            return 3;
+
+        else if ((currentState == RUNAWAY))
             return 3;
 
         return 0;
