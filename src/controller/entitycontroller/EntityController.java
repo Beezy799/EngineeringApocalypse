@@ -177,7 +177,7 @@ public abstract class EntityController {
             }
         }
 
-        currentState = IDLE;
+        //currentState = IDLE;
 
     }
 

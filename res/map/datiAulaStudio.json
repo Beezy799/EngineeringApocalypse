@@ -88,15 +88,24 @@
       "riga": 24,
       "larghezza": 32,
       "altezza": 32
+    },
+    {
+      "nome": "cfu",
+      "colonna": 38,
+      "riga": 23,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
+      "nome": "cfu",
+      "colonna": 13,
+      "riga": 32,
+      "larghezza": 32,
+      "altezza": 32
     }
   ],
 
   "enemy": [
-    {
-      "nome": "nullafacente",
-      "riga": 15,
-      "colonna": 22
-    },
     {
     "nome": "nullafacente",
     "riga": 28,

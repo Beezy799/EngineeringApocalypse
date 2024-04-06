@@ -36,6 +36,7 @@ public class PlayerView extends SortableElement {
     //offset per disegnarlo al centro dello schermo
     public static int xOffset = GamePanel.TILES_SIZE/2 - (int)(3*GamePanel.SCALE);
     public static int yOffset = GamePanel.TILES_SIZE/2;
+
     //la posizione del player è sempre al centro della finestra di gioco
     public static final int xOnScreen = GamePanel.GAME_WIDTH/2 - xOffset;
     public static final int yOnScreen = GamePanel.GAME_HEIGHT/2 - yOffset;

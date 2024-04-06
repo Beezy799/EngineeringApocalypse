@@ -2,11 +2,14 @@ package src.model;
 
 import src.controller.IController;
 import src.controller.Vector;
+import src.model.events.Event;
 import src.model.mapModel.Rooms;
 import src.model.mapModel.tileset.Tileset;
 import src.view.IView;
 import src.view.entityView.EntityView;
 import src.view.entityView.npc.NpcView;
+
+import java.util.ArrayList;
 
 public class IModel {
 
@@ -112,9 +115,20 @@ public class IModel {
         return Rooms.actualRoom.getNpc().get(entityIndex).getNpcView().getDialogue();
     }
 
+    public void unlockState(int enemyIndex){
+        Rooms.actualRoom.getEnemy().get(enemyIndex).getEnemyController().setStateLocked(false);
+    }
+
     public void removeEnemy(int index){
         Rooms.actualRoom.getEnemy().remove(index);
     }
 
-
+    public void deleteEvent(int index) {
+        ArrayList<Event> events = Rooms.actualRoom.getEvents();
+        //diminuisce di uno l'indice di tutti gli elementi successivi
+        for(int i = index + 1; i < events.size(); i++){
+            events.get(i).setIndex( events.get(i).getIndex() - 1);
+        }
+        events.remove(index);
+    }
 }

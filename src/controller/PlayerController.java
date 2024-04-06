@@ -22,6 +22,7 @@ public class PlayerController {
     private int life = 100;
     private int cfu = 0;
     private int notes = 0;
+    private int defence = 2;
 
     private Hitbox hitbox;
     //per evitare il problema dello sticky wall, prima di aggiornare la posizione della hitbox vera, aggiorniamo questa
@@ -331,6 +332,13 @@ public class PlayerController {
 
     public void addNotes(int n) {
         setNotes(notes + n);
+    }
+
+    public void hitted(int enemyAttack){
+        int damage = enemyAttack - defence;
+        if(damage > 0){
+            life -= damage;
+        }
     }
 
 }

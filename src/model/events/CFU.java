@@ -16,7 +16,7 @@ public class CFU extends Event{
 
 	@Override
 	public void interact() {
-		if(!endInteraction) {
+		//if(!endInteraction) {
 			int cfu = 10;
 			model.getController().getPlayerController().addCFU(cfu);
 			model.getView().getSoundManager().playSE(Constants.SoundConstants.CFU_SE);
@@ -27,8 +27,9 @@ public class CFU extends Event{
 			model.getController().getPlayerController().getMovementVector().setY(1);
 			model.getController().getPlayerController().lockState();
 
-			endInteraction = true;
-		}
+			model.deleteEvent(index);
+			//endInteraction = true;
+		//}
 	}
 
 }

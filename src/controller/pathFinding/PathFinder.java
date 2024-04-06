@@ -109,7 +109,7 @@ public class PathFinder {
 
             //controlla se il nodo è il goal, se sì, restituisce il percorso e si resetta tutto
             if(nodeToExplore.getHeuristic() == 0) {
-                trackThePath(start, nodeToExplore, path);
+                trackThePath(nodeToExplore, path);
                 counter = 0;
                 frontier.clear();
                 resetNodes();
@@ -177,7 +177,7 @@ public class PathFinder {
     }
 
     //restituisce la lista di genitori del nodo soluzione, e quindi il percorso
-    private void trackThePath(Node startNode, Node solution, ArrayList<Node> path) {
+    private void trackThePath(Node solution, ArrayList<Node> path) {
         Node current = solution;
         while(current.getParent() != null) {
             path.add(0, current);

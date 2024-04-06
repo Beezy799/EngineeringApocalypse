@@ -48,6 +48,20 @@
       "riga": 8,
       "larghezza": 32,
       "altezza": 32
+    },
+    {
+      "nome": "cfu",
+      "colonna": 12,
+      "riga": 24,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
+      "nome": "cfu",
+      "colonna": 27,
+      "riga": 11,
+      "larghezza": 32,
+      "altezza": 32
     }
   ],
   "enemy": []

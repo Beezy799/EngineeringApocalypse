@@ -262,7 +262,6 @@ public enum Rooms {
 
     }
 
-
     public Map getMap(){
         return map;
     }

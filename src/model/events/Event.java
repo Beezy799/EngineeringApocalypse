@@ -41,4 +41,12 @@ public abstract class Event {
 	public String getMessage() {
 		return message;
 	}
+
+	public void setIndex(int i){
+		index = i;
+	}
+
+	public int getIndex(){
+		return index;
+	}
 }

@@ -19,7 +19,7 @@ public class Light extends Event {
 	@Override
 	public void interact() {
 
-		if(!endInteraction) {
+		//if(!endInteraction) {
 			model.getView().getPlayStateView().getPlayUI().setMessageToShow("premi E per interagire");
 
 			if (InputState.E.getPressed()) {
@@ -38,9 +38,10 @@ public class Light extends Event {
 				model.getController().getPlayerController().getMovementVector().setY(1);
 				model.getController().getPlayerController().lockState();
 
-				endInteraction = true;
+				//endInteraction = true;
+				model.deleteEvent(index);
 			}
-		}
+		//}
 	}
 	
 	

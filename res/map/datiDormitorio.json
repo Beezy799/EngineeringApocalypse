@@ -18,8 +18,8 @@
   "eventi": [
     {
       "nome": "Caffe",
-      "colonna": 34,
-      "riga": 8,
+      "colonna": 36,
+      "riga": 13,
       "larghezza": 32,
       "altezza": 32
     },
@@ -27,6 +27,13 @@
       "nome": "luce",
       "colonna": 18,
       "riga": 19,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
+      "nome": "cfu",
+      "colonna": 35,
+      "riga": 21,
       "larghezza": 32,
       "altezza": 32
     }

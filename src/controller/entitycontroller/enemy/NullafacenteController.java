@@ -19,91 +19,162 @@ public class NullafacenteController extends EnemyController{
                                         yPos - 8*GamePanel.TILES_SIZE/2,
                                         8*GamePanel.TILES_SIZE,
                                         8*GamePanel.TILES_SIZE);
+
+        attackHitbox = new Hitbox(0,0, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
+
     }
+
     @Override
     public void update() {
         switch (currentState){
             case IDLE:
-                //se si è fermato perchè si è bloccato
-                if(!path.isEmpty()){
-                    path.clear();
+                //se mentre insegue il player sbatte controo un'altr entità,
+                //ritorna allo stato idle, ma vogliamo evitare che faccia
+                //pathfinding troppo spesso
+                if(pathNodeIndex != 0 || path != null){
+                    path = null;
                     pathNodeIndex = 0;
-                    currentState = EntityStates.RECHARGE;
+                    changeState(EntityStates.RECHARGE);
                 }
-                //controlla se il giocatore è vicino
-                else if(interactionHitbox.intersects(controller.getPlayerController().getHitbox())){
-                    Node start = new Node(yPos/GamePanel.TILES_SIZE, xPos/GamePanel.TILES_SIZE);
-                    int playerRow = controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE;
-                    int playerCol = controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE;
-                    Node goal = new Node(playerRow, playerCol);
-                    path = controller.getPathFinder().findPath(start, goal);
-                    //se può raggiungerlo
-                    if(path != null){
+
+                //controlla se il player è sotto tiro
+                else if(icanHitThePlayer()){
+                    changeState(EntityStates.ATTACKING);
+                    stateLocked = true;
+                }
+                //controlla se lo vede
+                else if(iCanSeeThePlayer()){
+                    if(iCanReachThePlayer()){
                         pathNodeIndex = 0;
-                        currentState = EntityStates.CHASE;
+                        changeState(EntityStates.CHASE);
                     }
-                    else{
-                        //per evitare che calcoli il cammino troppo frequentemente
-                        currentState = EntityStates.RECHARGE;
+                    else {
+                        changeState(EntityStates.RECHARGE);
                     }
                 }
-                //se il player è lontano, si muovea caso
+                //se il player è molto lontano, gira a caso
                 else{
                     randomMove();
                 }
                 break;
 
             case MOVE:
-                if(interactionHitbox.intersects(controller.getPlayerController().getHitbox())) {
-                    Node start = new Node(yPos / GamePanel.TILES_SIZE, xPos / GamePanel.TILES_SIZE);
-
-                    int playerRow = controller.getPlayerController().getyPosPlayer() / GamePanel.TILES_SIZE;
-                    int playerCol = controller.getPlayerController().getxPosPlayer() / GamePanel.TILES_SIZE;
-
-                    Node goal = new Node(playerRow, playerCol);
-                    path = controller.getPathFinder().findPath(start, goal);
-                    //se può raggiungerlo
-                    if (path != null) {
-                        currentState = EntityStates.CHASE;
+               if(icanHitThePlayer()) {
+                    changeState(EntityStates.ATTACKING);
+                    stateLocked = true;
+                }
+                //controlla se lo vede
+                else if(iCanSeeThePlayer()){
+                    if(iCanReachThePlayer()){
+                        pathNodeIndex = 0;
+                        changeState(EntityStates.CHASE);
+                    }
+                    else {
+                        changeState(EntityStates.RECHARGE);
                     }
                 }
-                else
-                    updatePosition();
-                break;
-
-            case CHASE:
-                //controlla se il player è sotto tiro
-                int xdist = Math.abs(xPos - controller.getPlayerController().getxPosPlayer());
-                int ydist = Math.abs(yPos - controller.getPlayerController().getyPosPlayer());
-                if(xdist < GamePanel.TILES_SIZE && ydist < GamePanel.TILES_SIZE){
-                    pathNodeIndex = 0;
-                    currentState = EntityStates.ATTACKING;
-                }
-                //se il player è ancora lontano, continua a seguire il percorso
-                else if (pathNodeIndex < path.size()){
-                    followPath();
-                }
-                //se il player non è a tiro ed ha finito il percorso
+                //se il player è molto lontano, si muove
                 else {
-                    pathNodeIndex = 0;
-                    path.clear();
-                    currentState = EntityStates.RECHARGE;
+                    updatePosition();
                 }
                 break;
 
             case ATTACKING:
-                currentState = EntityStates.RECHARGE;
+                //ora come ora attacca troppo velocemente, possiamo creare uno stato "prepara attacco"
+                //che avverte il player di pararsi e uno stato attacca.
+                turnToPlayer();
+                shiftAttackHitbox();
+                if(attackHitbox.intersects(controller.getPlayerController().getHitbox())){
+                    controller.getPlayerController().hitted(10);
+                }
+                changeState(EntityStates.RECHARGE);
+                break;
+
+            case CHASE:
+                if(icanHitThePlayer()) {
+                    path = null;
+                    pathNodeIndex = 0;
+                    changeState(EntityStates.ATTACKING);
+                    stateLocked = true;
+                }
+                //se è arrivato a fine percorso
+                else if (pathNodeIndex == path.size() -1) {
+                    pathNodeIndex = 0;
+                    path = null;
+
+                    System.out.println("arrivato");
+
+                    if(iCanSeeThePlayer()){
+                        if(iCanReachThePlayer()){
+                            changeState(EntityStates.CHASE);
+                        }
+                    }
+                    else {
+                        changeState(EntityStates.RECHARGE);
+                    }
+                }
+                //se non è arrivato e il player è lontano, cammina nel percorso
+                else {
+                    followPath();
+                }
                 break;
 
             case RECHARGE:
                 rechargeCounter++;
-                if(rechargeCounter >= 200){
+                if(rechargeCounter >= 200) {
                     rechargeCounter = 0;
-                    currentState = EntityStates.IDLE;
+                    changeState(EntityStates.IDLE);
                 }
                 break;
         }
+
+        //System.out.println(currentState);
+
     }
 
+    private boolean iCanSeeThePlayer() {
+       return interactionHitbox.intersects(controller.getPlayerController().getHitbox());
+    }
+
+    private boolean icanHitThePlayer() {
+        int xdist = Math.abs(xPos - controller.getPlayerController().getxPosPlayer());
+        int ydist = Math.abs(yPos - controller.getPlayerController().getyPosPlayer());
+
+        if(xdist < GamePanel.TILES_SIZE*1.3f && ydist < GamePanel.TILES_SIZE*1.3f) {
+            if(xPos/GamePanel.TILES_SIZE == controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE ||
+                    yPos/GamePanel.TILES_SIZE == controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void shiftAttackHitbox() {
+        if(movementVector.getX() > 0){
+            attackHitbox.setX(hitbox.getX() + hitbox.getWidth());
+            attackHitbox.setY(yPos - (float) attackHitbox.getHeight() /2);
+        }
+        else if (movementVector.getX() < 0) {
+            attackHitbox.setX(hitbox.getX() - attackHitbox.getWidth());
+            attackHitbox.setY(yPos - (float) attackHitbox.getHeight() /2);
+        }
+        else if (movementVector.getY() < 0) {
+            attackHitbox.setY(hitbox.getY() - attackHitbox.getHeight());
+            attackHitbox.setX(xPos - (float) attackHitbox.getWidth() /2);
+        }
+        else if (movementVector.getY() > 0) {
+            attackHitbox.setY(hitbox.getY() - hitbox.getHeight());
+            attackHitbox.setX(xPos - (float) attackHitbox.getWidth() /2);
+        }
+    }
+
+    private boolean iCanReachThePlayer(){
+        Node start = new Node(yPos/GamePanel.TILES_SIZE, xPos/GamePanel.TILES_SIZE);
+        int playerRow = controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE;
+        int playerCol = controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE;
+        Node goal = new Node(playerRow, playerCol);
+        path = controller.getPathFinder().findPath(start, goal);
+        return path != null;
+    }
 
 }

@@ -47,6 +47,7 @@ public abstract class EnemyView extends EntityView {
             case ATTACKING:
             case THROWING:
             case PARRING:
+                animationSpeed = 50;
                 specialDraw(g2, xPlayerMap, yPlayerMap);
                 break;
             case DYING:
@@ -102,8 +103,7 @@ public abstract class EnemyView extends EntityView {
 
             if(numSprite >= getAnimationLenght()) {
                 //finita l'animazione, il nemico può cambiare stato
-
-                //vai nell'enemy controller, sblocca lo stato
+                view.getModel().unlockState(indexInEntityArray);
                 numSprite = 0;
             }
 

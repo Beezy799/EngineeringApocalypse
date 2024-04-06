@@ -27,7 +27,7 @@ public class ProfController extends EntityController {
                 randomMove();
                 break;
             case MOVE:
-                moveNearDoor(13, 18);
+                moveNearDoor(16, 21);
                 break;
             case SPEAKING:
                 turnToPlayer();
