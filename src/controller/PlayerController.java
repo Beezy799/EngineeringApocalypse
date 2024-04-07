@@ -24,7 +24,9 @@ public class PlayerController {
     private int notes = 0;
     private int defence = 2;
 
-    private Hitbox hitbox;
+    private int attack = 80;
+
+    private Hitbox hitbox, attackHitbox;
     //per evitare il problema dello sticky wall, prima di aggiornare la posizione della hitbox vera, aggiorniamo questa
     //hitbox temporanea nel punto dove andrebbe la vera hiybox dopo il movimento
     private Hitbox tempHitbox;
@@ -43,6 +45,8 @@ public class PlayerController {
         playStateController = p;
         hitbox = new Hitbox((int)xPosPlayer - XhitboxOffset, (int)yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
         tempHitbox = new Hitbox((int)xPosPlayer - XhitboxOffset, (int)yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
+
+        attackHitbox = new Hitbox(0, 0, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
     }
 
     public void update(){
@@ -60,6 +64,7 @@ public class PlayerController {
                 checkEvents();
                 break;
             case ATTACKING:
+                checkHittedEnemy();
                 break;
             case PARRING:
                 break;
@@ -72,6 +77,27 @@ public class PlayerController {
                 break;
         }
 
+    }
+
+    private void checkHittedEnemy() {
+        if(movementVector.getX() > 0){
+            attackHitbox.setX(hitbox.getX() + hitbox.getWidth());
+            attackHitbox.setY(yPosPlayer - (float) attackHitbox.getHeight() /2);
+        }
+        else if (movementVector.getX() < 0) {
+            attackHitbox.setX(hitbox.getX() - attackHitbox.getWidth());
+            attackHitbox.setY(yPosPlayer - (float) attackHitbox.getHeight() /2);
+        }
+        else if (movementVector.getY() < 0) {
+            attackHitbox.setY(hitbox.getY() - attackHitbox.getHeight());
+            attackHitbox.setX(xPosPlayer - (float) attackHitbox.getWidth() /2);
+        }
+        else if (movementVector.getY() > 0) {
+            attackHitbox.setY(hitbox.getY() + hitbox.getHeight());
+            attackHitbox.setX(xPosPlayer - (float) attackHitbox.getWidth() /2);
+        }
+
+        controller.getModel().checkHittedEnemy(attackHitbox, attack);
     }
 
     private void checkInteraction() {
@@ -187,7 +213,6 @@ public class PlayerController {
 
         //System.out.println(yPosPlayer/GamePanel.TILES_SIZE + ", " + xPosPlayer/GamePanel.TILES_SIZE);
     }
-
 
     private boolean isEntityCollision() {
         boolean collision = false;
@@ -334,11 +359,31 @@ public class PlayerController {
         setNotes(notes + n);
     }
 
-    public void hitted(int enemyAttack){
-        int damage = enemyAttack - defence;
-        if(damage > 0){
-            life -= damage;
+    public void hitted(int enemyAttack, Vector attackDirection){
+        boolean hitted = true;
+
+        if(actualState == EntityStates.PARRING){
+            if(attackDirection.getNomalizedX() != 0){
+                if(attackDirection.getNomalizedX() == -movementVector.getNomalizedX())
+                    hitted = false;
+            }
+            else if(attackDirection.getNormalizedY() != 0){
+                if(attackDirection.getNormalizedY() == -movementVector.getNormalizedY())
+                    hitted = false;
+            }
         }
+
+        if(hitted){
+            int damage = enemyAttack - defence;
+            if(damage > 0){
+                life -= damage;
+            }
+        }
+
+    }
+
+    public int getAttack(){
+        return attack;
     }
 
 }

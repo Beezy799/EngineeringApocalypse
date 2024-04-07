@@ -6,6 +6,7 @@ import src.view.entityView.enemy.EnemyView;
 import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -16,15 +17,13 @@ public class NullafacenteView extends EnemyView {
 
     public NullafacenteView(IView v, int i) {
         super(v, i);
-        loadImages();
-
         xOffset = animation[0][0][0].getWidth()/2;
         yOffset = animation[0][0][0].getHeight()/2;
 
         animationSpeed = 30;
     }
 
-    private void loadImages() {
+    protected void loadImages() {
         BufferedImage image = null;
         BufferedImage temp = null;
 
@@ -89,22 +88,22 @@ public class NullafacenteView extends EnemyView {
         catch (IOException e) {
             e.printStackTrace();
         }
-        temp = image.getSubimage(0, 190, 15, 20);
+        temp = image.getSubimage(0, 190, 15, 24);
         temp = ViewUtils.scaleImage(temp, temp.getWidth()*1.8f*GamePanel.SCALE, temp.getHeight()*1.8f*GamePanel.SCALE);
         animation[DYING.getConstantInAnimationArray()][DOWN][0] = temp;
         animation[DYING.getConstantInAnimationArray()][LEFT][0] = temp;
 
-        temp = image.getSubimage(15, 190, 24, 20);
+        temp = image.getSubimage(15, 190, 24, 24);
         temp = ViewUtils.scaleImage(temp, temp.getWidth()*1.8f*GamePanel.SCALE, temp.getHeight()*1.8f*GamePanel.SCALE);
         animation[DYING.getConstantInAnimationArray()][DOWN][1] = temp;
         animation[DYING.getConstantInAnimationArray()][LEFT][1] = temp;
 
-        temp = image.getSubimage(0, 210, 15, 20);
+        temp = image.getSubimage(0, 214, 15, 24);
         temp = ViewUtils.scaleImage(temp, temp.getWidth()*1.8f*GamePanel.SCALE, temp.getHeight()*1.8f*GamePanel.SCALE);
         animation[DYING.getConstantInAnimationArray()][RIGHT][0] = temp;
         animation[DYING.getConstantInAnimationArray()][UP][0] = temp;
 
-        temp = image.getSubimage(15, 210, 24, 20);
+        temp = image.getSubimage(15, 214, 24, 24);
         temp = ViewUtils.scaleImage(temp, temp.getWidth()*1.8f*GamePanel.SCALE, temp.getHeight()*1.8f*GamePanel.SCALE);
         animation[DYING.getConstantInAnimationArray()][RIGHT][1] = temp;
         animation[DYING.getConstantInAnimationArray()][UP][1] = temp;

@@ -14,15 +14,22 @@ import java.io.IOException;
 
 public abstract class EnemyView extends EntityView {
 
-    private BufferedImage puntoEsclamativo;
+    protected BufferedImage puntoEsclamativo;
+    protected Rectangle lifeRect;
+
+    protected int xPosOnScreen, yPosOnScreen;
 
     public EnemyView(IView v, int i) {
         super(v, i);
+        loadImages();
+        lifeRect = new Rectangle(0,0, animation[0][0][0].getWidth(), GamePanel.TILES_SIZE/8);
         loadPuntoEsclamativo();
     }
 
     @Override
     protected abstract int getAnimationLenght();
+
+    protected abstract void loadImages();
 
     public void loadPuntoEsclamativo(){
         try {
@@ -36,12 +43,14 @@ public abstract class EnemyView extends EntityView {
 
     public void draw(Graphics2D g2, int xPlayerMap, int yPlayerMap){
         getCurrentStateFromController();
+        drawLifeRect(g2);
 
         switch (currentState){
             case IDLE:
             case MOVE:
             case RECHARGE:
             case CHASE:
+            case HITTED:
                 normaldraw(g2, xPlayerMap, yPlayerMap);
                 break;
             case ATTACKING:
@@ -56,9 +65,24 @@ public abstract class EnemyView extends EntityView {
             default:
                 break;
         }
+
     }
 
-    private void dyingDraw(Graphics2D g2, int xPlayerMap, int yPlayerMap ) {
+    protected void drawLifeRect(Graphics2D g2) {
+        if(currentState != EntityStates.DYING){
+            int life = view.getModel().getEnemyLife(indexInEntityArray);
+
+            if(life > 20)
+                g2.setColor(Color.green);
+            else
+                g2.setColor(Color.red);
+
+            lifeRect.width = life*animation[0][0][0].getWidth()/100;
+            g2.fillRect(xPosOnScreen - xOffset, yPosOnScreen - lifeRect.height - yOffset, lifeRect.width, lifeRect.height);
+        }
+    }
+
+    protected void dyingDraw(Graphics2D g2, int xPlayerMap, int yPlayerMap ) {
         animationCounter++;
         getCurrentStateFromController();
         getCurrentDirectionFromController();
@@ -68,9 +92,8 @@ public abstract class EnemyView extends EntityView {
 
             if(numSprite >= getAnimationLenght()) {
                 //finita l'animazione, il nemico può muorire
-
-                //distruggi entità
-                numSprite = 0;
+                view.getModel().deleteEnemy(indexInEntityArray);
+                return;
             }
 
             animationCounter = 0;
@@ -150,8 +173,13 @@ public abstract class EnemyView extends EntityView {
         int yDistanceFromPlayer = entityYPosMap - yPlayerMap;
 
         //riproponiamo la stessa distanza nello schermo
-        int xPosOnScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
-        int yPosOnScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
+        xPosOnScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
+        yPosOnScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
+
+        //per far capire che è stato colpito
+        if(currentState == EntityStates.HITTED){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        }
 
         //siccome la posizone dell'entità non coincide col punto in alto a sinistra dell'immagine, compensiamo con gli offset
         g2.drawImage(animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite], xPosOnScreen - xOffset, yPosOnScreen - yOffset, null);
@@ -185,5 +213,9 @@ public abstract class EnemyView extends EntityView {
 
 
 
+    }
+
+    public void setIndex(int newIndex) {
+        indexInEntityArray = newIndex;
     }
 }

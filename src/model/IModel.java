@@ -1,8 +1,10 @@
 package src.model;
 
+import src.controller.Hitbox;
 import src.controller.IController;
 import src.controller.Vector;
 import src.model.events.Event;
+import src.model.mapModel.EnemyComplete;
 import src.model.mapModel.Rooms;
 import src.model.mapModel.tileset.Tileset;
 import src.view.IView;
@@ -119,6 +121,10 @@ public class IModel {
         Rooms.actualRoom.getEnemy().get(enemyIndex).getEnemyController().setStateLocked(false);
     }
 
+    public int getEnemyLife(int enemyInde){
+        return Rooms.actualRoom.getEnemy().get(enemyInde).getEnemyController().getLife();
+    }
+
     public void removeEnemy(int index){
         Rooms.actualRoom.getEnemy().remove(index);
     }
@@ -131,4 +137,26 @@ public class IModel {
         }
         events.remove(index);
     }
+
+    public void checkHittedEnemy(Hitbox playerAttackHitbox, int playerAttack) {
+        ArrayList<EnemyComplete> enemyes = Rooms.actualRoom.getEnemy();
+        for (EnemyComplete e : enemyes){
+            if(e.getEnemyController().getHitbox().intersects(playerAttackHitbox)){
+                e.getEnemyController().hitted(playerAttack);
+            }
+        }
+    }
+
+
+    public void deleteEnemy(int enemyIndex){
+        ArrayList<EnemyComplete> enemy = Rooms.actualRoom.getEnemy();
+
+        //diminuisce di uno l'indice di tutti gli elementi successivi
+        for(int i = enemyIndex + 1; i < enemy.size(); i++){
+            enemy.get(i).lowIndex();
+        }
+
+        enemy.remove(enemyIndex);
+    }
+
 }

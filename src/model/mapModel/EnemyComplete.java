@@ -20,4 +20,9 @@ public class EnemyComplete {
         return enemyController;
     }
 
+    public void lowIndex() {
+        int newIndex = enemyController.getEntityIndex() -1;
+        enemyController.setIndex(newIndex);
+        enemyView.setIndex(newIndex);
+    }
 }

@@ -12,7 +12,7 @@ public abstract class EnemyController extends EntityController {
     protected Hitbox attackHitbox;
 
     //per gestire i danni subiti-fstti
-    protected int attack = 10, defence = 10;
+    protected int attack = 10, defence = 2;
     protected boolean stateLocked = false;
 
 
@@ -21,9 +21,16 @@ public abstract class EnemyController extends EntityController {
     }
 
     public void hitted(int playerAttack){
-        int damage = playerAttack - defence;
-        if(damage > 0){
-            life -= damage;
+        if(currentState != EntityStates.HITTED && currentState != EntityStates.ATTACKING && currentState != EntityStates.DYING) {
+            changeState(EntityStates.HITTED);
+            int damage = playerAttack - defence;
+            if (damage > 0) {
+                life -= damage;
+            }
+            if(life <= 0){
+                changeState(EntityStates.DYING);
+                stateLocked = true;
+            }
         }
     }
 
@@ -49,4 +56,7 @@ public abstract class EnemyController extends EntityController {
         }
     }
 
+    public void setIndex(int newIndex) {
+        entityIndex = newIndex;
+    }
 }

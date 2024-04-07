@@ -8,7 +8,7 @@ import src.view.gameWindow.GamePanel;
 
 public class NullafacenteController extends EnemyController{
 
-    private int rechargeCounter = 0;
+    private int rechargeCounter, hittedCounter;
     private int hitboxWidth = 32, hitboxHeight = 32;
 
 
@@ -21,7 +21,8 @@ public class NullafacenteController extends EnemyController{
                                         8*GamePanel.TILES_SIZE);
 
         attackHitbox = new Hitbox(0,0, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
-
+        life = 100;
+        defence = 2;
     }
 
     @Override
@@ -85,7 +86,7 @@ public class NullafacenteController extends EnemyController{
                 turnToPlayer();
                 shiftAttackHitbox();
                 if(attackHitbox.intersects(controller.getPlayerController().getHitbox())){
-                    controller.getPlayerController().hitted(10);
+                    controller.getPlayerController().hitted(10, movementVector);
                 }
                 changeState(EntityStates.RECHARGE);
                 break;
@@ -119,6 +120,15 @@ public class NullafacenteController extends EnemyController{
                 }
                 break;
 
+            case HITTED:
+                hittedCounter++;
+                if(hittedCounter >= 200){
+                    hittedCounter = 0;
+                    changeState(EntityStates.IDLE);
+                }
+
+                break;
+
             case RECHARGE:
                 rechargeCounter++;
                 if(rechargeCounter >= 200) {
@@ -140,7 +150,7 @@ public class NullafacenteController extends EnemyController{
         int xdist = Math.abs(xPos - controller.getPlayerController().getxPosPlayer());
         int ydist = Math.abs(yPos - controller.getPlayerController().getyPosPlayer());
 
-        if(xdist < GamePanel.TILES_SIZE*1.3f && ydist < GamePanel.TILES_SIZE*1.3f) {
+        if(xdist < GamePanel.TILES_SIZE*1.4f && ydist < GamePanel.TILES_SIZE*1.4f) {
             if(xPos/GamePanel.TILES_SIZE == controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE ||
                     yPos/GamePanel.TILES_SIZE == controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE) {
                 return true;
@@ -163,7 +173,7 @@ public class NullafacenteController extends EnemyController{
             attackHitbox.setX(xPos - (float) attackHitbox.getWidth() /2);
         }
         else if (movementVector.getY() > 0) {
-            attackHitbox.setY(hitbox.getY() - hitbox.getHeight());
+            attackHitbox.setY(hitbox.getY() + hitbox.getHeight());
             attackHitbox.setX(xPos - (float) attackHitbox.getWidth() /2);
         }
     }
