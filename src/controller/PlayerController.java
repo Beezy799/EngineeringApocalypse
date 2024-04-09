@@ -1,7 +1,7 @@
 package src.controller;
 
 import src.model.EntityStates;
-import src.model.mapModel.Rooms;
+import src.model.Rooms;
 import src.view.gameWindow.GamePanel;
 
 public class PlayerController {
@@ -147,10 +147,12 @@ public class PlayerController {
         try {
             int eventIndex = -1;
             for (int i = 0; i < Rooms.actualRoom.getEvents().size(); i++) {
-                Hitbox eventBorders = Rooms.actualRoom.getEvents().get(i).getBounds();
-                if (hitbox.intersects(eventBorders)) {
-                    eventIndex = i;
-                    break;
+                if(!Rooms.actualRoom.getEvents().get(i).isEndInteraction()){
+                    Hitbox eventBorders = Rooms.actualRoom.getEvents().get(i).getBounds();
+                    if (hitbox.intersects(eventBorders)) {
+                        eventIndex = i;
+                        break;
+                    }
                 }
             }
             if(eventIndex > -1){
@@ -222,9 +224,11 @@ public class PlayerController {
                 collision = true;
         }
         for(int i = 0; i < Rooms.actualRoom.getEnemy().size(); i++){
-            Hitbox hitboxEntity = Rooms.actualRoom.getEnemy().get(i).getEnemyController().getHitbox();
-            if(hitboxEntity.intersects(tempHitbox))
-                collision = true;
+            if(Rooms.actualRoom.getEnemy().get(i).isAlive()){
+                Hitbox hitboxEntity = Rooms.actualRoom.getEnemy().get(i).getEnemyController().getHitbox();
+                if(hitboxEntity.intersects(tempHitbox))
+                    collision = true;
+            }
         }
         return collision;
     }

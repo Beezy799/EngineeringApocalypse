@@ -14,13 +14,15 @@ public class NullafacenteController extends EnemyController{
 
     public NullafacenteController(int x, int y, IController c, int index) {
         super(x, y, c, index);
+
         setHitbox(hitboxWidth, hitboxHeight);
         interactionHitbox = new Hitbox( xPos - 8*GamePanel.TILES_SIZE/2,
-                                        yPos - 8*GamePanel.TILES_SIZE/2,
-                                        8*GamePanel.TILES_SIZE,
-                                        8*GamePanel.TILES_SIZE);
+                yPos - 8*GamePanel.TILES_SIZE/2,
+                8*GamePanel.TILES_SIZE,
+                8*GamePanel.TILES_SIZE);
 
         attackHitbox = new Hitbox(0,0, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
+
         life = 100;
         defence = 2;
     }
@@ -60,7 +62,7 @@ public class NullafacenteController extends EnemyController{
                 break;
 
             case MOVE:
-               if(icanHitThePlayer()) {
+                if(icanHitThePlayer()) {
                     changeState(EntityStates.ATTACKING);
                     stateLocked = true;
                 }
@@ -143,7 +145,7 @@ public class NullafacenteController extends EnemyController{
     }
 
     private boolean iCanSeeThePlayer() {
-       return interactionHitbox.intersects(controller.getPlayerController().getHitbox());
+        return interactionHitbox.intersects(controller.getPlayerController().getHitbox());
     }
 
     private boolean icanHitThePlayer() {

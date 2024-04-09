@@ -11,7 +11,7 @@ public abstract class EnemyController extends EntityController {
     protected int bullet = 0;
     protected Hitbox attackHitbox;
 
-    //per gestire i danni subiti-fstti
+    //per gestire i danni subiti-fatti
     protected int attack = 10, defence = 2;
     protected boolean stateLocked = false;
 
@@ -42,10 +42,6 @@ public abstract class EnemyController extends EntityController {
         return life;
     }
 
-    public void die(){
-        controller.getModel().removeEnemy(entityIndex);
-    }
-
     public  void setStateLocked(boolean b){
         stateLocked = b;
     }
@@ -56,7 +52,8 @@ public abstract class EnemyController extends EntityController {
         }
     }
 
-    public void setIndex(int newIndex) {
-        entityIndex = newIndex;
-    }
+//    public void setIndex(int newIndex) {
+//        entityIndex = newIndex;
+//    }
+
 }

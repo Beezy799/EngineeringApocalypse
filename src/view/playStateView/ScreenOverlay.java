@@ -1,7 +1,6 @@
 package src.view.playStateView;
 
-import src.model.mapModel.Rooms;
-import src.view.IView;
+import src.model.Rooms;
 import src.view.ViewUtils;
 import src.view.gameWindow.GamePanel;
 

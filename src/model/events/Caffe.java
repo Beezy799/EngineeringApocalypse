@@ -5,7 +5,6 @@ import src.model.Constants;
 import src.model.EntityStates;
 import src.controller.Hitbox;
 import src.model.IModel;
-import src.model.mapModel.Rooms;
 import src.view.inputs.InputState;
 
 public class Caffe extends Event{
@@ -18,8 +17,7 @@ public class Caffe extends Event{
 	@Override
 	public void interact() {
 
-		//potremmo anche eliminare l'evento, in modo da risparmiare tempo e memoria
-		//if(!endInteraction) {
+		if(!endInteraction) {
 			model.getView().getPlayStateView().getPlayUI().setMessageToShow("premi E per interagire");
 
 			if (InputState.E.getPressed()) {
@@ -33,10 +31,9 @@ public class Caffe extends Event{
 				model.getController().getPlayerController().getMovementVector().setY(1);
 				model.getController().getPlayerController().lockState();
 
-				//endInteraction = true;
-				model.deleteEvent(index);
+				endInteraction = true;
 			}
-		//}
+		}
 	}
 
 }

@@ -1,4 +1,4 @@
-package src.model.mapModel;
+package src.model;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -6,10 +6,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import src.controller.entitycontroller.enemy.NullafacenteController;
 import src.controller.entitycontroller.npc.*;
-import src.model.Constants;
 import src.controller.Hitbox;
-import src.model.IModel;
+import src.model.entity.EnemyComplete;
+import src.model.entity.NpcComplete;
 import src.model.events.*;
+import src.model.mapModel.Map;
+import src.model.mapModel.Passage;
 import src.view.IView;
 import src.view.entityView.enemy.NullafacenteView;
 import src.view.entityView.npc.*;
@@ -40,15 +42,15 @@ public enum Rooms {
 
     //costruttore della singola stanza
     Rooms(String mapPath, String pathRoomData, int m){
-      map = new Map();
-      map.loadMap(mapPath);
-      musicIndex = m;
-      passages = new ArrayList<>();
-      npcList = new ArrayList<>();
-      enemyList = new ArrayList<>();
-      events = new ArrayList<>();
-      loadPassages(pathRoomData);
-      dataPath = pathRoomData;
+        map = new Map();
+        map.loadMap(mapPath);
+        musicIndex = m;
+        passages = new ArrayList<>();
+        npcList = new ArrayList<>();
+        enemyList = new ArrayList<>();
+        events = new ArrayList<>();
+        loadPassages(pathRoomData);
+        dataPath = pathRoomData;
     }
 
     private void loadPassages(String pathRoomData) {
@@ -243,19 +245,19 @@ public enum Rooms {
             Hitbox bounds = new Hitbox(colonna, riga, width, height);
 
             switch (nome){
-            case "Caffe":
-                events.add(new Caffe(bounds, m, i));
-                break;
+                case "Caffe":
+                    events.add(new Caffe(bounds, m, i));
+                    break;
 
-            case "Piano":
-                events.add(new Piano(bounds, m, i));
-                break;
-            case "cfu":
-                events.add(new CFU(bounds, m, i));
-                break;
-            case "luce":
-                events.add(new Light(bounds, m, i));
-                break;
+                case "Piano":
+                    events.add(new Piano(bounds, m, i));
+                    break;
+                case "cfu":
+                    events.add(new CFU(bounds, m, i));
+                    break;
+                case "luce":
+                    events.add(new Light(bounds, m, i));
+                    break;
             }
 
         }

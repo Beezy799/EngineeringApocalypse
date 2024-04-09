@@ -1,7 +1,7 @@
 package src.view.entityView;
 
 import src.model.EntityStates;
-import src.model.mapModel.Rooms;
+import src.model.entity.EntityComplete;
 import src.view.IView;
 import src.view.gameWindow.GamePanel;
 import src.view.playStateView.SortableElement;
@@ -28,6 +28,7 @@ public abstract class EntityView extends SortableElement {
     // sinistra dell'immagine, quindi dobbiamo compensare
     protected int yOffset, xOffset;
 
+    protected EntityComplete entityComplete;
 
     public EntityView(IView v, int i){
         view = v;
@@ -40,8 +41,8 @@ public abstract class EntityView extends SortableElement {
     public void draw(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
 
         animationCounter++;
-        getCurrentStateFromController();
-        getCurrentDirectionFromController();
+        takeCurrentStateFromController();
+        takeCurrentDirectionFromController();
 
         if (animationCounter > animationSpeed) {
             numSprite ++;
@@ -53,8 +54,8 @@ public abstract class EntityView extends SortableElement {
         }
 
         //fatti dare dal controller la posizione dell'entity
-        int entityXPosMap = view.getModel().getEntityXpos(this);
-        int entityYPosMap = view.getModel().getEntityYpos(this);
+        int entityXPosMap = entityComplete.getEntityController().getxPos(); //view.getModel().getEntityXpos(this);
+        int entityYPosMap = entityComplete.getEntityController().getyPos(); //view.getModel().getEntityYpos(this);
 
         //distanza dell'entita dal giocatore nella mappa
         int xDistanceFromPlayer = entityXPosMap - xPlayerMap;
@@ -76,25 +77,25 @@ public abstract class EntityView extends SortableElement {
 
         //disegna la sua hitbox
         g2.setColor(Color.red);
-        int hitboxW = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getHitbox().getWidth();
-        int hitboxH = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getHitbox().getHeight();
-        int xoffsetH = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getXhitboxOffset();
-        int yoffsetH = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getYhitboxOffset();
+        int hitboxW = entityComplete.getEntityController().getHitbox().getWidth(); //Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getHitbox().getWidth();
+        int hitboxH = entityComplete.getEntityController().getHitbox().getHeight(); //Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getHitbox().getHeight();
+        int xoffsetH = entityComplete.getEntityController().getXhitboxOffset(); //Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getXhitboxOffset();
+        int yoffsetH = entityComplete.getEntityController().getYhitboxOffset(); //Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getYhitboxOffset();
         g2.drawRect(xPosOnScreen - xoffsetH, yPosOnScreen - yoffsetH, hitboxW, hitboxH);
 
         //disegna interaction
         g2.setColor(Color.green);
-        int inthitboxW = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getInteractionHitbox().getWidth();
-        int inthitboxH = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getInteractionHitbox().getHeight();
-        int intxoffsetH = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getInteractionHitbox().getWidth()/2;
-        int intyoffsetH = Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getInteractionHitbox().getHeight()/2;
+        int inthitboxW = entityComplete.getEntityController().getInteractionHitbox().getWidth(); //Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getInteractionHitbox().getWidth();
+        int inthitboxH = entityComplete.getEntityController().getInteractionHitbox().getHeight(); //Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getInteractionHitbox().getHeight();
+        int intxoffsetH = entityComplete.getEntityController().getInteractionHitbox().getWidth()/2; //Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getInteractionHitbox().getWidth()/2;
+        int intyoffsetH = entityComplete.getEntityController().getInteractionHitbox().getHeight()/2; //Rooms.actualRoom.getNpc().get(indexInEntityArray).getEntityController().getInteractionHitbox().getHeight()/2;
         g2.drawRect(xPosOnScreen - intxoffsetH, yPosOnScreen - intyoffsetH, inthitboxW, inthitboxH);
 
     }
 
-    protected void getCurrentStateFromController() {
+    protected void takeCurrentStateFromController() {
         try {
-            currentState = view.getModel().getCurrentStateOfEntity(this);
+            currentState = entityComplete.getEntityController().getCurrentState(); //view.getModel().getCurrentStateOfEntity(this);
         }
         catch (NullPointerException e){
             e.printStackTrace();
@@ -106,10 +107,10 @@ public abstract class EntityView extends SortableElement {
         }
     }
 
-    protected void getCurrentDirectionFromController() {
+    protected void takeCurrentDirectionFromController() {
 
-        int vectorX = (int)view.getModel().getCurrentDirectionOfEntity(this).getX();
-        int vectorY = (int)view.getModel().getCurrentDirectionOfEntity(this).getY();
+        int vectorX = (int) entityComplete.getEntityController().getMovementVector().getX(); //view.getModel().getCurrentDirectionOfEntity(this).getX();
+        int vectorY = (int) entityComplete.getEntityController().getMovementVector().getY(); //view.getModel().getCurrentDirectionOfEntity(this).getY();
 
         if(vectorY < 0) {
             currentDirection = UP;
@@ -127,14 +128,14 @@ public abstract class EntityView extends SortableElement {
 
     }
 
-    public int getIndexInEntityArray(){
-        return indexInEntityArray;
-    }
-
     protected abstract int getAnimationLenght();
 
     //ci serve per essere sicuri che l'entità sappia dove si trova prima di essere ordinata
     public void updatePositionForSort() {
-         yPosMapForSort = view.getModel().getEntityYpos(this);
+        yPosMapForSort = entityComplete.getEntityController().getyPos() - yOffset; //view.getModel().getEntityYpos(this) - yOffset;
+    }
+
+    public void setEntityComplete(EntityComplete ec){
+        entityComplete = ec;
     }
 }

@@ -12,7 +12,6 @@ public abstract class NpcView extends EntityView {
         loadDialogues();
     }
 
-
     public void setNextDialogueLine(){
         dialogueIndex++;
 
@@ -20,7 +19,6 @@ public abstract class NpcView extends EntityView {
             dialogueIndex = dialogues.length - 1;
 
     }
-
     public String getDialogue(){
         return dialogues[dialogueIndex];
     }

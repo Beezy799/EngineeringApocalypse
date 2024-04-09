@@ -1,7 +1,7 @@
 package src.controller.pathFinding;
 
 import src.controller.IController;
-import src.model.mapModel.Rooms;
+import src.model.Rooms;
 
 import java.util.ArrayList;
 import java.util.Collections;

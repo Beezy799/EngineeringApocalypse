@@ -14,17 +14,16 @@ public class Piano extends Event{
     @Override
     public void interact() {
 
-        //if(!endInteraction) {
+        if(!endInteraction) {
             model.getView().getPlayStateView().getPlayUI().setMessageToShow("premi E per interagire");
 
             if (InputState.E.getPressed()) {
                 model.getView().getPlayStateView().getPlayUI().setMessageToShow(message);
                 model.getView().getSoundManager().playSE(Constants.SoundConstants.PIANO_SE);
 
-                model.deleteEvent(index);
-                //endInteraction = true;
+                endInteraction = true;
             }
-        //}
+        }
     }
 
 }

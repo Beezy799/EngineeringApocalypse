@@ -5,6 +5,7 @@ import src.controller.Vector;
 import src.controller.pathFinding.Node;
 import src.model.EntityStates;
 import src.controller.Hitbox;
+import src.model.entity.EntityComplete;
 import src.view.gameWindow.GamePanel;
 
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public abstract class EntityController {
 
     protected IController controller;
     protected int entityIndex;
+
+    protected EntityComplete entityComplete;
 
     protected ArrayList<Node> path;
     protected int pathNodeIndex;
@@ -90,7 +93,7 @@ public abstract class EntityController {
             tempHitbox.setX(hitbox.getX() + speed);
             tempHitbox.setY(hitbox.getY());
             boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoRight(tempHitbox);
-            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithoOtherEntities(this);
+            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithOtherEntities(this);
             canGo = solidTiles && entities;
         }
         //se va a sinistra
@@ -98,7 +101,7 @@ public abstract class EntityController {
             tempHitbox.setX(hitbox.getX() - speed);
             tempHitbox.setY(hitbox.getY());
             boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoLeft(tempHitbox);
-            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithoOtherEntities(this);
+            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithOtherEntities(this);
             canGo = solidTiles && entities;
         }
         //su
@@ -106,7 +109,7 @@ public abstract class EntityController {
             tempHitbox.setY(hitbox.getY() - speed);
             tempHitbox.setX(hitbox.getX());
             boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoUp(tempHitbox);
-            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithoOtherEntities(this);
+            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithOtherEntities(this);
             canGo = solidTiles && entities;
 
         }
@@ -115,7 +118,7 @@ public abstract class EntityController {
             tempHitbox.setY(hitbox.getY() + speed);
             tempHitbox.setX(hitbox.getX());
             boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoDown(tempHitbox);
-            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithoOtherEntities(this);
+            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithOtherEntities(this);
             canGo = solidTiles && entities;
         }
 
@@ -177,8 +180,6 @@ public abstract class EntityController {
             }
         }
 
-        //currentState = IDLE;
-
     }
 
     protected void moveNearDoor(int xLeft, int xRight) {
@@ -203,7 +204,7 @@ public abstract class EntityController {
             tempHitbox.setY(hitbox.getY());
 
             boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoLeft(tempHitbox);
-            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithoOtherEntities(this);
+            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithOtherEntities(this);
             boolean canGo = solidTiles && entities;
 
             if(canGo){
@@ -226,7 +227,7 @@ public abstract class EntityController {
             tempHitbox.setY(hitbox.getY());
 
             boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoRight(tempHitbox);
-            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithoOtherEntities(this);
+            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithOtherEntities(this);
             boolean canGo = solidTiles && entities;
 
             if(canGo){
@@ -252,15 +253,15 @@ public abstract class EntityController {
         YhitboxOffset = hitbox.getHeight()/2;
 
         tempHitbox = new Hitbox((int)hitbox.getX(), (int)hitbox.getY(), (int)(hitboxWidth*GamePanel.SCALE),
-                                                              (int)(hitboxHeight*GamePanel.SCALE));
+                (int)(hitboxHeight*GamePanel.SCALE));
 
         int interactionHitboxWidth = 2*GamePanel.TILES_SIZE;
         int interactionHitboxHeight = 2*GamePanel.TILES_SIZE;
 
         interactionHitbox = new Hitbox( xPos - interactionHitboxWidth/2,
-                                        yPos - interactionHitboxHeight/2,
-                                        interactionHitboxWidth,
-                                        interactionHitboxHeight);
+                yPos - interactionHitboxHeight/2,
+                interactionHitboxWidth,
+                interactionHitboxHeight);
     }
 
     public void setxPos(int xPos) {
@@ -363,6 +364,10 @@ public abstract class EntityController {
         if(Math.abs(yPos - centerY) < speed){
             yPos = centerY;
         }
+    }
+
+    public void setEntityComplete(EntityComplete e) {
+        entityComplete = e;
     }
 
 }

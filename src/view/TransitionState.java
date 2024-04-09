@@ -2,7 +2,7 @@ package src.view;
 
 import src.model.Constants;
 import src.model.GameState;
-import src.model.mapModel.Rooms;
+import src.model.Rooms;
 import src.view.gameWindow.GamePanel;
 
 import java.awt.AlphaComposite;

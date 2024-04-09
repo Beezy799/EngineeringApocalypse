@@ -1,7 +1,8 @@
 package src.view.entityView.enemy;
 
 import src.model.EntityStates;
-import src.model.mapModel.Rooms;
+import src.model.Rooms;
+import src.model.entity.EnemyComplete;
 import src.view.IView;
 import src.view.ViewUtils;
 import src.view.entityView.EntityView;
@@ -35,14 +36,14 @@ public abstract class EnemyView extends EntityView {
         try {
             puntoEsclamativo = ImageIO.read(getClass().getResourceAsStream("/res/ui/exclamation.png"));
             puntoEsclamativo = ViewUtils.scaleImage(puntoEsclamativo, puntoEsclamativo.getWidth()/8*GamePanel.SCALE,
-                                                                        puntoEsclamativo.getHeight()/8*GamePanel.SCALE);
+                    puntoEsclamativo.getHeight()/8*GamePanel.SCALE);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void draw(Graphics2D g2, int xPlayerMap, int yPlayerMap){
-        getCurrentStateFromController();
+        takeCurrentStateFromController();
         drawLifeRect(g2);
 
         switch (currentState){
@@ -70,7 +71,7 @@ public abstract class EnemyView extends EntityView {
 
     protected void drawLifeRect(Graphics2D g2) {
         if(currentState != EntityStates.DYING){
-            int life = view.getModel().getEnemyLife(indexInEntityArray);
+            int life = ((EnemyComplete)entityComplete).getEnemyController().getLife(); //view.getModel().getEnemyLife(indexInEntityArray);
 
             if(life > 20)
                 g2.setColor(Color.green);
@@ -84,15 +85,15 @@ public abstract class EnemyView extends EntityView {
 
     protected void dyingDraw(Graphics2D g2, int xPlayerMap, int yPlayerMap ) {
         animationCounter++;
-        getCurrentStateFromController();
-        getCurrentDirectionFromController();
+        takeCurrentStateFromController();
+        takeCurrentDirectionFromController();
 
         if (animationCounter > animationSpeed) {
             numSprite ++;
 
             if(numSprite >= getAnimationLenght()) {
                 //finita l'animazione, il nemico può muorire
-                view.getModel().deleteEnemy(indexInEntityArray);
+                ((EnemyComplete) entityComplete).setAlive(false);
                 return;
             }
 
@@ -100,8 +101,8 @@ public abstract class EnemyView extends EntityView {
         }
 
         //fatti dare dal controller la posizione dell'entity
-        int entityXPosMap = view.getModel().getEntityXpos(this);
-        int entityYPosMap = view.getModel().getEntityYpos(this);
+        int entityXPosMap = entityComplete.getEntityController().getxPos(); //view.getModel().getEntityXpos(this);
+        int entityYPosMap = entityComplete.getEntityController().getyPos(); //view.getModel().getEntityYpos(this);
 
         //distanza dell'entita dal giocatore nella mappa
         int xDistanceFromPlayer = entityXPosMap - xPlayerMap;
@@ -118,8 +119,8 @@ public abstract class EnemyView extends EntityView {
 
     protected void specialDraw(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
         animationCounter++;
-        getCurrentStateFromController();
-        getCurrentDirectionFromController();
+        takeCurrentStateFromController();
+        takeCurrentDirectionFromController();
 
         if (animationCounter > animationSpeed) {
             numSprite ++;
@@ -134,8 +135,8 @@ public abstract class EnemyView extends EntityView {
         }
 
         //fatti dare dal controller la posizione dell'entity
-        int entityXPosMap = view.getModel().getEntityXpos(this);
-        int entityYPosMap = view.getModel().getEntityYpos(this);
+        int entityXPosMap = entityComplete.getEntityController().getxPos(); //view.getModel().getEntityXpos(this);
+        int entityYPosMap = entityComplete.getEntityController().getyPos(); //view.getModel().getEntityYpos(this);
 
         //distanza dell'entita dal giocatore nella mappa
         int xDistanceFromPlayer = entityXPosMap - xPlayerMap;
@@ -152,8 +153,8 @@ public abstract class EnemyView extends EntityView {
 
     public void normaldraw(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
         animationCounter++;
-        getCurrentStateFromController();
-        getCurrentDirectionFromController();
+        takeCurrentStateFromController();
+        takeCurrentDirectionFromController();
 
         if (animationCounter > animationSpeed) {
             numSprite++;
@@ -165,8 +166,8 @@ public abstract class EnemyView extends EntityView {
         }
 
         //fatti dare dal controller la posizione dell'entity
-        int entityXPosMap = view.getModel().getEntityXpos(this);
-        int entityYPosMap = view.getModel().getEntityYpos(this);
+        int entityXPosMap = entityComplete.getEntityController().getxPos(); //view.getModel().getEntityXpos(this);
+        int entityYPosMap = entityComplete.getEntityController().getyPos(); //view.getModel().getEntityYpos(this);
 
         //distanza dell'entita dal giocatore nella mappa
         int xDistanceFromPlayer = entityXPosMap - xPlayerMap;

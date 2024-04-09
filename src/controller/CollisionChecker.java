@@ -2,7 +2,8 @@ package src.controller;
 
 import src.controller.entitycontroller.EntityController;
 import src.controller.entitycontroller.enemy.EnemyController;
-import src.model.mapModel.Rooms;
+import src.model.Rooms;
+import src.model.entity.EnemyComplete;
 import src.view.gameWindow.GamePanel;
 
 public class CollisionChecker {
@@ -153,7 +154,7 @@ public class CollisionChecker {
         return true;
     }
 
-    public boolean isNotCollisionWithoOtherEntities(EntityController entity){
+    public boolean isNotCollisionWithOtherEntities(EntityController entity){
         boolean notcollisionNpc = true;
         boolean notcollisionEnemy = true;
 
@@ -167,12 +168,15 @@ public class CollisionChecker {
         }
 
         for(int i = 0; i < Rooms.actualRoom.getEnemy().size(); i++){
-            EntityController other = Rooms.actualRoom.getEnemy().get(i).getEnemyController();
-            //per controllare che non guardi l'intersezione con la sua stessa hitbox quando è un nemico
-            boolean isThesameEntity = (entity.getEntityIndex() == other.getEntityIndex() && (entity instanceof EnemyController));
-            if(entity.getTempHitbox().intersects(other.getHitbox()) && !isThesameEntity) {
-                notcollisionEnemy = false;
+            EnemyComplete other = Rooms.actualRoom.getEnemy().get(i);
+            if(other.isAlive()) {
+                //per controllare che non guardi l'intersezione con la sua stessa hitbox quando è un nemico
+                boolean isThesameEntity = (entity.getEntityIndex() == other.getEntityController().getEntityIndex() && (entity instanceof EnemyController));
+                if(entity.getTempHitbox().intersects(other.getEntityController().getHitbox()) && !isThesameEntity) {
+                    notcollisionEnemy = false;
+                }
             }
+
         }
 
         //deve controllare anche il giocatore

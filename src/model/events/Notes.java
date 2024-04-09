@@ -17,7 +17,7 @@ public class Notes extends Event {
 
 	@Override
 	public void interact() {
-		//if (!endInteraction) {
+		if (!endInteraction) {
 			model.getView().getPlayStateView().getPlayUI().setMessageToShow("premi E per interagire");
 
 			if (InputState.E.getPressed()) {
@@ -31,10 +31,9 @@ public class Notes extends Event {
 				model.getController().getPlayerController().getMovementVector().setY(1);
 				model.getController().getPlayerController().lockState();
 
-				model.deleteEvent(index);
-				//endInteraction = true;
+				endInteraction = true;
 			}
-		//}
+		}
 	}
 
 }

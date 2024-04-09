@@ -2,9 +2,9 @@ package src.view.playStateView;
 
 import src.controller.Hitbox;
 import src.model.events.Event;
-import src.model.mapModel.EnemyComplete;
-import src.model.mapModel.NpcComplete;
-import src.model.mapModel.Rooms;
+import src.model.entity.EnemyComplete;
+import src.model.entity.NpcComplete;
+import src.model.Rooms;
 import src.view.IView;
 import src.view.PlayerView;
 import src.view.ViewUtils;
@@ -86,10 +86,12 @@ public class PlayStateView {
             npc.getNpcView().updatePositionForSort();
             elementsAboveTheFloor.add(npc.getNpcView());
         }
-
+        //aggiunge solo i nemici vivi
         for(EnemyComplete enemy : Rooms.actualRoom.getEnemy()){
-            enemy.getEnemyView().updatePositionForSort();
-            elementsAboveTheFloor.add(enemy.getEnemyView());
+            if(enemy.isAlive()) {
+                enemy.getEnemyView().updatePositionForSort();
+                elementsAboveTheFloor.add(enemy.getEnemyView());
+            }
         }
 
     }

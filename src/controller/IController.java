@@ -2,9 +2,9 @@ package src.controller;
 
 import src.controller.pathFinding.PathFinder;
 import src.model.*;
-import src.model.mapModel.EnemyComplete;
-import src.model.mapModel.NpcComplete;
-import src.model.mapModel.Rooms;
+import src.model.entity.EnemyComplete;
+import src.model.entity.NpcComplete;
+import src.model.Rooms;
 import src.view.IView;
 import src.view.gameWindow.GamePanel;
 import src.view.inputs.InputState;
@@ -50,15 +50,17 @@ public class IController {
         switch (GameState.actualState){
             //si aggiorna solo quando stiamo nello stato di gioco
             case PLAYING:
-               updateInputs(); // guarda lo stato della tastiera
-               playerController.update();
-               for(NpcComplete npc : Rooms.actualRoom.getNpc()){
-                   npc.getEntityController().update();
-               }
-                for(EnemyComplete enemy : Rooms.actualRoom.getEnemy()){
-                    enemy.getEnemyController().update();
+                updateInputs(); // guarda lo stato della tastiera
+                playerController.update();
+                for(NpcComplete npc : Rooms.actualRoom.getNpc()){
+                    npc.getEntityController().update();
                 }
-            break;
+                for(EnemyComplete enemy : Rooms.actualRoom.getEnemy()){
+                    if(enemy.isAlive()) {
+                        enemy.getEnemyController().update();
+                    }
+                }
+                break;
 
             case QUIT:
                 System.exit(0);

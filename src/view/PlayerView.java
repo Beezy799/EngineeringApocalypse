@@ -86,7 +86,7 @@ public class PlayerView extends SortableElement {
         try {
             //disegna il giocatore
             g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite],
-                                                                                     xOnScreen, yOnScreen, null);
+                    xOnScreen, yOnScreen, null);
 
         }
         catch (IndexOutOfBoundsException e){
@@ -104,9 +104,9 @@ public class PlayerView extends SortableElement {
         //disegna la hitbox del giocatore
         g2.setColor(Color.blue);
         g2.drawRect(GamePanel.CENTER_X_GAME_PANEL - view.getController().getPlayerController().getHitbox().getWidth()/2,
-                       GamePanel.CENTER_Y_GAME_PANEL - GamePanel.TILES_SIZE/4,
-                       view.getController().getPlayerController().getHitbox().getWidth(),
-                       view.getController().getPlayerController().getHitbox().getHeight());
+                GamePanel.CENTER_Y_GAME_PANEL - GamePanel.TILES_SIZE/4,
+                view.getController().getPlayerController().getHitbox().getWidth(),
+                view.getController().getPlayerController().getHitbox().getHeight());
     }
 
     //finita l'animazione della morte, il gioco va nello stato game over
@@ -149,7 +149,7 @@ public class PlayerView extends SortableElement {
 
                 //arrivato all'ultima sprite resta lì
                 numSprite = getAnimationLenght() - 1;
-               // view.getController().getPlayerController().unlockState();
+                // view.getController().getPlayerController().unlockState();
             }
             animationCounter = 0;
         }
@@ -354,8 +354,8 @@ public class PlayerView extends SortableElement {
                 //rect trasparente
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
                 g2.fillRoundRect(GamePanel.CENTER_X_GAME_PANEL + 20,
-                                 GamePanel.CENTER_Y_GAME_PANEL - heightAttackRectBackground/2,
-                                GamePanel.GAME_WIDTH/2, heightAttackRectBackground, 20, 20);
+                        GamePanel.CENTER_Y_GAME_PANEL - heightAttackRectBackground/2,
+                        GamePanel.GAME_WIDTH/2, heightAttackRectBackground, 20, 20);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
 
                 //rect trasparente
@@ -402,8 +402,8 @@ public class PlayerView extends SortableElement {
                 //rect trasparente
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
                 g2.fillRoundRect(0 - 10,
-                                 GamePanel.CENTER_Y_GAME_PANEL - heightAttackRectBackground/2,
-                                 GamePanel.GAME_WIDTH/2, heightAttackRectBackground, 20, 20);
+                        GamePanel.CENTER_Y_GAME_PANEL - heightAttackRectBackground/2,
+                        GamePanel.GAME_WIDTH/2, heightAttackRectBackground, 20, 20);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
 
                 //rect interno
@@ -960,6 +960,5 @@ public class PlayerView extends SortableElement {
     }
 
 } //end class
-
 
 

@@ -16,21 +16,21 @@ import static src.model.Constants.SoundConstants.MENU_MUSIC;
 
 public class IView {
 
-private IModel model;
-private IController controller;
-private GameWindow gameWindow;
-private GamePanel gamePanel;
-private MouseInputs mouseInputs;
-private CommandsExplaination commandsExplaination;
-private StartTitle startTitle;
-private MainMenu mainMenu;
-private OptionMenu optionMenu;
-private PauseMenu pauseMenu;
-private AvatarMenu avatarMenu;
-private SoundManager soundManager;
+    private IModel model;
+    private IController controller;
+    private GameWindow gameWindow;
+    private GamePanel gamePanel;
+    private MouseInputs mouseInputs;
+    private CommandsExplaination commandsExplaination;
+    private StartTitle startTitle;
+    private MainMenu mainMenu;
+    private OptionMenu optionMenu;
+    private PauseMenu pauseMenu;
+    private AvatarMenu avatarMenu;
+    private SoundManager soundManager;
 
-private TransitionState transitionState;
-PlayStateView playStateView;
+    private TransitionState transitionState;
+    PlayStateView playStateView;
 
 
 
@@ -68,9 +68,9 @@ PlayStateView playStateView;
     }
 
     //chiede al pannello di creare il suo ambiente grafico, g, che poi userà per disegnare il frame successivo
-	public void draw() {	
-		gamePanel.repaint();	
-	}
+    public void draw() {
+        gamePanel.repaint();
+    }
 
     public void prepareNewFrame(Graphics2D g2) {
         switch (GameState.actualState) {
@@ -79,7 +79,7 @@ PlayStateView playStateView;
                 break;
             case MAIN_MENU:
                 mainMenu.draw(g2);
-            break;
+                break;
             case SELECT_AVATAR:
                 avatarMenu.draw(g2);
                 break;
@@ -94,7 +94,7 @@ PlayStateView playStateView;
                 break;
             case TRANSITION_STATE:
                 transitionState.draw(g2);
-            break;
+                break;
             case PAUSE:
                 playStateView.draw(g2);
                 pauseMenu.draw(g2);
@@ -113,15 +113,15 @@ PlayStateView playStateView;
     }
 
     public void changeGameStateToMainMenu() {
-       model.changeGameState(GameState.MAIN_MENU);
+        model.changeGameState(GameState.MAIN_MENU);
     }
 
     public void changeGameState(GameState newState){
         GameState.actualState = newState;
     }
- 
+
     public void setCursorPosition(int x, int y){    //richiama e basta il metodo che sta in GamePanel
-        gamePanel.setCursorPosition(x,y);               
+        gamePanel.setCursorPosition(x,y);
     }
 
     public Point getCursorPosition(){
@@ -131,13 +131,13 @@ PlayStateView playStateView;
     public IController getController(){
         return controller;
     }
-    
+
     public MainMenu getMainMenu(){
         return this.mainMenu;
     }
 
     public StartTitle getStartTitle() {
-       return startTitle;
+        return startTitle;
     }
 
     public OptionMenu getOptions() {
