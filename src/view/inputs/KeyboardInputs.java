@@ -32,9 +32,6 @@ public class KeyboardInputs implements KeyListener {
                 break;
             case TRANSITION_STATE:
                 break;
-            default: //nei casi main manu , opzioni e  avatar selection
-                moveCursor(e);
-                break;
             case DIALOGUE:
                 if(e.getKeyCode() == KeyEvent.VK_ESCAPE ||
                         e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_A ||
@@ -46,6 +43,9 @@ public class KeyboardInputs implements KeyListener {
                     int index = view.getController().getIndexEntityInteraction();
                     view.getModel().setEntityNextDialogue(index);
                 }
+                break;
+            default: //nei casi main manu , opzioni, game over e avatar selection
+                moveCursor(e);
                 break;
 //            case BOSS_CUTSCENE:
 //                if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -117,6 +117,10 @@ public class KeyboardInputs implements KeyListener {
             case PAUSE:
                 if(e.getKeyCode() == KeyEvent.VK_ENTER) {
                     view.getPause().enterReleased(e);
+                }
+            case GAME_OVER:
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    view.getGameOverMenu().enterReleased(e);
                 }
                 break;
             default:

@@ -4,9 +4,9 @@ import src.controller.entitycontroller.enemy.EnemyController;
 import src.view.entityView.enemy.EnemyView;
 
 public class EnemyComplete extends EntityComplete{
-//    private EnemyView enemyView;
-//    private EnemyController enemyController;
-
+    //in caso di game over, il gioco si deve resettare. quando il nemico muore, non lo eliminiamo dalla memoria, ma lo lasciamo
+    //"dormiente" mettendo alive = false
+    //quando il player muore, il gioco si resetta e tutti i nemici tornano in vita
     protected boolean alive;
 
     public EnemyComplete(EnemyController c, EnemyView v){

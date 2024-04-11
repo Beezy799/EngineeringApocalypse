@@ -8,7 +8,6 @@ public class NpcComplete extends EntityComplete {
 
     public NpcComplete(EntityController c, NpcView v){
         super(c, v);
-
     }
     public NpcView getNpcView() {
         return (NpcView) entityView;

@@ -94,6 +94,8 @@ public abstract class EnemyView extends EntityView {
             if(numSprite >= getAnimationLenght()) {
                 //finita l'animazione, il nemico può muorire
                 ((EnemyComplete) entityComplete).setAlive(false);
+                //quando muore, regala cfu al player
+                view.getController().getPlayerController().addCFU(10);
                 return;
             }
 

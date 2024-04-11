@@ -52,8 +52,5 @@ public abstract class EnemyController extends EntityController {
         }
     }
 
-//    public void setIndex(int newIndex) {
-//        entityIndex = newIndex;
-//    }
 
 }

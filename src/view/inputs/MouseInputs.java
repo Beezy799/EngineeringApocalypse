@@ -54,6 +54,9 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 			case COMMAND_EXPLAINATION:
 				view.getCommandsExplaination().mouseMoved(e);
 				break;
+			case GAME_OVER:
+				view.getGameOverMenu().mouseMoved(e);
+				break;
 		default:
 			break;
 
@@ -93,6 +96,9 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 			case COMMAND_EXPLAINATION:
 				view.getCommandsExplaination().mousePressed(e);
 				break;
+			case GAME_OVER:
+				view.getGameOverMenu().mousePressed(e);
+				break;
 		default:
 			break;
 		}
@@ -123,6 +129,9 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 			int index = view.getController().getIndexEntityInteraction();
 			view.getModel().setEntityNextDialogue(index);
 			break;
+		 case GAME_OVER:
+			 view.getGameOverMenu().mouseReleased(e);
+			 break;
 		default:
 			break;
 		}

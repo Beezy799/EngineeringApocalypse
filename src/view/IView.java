@@ -27,6 +27,7 @@ public class IView {
     private OptionMenu optionMenu;
     private PauseMenu pauseMenu;
     private AvatarMenu avatarMenu;
+    private GameOverMenu gameOverMenu;
     private SoundManager soundManager;
 
     private TransitionState transitionState;
@@ -55,6 +56,8 @@ public class IView {
         gamePanel.requestFocus();
 
         playStateView = new PlayStateView(this);
+
+        gameOverMenu = new GameOverMenu(this);
 
         soundManager = new SoundManager();
         soundManager.loopMusic(MENU_MUSIC);
@@ -102,6 +105,10 @@ public class IView {
             case DIALOGUE:
                 playStateView.draw(g2);
                 playStateView.getPlayUI().drawDialogue(g2);
+                break;
+            case GAME_OVER:
+                playStateView.draw(g2);
+                gameOverMenu.draw(g2);
                 break;
             default:
                 break;
@@ -190,5 +197,9 @@ public class IView {
 
     public PlayStateView getPlayStateView(){
         return playStateView;
+    }
+
+    public GameOverMenu getGameOverMenu(){
+        return gameOverMenu;
     }
 }

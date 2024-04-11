@@ -8,6 +8,7 @@ import src.model.Rooms;
 import src.view.IView;
 import src.view.gameWindow.GamePanel;
 import src.view.inputs.InputState;
+import src.view.menu.GameOverMenu;
 
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -151,7 +152,8 @@ public class IController {
 //            playerController.getMovementVector().resetDirections();
 //            playerController.getMovementVector().setY(1);
 //            playerController.lockState();
-            view.getSoundManager().setMusicVolume(0.01f);
+//            view.getSoundManager().setMusicVolume(0.01f);
+            GameState.actualState = GameState.GAME_OVER;
             System.out.println("p " +playerController.getyPosPlayer()/ GamePanel.TILES_SIZE + ", " + playerController.getxPosPlayer()/GamePanel.TILES_SIZE);
             //System.out.println();         8, 18
 

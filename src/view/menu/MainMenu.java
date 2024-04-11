@@ -260,7 +260,6 @@ public class MainMenu extends AbstractMenu{
     public void draw(Graphics2D g2) {
 
         drawBackground(g2);
-        
         //ereditato
         drawButtons(g2);
 
