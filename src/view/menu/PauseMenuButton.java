@@ -52,13 +52,7 @@ public class PauseMenuButton extends AbstractMenuButton {
 
     @Override
     public void reactToMouse(MouseEvent e) {
-        if(isHome) {
-            view.getTransitionState().setNext(GameState.MAIN_MENU);
-            view.getTransitionState().setPrev(GameState.PLAYING);
-            view.changeGameState(GameState.TRANSITION_STATE);
-        }
-        else
-            view.changeGameState(newState);
+        reactToEnter();
     }
 
     @Override
@@ -66,10 +60,13 @@ public class PauseMenuButton extends AbstractMenuButton {
         if(isHome) {
             view.getTransitionState().setNext(GameState.MAIN_MENU);
             view.getTransitionState().setPrev(GameState.PLAYING);
+            GameState.playStateInStandBy = true;
             view.changeGameState(GameState.TRANSITION_STATE);
         }
-        else
+        else {
             view.changeGameState(newState);
+            GameState.playStateInStandBy = false;
+        }
     }
 
     @Override

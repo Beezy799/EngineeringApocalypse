@@ -31,25 +31,26 @@ public class MenuButton extends AbstractMenuButton {
 
     @Override
     public void reactToMouse(MouseEvent e) {
-        //se non è il tasto resume, fai quello che ti pare
-        if(newState != GameState.PLAYING)
-            GameState.actualState = newState;
-        //se sei il tasto resume, vai nel play solo se la partita è già iniziata
-        else{
-            if(GameState.playStateInStandBy)
-                GameState.actualState = newState;
-        }
+        reactToEnter();
     }
 
     @Override
     public void reactToEnter() {
-        //se non è il tasto resume, fai quello che ti pare
-        if(newState != GameState.PLAYING)
-            GameState.actualState = newState;
-            //se sei il tasto resume, vai nel play solo se la partita è già iniziata
-        else{
-            if(GameState.playStateInStandBy)
+        //se siamo sul tasto iscirviti, va nell'avatar, solo se non è iniziata la parita
+        if(newState == GameState.SELECT_AVATAR){
+            if(!GameState.playStateInStandBy)   {
                 GameState.actualState = newState;
+            }
+        }
+        //se siamo sul tasto riprendi, va in play solo se la partita era iniziata
+        else if (newState == GameState.PLAYING) {
+            if(GameState.playStateInStandBy)   {
+                GameState.actualState = newState;
+            }
+        }
+        //se non sei in nessuno dei due bottoni, vai tranquillo
+        else{
+            GameState.actualState = newState;
         }
     }
 
