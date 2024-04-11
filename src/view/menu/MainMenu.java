@@ -43,9 +43,9 @@ public class MainMenu extends AbstractMenu{
 
         createPlayButton();
         createOptionButton();
-        createResumeButton();
         createCommandsButton();
         createQuitButton();
+        createResumeButton();
         loadBackgroundImages();
         createTitle();
 
@@ -116,33 +116,6 @@ public class MainMenu extends AbstractMenu{
         buttons[1] = new MenuButton(optionImages, optionRectangle, GameState.OPTIONS); 
     }
 
-    //terzo bottone: riprendi
-    private void createResumeButton() {
-        //rettangolo
-        int widthRestartButton = (int)(300*SCALE);
-        int heightRestartButton = (int)(17*SCALE);
-        int xRestartButton = ViewUtils.getCenteredXPos(widthRestartButton);
-        int yRestartButton = (int)(250 * SCALE) + 2*distanceBetweenButtons;
-        Rectangle restartRectangle = new Rectangle(xRestartButton,yRestartButton,widthRestartButton,heightRestartButton);
-        //immagini
-        BufferedImage[] restartImages = new BufferedImage[3];
-        BufferedImage temp;
-        try {
-            temp = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/riprendi1.png"));
-            restartImages[0] = ViewUtils.scaleImage(temp, widthRestartButton, heightRestartButton);
-            temp = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/riprendi2.png"));
-            restartImages[1] = ViewUtils.scaleImage(temp, widthRestartButton, heightRestartButton);
-            temp = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/riprendi3.png"));
-            restartImages[2] = ViewUtils.scaleImage(temp, widthRestartButton, heightRestartButton); 
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }       
-        //creiamo bottone con rettangolo+immagini
-        buttons[2] = new MenuButton(restartImages, restartRectangle, GameState.COMMAND_EXPLAINATION);
-       
-    }
-
     //quarto bottone, comandi
     private void createCommandsButton() {
         //rettangolo
@@ -166,7 +139,7 @@ public class MainMenu extends AbstractMenu{
             e.printStackTrace();
         }
         //creiamo bottone con rettangolo+immagini
-        buttons[3] = new MenuButton(commandImages, quitRectangle, GameState.COMMAND_EXPLAINATION);
+        buttons[2] = new MenuButton(commandImages, quitRectangle, GameState.COMMAND_EXPLAINATION);
     }
 
     //quinto bottone: rinuncia
@@ -192,8 +165,33 @@ public class MainMenu extends AbstractMenu{
             e.printStackTrace();
         }       
         //creiamo bottone con rettangolo+immagini
-        buttons[4] = new MenuButton(quitImages, quitRectangle, GameState.QUIT);
-        
+        buttons[3] = new MenuButton(quitImages, quitRectangle, GameState.QUIT);
+    }
+
+    //terzo bottone: riprendi
+    private void createResumeButton() {
+        //rettangolo
+        int widthRestartButton = (int)(300*SCALE);
+        int heightRestartButton = (int)(17*SCALE);
+        int xRestartButton = ViewUtils.getCenteredXPos(widthRestartButton);
+        int yRestartButton = (int)(250 * SCALE) + 2*distanceBetweenButtons;
+        Rectangle restartRectangle = new Rectangle(xRestartButton,yRestartButton,widthRestartButton,heightRestartButton);
+        //immagini
+        BufferedImage[] restartImages = new BufferedImage[3];
+        BufferedImage temp;
+        try {
+            temp = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/riprendi1.png"));
+            restartImages[0] = ViewUtils.scaleImage(temp, widthRestartButton, heightRestartButton);
+            temp = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/riprendi2.png"));
+            restartImages[1] = ViewUtils.scaleImage(temp, widthRestartButton, heightRestartButton);
+            temp = ImageIO.read(getClass().getResourceAsStream("/res/mainMenu/riprendi3.png"));
+            restartImages[2] = ViewUtils.scaleImage(temp, widthRestartButton, heightRestartButton);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        //creiamo bottone con rettangolo+immagini
+        buttons[4] = new MenuButton(restartImages, restartRectangle, GameState.PLAYING);
     }
    
     //sono le immagini che insieme formano l'animazione sullo sfondo
@@ -267,7 +265,22 @@ public class MainMenu extends AbstractMenu{
 
         drawTitle(g2);
      }
-    
+
+     public void drawButtons(Graphics2D g2){
+        //se abbiamo già iniziato la partita, il tasto "iscriviti" scompare
+        if(GameState.playStateInStandBy){
+            for(int i = 1; i < buttons.length; i++){
+                buttons[i].draw(g2);
+            }
+        }
+        else{
+            for (int i = 0; i < buttons.length -1; i++){
+                buttons[i].draw(g2);
+            }
+        }
+     }
+
+
     //ogni tot centesimi di secondo, cambia l'immagine. in questo modo sembra che lo schermo sia in movimento
     public void drawBackground(Graphics2D g2) {
         //ogni 1/120 sec aumenta 

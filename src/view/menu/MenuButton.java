@@ -29,21 +29,31 @@ public class MenuButton extends AbstractMenuButton {
 			g2.drawImage(mousePressedImage, (int)bounds.getX(), (int)bounds.getY(), null);	
     }
 
-
-
     @Override
     public void reactToMouse(MouseEvent e) {
-        GameState.actualState = newState;
+        //se non è il tasto resume, fai quello che ti pare
+        if(newState != GameState.PLAYING)
+            GameState.actualState = newState;
+        //se sei il tasto resume, vai nel play solo se la partita è già iniziata
+        else{
+            if(GameState.playStateInStandBy)
+                GameState.actualState = newState;
+        }
     }
-
 
     @Override
     public void reactToEnter() {
-        GameState.actualState = newState;
+        //se non è il tasto resume, fai quello che ti pare
+        if(newState != GameState.PLAYING)
+            GameState.actualState = newState;
+            //se sei il tasto resume, vai nel play solo se la partita è già iniziata
+        else{
+            if(GameState.playStateInStandBy)
+                GameState.actualState = newState;
+        }
     }
 
     @Override
     public void reactToDrag(MouseEvent e) {
-
     }
 }

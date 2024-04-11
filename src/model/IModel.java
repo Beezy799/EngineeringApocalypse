@@ -69,34 +69,6 @@ public class IModel {
         controller.getPathFinder().createGraph();
     }
 
-//    public int getEntityXpos(EntityView ev){
-//        if(ev instanceof NpcView)
-//            return Rooms.actualRoom.getNpc().get(ev.getIndexInEntityArray()).getEntityController().getxPos();
-//
-//        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEnemyController().getxPos();
-//    }
-
-//    public int getEntityYpos(EntityView ev){
-//        if(ev instanceof NpcView)
-//            return Rooms.actualRoom.getNpc().get(ev.getIndexInEntityArray()).getEntityController().getyPos();
-//
-//        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEnemyController().getyPos();
-//    }
-
-//    public EntityStates getCurrentStateOfEntity(EntityView ev){
-//        if(ev instanceof NpcView)
-//            return Rooms.actualRoom.getNpc().get(ev.getIndexInEntityArray()).getEntityController().getCurrentState();
-//
-//        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEnemyController().getCurrentState();
-//    }
-
-//    public Vector getCurrentDirectionOfEntity(EntityView ev){
-//        if(ev instanceof NpcView)
-//            return Rooms.actualRoom.getNpc().get(ev.getIndexInEntityArray()).getEntityController().getMovementVector();
-//
-//        return Rooms.actualRoom.getEnemy().get(ev.getIndexInEntityArray()).getEnemyController().getMovementVector();
-//    }
-
     public void loadEntitiesInRooms(IView iView) {
         for(Rooms room : Rooms.values()) {
             room.loadNPCs(iView);
@@ -121,19 +93,6 @@ public class IModel {
         Rooms.actualRoom.getEnemy().get(enemyIndex).getEnemyController().setStateLocked(false);
     }
 
-//    public int getEnemyLife(int enemyInde){
-//        return Rooms.actualRoom.getEnemy().get(enemyInde).getEnemyController().getLife();
-//    }
-
-//    public void deleteEvent(int index) {
-//        ArrayList<Event> events = Rooms.actualRoom.getEvents();
-//        //diminuisce di uno l'indice di tutti gli elementi successivi
-//        for(int i = index + 1; i < events.size(); i++){
-//            events.get(i).setIndex( events.get(i).getIndex() - 1);
-//        }
-//        events.remove(index);
-//    }
-
     public void checkHittedEnemy(Hitbox playerAttackHitbox, int playerAttack) {
         ArrayList<EnemyComplete> enemyes = Rooms.actualRoom.getEnemy();
         for (EnemyComplete e : enemyes){
@@ -143,15 +102,5 @@ public class IModel {
         }
     }
 
-//    public void deleteEnemy(int enemyIndex){
-////        ArrayList<EnemyComplete> enemy = Rooms.actualRoom.getEnemy();
-////
-////        //diminuisce di uno l'indice di tutti gli elementi successivi
-////        for(int i = enemyIndex + 1; i < enemy.size(); i++){
-////            enemy.get(i).lowIndex();
-////        }
-////
-////        enemy.remove(enemyIndex);
-//    }
 
 }
