@@ -14,7 +14,7 @@ public class PupaController extends EntityController {
     public PupaController(int x, int y, IController c, int index) {
         super(x, y, c, index);
 
-        setHitbox(hitboxWidth, hitboxHeight);
+        setHitbox(hitboxWidth, hitboxHeight, 2, 2);
         movementVector.setX(-1);
     }
 

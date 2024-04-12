@@ -10,17 +10,14 @@ public class NullafacenteController extends EnemyController{
 
     private int rechargeCounter, hittedCounter;
     private int hitboxWidth = 32, hitboxHeight = 32;
+    private float range = GamePanel.TILES_SIZE*1.4f;
+
 
 
     public NullafacenteController(int x, int y, IController c, int index) {
         super(x, y, c, index);
 
-        setHitbox(hitboxWidth, hitboxHeight);
-        interactionHitbox = new Hitbox( xPos - 8*GamePanel.TILES_SIZE/2,
-                yPos - 8*GamePanel.TILES_SIZE/2,
-                8*GamePanel.TILES_SIZE,
-                8*GamePanel.TILES_SIZE);
-
+        setHitbox(hitboxWidth, hitboxHeight, 8, 8);
         attackHitbox = new Hitbox(0,0, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
 
         life = 100;
@@ -41,7 +38,7 @@ public class NullafacenteController extends EnemyController{
                 }
 
                 //controlla se il player è sotto tiro
-                else if(icanHitThePlayer()){
+                else if(icanHitThePlayer(range)){
                     changeState(EntityStates.ATTACKING);
                     stateLocked = true;
                 }
@@ -62,7 +59,7 @@ public class NullafacenteController extends EnemyController{
                 break;
 
             case MOVE:
-                if(icanHitThePlayer()) {
+                if(icanHitThePlayer(range)) {
                     changeState(EntityStates.ATTACKING);
                     stateLocked = true;
                 }
@@ -94,7 +91,7 @@ public class NullafacenteController extends EnemyController{
                 break;
 
             case CHASE:
-                if(icanHitThePlayer()) {
+                if(icanHitThePlayer(range)) {
                     path = null;
                     pathNodeIndex = 0;
                     changeState(EntityStates.ATTACKING);
@@ -144,49 +141,5 @@ public class NullafacenteController extends EnemyController{
 
     }
 
-    private boolean iCanSeeThePlayer() {
-        return interactionHitbox.intersects(controller.getPlayerController().getHitbox());
-    }
-
-    private boolean icanHitThePlayer() {
-        int xdist = Math.abs(xPos - controller.getPlayerController().getxPosPlayer());
-        int ydist = Math.abs(yPos - controller.getPlayerController().getyPosPlayer());
-
-        if(xdist < GamePanel.TILES_SIZE*1.4f && ydist < GamePanel.TILES_SIZE*1.4f) {
-            if(xPos/GamePanel.TILES_SIZE == controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE ||
-                    yPos/GamePanel.TILES_SIZE == controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void shiftAttackHitbox() {
-        if(movementVector.getX() > 0){
-            attackHitbox.setX(hitbox.getX() + hitbox.getWidth());
-            attackHitbox.setY(yPos - (float) attackHitbox.getHeight() /2);
-        }
-        else if (movementVector.getX() < 0) {
-            attackHitbox.setX(hitbox.getX() - attackHitbox.getWidth());
-            attackHitbox.setY(yPos - (float) attackHitbox.getHeight() /2);
-        }
-        else if (movementVector.getY() < 0) {
-            attackHitbox.setY(hitbox.getY() - attackHitbox.getHeight());
-            attackHitbox.setX(xPos - (float) attackHitbox.getWidth() /2);
-        }
-        else if (movementVector.getY() > 0) {
-            attackHitbox.setY(hitbox.getY() + hitbox.getHeight());
-            attackHitbox.setX(xPos - (float) attackHitbox.getWidth() /2);
-        }
-    }
-
-    private boolean iCanReachThePlayer(){
-        Node start = new Node(yPos/GamePanel.TILES_SIZE, xPos/GamePanel.TILES_SIZE);
-        int playerRow = controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE;
-        int playerCol = controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE;
-        Node goal = new Node(playerRow, playerCol);
-        path = controller.getPathFinder().findPath(start, goal);
-        return path != null;
-    }
 
 }

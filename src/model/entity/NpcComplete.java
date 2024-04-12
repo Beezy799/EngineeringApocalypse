@@ -13,4 +13,8 @@ public class NpcComplete extends EntityComplete {
         return (NpcView) entityView;
     }
 
+    public void reset() {
+        getNpcView().reset();
+        getEntityController().reset();
+    }
 }

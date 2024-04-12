@@ -16,12 +16,10 @@ public class TransitionState {
 
     private float counter;
     private final float transitionDuration = 180; //120 fps quindi sono 1,5 secondi
-
     private float opacity;
     private GameState prev;
     private GameState next;
     private IView view;
-
     private float volume;
     private float volumeBeforeTransition;
     private boolean volumeSaved = false;
@@ -43,26 +41,57 @@ public class TransitionState {
             view.changeGameState(prev);
             view.prepareNewFrame(g2);
 
-            //disegna un rect nero sempre più visibile che copre il vecchio stato
-            opacity = counter/transitionDuration;
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-            g2.setColor(Color.black);
-            g2.fillRect(0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT);
-
-            //sfuma il volume della musica
-            volume = view.getMusicVolume() - opacity + 0.01f;
-            view.setMusicVolume(volume);
+            drawBlackOpaqueRect(g2);
+            sfumaMusica();
 
             view.changeGameState(GameState.TRANSITION_STATE);
 
         }
         else
-            resetTransition();
+            goToNextStateAfterTransition();
 
     }
 
-    //ripristina lo stato iniziale della classe
-    private void resetTransition() {
+    public void drawTransitionAfterGameOver(Graphics2D g2){
+        counter++;
+        saveOldVolume();
+
+        if (counter < transitionDuration) {
+
+            //disegna il vecchio stato
+            view.changeGameState(GameState.PLAYING);
+            view.prepareNewFrame(g2);
+
+            drawBlackOpaqueRect(g2);
+            sfumaMusica();
+
+            view.changeGameState(GameState.TRANSITION_AFTER_GAME_OVER);
+        }
+        else
+            resetGameAfterGameOver();
+    }
+
+    private void resetGameAfterGameOver() {
+        counter = 0;
+        volumeSaved = false;
+
+        view.getSoundManager().stopMusic();
+        view.setMusicVolume(volumeBeforeTransition);
+        volume = view.getMusicVolume();
+
+        view.getSoundManager().loopMusic(Constants.SoundConstants.MENU_MUSIC);
+        view.changeGameState(GameState.MAIN_MENU);
+
+        setPrev(GameState.SELECT_AVATAR);
+        setNext(GameState.PLAYING);
+
+        //finita la transizione il gioco si resetta
+        view.getModel().resetGame();
+        GameState.playStateInStandBy = false;
+
+    }
+
+    private void goToNextStateAfterTransition() {
         counter = 0;
         volumeSaved = false;
 
@@ -72,6 +101,12 @@ public class TransitionState {
 
         //se sta andando dal menu al play
         if(next == GameState.PLAYING && prev == GameState.SELECT_AVATAR) {
+            view.getSoundManager().loopMusic(Rooms.actualRoom.getMusicIndex());
+            view.changeGameState(next);
+        }
+
+        //se sta andando dal menu al play
+        else if(next == GameState.PLAYING && prev == GameState.MAIN_MENU) {
             view.getSoundManager().loopMusic(Rooms.actualRoom.getMusicIndex());
             view.changeGameState(next);
         }
@@ -87,7 +122,8 @@ public class TransitionState {
         else if(next == GameState.MAIN_MENU) {
             view.getSoundManager().loopMusic(Constants.SoundConstants.MENU_MUSIC);
             view.changeGameState(next);
-            resetNextPrev();
+            next = GameState.PLAYING;
+            prev = GameState.MAIN_MENU;
         }
 
     }
@@ -100,22 +136,22 @@ public class TransitionState {
         }
     }
 
-    //	//da cambiare
-    private void resetNextPrev() {
-        next = GameState.PLAYING;
-        prev = GameState.SELECT_AVATAR;
+    private void drawBlackOpaqueRect(Graphics2D g2) {
+        //disegna un rect nero sempre più visibile che copre il vecchio stato
+        opacity = counter/transitionDuration;
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+        g2.setColor(Color.black);
+        g2.fillRect(0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT);
     }
 
-    public GameState getPrev() {
-        return prev;
+    private void sfumaMusica() {
+        //sfuma il volume della musica
+        volume = view.getMusicVolume() - opacity + 0.01f;
+        view.setMusicVolume(volume);
     }
 
     public void setPrev(GameState prev) {
         this.prev = prev;
-    }
-
-    public GameState getNext() {
-        return next;
     }
 
     public void setNext(GameState next) {

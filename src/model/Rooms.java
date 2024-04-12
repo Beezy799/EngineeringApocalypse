@@ -303,4 +303,15 @@ public enum Rooms {
     }
     public static Rooms actualRoom = BIBLIOTECA;
 
+    public void resetEventsAndEenemyes() {
+        for(Event event : events){
+            event.setEndInteraction(false);
+        }
+        for(EnemyComplete enemyComplete: enemyList){
+            enemyComplete.reset();
+        }
+        for(NpcComplete npc : npcList){
+            npc.reset();
+        }
+    }
 }

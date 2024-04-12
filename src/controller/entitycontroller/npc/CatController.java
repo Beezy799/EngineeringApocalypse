@@ -19,7 +19,7 @@ public class CatController extends EntityController {
 
     public CatController(int x, int y, IController c, int index) {
         super(x, y, c, index);
-        setHitbox(hitboxWidth, hitboxHeight);
+        setHitbox(hitboxWidth, hitboxHeight, 2, 2);
     }
 
     @Override

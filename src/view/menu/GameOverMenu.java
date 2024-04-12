@@ -17,14 +17,20 @@ public class GameOverMenu extends AbstractMenu {
     //bottone rinuncia agli studi
     private IView view;
     private String homeIconPath = "/res/pauseMenu/bottoneHome.png";
+
+    int fontSize = (int)(15*SCALE);
+    Font gameOverFont = new Font("Arial", Font.PLAIN, fontSize);
+    private String gameOverString = "mi spiace, non le posso mettere più di 17...";
     private BufferedImage gameOverImage;
-    private PauseMenuButton home;
-    private int yGameOverImage = (int)(60*SCALE);
+    private GameOverMenuButton home;
+    private int yGameOverImage, yGameOverString;
     private int yDistance = (int)(50*SCALE);
 
     public GameOverMenu(IView v){
         view = v;
         loadGameOverImage();
+        yGameOverImage = GamePanel.GAME_HEIGHT/2 - gameOverImage.getHeight();
+        yGameOverString = yGameOverImage + gameOverImage.getHeight() + yDistance;
         buttons = new AbstractMenuButton[2];
         createButtons(v);
     }
@@ -33,7 +39,7 @@ public class GameOverMenu extends AbstractMenu {
         BufferedImage temp = null;
         try {
             temp = ImageIO.read(getClass().getResourceAsStream("/res/game over.png"));
-            temp = ViewUtils.scaleImage(temp, (int)200* SCALE, (int)100* SCALE);
+            temp = ViewUtils.scaleImage(temp, (int)200* SCALE, (int)80* SCALE);
             gameOverImage = temp;
         }
         catch (IOException e) {
@@ -42,9 +48,9 @@ public class GameOverMenu extends AbstractMenu {
     }
 
     private void createButtons(IView v) {
-        home = new PauseMenuButton(v, homeIconPath, 0, 0, GameState.TRANSITION_STATE, true);
+        home = new GameOverMenuButton(v, homeIconPath, 0, 0);
         int centeredX = GamePanel.GAME_WIDTH/2 - home.bounds.width/2;
-        home.bounds.setBounds(centeredX, yGameOverImage + gameOverImage.getHeight() + yDistance, home.bounds.width, home.bounds.height);
+        home.bounds.setBounds(centeredX, yGameOverString + yDistance, home.bounds.width, home.bounds.height);
         buttons[0] = home;
 
         //rettangolo
@@ -75,6 +81,12 @@ public class GameOverMenu extends AbstractMenu {
     public void draw(Graphics2D g2){
         drawBackground(g2);
         drawButtons(g2);
+
+        g2.setFont(gameOverFont);
+        g2.setColor(Color.CYAN);
+        int centeredXGameOverString = ViewUtils.getXforCenterText(gameOverString, g2);
+        g2.drawString(gameOverString, centeredXGameOverString, yGameOverString);
+
         int centeredXImage = GamePanel.GAME_WIDTH/2 - gameOverImage.getWidth()/2;
         g2.drawImage(gameOverImage, centeredXImage, yGameOverImage, null);
     }

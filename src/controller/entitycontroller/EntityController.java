@@ -18,6 +18,10 @@ public abstract class EntityController {
     protected Hitbox hitbox, interactionHitbox, tempHitbox;
     protected int XhitboxOffset, YhitboxOffset;
     protected int xPos, yPos, speed;
+
+    //per quando viene resettato il gioco
+    protected int initialXpos, initialYpos;
+
     protected EntityStates currentState = IDLE;
     protected Vector movementVector;
     protected int actionCounter;
@@ -34,6 +38,8 @@ public abstract class EntityController {
     public EntityController(int x, int y, IController c, int index){
         xPos = x * GamePanel.TILES_SIZE;
         yPos = y * GamePanel.TILES_SIZE;
+        initialXpos = xPos;
+        initialYpos = yPos;
         speed = 1;
         movementVector = new Vector(2);
         randomGenerator = new Random();
@@ -242,7 +248,7 @@ public abstract class EntityController {
         }
     }
 
-    protected void setHitbox(int hitboxWidth, int hitboxHeight) {
+    protected void setHitbox(int hitboxWidth, int hitboxHeight, int interactionHitboxWidth, int interactionHitboxHeight) {
         hitbox = new Hitbox(xPos, yPos, (int)(hitboxWidth*GamePanel.SCALE), (int)(hitboxHeight*GamePanel.SCALE));
         XhitboxOffset = hitbox.getWidth()/2;
         YhitboxOffset = hitbox.getHeight()/2;
@@ -253,10 +259,10 @@ public abstract class EntityController {
         YhitboxOffset = hitbox.getHeight()/2;
 
         tempHitbox = new Hitbox((int)hitbox.getX(), (int)hitbox.getY(), (int)(hitboxWidth*GamePanel.SCALE),
-                (int)(hitboxHeight*GamePanel.SCALE));
+                    (int)(hitboxHeight*GamePanel.SCALE));
 
-        int interactionHitboxWidth = 2*GamePanel.TILES_SIZE;
-        int interactionHitboxHeight = 2*GamePanel.TILES_SIZE;
+        interactionHitboxWidth = interactionHitboxWidth*GamePanel.TILES_SIZE;
+        interactionHitboxHeight = interactionHitboxHeight*GamePanel.TILES_SIZE;
 
         interactionHitbox = new Hitbox( xPos - interactionHitboxWidth/2,
                 yPos - interactionHitboxHeight/2,
@@ -368,6 +374,24 @@ public abstract class EntityController {
 
     public void setEntityComplete(EntityComplete e) {
         entityComplete = e;
+    }
+
+    public void reset(){
+        currentState = EntityStates.IDLE;
+        movementVector.resetDirections();
+
+        xPos = initialXpos;
+        yPos = initialYpos;
+
+        int initialHitboxWidth = (int)(hitbox.getWidth()/GamePanel.SCALE);
+        int initialHitboxHeight = (int)(hitbox.getHeight()/GamePanel.SCALE);
+        int initialInteracionHitboxWidth = interactionHitbox.getWidth()/GamePanel.TILES_SIZE;
+        int initialInteracionHitboxHeight = interactionHitbox.getHeight()/GamePanel.TILES_SIZE;
+        setHitbox(initialHitboxWidth, initialHitboxHeight, initialInteracionHitboxWidth, initialInteracionHitboxHeight);
+
+        if(path != null)
+            path = null;
+        pathNodeIndex = 0;
     }
 
 }

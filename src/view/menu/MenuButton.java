@@ -43,7 +43,7 @@ public class MenuButton extends AbstractMenuButton {
             }
         }
         //se siamo sul tasto riprendi, va in play solo se la partita era iniziata
-        else if (newState == GameState.PLAYING) {
+        else if (newState == GameState.TRANSITION_STATE) {
             if(GameState.playStateInStandBy)   {
                 GameState.actualState = newState;
             }

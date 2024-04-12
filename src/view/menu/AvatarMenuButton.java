@@ -22,7 +22,6 @@ public class AvatarMenuButton extends  AbstractMenuButton{
     private int animationLenght = 6; //durata gif
     private int numSprite = 0; //indice della sprite disegnata
     private int gender;
-
     private IView view;
 
 

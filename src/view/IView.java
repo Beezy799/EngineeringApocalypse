@@ -110,6 +110,9 @@ public class IView {
                 playStateView.draw(g2);
                 gameOverMenu.draw(g2);
                 break;
+            case TRANSITION_AFTER_GAME_OVER:
+                transitionState.drawTransitionAfterGameOver(g2);
+                break;
             default:
                 break;
         }

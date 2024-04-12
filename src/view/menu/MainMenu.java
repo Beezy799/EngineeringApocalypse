@@ -122,7 +122,7 @@ public class MainMenu extends AbstractMenu{
         int widthCommandButton = (int)(120*SCALE);
         int heightCommandButton = (int)(12*SCALE);
         int xCommandButton = ViewUtils.getCenteredXPos(widthCommandButton);
-        int yCommandButton = (int)(250 * SCALE) + 3*distanceBetweenButtons;
+        int yCommandButton = (int)(250 * SCALE) + 2*distanceBetweenButtons;
         Rectangle quitRectangle = new Rectangle(xCommandButton,yCommandButton,widthCommandButton,heightCommandButton);
         //immagini
         BufferedImage[] commandImages = new BufferedImage[3];
@@ -174,7 +174,7 @@ public class MainMenu extends AbstractMenu{
         int widthRestartButton = (int)(300*SCALE);
         int heightRestartButton = (int)(17*SCALE);
         int xRestartButton = ViewUtils.getCenteredXPos(widthRestartButton);
-        int yRestartButton = (int)(250 * SCALE) + 2*distanceBetweenButtons;
+        int yRestartButton = (int)(250 * SCALE) + 3*distanceBetweenButtons;
         Rectangle restartRectangle = new Rectangle(xRestartButton,yRestartButton,widthRestartButton,heightRestartButton);
         //immagini
         BufferedImage[] restartImages = new BufferedImage[3];
@@ -191,7 +191,7 @@ public class MainMenu extends AbstractMenu{
             e.printStackTrace();
         }
         //creiamo bottone con rettangolo+immagini
-        buttons[4] = new MenuButton(restartImages, restartRectangle, GameState.PLAYING);
+        buttons[4] = new MenuButton(restartImages, restartRectangle, GameState.TRANSITION_STATE);
     }
    
     //sono le immagini che insieme formano l'animazione sullo sfondo
@@ -279,7 +279,6 @@ public class MainMenu extends AbstractMenu{
             }
         }
      }
-
 
     //ogni tot centesimi di secondo, cambia l'immagine. in questo modo sembra che lo schermo sia in movimento
     public void drawBackground(Graphics2D g2) {

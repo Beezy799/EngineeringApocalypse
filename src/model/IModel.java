@@ -103,4 +103,12 @@ public class IModel {
     }
 
 
+    public  void resetGame(){
+        for (Rooms room : Rooms.values()){
+            room.resetEventsAndEenemyes();
+        }
+        Rooms.actualRoom = Rooms.BIBLIOTECA;
+        controller.getPlayerController().reset();
+    }
+
 }

@@ -25,4 +25,8 @@ public abstract class NpcView extends EntityView {
     @Override
     protected abstract int getAnimationLenght();
     protected abstract void loadDialogues();
+
+    public void reset(){
+        dialogueIndex = 0;
+    }
 }

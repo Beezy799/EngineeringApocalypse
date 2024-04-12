@@ -12,6 +12,7 @@ public class PlayerController {
     //velocità e posizione sono dei float, perchè così possiamo scalarli meglio
     //inoltre il movimento diagonale non è più veloce
     private float xPosPlayer = 19*GamePanel.TILES_SIZE, yPosPlayer = 15*GamePanel.TILES_SIZE; //posizione del player
+    private final float initialxPosPlayer = xPosPlayer, initialyPosPlayer = yPosPlayer;
     private float speed = 2f;
     private Vector movementVector; //"direzione" del player
     private EntityStates actualState = EntityStates.IDLE;
@@ -43,9 +44,12 @@ public class PlayerController {
         controller = c;
         movementVector = new Vector(speed);
         playStateController = p;
+        setHitboxes();
+    }
+
+    private void setHitboxes() {
         hitbox = new Hitbox((int)xPosPlayer - XhitboxOffset, (int)yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
         tempHitbox = new Hitbox((int)xPosPlayer - XhitboxOffset, (int)yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
-
         attackHitbox = new Hitbox(0, 0, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
     }
 
@@ -390,4 +394,14 @@ public class PlayerController {
         return attack;
     }
 
+    public void reset() {
+        life = 100;
+        cfu = 0;
+        xPosPlayer = initialxPosPlayer;
+        yPosPlayer = initialyPosPlayer;
+        setHitboxes();
+        movementVector.resetDirections();
+        actualState = EntityStates.IDLE;
+        stateLocked = false;
+    }
 }

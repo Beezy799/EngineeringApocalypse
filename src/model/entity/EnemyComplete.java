@@ -31,4 +31,8 @@ public class EnemyComplete extends EntityComplete{
     }
 
 
+    public void reset() {
+        setAlive(true);
+        getEnemyController().reset();
+    }
 }

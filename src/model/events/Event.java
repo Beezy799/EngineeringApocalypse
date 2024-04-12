@@ -49,4 +49,8 @@ public abstract class Event {
 	public int getIndex(){
 		return index;
 	}
+
+	public void setEndInteraction(boolean b){
+		endInteraction = b;
+	}
 }

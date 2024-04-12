@@ -23,4 +23,5 @@ public class EntityComplete {
     public EntityController getEntityController(){
         return entityController;
     }
+
 }
