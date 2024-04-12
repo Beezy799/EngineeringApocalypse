@@ -56,8 +56,7 @@ public class PlayerView extends SortableElement {
 
         switch (currentState){
             case IDLE:
-                normalDraw(g2);
-                break;
+            case HITTED:
             case MOVE:
                 normalDraw(g2);
                 break;
@@ -83,6 +82,10 @@ public class PlayerView extends SortableElement {
                 break;
         }
 
+        if(currentState == EntityStates.HITTED){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        }
+
         try {
             //disegna il giocatore
             g2.drawImage(playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite],
@@ -92,6 +95,9 @@ public class PlayerView extends SortableElement {
         catch (IndexOutOfBoundsException e){
             e.printStackTrace();
         }
+
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
         //disegna la zona occupata dalla sprite
 //        g2.drawRect(xOnScreen, yOnScreen,
 //                playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite].getWidth(),

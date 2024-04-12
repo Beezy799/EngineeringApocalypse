@@ -44,8 +44,8 @@
   "eventi": [
     {
       "nome": "Caffe",
-      "colonna": 34,
-      "riga": 8,
+      "colonna": 11,
+      "riga": 18,
       "larghezza": 32,
       "altezza": 32
     },
@@ -60,6 +60,20 @@
       "nome": "cfu",
       "colonna": 27,
       "riga": 11,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
+      "nome": "appunti",
+      "colonna": 25,
+      "riga": 18,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
+      "nome": "appunti",
+      "colonna": 21,
+      "riga": 8,
       "larghezza": 32,
       "altezza": 32
     }

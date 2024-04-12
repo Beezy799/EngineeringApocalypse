@@ -11,7 +11,7 @@ public class NullafacenteController extends EnemyController{
     private int rechargeCounter, hittedCounter;
     private int hitboxWidth = 32, hitboxHeight = 32;
     private float range = GamePanel.TILES_SIZE*1.4f;
-
+    private int attackCounter;
 
 
     public NullafacenteController(int x, int y, IController c, int index) {
@@ -84,10 +84,15 @@ public class NullafacenteController extends EnemyController{
                 //che avverte il player di pararsi e uno stato attacca.
                 turnToPlayer();
                 shiftAttackHitbox();
-                if(attackHitbox.intersects(controller.getPlayerController().getHitbox())){
-                    controller.getPlayerController().hitted(10, movementVector);
+                attackCounter++;
+                if(attackCounter >= 100){
+                    attackCounter = 0;
+                    if(attackHitbox.intersects(controller.getPlayerController().getHitbox())){
+                        controller.getPlayerController().hitted(10, movementVector);
+                    }
+                    changeState(EntityStates.RECHARGE);
                 }
-                changeState(EntityStates.RECHARGE);
+
                 break;
 
             case CHASE:
@@ -125,7 +130,6 @@ public class NullafacenteController extends EnemyController{
                     hittedCounter = 0;
                     changeState(EntityStates.IDLE);
                 }
-
                 break;
 
             case RECHARGE:

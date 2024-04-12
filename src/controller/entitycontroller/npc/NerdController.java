@@ -10,6 +10,9 @@ public class NerdController extends EntityController {
 
     private final int hitboxWidth = 32;
     private final int hitboxHeight = 32;
+
+    private int waitCounter;
+
     public NerdController(int x, int y, IController c, int index) {
         super(x, y, c, index);
         setHitbox(hitboxWidth, hitboxHeight, 2, 2);
@@ -17,41 +20,45 @@ public class NerdController extends EntityController {
 
     @Override
     public void update() {
-        switch(currentState){
+        switch (currentState){
             case IDLE:
-                movementVector.resetDirections();
-                movementVector.setY(1);
+                wait(400, EntityStates.CHASE);
+                break;
+            case CHASE:
+                findPath();
+                currentState = EntityStates.MOVE;
+                break;
+            case MOVE:
+                followPath();
+                if(pathNodeIndex == path.size() - 1) {
+                    pathNodeIndex = 0;
+                    currentState = EntityStates.IDLE;
+                }
                 break;
             case SPEAKING:
                 turnToPlayer();
                 currentState = EntityStates.IDLE;
                 break;
-            default:
-                currentState = EntityStates.IDLE;
-                break;
         }
-//        switch (currentState){
-//            case IDLE:
-//                pathNodeIndex = 0;
-//                Node start = new Node(yPos/ GamePanel.TILES_SIZE, xPos/GamePanel.TILES_SIZE);
-//                Node goal = new Node(controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE,
-//                                     controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE);
-//                path = controller.getPathFinder().findPath(start, goal);
-//                if(path != null){
-//                    currentState = EntityStates.MOVE;
-//                }
-//                break;
-//            case MOVE:
-//                followPath();
-//                if(pathNodeIndex == path.size() - 2) {
-//                    pathNodeIndex = 0;
-//                    currentState = EntityStates.IDLE;
-//                }
-//                break;
-//            case SPEAKING:
-//                turnToPlayer();
-//                currentState = EntityStates.IDLE;
-//                break;
-//        }
     }
+
+    private void findPath() {
+        pathNodeIndex = 0;
+        Node start = new Node(yPos/GamePanel.TILES_SIZE, xPos/GamePanel.TILES_SIZE);
+
+        int playerRow = controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE;
+        int playerCol = controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE;
+        Node goal = new Node(playerRow, playerCol);
+
+        path = controller.getPathFinder().findPath(start, goal);
+    }
+
+    public void wait(int Limit, EntityStates nextState){
+        waitCounter++;
+        if(waitCounter >= Limit){
+            waitCounter = 0;
+            currentState = nextState;
+        }
+    }
+
 }

@@ -35,6 +35,20 @@
       "riga": 8,
       "larghezza": 32,
       "altezza": 32
+    },
+    {
+      "nome": "appunti",
+      "colonna": 14,
+      "riga": 11,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
+      "nome": "appunti",
+      "colonna": 11,
+      "riga": 17,
+      "larghezza": 32,
+      "altezza": 32
     }
   ],
   "enemy": []

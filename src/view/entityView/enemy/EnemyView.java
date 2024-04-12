@@ -44,7 +44,6 @@ public abstract class EnemyView extends EntityView {
 
     public void draw(Graphics2D g2, int xPlayerMap, int yPlayerMap){
         takeCurrentStateFromController();
-        drawLifeRect(g2);
 
         switch (currentState){
             case IDLE:
@@ -67,13 +66,14 @@ public abstract class EnemyView extends EntityView {
                 break;
         }
 
+        drawLifeRect(g2);
     }
 
     protected void drawLifeRect(Graphics2D g2) {
-        if(currentState != EntityStates.DYING){
-            int life = ((EnemyComplete)entityComplete).getEnemyController().getLife(); //view.getModel().getEnemyLife(indexInEntityArray);
+        if(currentState != EntityStates.DYING && currentState != EntityStates.ATTACKING){
+            int life = ((EnemyComplete)entityComplete).getEnemyController().getLife();
 
-            if(life > 20)
+            if(life > 30)
                 g2.setColor(Color.green);
             else
                 g2.setColor(Color.red);
@@ -186,6 +186,8 @@ public abstract class EnemyView extends EntityView {
 
         //siccome la posizone dell'entità non coincide col punto in alto a sinistra dell'immagine, compensiamo con gli offset
         g2.drawImage(animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite], xPosOnScreen - xOffset, yPosOnScreen - yOffset, null);
+
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
         if(currentState == EntityStates.CHASE){
             g2.drawImage(puntoEsclamativo, xPosOnScreen, yPosOnScreen - 2*puntoEsclamativo.getHeight(), null);

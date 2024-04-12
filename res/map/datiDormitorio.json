@@ -36,6 +36,13 @@
       "riga": 21,
       "larghezza": 32,
       "altezza": 32
+    },
+    {
+      "nome": "cfu",
+      "colonna": 18,
+      "riga": 11,
+      "larghezza": 32,
+      "altezza": 32
     }
   ]
 }

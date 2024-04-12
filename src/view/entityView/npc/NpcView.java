@@ -1,5 +1,6 @@
 package src.view.entityView.npc;
 
+import src.model.GameState;
 import src.view.IView;
 import src.view.entityView.EntityView;
 
@@ -15,10 +16,13 @@ public abstract class NpcView extends EntityView {
     public void setNextDialogueLine(){
         dialogueIndex++;
 
-        if(dialogueIndex >= dialogues.length)
+        if(dialogueIndex >= dialogues.length) {
             dialogueIndex = dialogues.length - 1;
+            GameState.actualState = GameState.PLAYING;
+        }
 
     }
+
     public String getDialogue(){
         return dialogues[dialogueIndex];
     }

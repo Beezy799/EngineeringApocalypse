@@ -24,8 +24,15 @@
   "eventi": [
     {
       "nome": "Caffe",
-      "colonna": 34,
-      "riga": 8,
+      "colonna": 18,
+      "riga": 11,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
+      "nome": "appunti",
+      "colonna": 17,
+      "riga": 14,
       "larghezza": 32,
       "altezza": 32
     }

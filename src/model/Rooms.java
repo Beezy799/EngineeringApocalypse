@@ -248,7 +248,6 @@ public enum Rooms {
                 case "Caffe":
                     events.add(new Caffe(bounds, m, i));
                     break;
-
                 case "Piano":
                     events.add(new Piano(bounds, m, i));
                     break;
@@ -257,6 +256,9 @@ public enum Rooms {
                     break;
                 case "luce":
                     events.add(new Light(bounds, m, i));
+                    break;
+                case "appunti":
+                    events.add(new Notes(bounds, m, i));
                     break;
             }
 
@@ -287,7 +289,6 @@ public enum Rooms {
     public void setNewMusic(int i){
         musicIndex = i;
     }
-
 
     //le stanze si salvano il riferimento al model
     public static void setModel(IModel m){

@@ -19,6 +19,8 @@ public class PlayerController {
     private boolean stateLocked = false;
     private boolean nearEntity;
 
+    private int hittedCounter;
+
 
     private int life = 100;
     private int cfu = 0;
@@ -70,6 +72,13 @@ public class PlayerController {
             case ATTACKING:
                 checkHittedEnemy();
                 break;
+            case HITTED:
+                hittedCounter++;
+                if(hittedCounter >= 100){
+                    hittedCounter = 0;
+                    unlockState();
+                }
+                break;
             case PARRING:
                 break;
             case THROWING:
@@ -77,7 +86,6 @@ public class PlayerController {
             case SPEAKING:
                 break;
             case DYING:
-                lockState();
                 break;
         }
 
@@ -381,10 +389,20 @@ public class PlayerController {
             }
         }
 
+        if(actualState == EntityStates.HITTED){
+            hitted = false;
+        }
+
         if(hitted){
             int damage = enemyAttack - defence;
             if(damage > 0){
+                actualState = EntityStates.HITTED;
+                lockState();
                 life -= damage;
+            }
+            if(life <= 0){
+                lockState();
+                actualState = EntityStates.DYING;
             }
         }
 

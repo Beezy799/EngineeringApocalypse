@@ -147,7 +147,7 @@ public class IController {
 
         if (InputState.P.getPressed() || InputState.MIDDLE_CLICK.getPressed()) {
 
-            GameState.actualState = GameState.GAME_OVER;
+            //GameState.actualState = GameState.GAME_OVER;
             System.out.println("p " +playerController.getyPosPlayer()/ GamePanel.TILES_SIZE + ", " + playerController.getxPosPlayer()/GamePanel.TILES_SIZE);
 
 

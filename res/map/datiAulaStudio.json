@@ -83,6 +83,13 @@
       "altezza": 32
     },
     {
+      "nome": "Caffe",
+      "colonna": 13,
+      "riga": 13,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
       "nome": "Piano",
       "colonna": 36,
       "riga": 24,
@@ -102,6 +109,27 @@
       "riga": 32,
       "larghezza": 32,
       "altezza": 32
+    },
+    {
+      "nome": "appunti",
+      "colonna": 28,
+      "riga": 16,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
+      "nome": "appunti",
+      "colonna": 22,
+      "riga": 33,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
+      "nome": "appunti",
+      "colonna": 13,
+      "riga": 22,
+      "larghezza": 32,
+      "altezza": 32
     }
   ],
 
@@ -110,6 +138,10 @@
     "nome": "nullafacente",
     "riga": 28,
     "colonna": 32
+    },
+    { "nome": "nullafacente",
+      "riga": 26,
+      "colonna": 36
     }
   ]
 }
