@@ -80,8 +80,8 @@ public class NullafacenteController extends EnemyController{
                 break;
 
             case ATTACKING:
-                //ora come ora attacca troppo velocemente, possiamo creare uno stato "prepara attacco"
-                //che avverte il player di pararsi e uno stato attacca.
+                //ora come ora non si capisce quando parte l'attacco, possiamo creare uno stato "prepara attacco"
+                //che avverte il player e uno stato attacca.
                 turnToPlayer();
                 shiftAttackHitbox();
                 attackCounter++;
