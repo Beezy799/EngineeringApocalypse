@@ -17,19 +17,20 @@ public class IController {
     private IView view;
     private IModel model;
     private PlayerController playerController;
-    private PlayStateController playStateController;
     private PathFinder pathFinder;
     private int indexEntityInteraction;
+    private CollisionChecker collisionChecker;
+
 
     //serve per bloccare le variabili dell'inputstate mentre il controller le legge, in modo da evitare inconsistenze
     ReentrantLock lock;
 
     public IController(){
         lock = new ReentrantLock();
-        playStateController = new PlayStateController(this);
-        playerController = new PlayerController(this, playStateController);
+        playerController = new PlayerController(this);
         pathFinder = new PathFinder(this);
         pathFinder.createGraph();
+        collisionChecker = new CollisionChecker(this);
     }
 
     public void setView(IView v) {
@@ -60,13 +61,8 @@ public class IController {
                         enemy.getEnemyController().update();
                     }
                 }
-                try {
-                    for (int i = 0; i < Rooms.actualRoom.getBuletList().size(); i++){
-                        Rooms.actualRoom.getBuletList().get(i).getBulletController().update();
-                    }
-                }
-                catch(Exception e){
-                    e.printStackTrace();
+                for (int i = 0; i < Rooms.actualRoom.getBuletList().size(); i++){
+                    Rooms.actualRoom.getBuletList().get(i).getBulletController().update();
                 }
                 break;
 
@@ -125,7 +121,6 @@ public class IController {
         }
 
 
-
         //azioni
         if (InputState.ENTER.getPressed() || InputState.LEFT_CLICK.getPressed()) {
             playerController.changeActualState(EntityStates.ATTACKING);
@@ -142,7 +137,6 @@ public class IController {
             playerController.unlockState();
         }
 
-
         if (InputState.E.getPressed()) {
             if(playerController.isNearEntity()){
                 InputState.resetBooleans();
@@ -157,12 +151,9 @@ public class IController {
             if(playerController.getCurrentState() != EntityStates.THROWING){
                 playerController.changeActualState(EntityStates.THROWING);
                 playerController.lockState();
-
                 playerController.createBullet();
-
             }
             InputState.P.setPressed(false);
-
         }
 
         if (InputState.ESCAPE.getPressed()) {
@@ -185,7 +176,8 @@ public class IController {
         this.indexEntityInteraction = indexEntityInteraction;
     }
 
-    public PlayStateController getPlayStateController(){
-        return playStateController;
+    public CollisionChecker getCollisionChecker(){
+        return collisionChecker;
     }
+
 }

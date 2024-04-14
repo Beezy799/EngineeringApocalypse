@@ -9,7 +9,6 @@ import src.view.playStateView.BulletView;
 public class PlayerController {
 
     private IController controller;
-    private PlayStateController playStateController;
 
     //velocità e posizione sono dei float, perchè così possiamo scalarli meglio
     //inoltre il movimento diagonale non è più veloce
@@ -44,10 +43,9 @@ public class PlayerController {
     private final int YhitboxOffset = GamePanel.TILES_SIZE/4;
 
 
-    public PlayerController(IController c, PlayStateController p){
+    public PlayerController(IController c){
         controller = c;
         movementVector = new Vector(speed);
-        playStateController = p;
         setHitboxes();
     }
 
@@ -184,7 +182,7 @@ public class PlayerController {
         if(movementVector.getX() < 0){
             tempHitbox.setX(hitbox.getX() + movementVector.getX());
             tempHitbox.setY(hitbox.getY());
-            if(playStateController.getCollisionChecker().canGoLeft(tempHitbox)){       //controlla i tile
+            if(controller.getCollisionChecker().canGoLeft(tempHitbox)){       //controlla i tile
                 if(!isEntityCollision()){                               //controlla le entità, se non c'è collisione
                     xPosPlayer += movementVector.getX();                //aggiorna la posizione
                     hitbox.setX((xPosPlayer - XhitboxOffset));
@@ -196,7 +194,7 @@ public class PlayerController {
         else if(movementVector.getX() > 0){
             tempHitbox.setX(hitbox.getX() + movementVector.getX());
             tempHitbox.setY(hitbox.getY());
-            if(playStateController.getCollisionChecker().canGoRight(tempHitbox)){
+            if(controller.getCollisionChecker().canGoRight(tempHitbox)){
                 if(!isEntityCollision()){
                     xPosPlayer += movementVector.getX();
                     hitbox.setX((xPosPlayer - XhitboxOffset));
@@ -207,7 +205,7 @@ public class PlayerController {
         if(movementVector.getY() < 0){
             tempHitbox.setX(hitbox.getX());
             tempHitbox.setY(hitbox.getY() + movementVector.getY());
-            if(playStateController.getCollisionChecker().canGoUp(tempHitbox)){
+            if(controller.getCollisionChecker().canGoUp(tempHitbox)){
                 if(!isEntityCollision()) {
                     yPosPlayer += movementVector.getY();
                     hitbox.setY(yPosPlayer - YhitboxOffset);
@@ -219,7 +217,7 @@ public class PlayerController {
         else if(movementVector.getY() > 0){
             tempHitbox.setX(hitbox.getX());
             tempHitbox.setY(hitbox.getY() + movementVector.getY());
-            if(playStateController.getCollisionChecker().canGoDown(tempHitbox)){
+            if(controller.getCollisionChecker().canGoDown(tempHitbox)){
                 if(!isEntityCollision()) {
                     yPosPlayer += movementVector.getY();
                     hitbox.setY(yPosPlayer - YhitboxOffset);
@@ -452,10 +450,10 @@ public class PlayerController {
             }
             else if (bulletVector.getY() > 0) {
                 xBullet = xPosPlayer;
-                yBullet = yPosPlayer + hitbox.getHeight()/2 + bulletHitbox.getHeight()/2 +1;
+                yBullet = yPosPlayer + hitbox.getHeight()/2 + bulletHitbox.getHeight()/2 + 1;
             }
 
-            BulletController bc = new BulletController(bulletHitbox, xBullet, yBullet, bulletVector, controller);
+            BulletController bc = new BulletController(bulletHitbox, xBullet, yBullet, bulletVector, controller, this);
             BulletView bv = new BulletView();
             BulletComplete bulletComplete = new BulletComplete(bv, bc);
             int index = Rooms.actualRoom.getBuletList().size();

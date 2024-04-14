@@ -98,24 +98,24 @@ public abstract class EntityController {
         if(movementVector.getX() > 0) {
             tempHitbox.setX(hitbox.getX() + speed);
             tempHitbox.setY(hitbox.getY());
-            boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoRight(tempHitbox);
-            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithOtherEntities(this);
+            boolean solidTiles = controller.getCollisionChecker().canGoRight(tempHitbox);
+            boolean entities = controller.getCollisionChecker().isNotCollisionWithOtherEntities(this);
             canGo = solidTiles && entities;
         }
         //se va a sinistra
         else if(movementVector.getX() < 0) {
             tempHitbox.setX(hitbox.getX() - speed);
             tempHitbox.setY(hitbox.getY());
-            boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoLeft(tempHitbox);
-            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithOtherEntities(this);
+            boolean solidTiles = controller.getCollisionChecker().canGoLeft(tempHitbox);
+            boolean entities = controller.getCollisionChecker().isNotCollisionWithOtherEntities(this);
             canGo = solidTiles && entities;
         }
         //su
         if(movementVector.getY() < 0) {
             tempHitbox.setY(hitbox.getY() - speed);
             tempHitbox.setX(hitbox.getX());
-            boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoUp(tempHitbox);
-            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithOtherEntities(this);
+            boolean solidTiles = controller.getCollisionChecker().canGoUp(tempHitbox);
+            boolean entities = controller.getCollisionChecker().isNotCollisionWithOtherEntities(this);
             canGo = solidTiles && entities;
 
         }
@@ -123,8 +123,8 @@ public abstract class EntityController {
         else if(movementVector.getY() > 0) {
             tempHitbox.setY(hitbox.getY() + speed);
             tempHitbox.setX(hitbox.getX());
-            boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoDown(tempHitbox);
-            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithOtherEntities(this);
+            boolean solidTiles = controller.getCollisionChecker().canGoDown(tempHitbox);
+            boolean entities = controller.getCollisionChecker().isNotCollisionWithOtherEntities(this);
             canGo = solidTiles && entities;
         }
 
@@ -209,8 +209,8 @@ public abstract class EntityController {
             tempHitbox.setX(hitbox.getX() - speed);
             tempHitbox.setY(hitbox.getY());
 
-            boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoLeft(tempHitbox);
-            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithOtherEntities(this);
+            boolean solidTiles = controller.getCollisionChecker().canGoLeft(tempHitbox);
+            boolean entities = controller.getCollisionChecker().isNotCollisionWithOtherEntities(this);
             boolean canGo = solidTiles && entities;
 
             if(canGo){
@@ -232,8 +232,8 @@ public abstract class EntityController {
             tempHitbox.setX(hitbox.getX() + speed);
             tempHitbox.setY(hitbox.getY());
 
-            boolean solidTiles = controller.getPlayStateController().getCollisionChecker().canGoRight(tempHitbox);
-            boolean entities = controller.getPlayStateController().getCollisionChecker().isNotCollisionWithOtherEntities(this);
+            boolean solidTiles = controller.getCollisionChecker().canGoRight(tempHitbox);
+            boolean entities = controller.getCollisionChecker().isNotCollisionWithOtherEntities(this);
             boolean canGo = solidTiles && entities;
 
             if(canGo){
