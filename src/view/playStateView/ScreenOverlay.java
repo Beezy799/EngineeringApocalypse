@@ -12,11 +12,9 @@ public class ScreenOverlay {
     //buio, attacchi prof, altro che non saprei
 
     private BufferedImage buio;
-    private PlayStateView playStateView;
     private boolean isDark = true;
 
     public ScreenOverlay(PlayStateView p){
-        playStateView = p;
         try {
             buio = ImageIO.read(getClass().getResourceAsStream("/res/ui/effettoBuioFinale.png"));
             buio = ViewUtils.scaleImage(buio, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT);

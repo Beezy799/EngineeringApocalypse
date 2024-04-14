@@ -45,7 +45,6 @@ public class TransitionState {
             sfumaMusica();
 
             view.changeGameState(GameState.TRANSITION_STATE);
-
         }
         else
             goToNextStateAfterTransition();

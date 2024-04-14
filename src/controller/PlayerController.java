@@ -14,15 +14,12 @@ public class PlayerController {
     //inoltre il movimento diagonale non è più veloce
     private float xPosPlayer = 19*GamePanel.TILES_SIZE, yPosPlayer = 15*GamePanel.TILES_SIZE; //posizione del player
     private final float initialxPosPlayer = xPosPlayer, initialyPosPlayer = yPosPlayer;
-    private float speed = 2f;
+    private float speed = GamePanel.SCALE;
     private Vector movementVector; //"direzione" del player
     private EntityStates actualState = EntityStates.IDLE;
     private boolean stateLocked = false;
     private boolean nearEntity;
-
     private int hittedCounter;
-
-
     private int life = 100;
     private int cfu = 0;
     private int notes = 0;
@@ -264,12 +261,12 @@ public class PlayerController {
         this.movementVector = movementVector;
     }
 
-    public int getxPosPlayer() {
-        return (int)xPosPlayer;
+    public float getxPosPlayer() {
+        return xPosPlayer;
     }
 
-    public int getyPosPlayer() {
-        return (int)yPosPlayer;
+    public float getyPosPlayer() {
+        return yPosPlayer;
     }
 
     public Vector getMovementVector() {
@@ -434,33 +431,43 @@ public class PlayerController {
         }
         //se la direzione del giocatore non è specificata, il proiettile non si crea
         if(bulletVector.getX() != 0 || bulletVector.getY() != 0){
-            Hitbox bulletHitbox = new Hitbox(0,0, GamePanel.TILES_SIZE/2, GamePanel.TILES_SIZE/2);
-            float xBullet = 0, yBullet = 0;
-            if(bulletVector.getX() > 0){
-                xBullet = xPosPlayer + hitbox.getWidth()/2 + bulletHitbox.getWidth()/2 + 1;
-                yBullet = yPosPlayer;
+            if(notes > 0){
+                notes--;
+                setNewBuet(bulletVector);
             }
-            else if (bulletVector.getX() < 0) {
-                xBullet = xPosPlayer - hitbox.getWidth()/2 - bulletHitbox.getWidth()/2 - 1;
-                yBullet = yPosPlayer;
+            else {
+                controller.getView().getPlayStateView().getPlayUI().setMessageToShow("non hai appunti da lanciare");
             }
-            else if (bulletVector.getY() < 0) {
-                xBullet = xPosPlayer;
-                yBullet = yPosPlayer - hitbox.getHeight()/2 - bulletHitbox.getHeight()/2 -1;
-            }
-            else if (bulletVector.getY() > 0) {
-                xBullet = xPosPlayer;
-                yBullet = yPosPlayer + hitbox.getHeight()/2 + bulletHitbox.getHeight()/2 + 1;
-            }
-
-            BulletController bc = new BulletController(bulletHitbox, xBullet, yBullet, bulletVector, controller, this);
-            BulletView bv = new BulletView();
-            BulletComplete bulletComplete = new BulletComplete(bv, bc);
-            int index = Rooms.actualRoom.getBuletList().size();
-            bulletComplete.setIndexInList(index);
-            Rooms.actualRoom.getBuletList().add(bulletComplete);
         }
 
 
+    }
+
+    private void setNewBuet(Vector bulletVector) {
+        Hitbox bulletHitbox = new Hitbox(0,0, GamePanel.TILES_SIZE/2, GamePanel.TILES_SIZE/2);
+        float xBullet = 0, yBullet = 0;
+        if(bulletVector.getX() > 0){
+            xBullet = xPosPlayer + hitbox.getWidth()/2 + bulletHitbox.getWidth()/2;
+            yBullet = yPosPlayer;
+        }
+        else if (bulletVector.getX() < 0) {
+            xBullet = xPosPlayer - hitbox.getWidth()/2 - bulletHitbox.getWidth()/2;
+            yBullet = yPosPlayer;
+        }
+        else if (bulletVector.getY() < 0) {
+            xBullet = xPosPlayer;
+            yBullet = yPosPlayer - hitbox.getHeight()/2 - bulletHitbox.getHeight()/2;
+        }
+        else if (bulletVector.getY() > 0) {
+            xBullet = xPosPlayer;
+            yBullet = yPosPlayer + hitbox.getHeight()/2 + bulletHitbox.getHeight()/2;
+        }
+
+        BulletController bc = new BulletController(bulletHitbox, xBullet, yBullet, bulletVector, controller, this);
+        BulletView bv = new BulletView();
+        BulletComplete bulletComplete = new BulletComplete(bv, bc);
+        int index = Rooms.actualRoom.getBuletList().size();
+        bulletComplete.setIndexInList(index);
+        Rooms.actualRoom.getBuletList().add(bulletComplete);
     }
 }

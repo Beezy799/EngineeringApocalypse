@@ -16,9 +16,13 @@ public class NullafacenteController extends EnemyController{
 
     public NullafacenteController(int x, int y, IController c, int index) {
         super(x, y, c, index);
+        speed = GamePanel.SCALE*0.7f;
 
-        setHitbox(hitboxWidth, hitboxHeight, 8, 8);
+        setHitbox(hitboxWidth, hitboxHeight, 12, 12);
         attackHitbox = new Hitbox(0,0, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
+
+        xAttackHitboxOffset = attackHitbox.getWidth()/2;
+        yAttackHitboxOffset = attackHitbox.getHeight()/2;
 
         life = 100;
         defence = 2;
@@ -35,6 +39,9 @@ public class NullafacenteController extends EnemyController{
                     path = null;
                     pathNodeIndex = 0;
                     changeState(EntityStates.RECHARGE);
+
+                    System.out.println("sbatto");
+
                 }
 
                 //controlla se il player è sotto tiro
@@ -96,31 +103,33 @@ public class NullafacenteController extends EnemyController{
                 break;
 
             case CHASE:
-                if(icanHitThePlayer(range)) {
-                    path = null;
-                    pathNodeIndex = 0;
-                    changeState(EntityStates.ATTACKING);
-                    stateLocked = true;
-                }
-                //se è arrivato a fine percorso
-                else if (pathNodeIndex == path.size() -1) {
-                    pathNodeIndex = 0;
-                    path = null;
+                try {
+                    if (icanHitThePlayer(range)) {
+                        path = null;
+                        pathNodeIndex = 0;
+                        changeState(EntityStates.ATTACKING);
+                        stateLocked = true;
+                    }
+                    //se è arrivato a fine percorso
+                    else if (pathNodeIndex == path.size() - 1) {
+                        pathNodeIndex = 0;
+                        path = null;
 
-                    System.out.println("arrivato");
-
-                    if(iCanSeeThePlayer()){
-                        if(iCanReachThePlayer()){
-                            changeState(EntityStates.CHASE);
+                        if (iCanSeeThePlayer()) {
+                            if (iCanReachThePlayer()) {
+                                changeState(EntityStates.CHASE);
+                            }
+                        } else {
+                            changeState(EntityStates.RECHARGE);
                         }
                     }
+                    //se non è arrivato e il player è lontano, cammina nel percorso
                     else {
-                        changeState(EntityStates.RECHARGE);
+                        followPath();
                     }
                 }
-                //se non è arrivato e il player è lontano, cammina nel percorso
-                else {
-                    followPath();
+                catch (NullPointerException npe){
+                    npe.printStackTrace();
                 }
                 break;
 

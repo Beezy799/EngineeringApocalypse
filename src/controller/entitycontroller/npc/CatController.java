@@ -58,8 +58,8 @@ public class CatController extends EntityController {
             case RUNAWAY:
                 speed = 3;
                 movementVector.resetDirections();
-                int pX = controller.getPlayerController().getxPosPlayer();
-                int pY = controller.getPlayerController().getyPosPlayer();
+                int pX = (int)controller.getPlayerController().getxPosPlayer();
+                int pY = (int)controller.getPlayerController().getyPosPlayer();
 
                 //sceglie se andare su o giu
                 if(pX > hitbox.getX() && pX < hitbox.getX()+hitbox.getWidth()){

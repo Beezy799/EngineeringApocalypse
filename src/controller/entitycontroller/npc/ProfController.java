@@ -3,6 +3,7 @@ package src.controller.entitycontroller.npc;
 import src.controller.IController;
 import src.controller.entitycontroller.EntityController;
 import src.model.EntityStates;
+import src.view.gameWindow.GamePanel;
 
 public class ProfController extends EntityController {
 
@@ -11,6 +12,7 @@ public class ProfController extends EntityController {
 
     public ProfController(int x, int y, IController c, int index) {
         super(x, y, c, index);
+        speed = GamePanel.SCALE*0.5f;
         setHitbox(hitboxWidth, hitboxHeight, 2, 2);
 
         YhitboxOffset = hitbox.getHeight()/4;

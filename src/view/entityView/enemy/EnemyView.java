@@ -18,7 +18,6 @@ public abstract class EnemyView extends EntityView {
     protected BufferedImage puntoEsclamativo;
     protected Rectangle lifeRect;
 
-    protected int xPosOnScreen, yPosOnScreen;
 
     public EnemyView(IView v, int i) {
         super(v, i);
@@ -102,21 +101,7 @@ public abstract class EnemyView extends EntityView {
             animationCounter = 0;
         }
 
-        //fatti dare dal controller la posizione dell'entity
-        int entityXPosMap = entityComplete.getEntityController().getxPos(); //view.getModel().getEntityXpos(this);
-        int entityYPosMap = entityComplete.getEntityController().getyPos(); //view.getModel().getEntityYpos(this);
-
-        //distanza dell'entita dal giocatore nella mappa
-        int xDistanceFromPlayer = entityXPosMap - xPlayerMap;
-        int yDistanceFromPlayer = entityYPosMap - yPlayerMap;
-
-        //riproponiamo la stessa distanza nello schermo
-        int xPosOnScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
-        int yPosOnScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
-
-        //siccome la posizone dell'entità non coincide col punto in alto a sinistra dell'immagine, compensiamo con gli offset
-        g2.drawImage(animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite], xPosOnScreen - xOffset, yPosOnScreen - yOffset, null);
-
+        drawSprite(g2, xPlayerMap, yPlayerMap);
     }
 
     protected void specialDraw(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
@@ -136,21 +121,7 @@ public abstract class EnemyView extends EntityView {
             animationCounter = 0;
         }
 
-        //fatti dare dal controller la posizione dell'entity
-        int entityXPosMap = entityComplete.getEntityController().getxPos(); //view.getModel().getEntityXpos(this);
-        int entityYPosMap = entityComplete.getEntityController().getyPos(); //view.getModel().getEntityYpos(this);
-
-        //distanza dell'entita dal giocatore nella mappa
-        int xDistanceFromPlayer = entityXPosMap - xPlayerMap;
-        int yDistanceFromPlayer = entityYPosMap - yPlayerMap;
-
-        //riproponiamo la stessa distanza nello schermo
-        int xPosOnScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
-        int yPosOnScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
-
-        //siccome la posizone dell'entità non coincide col punto in alto a sinistra dell'immagine, compensiamo con gli offset
-        g2.drawImage(animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite], xPosOnScreen - xOffset, yPosOnScreen - yOffset, null);
-
+        drawSprite(g2, xPlayerMap, yPlayerMap);
     }
 
     public void normaldraw(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
@@ -167,56 +138,19 @@ public abstract class EnemyView extends EntityView {
             animationCounter = 0;
         }
 
-        //fatti dare dal controller la posizione dell'entity
-        int entityXPosMap = entityComplete.getEntityController().getxPos(); //view.getModel().getEntityXpos(this);
-        int entityYPosMap = entityComplete.getEntityController().getyPos(); //view.getModel().getEntityYpos(this);
-
-        //distanza dell'entita dal giocatore nella mappa
-        int xDistanceFromPlayer = entityXPosMap - xPlayerMap;
-        int yDistanceFromPlayer = entityYPosMap - yPlayerMap;
-
-        //riproponiamo la stessa distanza nello schermo
-        xPosOnScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
-        yPosOnScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
-
         //per far capire che è stato colpito
         if(currentState == EntityStates.HITTED){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+            drawSprite(g2, xPlayerMap, yPlayerMap);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
-
-        //siccome la posizone dell'entità non coincide col punto in alto a sinistra dell'immagine, compensiamo con gli offset
-        g2.drawImage(animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite], xPosOnScreen - xOffset, yPosOnScreen - yOffset, null);
-
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        else {
+            drawSprite(g2, xPlayerMap, yPlayerMap);
+        }
 
         if(currentState == EntityStates.CHASE){
             g2.drawImage(puntoEsclamativo, xPosOnScreen, yPosOnScreen - 2*puntoEsclamativo.getHeight(), null);
         }
-
-        //disegna la zona occupata dalla sprite
-        g2.drawRect(xPosOnScreen - xOffset, yPosOnScreen - yOffset,
-                animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite].getWidth(),
-                animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite].getHeight());
-        //disegna la posizione
-        g2.fillRect(xPosOnScreen, yPosOnScreen, 5, 5);
-
-        //disegna la sua hitbox
-        g2.setColor(Color.red);
-        int hitboxW = Rooms.actualRoom.getEnemy().get(indexInEntityArray).getEnemyController().getHitbox().getWidth();
-        int hitboxH = Rooms.actualRoom.getEnemy().get(indexInEntityArray).getEnemyController().getHitbox().getHeight();
-        int xoffsetH = Rooms.actualRoom.getEnemy().get(indexInEntityArray).getEnemyController().getXhitboxOffset();
-        int yoffsetH = Rooms.actualRoom.getEnemy().get(indexInEntityArray).getEnemyController().getYhitboxOffset();
-        g2.drawRect(xPosOnScreen - xoffsetH, yPosOnScreen - yoffsetH, hitboxW, hitboxH);
-
-        //disegna interaction
-        g2.setColor(Color.blue);
-        int inthitboxW = Rooms.actualRoom.getEnemy().get(indexInEntityArray).getEnemyController().getInteractionHitbox().getWidth();
-        int inthitboxH = Rooms.actualRoom.getEnemy().get(indexInEntityArray).getEnemyController().getInteractionHitbox().getHeight();
-        int intxoffsetH = Rooms.actualRoom.getEnemy().get(indexInEntityArray).getEnemyController().getInteractionHitbox().getWidth() / 2;
-        int intyoffsetH = Rooms.actualRoom.getEnemy().get(indexInEntityArray).getEnemyController().getInteractionHitbox().getHeight() / 2;
-        g2.drawRect(xPosOnScreen - intxoffsetH, yPosOnScreen - intyoffsetH, inthitboxW, inthitboxH);
-
-
 
     }
 

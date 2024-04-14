@@ -17,10 +17,11 @@ public abstract class EntityController {
 
     protected Hitbox hitbox, interactionHitbox, tempHitbox;
     protected int XhitboxOffset, YhitboxOffset;
-    protected int xPos, yPos, speed;
+    protected int xInteractionHitboxOffset, yInteractionHitboxOffset;
+    protected float xPos, yPos, speed;
 
     //per quando viene resettato il gioco
-    protected int initialXpos, initialYpos;
+    protected float initialXpos, initialYpos;
 
     protected EntityStates currentState = IDLE;
     protected Vector movementVector;
@@ -40,13 +41,38 @@ public abstract class EntityController {
         yPos = y * GamePanel.TILES_SIZE;
         initialXpos = xPos;
         initialYpos = yPos;
-        speed = 1;
+        speed = GamePanel.SCALE;
         movementVector = new Vector(2);
         randomGenerator = new Random();
         controller = c;
-        this.entityIndex = index;
+        entityIndex = index;
 
         path = new ArrayList<>();
+    }
+
+    protected void setHitbox(int hitboxWidth, int hitboxHeight, int interactionHitboxWidth, int interactionHitboxHeight) {
+        hitbox = new Hitbox((int)xPos, (int)yPos, (int)(hitboxWidth*GamePanel.SCALE), (int)(hitboxHeight*GamePanel.SCALE));
+        XhitboxOffset = hitbox.getWidth()/2;
+        YhitboxOffset = hitbox.getHeight()/2;
+        hitbox.setX(xPos - XhitboxOffset);
+        hitbox.setY(yPos - YhitboxOffset);
+
+        XhitboxOffset = hitbox.getWidth()/2;
+        YhitboxOffset = hitbox.getHeight()/2;
+
+        tempHitbox = new Hitbox((int)hitbox.getX(), (int)hitbox.getY(), (int)(hitboxWidth*GamePanel.SCALE),
+                (int)(hitboxHeight*GamePanel.SCALE));
+
+        interactionHitboxWidth = interactionHitboxWidth*GamePanel.TILES_SIZE;
+        interactionHitboxHeight = interactionHitboxHeight*GamePanel.TILES_SIZE;
+
+        xInteractionHitboxOffset = interactionHitboxWidth/2;
+        yInteractionHitboxOffset = interactionHitboxHeight/2;
+
+        interactionHitbox = new Hitbox( (int)xPos - xInteractionHitboxOffset,
+                (int)yPos - yInteractionHitboxOffset,
+                interactionHitboxWidth,
+                interactionHitboxHeight);
     }
 
     // molti npc si muovono a caso nella stanza usando questo medoto
@@ -67,22 +93,22 @@ public abstract class EntityController {
             if(movementVector.getY() < 0) {
                 setyPos(getyPos() - speed);
                 hitbox.setY(yPos - YhitboxOffset);
-                interactionHitbox.setY(yPos - interactionHitbox.getHeight()/2);
+                interactionHitbox.setY(yPos - yInteractionHitboxOffset);
             }
             else if(movementVector.getY() > 0) {
                 setyPos(getyPos() + speed);
                 hitbox.setY(yPos - YhitboxOffset);
-                interactionHitbox.setY(yPos - interactionHitbox.getHeight()/2);
+                interactionHitbox.setY(yPos - yInteractionHitboxOffset);
             }
             else if(movementVector.getX() < 0) {
                 setxPos(getxPos() - speed);
                 hitbox.setX(xPos - XhitboxOffset);
-                interactionHitbox.setX(xPos - interactionHitbox.getWidth()/2);
+                interactionHitbox.setX(xPos - xInteractionHitboxOffset);
             }
             else if(movementVector.getX() > 0) {
                 setxPos(getxPos() + speed);
                 hitbox.setX(xPos - XhitboxOffset);
-                interactionHitbox.setX(xPos - interactionHitbox.getWidth()/2);
+                interactionHitbox.setX(xPos - xInteractionHitboxOffset);
             }
 
         }
@@ -162,8 +188,8 @@ public abstract class EntityController {
     }
 
     protected void turnToPlayer(){
-        int playerX = controller.getPlayerController().getxPosPlayer();
-        int playerY = controller.getPlayerController().getyPosPlayer();
+        int playerX = (int)controller.getPlayerController().getxPosPlayer();
+        int playerY = (int)controller.getPlayerController().getyPosPlayer();
         movementVector.resetDirections();
         //controllo se la posizione del player è in un fascio largo un tile che ha centro nella posizione della
         //entità. questo fascio è come se fosse una sorta di colonna
@@ -216,7 +242,7 @@ public abstract class EntityController {
             if(canGo){
                 setxPos(getxPos() - speed);
                 hitbox.setX(xPos - XhitboxOffset);
-                interactionHitbox.setX(xPos - interactionHitbox.getWidth()/2);
+                interactionHitbox.setX(xPos - xInteractionHitboxOffset);
             }
         }
         else{
@@ -239,7 +265,7 @@ public abstract class EntityController {
             if(canGo){
                 setxPos(getxPos() + speed);
                 hitbox.setX(xPos - XhitboxOffset);
-                interactionHitbox.setX(xPos - interactionHitbox.getWidth()/2);
+                interactionHitbox.setX(xPos - xInteractionHitboxOffset);
             }
         }
         else{
@@ -248,41 +274,19 @@ public abstract class EntityController {
         }
     }
 
-    protected void setHitbox(int hitboxWidth, int hitboxHeight, int interactionHitboxWidth, int interactionHitboxHeight) {
-        hitbox = new Hitbox(xPos, yPos, (int)(hitboxWidth*GamePanel.SCALE), (int)(hitboxHeight*GamePanel.SCALE));
-        XhitboxOffset = hitbox.getWidth()/2;
-        YhitboxOffset = hitbox.getHeight()/2;
-        hitbox.setX(xPos - XhitboxOffset);
-        hitbox.setY(yPos - YhitboxOffset);
-
-        XhitboxOffset = hitbox.getWidth()/2;
-        YhitboxOffset = hitbox.getHeight()/2;
-
-        tempHitbox = new Hitbox((int)hitbox.getX(), (int)hitbox.getY(), (int)(hitboxWidth*GamePanel.SCALE),
-                    (int)(hitboxHeight*GamePanel.SCALE));
-
-        interactionHitboxWidth = interactionHitboxWidth*GamePanel.TILES_SIZE;
-        interactionHitboxHeight = interactionHitboxHeight*GamePanel.TILES_SIZE;
-
-        interactionHitbox = new Hitbox( xPos - interactionHitboxWidth/2,
-                yPos - interactionHitboxHeight/2,
-                interactionHitboxWidth,
-                interactionHitboxHeight);
-    }
-
-    public void setxPos(int xPos) {
+    public void setxPos(float xPos) {
         this.xPos = xPos;
     }
 
-    public void setyPos(int yPos) {
+    public void setyPos(float yPos) {
         this.yPos = yPos;
     }
 
-    public int getxPos() {
+    public float getxPos() {
         return xPos;
     }
 
-    public int getyPos() {
+    public float getyPos() {
         return yPos;
     }
 

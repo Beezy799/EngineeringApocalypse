@@ -11,6 +11,7 @@ public abstract class EnemyController extends EntityController {
 
     protected int life = 100;
     protected Hitbox attackHitbox;
+    protected float xAttackHitboxOffset, yAttackHitboxOffset;
 
     //per gestire i danni subiti-fatti
     protected int attack = 10, defence = 2;
@@ -65,12 +66,16 @@ public abstract class EnemyController extends EntityController {
     }
 
     protected boolean icanHitThePlayer(float range) {
-        int xdist = Math.abs(xPos - controller.getPlayerController().getxPosPlayer());
-        int ydist = Math.abs(yPos - controller.getPlayerController().getyPosPlayer());
+        float xdist = Math.abs(xPos - controller.getPlayerController().getxPosPlayer());
+        float ydist = Math.abs(yPos - controller.getPlayerController().getyPosPlayer());
 
         if(xdist < range && ydist < range) {
-            if(xPos/GamePanel.TILES_SIZE == controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE ||
-                    yPos/GamePanel.TILES_SIZE == controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE) {
+            int enemyCol = (int)(xPos/GamePanel.TILES_SIZE);
+            int enemyRow = (int)(yPos/GamePanel.TILES_SIZE);
+            int playerCol = (int)(controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE);
+            int playerRow = (int)(controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE);
+
+            if(enemyCol == playerCol || enemyRow == playerRow) {
                 return true;
             }
         }
@@ -80,26 +85,26 @@ public abstract class EnemyController extends EntityController {
     protected void shiftAttackHitbox() {
         if(movementVector.getX() > 0){
             attackHitbox.setX(hitbox.getX() + hitbox.getWidth());
-            attackHitbox.setY(yPos - (float) attackHitbox.getHeight() /2);
+            attackHitbox.setY(yPos - yAttackHitboxOffset);
         }
         else if (movementVector.getX() < 0) {
             attackHitbox.setX(hitbox.getX() - attackHitbox.getWidth());
-            attackHitbox.setY(yPos - (float) attackHitbox.getHeight() /2);
+            attackHitbox.setY(yPos - yAttackHitboxOffset);
         }
         else if (movementVector.getY() < 0) {
             attackHitbox.setY(hitbox.getY() - attackHitbox.getHeight());
-            attackHitbox.setX(xPos - (float) attackHitbox.getWidth() /2);
+            attackHitbox.setX(xPos - xAttackHitboxOffset);
         }
         else if (movementVector.getY() > 0) {
             attackHitbox.setY(hitbox.getY() + hitbox.getHeight());
-            attackHitbox.setX(xPos - (float) attackHitbox.getWidth() /2);
+            attackHitbox.setX(xPos - xAttackHitboxOffset);
         }
     }
 
     protected boolean iCanReachThePlayer(){
-        Node start = new Node(yPos/GamePanel.TILES_SIZE, xPos/GamePanel.TILES_SIZE);
-        int playerRow = controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE;
-        int playerCol = controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE;
+        Node start = new Node((int)(yPos/GamePanel.TILES_SIZE), (int)(xPos/GamePanel.TILES_SIZE));
+        int playerRow = (int)controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE;
+        int playerCol = (int)controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE;
         Node goal = new Node(playerRow, playerCol);
         path = controller.getPathFinder().findPath(start, goal);
         return path != null;

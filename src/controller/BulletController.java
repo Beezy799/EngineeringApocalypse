@@ -1,18 +1,18 @@
 package src.controller;
 
 import src.model.BulletComplete;
+import src.model.entity.EnemyComplete;
 import src.view.gameWindow.GamePanel;
-
-import static src.model.EntityStates.IDLE;
 
 public class BulletController {
     private Hitbox hitbox;
-    private int damage;
-    private float speed = 0.9f;
+    private int damage = 10;
+    private float speed = GamePanel.SCALE*1.2f;
     private float xPos, yPos;
     private Vector direction;
     private IController controller;
     private boolean hit = false;
+    private Object hittedObject;
     private int yHitboxOffset;
     private int xHitboxOffset;
     private float distanzaPercorsa;
@@ -38,16 +38,23 @@ public class BulletController {
 
     public void update() {
         checkCollision();
-        if(hit){
+        if(hit)
+            controller.getModel().revomeBullet(bulletComplete.getIndexInList());
+
+        if(hittedObject != null) {
+            hitEntity();
             controller.getModel().revomeBullet(bulletComplete.getIndexInList());
         }
-        //checkHit();
+
         updatePosition();
 
     }
 
-    private void checkHit() {
-
+    private void hitEntity() {
+        if(hittedObject instanceof PlayerController)
+            controller.getPlayerController().hitted(damage, direction);
+        else if (hittedObject instanceof EnemyComplete)
+            ((EnemyComplete) hittedObject).getEnemyController().hitted(damage);
     }
 
     private void checkCollision() {
@@ -73,9 +80,7 @@ public class BulletController {
             }
         }
 
-        if (controller.getCollisionChecker().collisionWithEntityAndBullet(hitbox, owner)) {
-            hit = true;
-        }
+        hittedObject = controller.getCollisionChecker().collisionWithEntityAndBullet(hitbox, owner);
 
     }
 
@@ -100,7 +105,7 @@ public class BulletController {
 
         //il proiettile dopo qualche metro si autodistrugge
         distanzaPercorsa += speed;
-        if (distanzaPercorsa >= 4 * GamePanel.TILES_SIZE) {
+        if (distanzaPercorsa >= 5 * GamePanel.TILES_SIZE) {
             controller.getModel().revomeBullet(bulletComplete.getIndexInList());
         }
 

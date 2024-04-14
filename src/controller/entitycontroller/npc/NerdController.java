@@ -15,6 +15,7 @@ public class NerdController extends EntityController {
 
     public NerdController(int x, int y, IController c, int index) {
         super(x, y, c, index);
+        speed = GamePanel.SCALE*0.6f;
         setHitbox(hitboxWidth, hitboxHeight, 2, 2);
     }
 
@@ -44,10 +45,10 @@ public class NerdController extends EntityController {
 
     private void findPath() {
         pathNodeIndex = 0;
-        Node start = new Node(yPos/GamePanel.TILES_SIZE, xPos/GamePanel.TILES_SIZE);
+        Node start = new Node((int)yPos/GamePanel.TILES_SIZE, (int)xPos/GamePanel.TILES_SIZE);
 
-        int playerRow = controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE;
-        int playerCol = controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE;
+        int playerRow = (int)controller.getPlayerController().getyPosPlayer()/GamePanel.TILES_SIZE;
+        int playerCol = (int)controller.getPlayerController().getxPosPlayer()/GamePanel.TILES_SIZE;
         Node goal = new Node(playerRow, playerCol);
 
         path = controller.getPathFinder().findPath(start, goal);

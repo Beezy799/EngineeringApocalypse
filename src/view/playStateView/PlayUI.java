@@ -34,10 +34,6 @@ public class PlayUI {
     private int yPosDataUI = (int)(5*GamePanel.SCALE);
     private int xPosDataUI = (int)(20*GamePanel.SCALE);
 
-    //per disegnare i dialoghi
-
-
-
 
     public PlayUI(PlayStateView p) {
         play = p;
@@ -68,10 +64,8 @@ public class PlayUI {
     }
 
     public void draw(Graphics2D g2) {
-
         drawPlayerData(g2);
         drawMessage(g2);
-
     }
 
     private void drawPlayerData(Graphics2D g2) {
@@ -170,11 +164,7 @@ public class PlayUI {
 
     public void setMessageToShow(String s) {
         message = s;
-        setThereIsAMessageToShow(true);
-    }
-
-    public void setThereIsAMessageToShow(boolean thereIsAMessageToShow) {
-        this.showMessage = thereIsAMessageToShow;
+        showMessage = true;
     }
 
     public void drawDialogue(Graphics2D g2) {
@@ -196,7 +186,6 @@ public class PlayUI {
         //prende l'indice dell'npc con cui parla il player, va nella stanza e prende quell'npc, prende le stringhe di dialogo da lì, poi le disegna
         int index = play.getView().getController().getIndexEntityInteraction();
         text = play.getView().getModel().getEntityDialogue(index);
-
 
         g2.setFont(fontDisplay);
 

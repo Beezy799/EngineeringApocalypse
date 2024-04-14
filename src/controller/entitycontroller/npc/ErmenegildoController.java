@@ -13,6 +13,7 @@ public class ErmenegildoController extends EntityController {
     public ErmenegildoController(int x, int y, IController c, int index) {
         super(x, y, c, index);
         setHitbox(hitboxWidth, hitboxHeight, 2, 2);
+        speed = 0.5f;
     }
 
     public void update(){
