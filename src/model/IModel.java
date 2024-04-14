@@ -110,4 +110,7 @@ public class IModel {
         controller.getPlayerController().reset();
     }
 
+    public void revomeBullet(int indexInList) {
+        Rooms.actualRoom.deleteBullet(indexInList);
+    }
 }

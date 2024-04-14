@@ -186,4 +186,34 @@ public class CollisionChecker {
 
     }
 
+    public boolean collisionWithEntityAndBullet(Hitbox bulletHitbox){
+        boolean collisionNpc = false;
+        boolean collisionEnemy = false;
+        boolean collisionPlayer = false;
+
+        for(int i = 0; i < Rooms.actualRoom.getNpc().size(); i++){
+            EntityController other = Rooms.actualRoom.getNpc().get(i).getEntityController();
+            //per controllare che non guardi l'intersezione con la sua stessa hitbox quando è un npc
+            if(bulletHitbox.intersects(other.getHitbox())) {
+                collisionNpc = true;
+            }
+        }
+
+        for(int i = 0; i < Rooms.actualRoom.getEnemy().size(); i++){
+            EnemyComplete other = Rooms.actualRoom.getEnemy().get(i);
+            if(other.isAlive()) {
+                if(bulletHitbox.intersects(other.getEntityController().getHitbox())) {
+                    collisionEnemy = true;
+                }
+            }
+
+        }
+
+        //deve controllare anche il giocatore
+        collisionPlayer = control.getPlayerController().getHitbox().intersects(bulletHitbox);
+
+        return collisionNpc || collisionPlayer || collisionEnemy;
+
+    }
+
 }

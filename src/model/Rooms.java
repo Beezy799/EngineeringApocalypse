@@ -35,6 +35,7 @@ public enum Rooms {
     private ArrayList<Passage> passages;
     private ArrayList<NpcComplete> npcList;
     private ArrayList<EnemyComplete> enemyList;
+    private ArrayList<BulletComplete> buletList;
     private ArrayList<Event> events;
     private static IModel model;
     private int musicIndex;
@@ -49,6 +50,7 @@ public enum Rooms {
         npcList = new ArrayList<>();
         enemyList = new ArrayList<>();
         events = new ArrayList<>();
+        buletList = new ArrayList<>();
         loadPassages(pathRoomData);
         dataPath = pathRoomData;
     }
@@ -314,5 +316,17 @@ public enum Rooms {
         for(NpcComplete npc : npcList){
             npc.reset();
         }
+        buletList.clear();
+    }
+
+    public void deleteBullet(int index){
+        for (int i = index; i < buletList.size(); i++){
+            buletList.get(i).abbassaIndice();
+        }
+        buletList.remove(index);
+    }
+
+    public ArrayList<BulletComplete> getBuletList(){
+        return buletList;
     }
 }

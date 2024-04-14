@@ -1,6 +1,7 @@
 package src.view.playStateView;
 
 import src.controller.Hitbox;
+import src.model.BulletComplete;
 import src.model.events.Event;
 import src.model.entity.EnemyComplete;
 import src.model.entity.NpcComplete;
@@ -69,6 +70,8 @@ public class PlayStateView {
         drawAllElementsAboveTheFloor(g2, xPlayer, yPlayer);
         //svuotiamo la lista, perchè verrà ridisegnato ogni volta
         elementsAboveTheFloor.clear();
+
+        drawBullets(g2, xPlayer,yPlayer);
 
         screenOverlay.draw(g2);
 
@@ -250,6 +253,12 @@ public class PlayStateView {
                     g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
                 }
             }
+        }
+    }
+
+    public void drawBullets(Graphics2D g2, int xPler, int yPlayer){
+        for(BulletComplete bullet: Rooms.actualRoom.getBuletList()){
+            bullet.getBulletView().draw(g2, xPler, yPlayer);
         }
     }
 

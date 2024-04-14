@@ -19,7 +19,6 @@ public class IController {
     private PlayerController playerController;
     private PlayStateController playStateController;
     private PathFinder pathFinder;
-
     private int indexEntityInteraction;
 
     //serve per bloccare le variabili dell'inputstate mentre il controller le legge, in modo da evitare inconsistenze
@@ -60,6 +59,14 @@ public class IController {
                     if(enemy.isAlive()) {
                         enemy.getEnemyController().update();
                     }
+                }
+                try {
+                    for (int i = 0; i < Rooms.actualRoom.getBuletList().size(); i++){
+                        Rooms.actualRoom.getBuletList().get(i).getBulletController().update();
+                    }
+                }
+                catch(Exception e){
+                    e.printStackTrace();
                 }
                 break;
 
@@ -146,12 +153,16 @@ public class IController {
         }
 
         if (InputState.P.getPressed() || InputState.MIDDLE_CLICK.getPressed()) {
+            //se sta in uno stato diverso, va nello stato throwing
+            if(playerController.getCurrentState() != EntityStates.THROWING){
+                playerController.changeActualState(EntityStates.THROWING);
+                playerController.lockState();
 
-            //GameState.actualState = GameState.GAME_OVER;
-            System.out.println("p " +playerController.getyPosPlayer()/ GamePanel.TILES_SIZE + ", " + playerController.getxPosPlayer()/GamePanel.TILES_SIZE);
+                playerController.createBullet();
 
-
+            }
             InputState.P.setPressed(false);
+
         }
 
         if (InputState.ESCAPE.getPressed()) {
