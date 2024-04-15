@@ -8,7 +8,7 @@ import src.view.gameWindow.GamePanel;
 
 public class PupaController extends EntityController {
 
-    private final int hitboxWidth = 28;
+    private final int hitboxWidth = 30;
     private final int hitboxHeight = 30;
     private int waitCounter;
 

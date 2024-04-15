@@ -2,10 +2,12 @@ package src.model.events;
 
 
 import src.controller.Hitbox;
+import src.controller.entitycontroller.enemy.GhostController;
 import src.model.Constants;
 import src.model.EntityStates;
 import src.model.IModel;
 import src.model.Rooms;
+import src.model.entity.EnemyComplete;
 import src.view.inputs.InputState;
 
 public class Light extends Event {
@@ -37,6 +39,12 @@ public class Light extends Event {
 				model.getController().getPlayerController().getMovementVector().resetDirections();
 				model.getController().getPlayerController().getMovementVector().setY(1);
 				model.getController().getPlayerController().lockState();
+
+				for(EnemyComplete ghost : Rooms.actualRoom.getEnemy()){
+					if(ghost.getEnemyController() instanceof GhostController){
+						ghost.setAlive(false);
+					}
+				}
 
 				endInteraction = true;
 			}

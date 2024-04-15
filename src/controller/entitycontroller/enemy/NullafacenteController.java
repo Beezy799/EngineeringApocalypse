@@ -9,7 +9,7 @@ import src.view.gameWindow.GamePanel;
 public class NullafacenteController extends EnemyController{
 
     private int rechargeCounter, hittedCounter;
-    private int hitboxWidth = 32, hitboxHeight = 32;
+    private int hitboxWidth = 30, hitboxHeight = 30;
     private float range = GamePanel.TILES_SIZE*1.4f;
     private int attackCounter;
 
@@ -30,6 +30,9 @@ public class NullafacenteController extends EnemyController{
 
     @Override
     public void update() {
+
+        updateDamageCounter();
+
         switch (currentState){
             case IDLE:
                 //se mentre insegue il player sbatte controo un'altr entità,
@@ -39,9 +42,6 @@ public class NullafacenteController extends EnemyController{
                     path = null;
                     pathNodeIndex = 0;
                     changeState(EntityStates.RECHARGE);
-
-                    System.out.println("sbatto");
-
                 }
 
                 //controlla se il player è sotto tiro
@@ -129,13 +129,15 @@ public class NullafacenteController extends EnemyController{
                     }
                 }
                 catch (NullPointerException npe){
-                    npe.printStackTrace();
+                    //npe.printStackTrace();
+                    pathNodeIndex = 0;
+                    currentState = EntityStates.RECHARGE;
                 }
                 break;
 
             case HITTED:
                 hittedCounter++;
-                if(hittedCounter >= 200){
+                if(hittedCounter >= 100){
                     hittedCounter = 0;
                     changeState(EntityStates.IDLE);
                 }
@@ -153,6 +155,8 @@ public class NullafacenteController extends EnemyController{
         //System.out.println(currentState);
 
     }
+
+
 
 
 }

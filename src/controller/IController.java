@@ -154,6 +154,7 @@ public class IController {
                 playerController.createBullet();
             }
             InputState.P.setPressed(false);
+            //System.out.println(playerController.getxPosPlayer()/GamePanel.TILES_SIZE + ", " + playerController.getyPosPlayer()/GamePanel.TILES_SIZE);
         }
 
         if (InputState.ESCAPE.getPressed()) {

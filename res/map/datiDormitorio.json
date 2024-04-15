@@ -13,7 +13,13 @@
     }
   ],
   "npc":[],
-  "enemy": [],
+  "enemy": [
+    {
+      "nome": "fantasma",
+      "riga": 7,
+      "colonna": 10
+    }
+  ],
 
   "eventi": [
     {
@@ -24,7 +30,7 @@
       "altezza": 32
     },
     {
-      "nome": "luce",
+      "nome": "Piano",
       "colonna": 18,
       "riga": 19,
       "larghezza": 32,
@@ -38,11 +44,19 @@
       "altezza": 32
     },
     {
+      "nome": "luce",
+      "colonna": 24,
+      "riga": 10,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
       "nome": "cfu",
       "colonna": 18,
       "riga": 11,
       "larghezza": 32,
       "altezza": 32
     }
+
   ]
 }

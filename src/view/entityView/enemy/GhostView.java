@@ -1,6 +1,7 @@
 package src.view.entityView.enemy;
 
 import src.model.EntityStates;
+import src.view.IView;
 import src.view.ViewUtils;
 import src.view.gameWindow.GamePanel;
 
@@ -11,22 +12,16 @@ import java.io.IOException;
 
 import static src.model.Constants.EntityConstants.*;
 
-public class GhostView {
-    private BufferedImage[][][] animation;
-    int animationCounter;
-    int animationSpeed = 30;
-    int numSprite;
+public class GhostView extends EnemyView{
 
 
-
-
-    public GhostView(){
-
-        getImages();
-
+    public GhostView(IView v, int i) {
+        super(v, i);
+        xOffset = animation[0][0][0].getWidth()/2;
+        yOffset = animation[0][0][0].getHeight()/2;
     }
 
-    private void getImages() {
+    protected void loadImages() {
 
         animation = new BufferedImage[1][4][3];
 
@@ -72,20 +67,17 @@ public class GhostView {
         animation[EntityStates.IDLE.getConstantInAnimationArray()][RIGHT][2] = temp;
     }
 
-    public void draw(Graphics2D g2) {
+    @Override
+    protected int getAnimationLenght() {
+        switch (currentDirection){
+            case LEFT:
+            case RIGHT:
+                return 3;
 
-        animationCounter++;
+            default:
+                return 2;
 
-        //getCurrentDirectionFromController();
-
-        if (animationCounter > animationSpeed) {
-            numSprite++;
-
-            if (numSprite >= 2) {
-                numSprite = 0;
-            }
-            animationCounter = 0;
         }
-        g2.drawImage(animation[EntityStates.IDLE.getConstantInAnimationArray()][DOWN][numSprite], 100, 100, null);
     }
+
 }

@@ -18,7 +18,7 @@ public abstract class EntityController {
     protected Hitbox hitbox, interactionHitbox, tempHitbox;
     protected int XhitboxOffset, YhitboxOffset;
     protected int xInteractionHitboxOffset, yInteractionHitboxOffset;
-    protected float xPos, yPos, speed;
+    protected float xPos, yPos, speed = GamePanel.SCALE*0.7f;
 
     //per quando viene resettato il gioco
     protected float initialXpos, initialYpos;
@@ -41,7 +41,6 @@ public abstract class EntityController {
         yPos = y * GamePanel.TILES_SIZE;
         initialXpos = xPos;
         initialYpos = yPos;
-        speed = GamePanel.SCALE;
         movementVector = new Vector(2);
         randomGenerator = new Random();
         controller = c;

@@ -6,7 +6,7 @@ import src.view.gameWindow.GamePanel;
 
 public class BulletController {
     private Hitbox hitbox;
-    private int damage = 10;
+    private int damage = 20;
     private float speed = GamePanel.SCALE*1.2f;
     private float xPos, yPos;
     private Vector direction;

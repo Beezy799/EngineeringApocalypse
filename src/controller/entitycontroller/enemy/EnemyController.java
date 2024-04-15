@@ -14,8 +14,10 @@ public abstract class EnemyController extends EntityController {
     protected float xAttackHitboxOffset, yAttackHitboxOffset;
 
     //per gestire i danni subiti-fatti
-    protected int attack = 10, defence = 2;
+    protected int attack = 20, defence = 4;
     protected boolean stateLocked = false;
+
+    protected int noDamageCounter;
 
 
     public EnemyController(int x, int y, IController c, int index) {
@@ -24,6 +26,11 @@ public abstract class EnemyController extends EntityController {
 
     public void hitted(int playerAttack){
         if(currentState != EntityStates.HITTED && currentState != EntityStates.ATTACKING && currentState != EntityStates.DYING) {
+
+            if(noDamageCounter < 150)
+                return;
+
+            noDamageCounter = 0;
             changeState(EntityStates.HITTED);
             int damage = playerAttack - defence;
             if (damage > 0) {
@@ -108,6 +115,13 @@ public abstract class EnemyController extends EntityController {
         Node goal = new Node(playerRow, playerCol);
         path = controller.getPathFinder().findPath(start, goal);
         return path != null;
+    }
+
+    protected void updateDamageCounter() {
+        noDamageCounter++;
+        if(noDamageCounter >= 150){
+            noDamageCounter = 150;
+        }
     }
 
 }

@@ -25,7 +25,7 @@ public class PlayerController {
     private int notes = 0;
     private int defence = 2;
 
-    private int attack = 80;
+    private int attack = 20;
 
     private Hitbox hitbox, attackHitbox;
     //per evitare il problema dello sticky wall, prima di aggiornare la posizione della hitbox vera, aggiorniamo questa

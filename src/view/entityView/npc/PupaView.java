@@ -32,13 +32,14 @@ public class PupaView extends NpcView {
     }
 
     protected void loadDialogues() {
-        dialogues = new String[6];
-        dialogues[0] = "Fortuna che ci sei !";
-        dialogues[1] = "Nel dormitorio è saltata la luce, non vedo più niente !";
+        dialogues = new String[7];
+        dialogues[0] = "Ciao, non ti ho mai visto da queste parti \n ti andrebbe aiutare una bella ragazza in difficoltà?";
+        dialogues[1] = "Nel dormitorio è saltata la luce, non vedo più niente!";
         dialogues[2] = "Mi fa paura il buio \n non posso vedere il mio bellissimo faccino riflesso";
         dialogues[3] = "Se riesci ad accendere la luce \n ti consiglio un esame a scelta molto facile \n con tanti CFU";
-        dialogues[4] = "Vai a destra, nella parte maschile del dormitorio,\n lì troverai il modo per accendere la luce";
-        dialogues[5] = "So che puoi farcela !";
+        dialogues[4] = "Vai a sinistra, vicino alla tv, l'interruttore è da quelle parti";
+        dialogues[6] = "Attento a non farti prendere dal fantasma dell'ansia \n ha fatto scappare tanti studenti";
+        dialogues[5] = "Se sopravvivi ti aggiungo su instagram <3";
     }
 
     @Override
@@ -52,14 +53,6 @@ public class PupaView extends NpcView {
         return 0;
     }
 
-    public String getNextDialogueLine(){
-        dialogueIndex++;
-
-        if(dialogueIndex >= dialogues.length)
-            dialogueIndex = dialogues.length;
-
-        return dialogues[dialogueIndex];
-    }
     private void loadIdleImages() {
         //prendi le immagini già caricate, prendi la seconda ogni tre
         for(int direction = 0;  direction < 4; direction++)

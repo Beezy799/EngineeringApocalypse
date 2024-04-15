@@ -83,12 +83,12 @@ public abstract class EntityView extends SortableElement {
 //        g2.fillRect(xPosOnScreen, yPosOnScreen, 5, 5);
 
         //disegna la sua hitbox
-//        g2.setColor(Color.red);
-//        int hitboxW = entityComplete.getEntityController().getHitbox().getWidth();
-//        int hitboxH = entityComplete.getEntityController().getHitbox().getHeight();
-//        int xoffsetH = entityComplete.getEntityController().getXhitboxOffset();
-//        int yoffsetH = entityComplete.getEntityController().getYhitboxOffset();
-//        g2.drawRect(xPosOnScreen - xoffsetH, yPosOnScreen - yoffsetH, hitboxW, hitboxH);
+        g2.setColor(Color.red);
+        int hitboxW = entityComplete.getEntityController().getHitbox().getWidth();
+        int hitboxH = entityComplete.getEntityController().getHitbox().getHeight();
+        int xoffsetH = entityComplete.getEntityController().getXhitboxOffset();
+        int yoffsetH = entityComplete.getEntityController().getYhitboxOffset();
+        g2.drawRect(xPosOnScreen - xoffsetH, yPosOnScreen - yoffsetH, hitboxW, hitboxH);
 
         //disegna interaction
         g2.setColor(Color.blue);

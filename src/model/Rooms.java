@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import src.controller.entitycontroller.enemy.GhostController;
 import src.controller.entitycontroller.enemy.NullafacenteController;
 import src.controller.entitycontroller.npc.*;
 import src.controller.Hitbox;
@@ -13,6 +14,7 @@ import src.model.events.*;
 import src.model.mapModel.Map;
 import src.model.mapModel.Passage;
 import src.view.IView;
+import src.view.entityView.enemy.GhostView;
 import src.view.entityView.enemy.NullafacenteView;
 import src.view.entityView.npc.*;
 
@@ -205,6 +207,12 @@ public enum Rooms {
                     NullafacenteController nc = new NullafacenteController(colonna, riga, model.getController(), i);
                     EnemyComplete nullaf = new EnemyComplete(nc, nv);
                     enemyList.add(nullaf);
+                    break;
+                case "fantasma":
+                    GhostView gv = new GhostView(view, i);
+                    GhostController gc = new GhostController(colonna, riga, model.getController(), i);
+                    EnemyComplete ghost = new EnemyComplete(gc, gv);
+                    enemyList.add(ghost);
                     break;
             }
         }
