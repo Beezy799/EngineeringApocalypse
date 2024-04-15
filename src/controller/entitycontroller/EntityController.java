@@ -383,6 +383,14 @@ public abstract class EntityController {
         currentState = EntityStates.IDLE;
         movementVector.resetDirections();
 
+        resetPosition();
+
+        if(path != null)
+            path = null;
+        pathNodeIndex = 0;
+    }
+
+    public void resetPosition(){
         xPos = initialXpos;
         yPos = initialYpos;
 
@@ -391,10 +399,6 @@ public abstract class EntityController {
         int initialInteracionHitboxWidth = interactionHitbox.getWidth()/GamePanel.TILES_SIZE;
         int initialInteracionHitboxHeight = interactionHitbox.getHeight()/GamePanel.TILES_SIZE;
         setHitbox(initialHitboxWidth, initialHitboxHeight, initialInteracionHitboxWidth, initialInteracionHitboxHeight);
-
-        if(path != null)
-            path = null;
-        pathNodeIndex = 0;
     }
 
 }

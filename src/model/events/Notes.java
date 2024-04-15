@@ -21,7 +21,7 @@ public class Notes extends Event {
 			model.getView().getPlayStateView().getPlayUI().setMessageToShow("premi E per interagire");
 
 			if (InputState.E.getPressed()) {
-				int notes = 10;
+				int notes = 5;
 				model.getController().getPlayerController().addNotes(notes);
 				model.getView().getSoundManager().playSE(Constants.SoundConstants.APPUNTI_SE);
 				model.getView().getPlayStateView().getPlayUI().setMessageToShow(message);

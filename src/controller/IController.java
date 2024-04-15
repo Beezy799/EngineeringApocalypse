@@ -132,8 +132,9 @@ public class IController {
             playerController.changeActualState(EntityStates.PARRING);
             playerController.lockState();
         }
+
         //quando smette di premere spazio, smette di pararsi
-        else if(!InputState.SPACE.getPressed() && playerController.getCurrentState() == EntityStates.PARRING){
+        else if(playerController.getCurrentState() == EntityStates.PARRING){
             playerController.unlockState();
         }
 
@@ -153,7 +154,6 @@ public class IController {
                 playerController.lockState();
                 playerController.createBullet();
             }
-            InputState.P.setPressed(false);
             //System.out.println(playerController.getxPosPlayer()/GamePanel.TILES_SIZE + ", " + playerController.getyPosPlayer()/GamePanel.TILES_SIZE);
         }
 

@@ -2,27 +2,23 @@ package src.view;
 
 import src.model.EntityStates;
 import src.model.GameState;
-import src.view.IView;
-import src.view.ViewUtils;
+
 import src.view.gameWindow.GamePanel;
 import src.view.playStateView.SortableElement;
-
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import static src.model.Constants.EntityConstants.*;
-import static src.view.gameWindow.GamePanel.SCALE;
+
 
 import javax.imageio.ImageIO;
 
 public class PlayerView extends SortableElement {
 
-    private IView view;
+    private final IView view;
     //campo 0 = tipo(ragazzo-ragazza), primo campo = azione, secondo = direzione, terzo = sprite
     private BufferedImage[][][][] playerAnimation;
-    private static int RAGAZZO = 0, RAGAZZA = 1;
+    private final static int RAGAZZO = 0, RAGAZZA = 1;
     private int gender = RAGAZZO;
     private int animationCounter; //aumenta di 1 ad ogni repaint, si azzera quando raggiunge animationspeed,
     // e in quel momento cambia sprite

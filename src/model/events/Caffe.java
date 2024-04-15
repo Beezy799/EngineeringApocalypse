@@ -21,7 +21,7 @@ public class Caffe extends Event{
 			model.getView().getPlayStateView().getPlayUI().setMessageToShow("premi E per interagire");
 
 			if (InputState.E.getPressed()) {
-				int life = 10;
+				int life = 15;
 				model.getController().getPlayerController().addLife(life);
 				model.getView().getSoundManager().playSE(Constants.SoundConstants.CAFFE_SE);
 				model.getView().getPlayStateView().getPlayUI().setMessageToShow(message);

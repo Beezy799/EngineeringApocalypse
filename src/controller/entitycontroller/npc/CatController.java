@@ -5,6 +5,10 @@ import src.controller.entitycontroller.EntityController;
 import src.controller.pathFinding.Node;
 import src.model.Constants;
 import src.model.EntityStates;
+import src.model.Rooms;
+import src.model.entity.EntityComplete;
+import src.model.entity.NpcComplete;
+import src.view.entityView.npc.NerdView;
 import src.view.gameWindow.GamePanel;
 
 import java.util.Random;
@@ -24,6 +28,8 @@ public class CatController extends EntityController {
 
     @Override
     public void update() {
+        speed = GamePanel.SCALE;
+
         switch(currentState){
             case IDLE:
                 randomMove();
@@ -42,6 +48,12 @@ public class CatController extends EntityController {
                     controller.getPlayerController().addCFU(30);
                     controller.getView().getPlayStateView().getPlayUI().setMessageToShow(questCompletata);
 
+                    for(NpcComplete nerd : Rooms.TENDA.getNpc()){
+                        if(nerd.getEntityView() instanceof NerdView){
+                            nerd.getNpcView().setNextDialogue();
+                        }
+                    }
+
                     controller.getView().getSoundManager().playSE(Constants.SoundConstants.CFU_SE);
 
                     controller.getPlayerController().changeActualState(EntityStates.CFU_FOUND);
@@ -56,7 +68,7 @@ public class CatController extends EntityController {
                 break;
 
             case RUNAWAY:
-                speed = 3;
+                speed = GamePanel.SCALE*1.2f;
                 movementVector.resetDirections();
                 int pX = (int)controller.getPlayerController().getxPosPlayer();
                 int pY = (int)controller.getPlayerController().getyPosPlayer();

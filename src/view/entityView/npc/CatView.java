@@ -49,8 +49,8 @@ public class CatView extends NpcView {
 
     @Override
     protected void loadDialogues() {
-        dialogues = new String[1];
-        dialogues[0] = "il gatto ti guarda con odio dopo che gli hai preso il gioco";
+        dialogues = new String[1][1];
+        dialogues[0][0] = "il gatto ti guarda con odio dopo che gli hai preso il gioco";
     }
 
     private void loadRunImages(BufferedImage image, BufferedImage temp) {

@@ -191,10 +191,11 @@ public class PlayUI {
 
         int y = GamePanel.GAME_HEIGHT/2 + GamePanel.GAME_HEIGHT/4 + (int)(30*GamePanel.SCALE);
 
-        for(String line : text.split("\n ")) {
-            g2.drawString(line, (int)(10*GamePanel.SCALE), y);
+        for (String line : text.split("\n ")) {
+            g2.drawString(line, (int) (10 * GamePanel.SCALE), y);
             y += 40;
         }
-
     }
+
+
 }

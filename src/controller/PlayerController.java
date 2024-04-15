@@ -1,8 +1,6 @@
 package src.controller;
 
-import src.model.BulletComplete;
-import src.model.EntityStates;
-import src.model.Rooms;
+import src.model.*;
 import src.view.gameWindow.GamePanel;
 import src.view.playStateView.BulletView;
 
@@ -303,7 +301,15 @@ public class PlayerController {
     }
 
     public void lockState(){
-        stateLocked = true;
+        if(!stateLocked) {
+            stateLocked = true;
+
+            if(actualState == EntityStates.ATTACKING)
+                controller.getView().getSoundManager().playSE(Constants.SoundConstants.COLPO_SE);
+
+            else if (actualState == EntityStates.THROWING)
+                controller.getView().getSoundManager().playSE(Constants.SoundConstants.APPUNTI_SE);
+        }
     }
 
     public EntityStates getCurrentState(){
@@ -391,7 +397,7 @@ public class PlayerController {
         }
 
         if(hitted){
-            int damage = enemyAttack - defence;
+            int damage = enemyAttack + 10* GameState.difficulty - defence;
             if(damage > 0){
                 actualState = EntityStates.HITTED;
                 lockState();
@@ -439,8 +445,6 @@ public class PlayerController {
                 controller.getView().getPlayStateView().getPlayUI().setMessageToShow("non hai appunti da lanciare");
             }
         }
-
-
     }
 
     private void setNewBuet(Vector bulletVector) {
@@ -464,10 +468,26 @@ public class PlayerController {
         }
 
         BulletController bc = new BulletController(bulletHitbox, xBullet, yBullet, bulletVector, controller, this);
-        BulletView bv = new BulletView();
+        BulletView bv = new BulletView(bulletVector);
         BulletComplete bulletComplete = new BulletComplete(bv, bc);
+
         int index = Rooms.actualRoom.getBuletList().size();
         bulletComplete.setIndexInList(index);
         Rooms.actualRoom.getBuletList().add(bulletComplete);
+    }
+
+    public void setGender(int gender) {
+        if(gender == Constants.EntityConstants.RAGAZZO){
+            life = 70;
+            notes = 15;
+            defence = 2;
+            speed = GamePanel.SCALE;
+        }
+        else{
+            life = 90;
+            notes = 5;
+            defence = 4;
+            speed = GamePanel.SCALE*0.9f;
+        }
     }
 }

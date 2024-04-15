@@ -5,8 +5,8 @@ import src.view.IView;
 import src.view.entityView.EntityView;
 
 public abstract class NpcView extends EntityView {
-    protected String[] dialogues;
-    protected int dialogueIndex;
+    protected String[][] dialogues;
+    protected int dialogueLine, dialogueIndex;
 
     public NpcView(IView v, int i) {
         super(v, i);
@@ -14,23 +14,30 @@ public abstract class NpcView extends EntityView {
     }
 
     public void setNextDialogueLine(){
-        dialogueIndex++;
+        dialogueLine++;
 
-        if(dialogueIndex >= dialogues.length) {
-            dialogueIndex = dialogues.length - 1;
+        if(dialogueLine >= dialogues[dialogueIndex].length) {
+            dialogueLine = dialogues[dialogueIndex].length - 1;
             GameState.actualState = GameState.PLAYING;
         }
-
     }
 
-    public String getDialogue(){
-        return dialogues[dialogueIndex];
+    public void setNextDialogue(){
+        dialogueIndex++;
+        dialogueLine = 0;
+        if(dialogueIndex >= dialogues.length){
+            dialogueIndex = dialogues.length -1;
+        }
     }
+
+    public String getDialogueLine(){
+        return dialogues[dialogueIndex][dialogueLine];
+    }
+
     @Override
     protected abstract int getAnimationLenght();
     protected abstract void loadDialogues();
-
     public void reset(){
-        dialogueIndex = 0;
+        dialogueLine = 0;
     }
 }

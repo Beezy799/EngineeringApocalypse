@@ -32,14 +32,18 @@ public class PupaView extends NpcView {
     }
 
     protected void loadDialogues() {
-        dialogues = new String[7];
-        dialogues[0] = "Ciao, non ti ho mai visto da queste parti \n ti andrebbe aiutare una bella ragazza in difficoltà?";
-        dialogues[1] = "Nel dormitorio è saltata la luce, non vedo più niente!";
-        dialogues[2] = "Mi fa paura il buio \n non posso vedere il mio bellissimo faccino riflesso";
-        dialogues[3] = "Se riesci ad accendere la luce \n ti consiglio un esame a scelta molto facile \n con tanti CFU";
-        dialogues[4] = "Vai a sinistra, vicino alla tv, l'interruttore è da quelle parti";
-        dialogues[6] = "Attento a non farti prendere dal fantasma dell'ansia \n ha fatto scappare tanti studenti";
-        dialogues[5] = "Se sopravvivi ti aggiungo su instagram <3";
+        dialogues = new String[2][];
+        dialogues[0] = new String[7];
+        dialogues[0][0] = "Ciao, non ti ho mai visto da queste parti \n ti andrebbe aiutare una bella ragazza in difficoltà?";
+        dialogues[0][1] = "Nel dormitorio è saltata la luce, non vedo più niente!";
+        dialogues[0][2] = "Mi fa paura il buio \n non posso vedere il mio bellissimo faccino riflesso";
+        dialogues[0][3] = "Se riesci ad accendere la luce \n ti consiglio un esame a scelta molto facile \n con tanti CFU";
+        dialogues[0][4] = "Vai a sinistra, vicino alla tv, l'interruttore è da quelle parti";
+        dialogues[0][6] = "Attento a non farti prendere dal fantasma dell'ansia \n ha fatto scappare tanti studenti";
+        dialogues[0][5] = "Se sopravvivi ti aggiungo su instagram <3";
+
+        dialogues[1] = new String[1];
+        dialogues[1][0] = "grazie! \n ti aggiungo subito su instagram <3";
     }
 
     @Override

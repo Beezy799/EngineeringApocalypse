@@ -5,6 +5,7 @@ import src.controller.IController;
 import src.controller.entitycontroller.EntityController;
 import src.controller.pathFinding.Node;
 import src.model.EntityStates;
+import src.model.GameState;
 import src.view.gameWindow.GamePanel;
 
 public abstract class EnemyController extends EntityController {
@@ -14,7 +15,7 @@ public abstract class EnemyController extends EntityController {
     protected float xAttackHitboxOffset, yAttackHitboxOffset;
 
     //per gestire i danni subiti-fatti
-    protected int attack = 20, defence = 4;
+    protected int attack, defence;
     protected boolean stateLocked = false;
 
     protected int noDamageCounter;
@@ -32,7 +33,7 @@ public abstract class EnemyController extends EntityController {
 
             noDamageCounter = 0;
             changeState(EntityStates.HITTED);
-            int damage = playerAttack - defence;
+            int damage = playerAttack - defence - GameState.difficulty;
             if (damage > 0) {
                 life -= damage;
             }

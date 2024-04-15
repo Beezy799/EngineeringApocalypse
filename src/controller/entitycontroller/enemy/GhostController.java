@@ -47,9 +47,9 @@ public class GhostController extends EnemyController{
         if(hitbox.intersects(controller.getPlayerController().getHitbox())){
             controller.getPlayerController().hitted(attack, movementVector);
             xPos = 12;
-            yPos = 8;
-            hitbox.setX(12);
-            hitbox.setY(8);
+            yPos = 12;
+            hitbox.setX(10);
+            hitbox.setY(10);
         }
     }
 

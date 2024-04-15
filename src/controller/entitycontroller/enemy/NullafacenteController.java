@@ -4,6 +4,7 @@ import src.controller.Hitbox;
 import src.controller.IController;
 import src.controller.pathFinding.Node;
 import src.model.EntityStates;
+import src.model.GameState;
 import src.view.gameWindow.GamePanel;
 
 public class NullafacenteController extends EnemyController{
@@ -25,6 +26,7 @@ public class NullafacenteController extends EnemyController{
         yAttackHitboxOffset = attackHitbox.getHeight()/2;
 
         life = 100;
+        attack = 15;
         defence = 2;
     }
 

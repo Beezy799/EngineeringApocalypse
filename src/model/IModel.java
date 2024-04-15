@@ -2,13 +2,11 @@ package src.model;
 
 import src.controller.Hitbox;
 import src.controller.IController;
-import src.controller.Vector;
-import src.model.events.Event;
+import src.controller.entitycontroller.EntityController;
 import src.model.entity.EnemyComplete;
+import src.model.entity.NpcComplete;
 import src.model.mapModel.tileset.Tileset;
 import src.view.IView;
-import src.view.entityView.EntityView;
-import src.view.entityView.npc.NpcView;
 
 import java.util.ArrayList;
 
@@ -67,6 +65,17 @@ public class IModel {
         Rooms.actualRoom = roomAfterTransition;
         //il pathfinder si crea il grafo della nuova stanza
         controller.getPathFinder().createGraph();
+
+        for(NpcComplete npc : Rooms.actualRoom.getNpc()){
+            if(npc.getEntityController().getHitbox().intersects(controller.getPlayerController().getHitbox())){
+                npc.getEntityController().resetPosition();
+            }
+        }
+        for(EnemyComplete enemy : Rooms.actualRoom.getEnemy()){
+            if(enemy.getEnemyController().getHitbox().intersects(controller.getPlayerController().getHitbox())){
+                enemy.getEnemyController().resetPosition();
+            }
+        }
     }
 
     public void loadEntitiesInRooms(IView iView) {
@@ -82,11 +91,12 @@ public class IModel {
     }
 
     public void setEntityNextDialogue(int entityIndex){
+        view.getSoundManager().playSE(Constants.SoundConstants.DIALOGUE_SE);
         Rooms.actualRoom.getNpc().get(entityIndex).getNpcView().setNextDialogueLine();
     }
 
     public String getEntityDialogue(int entityIndex){
-        return Rooms.actualRoom.getNpc().get(entityIndex).getNpcView().getDialogue();
+        return Rooms.actualRoom.getNpc().get(entityIndex).getNpcView().getDialogueLine();
     }
 
     public void unlockState(int enemyIndex){

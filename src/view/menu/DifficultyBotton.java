@@ -1,5 +1,6 @@
 package src.view.menu;
 
+import src.model.GameState;
 import src.view.ViewUtils;
 
 import java.awt.*;
@@ -25,8 +26,8 @@ public class DifficultyBotton extends AbstractMenuButton {
 
        int fontSize = (int)(12*SCALE);
        descriptionFont = new Font("Arial", Font.PLAIN, fontSize);
-
     }
+
     @Override
     public void draw(Graphics2D g2) {
 
@@ -45,12 +46,13 @@ public class DifficultyBotton extends AbstractMenuButton {
 
     @Override
     public void reactToMouse(MouseEvent e) {
-        System.out.println("cambia difficoltà");
+        reactToEnter();
     }
 
     @Override
     public void reactToEnter() {
-        System.out.println("cambia difficoltà");
+        GameState.difficulty = difficulty;
+        System.out.println(difficulty);
     }
 
     @Override
