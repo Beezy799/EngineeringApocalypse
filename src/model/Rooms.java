@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import src.controller.entitycontroller.enemy.GhostController;
 import src.controller.entitycontroller.enemy.NullafacenteController;
+import src.controller.entitycontroller.enemy.RobotController;
 import src.controller.entitycontroller.npc.*;
 import src.controller.Hitbox;
 import src.model.entity.EnemyComplete;
@@ -16,6 +17,7 @@ import src.model.mapModel.Passage;
 import src.view.IView;
 import src.view.entityView.enemy.GhostView;
 import src.view.entityView.enemy.NullafacenteView;
+import src.view.entityView.enemy.RobotView;
 import src.view.entityView.npc.*;
 
 import java.io.BufferedReader;
@@ -213,6 +215,12 @@ public enum Rooms {
                     GhostController gc = new GhostController(colonna, riga, model.getController(), i);
                     EnemyComplete ghost = new EnemyComplete(gc, gv);
                     enemyList.add(ghost);
+                    break;
+                case"robot":
+                    RobotView rv = new RobotView(view, i);
+                    RobotController rc = new RobotController(colonna, riga, model.getController(), i);
+                    EnemyComplete robot = new EnemyComplete(rc, rv);
+                    enemyList.add(robot);
                     break;
             }
         }

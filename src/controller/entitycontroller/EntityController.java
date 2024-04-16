@@ -30,9 +30,7 @@ public abstract class EntityController {
 
     protected IController controller;
     protected int entityIndex;
-
     protected EntityComplete entityComplete;
-
     protected ArrayList<Node> path;
     protected int pathNodeIndex;
 

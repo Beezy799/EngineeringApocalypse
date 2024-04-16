@@ -72,8 +72,10 @@ public abstract class EntityView extends SortableElement {
         xPosOnScreen = GamePanel.CENTER_X_GAME_PANEL + xDistanceFromPlayer;
         yPosOnScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
 
+
         //siccome la posizone dell'entità non coincide col punto in alto a sinistra dell'immagine, compensiamo con gli offset
         g2.drawImage(animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite], xPosOnScreen - xOffset, yPosOnScreen - yOffset, null);
+
 
         //disegna la zona occupata dalla sprite
 //        g2.drawRect(xPosOnScreen - xOffset, yPosOnScreen - yOffset,

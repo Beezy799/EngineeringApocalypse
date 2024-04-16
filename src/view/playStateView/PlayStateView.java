@@ -10,6 +10,7 @@ import src.model.Rooms;
 import src.view.IView;
 import src.view.PlayerView;
 import src.view.ViewUtils;
+import src.view.entityView.enemy.RobotView;
 import src.view.gameWindow.GamePanel;
 import src.view.mapView.TileImageLoader;
 
@@ -30,7 +31,6 @@ public class PlayStateView {
     private ScreenOverlay screenOverlay;
     private ArrayList<SortableElement> elementsAboveTheFloor;
 
-
     public PlayStateView(IView v){
         iView = v;
         playerView = new PlayerView(v);
@@ -40,13 +40,16 @@ public class PlayStateView {
         playUI = new PlayUI(this);
         screenOverlay = new ScreenOverlay(this);
 
+        loadCfuImage();
+    }
+
+    private void loadCfuImage() {
         try {
             cfuImage = ImageIO.read(getClass().getResourceAsStream("/res/ui/punteggioPiccolo.png"));
             cfuImage = ViewUtils.scaleImage(cfuImage, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public void draw(Graphics2D g2){

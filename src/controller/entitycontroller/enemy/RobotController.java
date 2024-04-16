@@ -1,22 +1,25 @@
 package src.controller.entitycontroller.enemy;
 
+import src.controller.BulletController;
 import src.controller.Hitbox;
 import src.controller.IController;
-import src.controller.pathFinding.Node;
+import src.controller.Vector;
+import src.model.BulletComplete;
 import src.model.EntityStates;
-import src.model.GameState;
+import src.model.Rooms;
 import src.view.gameWindow.GamePanel;
+import src.view.playStateView.BulletView;
 
-public class NullafacenteController extends EnemyController{
+public class RobotController extends  EnemyController{
 
     private int rechargeCounter, hittedCounter;
-    private int hitboxWidth = 30, hitboxHeight = 30;
-    private float range = GamePanel.TILES_SIZE*1.4f;
+    private int hitboxWidth = 28, hitboxHeight = 28;
+    private float range = GamePanel.TILES_SIZE*5;
     private int attackCounter;
 
-
-    public NullafacenteController(int x, int y, IController c, int index) {
+    public RobotController(int x, int y, IController c, int index) {
         super(x, y, c, index);
+
         speed = GamePanel.SCALE*0.7f;
 
         setHitbox(hitboxWidth, hitboxHeight, 12, 12);
@@ -26,13 +29,12 @@ public class NullafacenteController extends EnemyController{
         yAttackHitboxOffset = attackHitbox.getHeight()/2;
 
         life = 100;
-        attack = 15;
-        defence = 2;
+        attack = 0;
+        defence = 4;
     }
 
     @Override
     public void update() {
-
         updateDamageCounter();
 
         switch (currentState){
@@ -89,19 +91,12 @@ public class NullafacenteController extends EnemyController{
                 break;
 
             case ATTACKING:
-                //ora come ora non si capisce quando parte l'attacco, possiamo creare uno stato "prepara attacco"
-                //che avverte il player e uno stato attacca.
-                turnToPlayer();
-                shiftAttackHitbox();
-                attackCounter++;
-                if(attackCounter >= 100){
-                    attackCounter = 0;
-                    if(attackHitbox.intersects(controller.getPlayerController().getHitbox())){
-                        controller.getPlayerController().hitted(10, movementVector);
-                    }
-                    changeState(EntityStates.RECHARGE);
-                }
 
+                path = null;
+                pathNodeIndex = 0;
+
+                turnToPlayer();
+                shootToPlayer();
                 break;
 
             case CHASE:
@@ -153,10 +148,81 @@ public class NullafacenteController extends EnemyController{
                 }
                 break;
         }
-
     }
 
 
+    private void shootToPlayer() {
+        attackCounter++;
+        if(attackCounter > 100) {
 
+            int playerCol = (int)(controller.getPlayerController().getxPosPlayer())/GamePanel.TILES_SIZE;
+            int playerRow = (int)(controller.getPlayerController().getyPosPlayer())/GamePanel.TILES_SIZE;
+
+            int enemyCol = (int)(xPos)/GamePanel.TILES_SIZE;
+            int enemyRow = (int)(yPos)/GamePanel.TILES_SIZE;
+
+            if(playerCol == enemyCol || playerRow == enemyRow) {
+                crateBullet();
+            }
+
+
+            currentState = EntityStates.RECHARGE;
+            attackCounter = 0;
+        }
+
+    }
+
+    private void crateBullet() {
+
+        Vector bulletVector = new Vector(1);
+
+        if(movementVector.getX() != 0){
+            bulletVector.setX(movementVector.getX());
+        }
+        else {
+            bulletVector.setY(movementVector.getY());
+        }
+
+        setNewBuet(bulletVector);
+            //se la direzione del giocatore non è specificata, il proiettile non si crea
+//            if(bulletVector.getX() != 0 || bulletVector.getY() != 0){
+//                if(notes > 0){
+//                    notes--;
+//                    setNewBuet(bulletVector);
+//                }
+//                else {
+//                    controller.getView().getPlayStateView().getPlayUI().setMessageToShow("non hai appunti da lanciare");
+//                }
+//            }
+        }
+
+    private void setNewBuet(Vector bulletVector) {
+        Hitbox bulletHitbox = new Hitbox(0,0, GamePanel.TILES_SIZE/2, GamePanel.TILES_SIZE/2);
+        float xBullet = 0, yBullet = 0;
+        if(bulletVector.getX() > 0){
+            xBullet = xPos + hitbox.getWidth()/2 + bulletHitbox.getWidth()/2 + 1;
+            yBullet = yPos;
+        }
+        else if (bulletVector.getX() < 0) {
+            xBullet = xPos - hitbox.getWidth()/2 - bulletHitbox.getWidth()/2 - 1;
+            yBullet = yPos;
+        }
+        else if (bulletVector.getY() < 0) {
+            xBullet = xPos;
+            yBullet = yPos - hitbox.getHeight()/2 - bulletHitbox.getHeight()/2 - 1;
+        }
+        else if (bulletVector.getY() > 0) {
+            xBullet = xPos;
+            yBullet = yPos + hitbox.getHeight()/2 + bulletHitbox.getHeight()/2 + 1;
+        }
+
+        BulletController bc = new BulletController(bulletHitbox, xBullet, yBullet, bulletVector, controller, this);
+        BulletView bv = new BulletView(bulletVector);
+        BulletComplete bulletComplete = new BulletComplete(bv, bc);
+
+        int index = Rooms.actualRoom.getBuletList().size();
+        bulletComplete.setIndexInList(index);
+        Rooms.actualRoom.getBuletList().add(bulletComplete);
+    }
 
 }

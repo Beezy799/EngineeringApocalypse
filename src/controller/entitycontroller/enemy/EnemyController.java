@@ -17,7 +17,6 @@ public abstract class EnemyController extends EntityController {
     //per gestire i danni subiti-fatti
     protected int attack, defence;
     protected boolean stateLocked = false;
-
     protected int noDamageCounter;
 
 

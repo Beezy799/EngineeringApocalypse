@@ -151,7 +151,6 @@ public class NullafacenteView extends EnemyView {
         animation[ATTACKING.getConstantInAnimationArray()][UP][1] = temp;
 
     }
-
     @Override
     protected int getAnimationLenght() {
         if(currentState == IDLE)
