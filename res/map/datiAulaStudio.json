@@ -139,6 +139,16 @@
     "riga": 28,
     "colonna": 32
     },
+    {
+      "nome": "nullafacente",
+      "riga": 14,
+      "colonna": 21
+    },
+    {
+      "nome": "nullafacente",
+      "riga": 38,
+      "colonna": 24
+    },
     { "nome": "nullafacente",
       "riga": 26,
       "colonna": 36

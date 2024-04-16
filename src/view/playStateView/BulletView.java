@@ -1,5 +1,6 @@
 package src.view.playStateView;
 
+import src.controller.Hitbox;
 import src.controller.Vector;
 import src.model.BulletComplete;
 import src.view.ViewUtils;
@@ -26,7 +27,6 @@ public class BulletView {
     }
 
     public void draw(Graphics2D g2, int playerMapPositionX, int playerMapPositionY){
-
         counter++;
         //decidiamo quando disegnare
         if(counter >= animationSpeed) {
@@ -55,6 +55,9 @@ public class BulletView {
         int yPosOnScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
 
         g2.drawImage(animation[animationIndex], xPosOnScreen, yPosOnScreen, null);
+
+//        Hitbox h = bulletComplete.getBulletController().getHitbox();
+//        g2.drawRect(xPosOnScreen, yPosOnScreen, h.getWidth(), h.getHeight());
 
     }
 
@@ -106,4 +109,5 @@ public class BulletView {
             e.printStackTrace();
         }
     }
+
 }

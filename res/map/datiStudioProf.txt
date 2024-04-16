@@ -1,7 +1,0 @@
-per i passaggi l'ordine è posx posy larghezza altezza nuovax nuovay indiceStanza e cfu richiesti
-per gli NPC l'ordine è tipo posx posy 
-
-;passaggio al laboratorio, 24, 32, 32, 32, 14, 9, 4, 999, sei arrivato fin qui.. non puoi tirarti indietro adesso
-/boss, boss, 24, 13
-
-+cutscene, 21, 22, 256, 32, cutscene

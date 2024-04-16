@@ -397,7 +397,7 @@ public class PlayerController {
         }
 
         if(hitted){
-            int damage = enemyAttack + 10* GameState.difficulty - defence;
+            int damage = enemyAttack + 5* GameState.difficulty - defence;
             if(damage > 0){
                 actualState = EntityStates.HITTED;
                 lockState();

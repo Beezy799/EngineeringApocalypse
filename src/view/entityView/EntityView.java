@@ -29,7 +29,6 @@ public abstract class EntityView extends SortableElement {
     //la posizione non coincide col punto in alto a
     // sinistra dell'immagine, quindi dobbiamo compensare
     protected int yOffset, xOffset;
-
     protected EntityComplete entityComplete;
 
     public EntityView(IView v, int i){

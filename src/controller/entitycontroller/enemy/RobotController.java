@@ -7,15 +7,17 @@ import src.controller.Vector;
 import src.model.BulletComplete;
 import src.model.EntityStates;
 import src.model.Rooms;
+import src.model.entity.NpcComplete;
+import src.view.entityView.npc.ProfView;
 import src.view.gameWindow.GamePanel;
 import src.view.playStateView.BulletView;
 
 public class RobotController extends  EnemyController{
 
+    private static int numRobots;
     private int rechargeCounter, hittedCounter;
     private int hitboxWidth = 28, hitboxHeight = 28;
     private float range = GamePanel.TILES_SIZE*5;
-    private int attackCounter;
 
     public RobotController(int x, int y, IController c, int index) {
         super(x, y, c, index);
@@ -31,172 +33,170 @@ public class RobotController extends  EnemyController{
         life = 100;
         attack = 0;
         defence = 4;
-    }
 
+        numRobots++;
+    }
     @Override
     public void update() {
         updateDamageCounter();
 
         switch (currentState){
-            case IDLE:
-                //se mentre insegue il player sbatte controo un'altr entità,
-                //ritorna allo stato idle, ma vogliamo evitare che faccia
-                //pathfinding troppo spesso
-                if(pathNodeIndex != 0 || path != null){
-                    path = null;
+        case IDLE:
+            normalState();
+            break;
+
+        case MOVE:
+            if(icanHitThePlayer(range)) {
+                changeState(EntityStates.ATTACKING);
+                setStateLocked(true);
+            }
+            //controlla se lo vede
+            else if(iCanSeeThePlayer()){
+                if(iCanReachThePlayer()){
                     pathNodeIndex = 0;
+                    changeState(EntityStates.CHASE);
+                }
+                else {
                     changeState(EntityStates.RECHARGE);
                 }
+            }
+            //se il player è molto lontano, si muove
+            else {
+                updatePosition();
+            }
+            break;
 
-                //controlla se il player è sotto tiro
-                else if(icanHitThePlayer(range)){
-                    changeState(EntityStates.ATTACKING);
-                    stateLocked = true;
-                }
-                //controlla se lo vede
-                else if(iCanSeeThePlayer()){
-                    if(iCanReachThePlayer()){
-                        pathNodeIndex = 0;
-                        changeState(EntityStates.CHASE);
-                    }
-                    else {
-                        changeState(EntityStates.RECHARGE);
-                    }
-                }
-                //se il player è molto lontano, gira a caso
-                else{
-                    randomMove();
-                }
-                break;
+        case ATTACKING:
+            path = null;
+            pathNodeIndex = 0;
 
-            case MOVE:
-                if(icanHitThePlayer(range)) {
-                    changeState(EntityStates.ATTACKING);
-                    stateLocked = true;
-                }
-                //controlla se lo vede
-                else if(iCanSeeThePlayer()){
-                    if(iCanReachThePlayer()){
-                        pathNodeIndex = 0;
-                        changeState(EntityStates.CHASE);
-                    }
-                    else {
-                        changeState(EntityStates.RECHARGE);
-                    }
-                }
-                //se il player è molto lontano, si muove
-                else {
-                    updatePosition();
-                }
-                break;
+            turnToPlayer();
+            shootToPlayer();
 
-            case ATTACKING:
+            setStateLocked(false);
+            changeState(EntityStates.RECHARGE);
+            break;
 
+        case CHASE:
+            chaseThePlayer();
+            break;
+
+        case HITTED:
+            hittedState();
+            break;
+
+        case RECHARGE:
+            recharge();
+            break;
+        }
+    }
+
+    private void normalState() {
+        //se mentre insegue il player sbatte controo un'altr entità,
+        //ritorna allo stato idle, ma vogliamo evitare che faccia
+        //pathfinding troppo spesso
+        if(pathNodeIndex != 0 || path != null){
+            path = null;
+            pathNodeIndex = 0;
+            changeState(EntityStates.RECHARGE);
+        }
+
+        //controlla se il player è sotto tiro
+        else if(icanHitThePlayer(range)){
+            changeState(EntityStates.ATTACKING);
+            setStateLocked(true);
+        }
+        //controlla se lo vede
+        else if(iCanSeeThePlayer()){
+            if(iCanReachThePlayer()){
+                pathNodeIndex = 0;
+                changeState(EntityStates.CHASE);
+            }
+            else {
+                changeState(EntityStates.RECHARGE);
+            }
+        }
+        //se il player è molto lontano, gira a caso
+        else{
+            randomMove();
+        }
+    }
+
+    private void chaseThePlayer() {
+        try {
+            if (icanHitThePlayer(range)) {
                 path = null;
                 pathNodeIndex = 0;
+                changeState(EntityStates.ATTACKING);
+                stateLocked = true;
+            }
+            //se è arrivato a fine percorso
+            else if (pathNodeIndex == path.size() - 1) {
+                pathNodeIndex = 0;
+                path = null;
 
-                turnToPlayer();
-                shootToPlayer();
-                break;
-
-            case CHASE:
-                try {
-                    if (icanHitThePlayer(range)) {
-                        path = null;
-                        pathNodeIndex = 0;
-                        changeState(EntityStates.ATTACKING);
-                        stateLocked = true;
+                if (iCanSeeThePlayer()) {
+                    if (iCanReachThePlayer()) {
+                        changeState(EntityStates.CHASE);
                     }
-                    //se è arrivato a fine percorso
-                    else if (pathNodeIndex == path.size() - 1) {
-                        pathNodeIndex = 0;
-                        path = null;
-
-                        if (iCanSeeThePlayer()) {
-                            if (iCanReachThePlayer()) {
-                                changeState(EntityStates.CHASE);
-                            }
-                        } else {
-                            changeState(EntityStates.RECHARGE);
-                        }
-                    }
-                    //se non è arrivato e il player è lontano, cammina nel percorso
-                    else {
-                        followPath();
-                    }
+                } else {
+                    changeState(EntityStates.RECHARGE);
                 }
-                catch (NullPointerException npe){
-                    //npe.printStackTrace();
-                    pathNodeIndex = 0;
-                    currentState = EntityStates.RECHARGE;
-                }
-                break;
-
-            case HITTED:
-                hittedCounter++;
-                if(hittedCounter >= 100){
-                    hittedCounter = 0;
-                    changeState(EntityStates.IDLE);
-                }
-                break;
-
-            case RECHARGE:
-                rechargeCounter++;
-                if(rechargeCounter >= 200) {
-                    rechargeCounter = 0;
-                    changeState(EntityStates.IDLE);
-                }
-                break;
+            }
+            //se non è arrivato e il player è lontano, cammina nel percorso
+            else {
+                followPath();
+            }
+        }
+        catch (NullPointerException npe){
+            pathNodeIndex = 0;
+            currentState = EntityStates.RECHARGE;
         }
     }
 
+    private void hittedState() {
+        hittedCounter++;
+        if(hittedCounter >= 140){
+            hittedCounter = 0;
+            changeState(EntityStates.IDLE);
+        }
+    }
+
+    private void recharge() {
+        rechargeCounter++;
+        if(rechargeCounter >= 200) {
+            rechargeCounter = 0;
+            changeState(EntityStates.IDLE);
+        }
+    }
+
+    protected boolean icanHitThePlayer(float range) {
+        float playerX = controller.getPlayerController().getxPosPlayer();
+        float playerY = controller.getPlayerController().getyPosPlayer();
+
+        float xDistance = Math.abs(xPos - playerX);
+        float yDistance = Math.abs(yPos - playerY);
+
+        if(xDistance < range && yDistance < range) {
+            boolean dentroLaHitboxLato = playerX > hitbox.getX() && playerX < hitbox.getX() + hitbox.getWidth();
+            boolean dentroLaHitboxAltezza = playerY > hitbox.getY() && playerY < hitbox.getY() + hitbox.getHeight();
+            return dentroLaHitboxLato || dentroLaHitboxAltezza;
+        }
+        return false;
+    }
 
     private void shootToPlayer() {
-        attackCounter++;
-        if(attackCounter > 100) {
-
-            int playerCol = (int)(controller.getPlayerController().getxPosPlayer())/GamePanel.TILES_SIZE;
-            int playerRow = (int)(controller.getPlayerController().getyPosPlayer())/GamePanel.TILES_SIZE;
-
-            int enemyCol = (int)(xPos)/GamePanel.TILES_SIZE;
-            int enemyRow = (int)(yPos)/GamePanel.TILES_SIZE;
-
-            if(playerCol == enemyCol || playerRow == enemyRow) {
-                crateBullet();
-            }
-
-
-            currentState = EntityStates.RECHARGE;
-            attackCounter = 0;
-        }
-
-    }
-
-    private void crateBullet() {
-
         Vector bulletVector = new Vector(1);
-
         if(movementVector.getX() != 0){
-            bulletVector.setX(movementVector.getX());
+            bulletVector.setX(movementVector.getX()/movementVector.getModule());
         }
         else {
-            bulletVector.setY(movementVector.getY());
+            bulletVector.setY(movementVector.getY()/movementVector.getModule());
         }
+        setNewBullet(bulletVector);
+    }
 
-        setNewBuet(bulletVector);
-            //se la direzione del giocatore non è specificata, il proiettile non si crea
-//            if(bulletVector.getX() != 0 || bulletVector.getY() != 0){
-//                if(notes > 0){
-//                    notes--;
-//                    setNewBuet(bulletVector);
-//                }
-//                else {
-//                    controller.getView().getPlayStateView().getPlayUI().setMessageToShow("non hai appunti da lanciare");
-//                }
-//            }
-        }
-
-    private void setNewBuet(Vector bulletVector) {
+    private void setNewBullet(Vector bulletVector) {
         Hitbox bulletHitbox = new Hitbox(0,0, GamePanel.TILES_SIZE/2, GamePanel.TILES_SIZE/2);
         float xBullet = 0, yBullet = 0;
         if(bulletVector.getX() > 0){
@@ -223,6 +223,19 @@ public class RobotController extends  EnemyController{
         int index = Rooms.actualRoom.getBuletList().size();
         bulletComplete.setIndexInList(index);
         Rooms.actualRoom.getBuletList().add(bulletComplete);
+    }
+
+    public void abbassaNumeroRobot(){
+        numRobots--;
+        if(numRobots == 0){
+            controller.getPlayerController().addCFU(50);
+            controller.getView().getPlayStateView().getPlayUI().setMessageToShow("hai distrutto tutti i robot");
+            for(NpcComplete prof : Rooms.AULA_STUDIO.getNpc()){
+                if(prof.getNpcView() instanceof ProfView){
+                    prof.getNpcView().setNextDialogue();
+                }
+            }
+        }
     }
 
 }

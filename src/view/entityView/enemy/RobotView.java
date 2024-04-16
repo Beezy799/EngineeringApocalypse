@@ -1,6 +1,8 @@
 package src.view.entityView.enemy;
 
+import src.controller.entitycontroller.enemy.RobotController;
 import src.model.EntityStates;
+import src.model.entity.EnemyComplete;
 import src.view.IView;
 import src.view.ViewUtils;
 import src.view.gameWindow.GamePanel;
@@ -25,6 +27,25 @@ public class RobotView extends EnemyView{
         animationSpeed = 30;
     }
 
+    protected void dyingDraw(Graphics2D g2, int xPlayerMap, int yPlayerMap ) {
+        animationCounter++;
+        takeCurrentStateFromController();
+        takeCurrentDirectionFromController();
+
+        if (animationCounter > animationSpeed) {
+            numSprite++;
+
+            if (numSprite >= getAnimationLenght()) {
+                //finita l'animazione, il nemico può muorire
+                ((EnemyComplete) entityComplete).setAlive(false);
+                //quando muore, regala cfu al player
+                ((RobotController)entityComplete.getEntityController()).abbassaNumeroRobot();
+                return;
+            }
+
+            animationCounter = 0;
+        }
+    }
 
     protected void loadImages() {
         BufferedImage image = null;

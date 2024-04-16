@@ -1,6 +1,0 @@
-per i passaggi l'ordine è posx posy larghezza altezza nuovax nuovay indiceStanza e cfu richiesti
-per gli NPC l'ordine è tipo posx posy 
-
-;passaggio all'aula studio, 14, 16, 64, 32, 26, 11, 2, 0
-
--nerd, nerd, 14, 10

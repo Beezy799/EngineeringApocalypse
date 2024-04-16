@@ -335,11 +335,16 @@ public enum Rooms {
         buletList.clear();
     }
 
-    public void deleteBullet(int index){
-        for (int i = index; i < buletList.size(); i++){
-            buletList.get(i).abbassaIndice();
+    public void deleteBullet(int index) {
+        try {
+            for (int i = index; i < buletList.size(); i++) {
+                buletList.get(i).abbassaIndice();
+            }
+            buletList.remove(index);
         }
-        buletList.remove(index);
+        catch (ArrayIndexOutOfBoundsException e){
+            buletList.clear();
+        }
     }
 
     public ArrayList<BulletComplete> getBuletList(){
