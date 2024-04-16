@@ -33,7 +33,7 @@ public class IView {
     private TransitionState transitionState;
     PlayStateView playStateView;
 
-
+    TitoliDiCoda titoliDiCoda;
 
     public IView(IController cont, IModel mod) {
 
@@ -50,14 +50,11 @@ public class IView {
         mouseInputs = new MouseInputs(this);
         gamePanel = new GamePanel(this, mouseInputs);
 
-        gameWindow = new GameWindow(gamePanel, this);
-        gameWindow.setVisible(true);
-        gamePanel.setFocusable(true);
-        gamePanel.requestFocus();
-
         playStateView = new PlayStateView(this);
 
         gameOverMenu = new GameOverMenu(this);
+
+        titoliDiCoda = new TitoliDiCoda(this);
 
         soundManager = new SoundManager();
         soundManager.loopMusic(MENU_MUSIC);
@@ -67,6 +64,12 @@ public class IView {
         //quando la view ha finito di crearsi, può dire al model di inserire le entità nelle stanze
         //perchè ora la parte view delle entità esiste
         model.loadEntitiesInRooms(this);
+
+
+        gameWindow = new GameWindow(gamePanel, this);
+        gameWindow.setVisible(true);
+        gamePanel.setFocusable(true);
+        gamePanel.requestFocus();
 
     }
 
@@ -112,6 +115,9 @@ public class IView {
                 break;
             case TRANSITION_AFTER_GAME_OVER:
                 transitionState.drawTransitionAfterGameOver(g2);
+                break;
+            case END_GAME:
+                titoliDiCoda.draw(g2);
                 break;
             default:
                 break;

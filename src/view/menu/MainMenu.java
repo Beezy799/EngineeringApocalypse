@@ -294,14 +294,14 @@ public class MainMenu extends AbstractMenu{
     
     }
 
-    private void drawCredits(Graphics2D g2) {
+    public void drawCredits(Graphics2D g2) {
         g2.setColor(Color.red);
         int x = ViewUtils.getXforCenterText(credits, g2);
         g2.drawString(credits, x, GAME_HEIGHT - (int)(2*SCALE));
     }   
 
     // il titolo diventa piano piano meno trasparente, il valore alpha è quello che indica la trasparenza e varia tra 0 e 1
-    private void drawTitle(Graphics2D g2) {
+    public void drawTitle(Graphics2D g2) {
         counterTitle++;
         if(counterTitle < timer) {
             float alPhaValue = (float) counterTitle/(timer);    //quando il counter = timer il titolo è completamente visibile

@@ -7,7 +7,7 @@ import src.view.gameWindow.GamePanel;
 
 public class ProfController extends EntityController {
 
-    private final int hitboxWidth = 16;
+    private final int hitboxWidth = 25;
     private final int hitboxHeight = 30;
 
     public ProfController(int x, int y, IController c, int index) {
