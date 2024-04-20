@@ -21,8 +21,7 @@ public class PlayerController {
     private int life = 100;
     private int cfu = 0;
     private int notes = 0;
-    private int defence = 2;
-
+    private int defence = 20;
     private int attack = 20;
 
     private Hitbox hitbox, attackHitbox;
@@ -255,10 +254,6 @@ public class PlayerController {
         hitbox.setY(yPosPlayer);
     }
 
-    public void setMovementVector(Vector movementVector) {
-        this.movementVector = movementVector;
-    }
-
     public float getxPosPlayer() {
         return xPosPlayer;
     }
@@ -397,7 +392,7 @@ public class PlayerController {
         }
 
         if(hitted){
-            int damage = enemyAttack + 5* GameState.difficulty - defence;
+            int damage = enemyAttack + 5*GameState.difficulty - defence;
             if(damage > 0){
                 actualState = EntityStates.HITTED;
                 lockState();
@@ -408,11 +403,6 @@ public class PlayerController {
                 actualState = EntityStates.DYING;
             }
         }
-
-    }
-
-    public int getAttack(){
-        return attack;
     }
 
     public void reset() {

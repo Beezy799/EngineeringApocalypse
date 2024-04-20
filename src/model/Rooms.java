@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import src.controller.entitycontroller.BossController;
 import src.controller.entitycontroller.enemy.GhostController;
 import src.controller.entitycontroller.enemy.NullafacenteController;
 import src.controller.entitycontroller.enemy.RobotController;
@@ -15,6 +16,7 @@ import src.model.events.*;
 import src.model.mapModel.Map;
 import src.model.mapModel.Passage;
 import src.view.IView;
+import src.view.entityView.BossView;
 import src.view.entityView.enemy.GhostView;
 import src.view.entityView.enemy.NullafacenteView;
 import src.view.entityView.enemy.RobotView;
@@ -216,11 +218,17 @@ public enum Rooms {
                     EnemyComplete ghost = new EnemyComplete(gc, gv);
                     enemyList.add(ghost);
                     break;
-                case"robot":
+                case "robot":
                     RobotView rv = new RobotView(view, i);
                     RobotController rc = new RobotController(colonna, riga, model.getController(), i);
                     EnemyComplete robot = new EnemyComplete(rc, rv);
                     enemyList.add(robot);
+                    break;
+                case "boss":
+                    BossView bv = new BossView(view, i);
+                    BossController bc = new BossController(colonna, riga, model.getController(), i);
+                    EnemyComplete boss = new EnemyComplete(bc, bv);
+                    enemyList.add(boss);
                     break;
             }
         }
@@ -320,7 +328,7 @@ public enum Rooms {
     public static IModel getModel(){
         return model;
     }
-    public static Rooms actualRoom = BIBLIOTECA;
+    public static Rooms actualRoom = STUDIO_PROF;
 
     public void resetEventsAndEenemyes() {
         for(Event event : events){

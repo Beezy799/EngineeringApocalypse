@@ -19,6 +19,7 @@ import static src.model.EntityStates.IDLE;
 
 public class RobotView extends EnemyView{
 
+
     public RobotView(IView v, int i) {
         super(v, i);
         xOffset = animation[0][0][0].getWidth()/2;

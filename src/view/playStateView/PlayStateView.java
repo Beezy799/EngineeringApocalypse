@@ -10,6 +10,7 @@ import src.model.Rooms;
 import src.view.IView;
 import src.view.PlayerView;
 import src.view.ViewUtils;
+import src.view.entityView.BossView;
 import src.view.entityView.enemy.RobotView;
 import src.view.gameWindow.GamePanel;
 import src.view.mapView.TileImageLoader;
@@ -161,7 +162,6 @@ public class PlayStateView {
     }
 
     private void addTilesToSortList(int xPlayerPos, int yPlayerPos) {
-
         //per non perdere tempo, visitiamo solo la parte di matrice dove sono i tile da disegnare
         int colFirstTileToDraw = xPlayerPos/GamePanel.TILES_SIZE - 10;
         int rowFirstTileToDraw = yPlayerPos/GamePanel.TILES_SIZE - 8;
@@ -202,7 +202,6 @@ public class PlayStateView {
     }
 
     private void addEntitiesToSortList(int xPlayer, int yPlayer) {
-
         playerView.setYposMapToSort((int)iView.getController().getPlayerController().getyPosPlayer());
         elementsAboveTheFloor.add(playerView);
 
@@ -218,7 +217,6 @@ public class PlayStateView {
                 elementsAboveTheFloor.add(enemy.getEnemyView());
             }
         }
-
     }
 
     private void drawAllElementsAboveTheFloor(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
@@ -227,8 +225,14 @@ public class PlayStateView {
     }
 
     public void drawBullets(Graphics2D g2, int xPler, int yPlayer){
-        for(BulletComplete bullet: Rooms.actualRoom.getBuletList()){
-            bullet.getBulletView().draw(g2, xPler, yPlayer);
+        try {
+            for (int i = 0; i < Rooms.actualRoom.getBuletList().size(); i++) {
+                Rooms.actualRoom.getBuletList().get(i).getBulletView().draw(g2, xPler, yPlayer);
+            }
+        }
+        catch (Exception e){
+            Rooms.actualRoom.getBuletList().clear();
+            System.out.println("problemi coi proiettili");
         }
     }
 

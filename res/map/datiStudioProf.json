@@ -13,7 +13,13 @@
     }
   ],
   "npc": [ ],
-  "enemy": [],
+  "enemy": [
+    {
+      "nome": "boss",
+      "riga": 15,
+      "colonna": 24
+    }
+  ],
 
   "eventi": [
     {

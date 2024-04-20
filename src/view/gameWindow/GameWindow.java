@@ -19,7 +19,7 @@ public class GameWindow extends JFrame {
 		view = v;
 		setTitle("ENGINEERING ADVENTURE");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(true);
+		setResizable(false);
 		getContentPane().add(gp);
 		pack();
 		setLocationRelativeTo(null);

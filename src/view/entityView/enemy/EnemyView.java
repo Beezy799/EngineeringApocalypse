@@ -55,7 +55,7 @@ public abstract class EnemyView extends EntityView {
             case ATTACKING:
             case THROWING:
             case PARRING:
-                animationSpeed = 50;
+                animationSpeed = 30;
                 specialDraw(g2, xPlayerMap, yPlayerMap);
                 break;
             case DYING:
@@ -154,7 +154,4 @@ public abstract class EnemyView extends EntityView {
 
     }
 
-    public void setIndex(int newIndex) {
-        indexInEntityArray = newIndex;
-    }
 }
