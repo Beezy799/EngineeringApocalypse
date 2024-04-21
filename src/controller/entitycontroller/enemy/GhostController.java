@@ -12,7 +12,7 @@ public class GhostController extends EnemyController{
     public GhostController(int x, int y, IController c, int index) {
         super(x, y, c, index);
 
-        speed = GamePanel.SCALE*0.3f;
+        speed = GamePanel.SCALE*0.4f;
 
         setHitbox(hitboxWidth, hitboxHeight, 12, 12);
         tempHitbox.setHeight(0);
@@ -20,9 +20,7 @@ public class GhostController extends EnemyController{
 
         life = 100;
         defence = 100;
-        attack = 30;
-
-        currentState = EntityStates.IDLE;
+        attack = 10;
     }
 
     @Override
@@ -40,16 +38,69 @@ public class GhostController extends EnemyController{
     }
 
     private void goToPlayer(int xPlayer, int yPlayer) {
-        goToCenterOfTile(xPlayer,yPlayer);
+
+        movementVector.resetDirections();
+        //se sta a sinistra del centro, deve andare a destra
+        if (xPos < xPlayer) {
+            movementVector.setX(1);
+        }
+        //se sta sopra al centro, deve scendere
+        else if (yPos < yPlayer) {
+            movementVector.setY(1);
+        }
+        //se sta a destra, deve andare a sinistra
+        else if (xPos > xPlayer) {
+            movementVector.setX(-1);
+        }
+        //se sta sotto al centro, deve salire
+        else if (yPos > yPlayer) {
+            movementVector.setY(-1);
+        }
+
+        if(Math.abs(xPos - xPlayer) < speed){
+            xPos = xPlayer;
+        }
+        if(Math.abs(yPos - yPlayer) < speed){
+            yPos = yPlayer;
+        }
+
+        goToPlayerTile();
+
+        //System.out.println("x " + movementVector.getX() + ", y " + movementVector.getY());
+
+    }
+
+    private void goToPlayerTile(){
+
+        if(movementVector.getY() < 0) {
+            setyPos(getyPos() - speed);
+            hitbox.setY(yPos - YhitboxOffset);
+            //interactionHitbox.setY(yPos - yInteractionHitboxOffset);
+        }
+        else if(movementVector.getY() > 0) {
+            setyPos(getyPos() + speed);
+            hitbox.setY(yPos - YhitboxOffset);
+            //interactionHitbox.setY(yPos - yInteractionHitboxOffset);
+        }
+        else if(movementVector.getX() < 0) {
+            setxPos(getxPos() - speed);
+            hitbox.setX(xPos - XhitboxOffset);
+            //interactionHitbox.setX(xPos - xInteractionHitboxOffset);
+        }
+        else if(movementVector.getX() > 0) {
+            setxPos(getxPos() + speed);
+            hitbox.setX(xPos - XhitboxOffset);
+            //interactionHitbox.setX(xPos - xInteractionHitboxOffset);
+        }
     }
 
     private void hitPlayer(int xPlayer, int yPlayer) {
         if(hitbox.intersects(controller.getPlayerController().getHitbox())){
             controller.getPlayerController().hitted(attack, movementVector);
-            xPos = 12;
-            yPos = 12;
-            hitbox.setX(10);
-            hitbox.setY(10);
+            xPos = initialXpos;
+            yPos = initialYpos;
+            hitbox.setX(initialXpos);
+            hitbox.setY(initialYpos);
         }
     }
 

@@ -4,6 +4,7 @@ package src.model.events;
 import src.model.Constants;
 import src.model.EntityStates;
 import src.controller.Hitbox;
+import src.model.GameState;
 import src.model.IModel;
 import src.view.inputs.InputState;
 
@@ -21,7 +22,7 @@ public class Caffe extends Event{
 			model.getView().getPlayStateView().getPlayUI().setMessageToShow("premi E per interagire");
 
 			if (InputState.E.getPressed()) {
-				int life = 30;
+				int life = 30 - 5* GameState.difficulty;
 				model.getController().getPlayerController().addLife(life);
 				model.getView().getSoundManager().playSE(Constants.SoundConstants.CAFFE_SE);
 				model.getView().getPlayStateView().getPlayUI().setMessageToShow(message);

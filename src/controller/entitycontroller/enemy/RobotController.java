@@ -32,7 +32,7 @@ public class RobotController extends  EnemyController{
 
         life = 100;
         attack = 0;
-        defence = 4;
+        defence = 1;
 
         numRobots++;
     }
@@ -188,10 +188,10 @@ public class RobotController extends  EnemyController{
     private void shootToPlayer() {
         Vector bulletVector = new Vector(1);
         if(movementVector.getX() != 0){
-            bulletVector.setX(movementVector.getX()/movementVector.getModule());
+            bulletVector.setX(movementVector.getNomalizedX());
         }
         else {
-            bulletVector.setY(movementVector.getY()/movementVector.getModule());
+            bulletVector.setY(movementVector.getNormalizedY());
         }
         setNewBullet(bulletVector);
     }
@@ -217,6 +217,7 @@ public class RobotController extends  EnemyController{
         }
 
         BulletController bc = new BulletController(bulletHitbox, xBullet, yBullet, bulletVector, controller, this);
+        bc.setDamage(5);
         BulletView bv = new BulletView(bulletVector);
         BulletComplete bulletComplete = new BulletComplete(bv, bc);
 

@@ -110,6 +110,9 @@ public class BulletController {
         }
 
     }
+    public void setDamage(int d){
+        damage = d;
+    }
 
     public float getxPos(){
         return xPos;

@@ -99,27 +99,7 @@ public class IController {
             playerController.setDirectionLeft();
         }
 
-        float xRisultante = playerController.getMovementVector().getX();
-        float yRisultante = playerController.getMovementVector().getY();
-
-        if(xRisultante != 0 || yRisultante != 0) {
-            playerController.changeActualState(EntityStates.MOVE);
-
-            //se si muove in diagonale, divido la velocità per radice di due
-            float oldModuleSpeed = playerController.getSpeed();
-            if(xRisultante != 0 && yRisultante != 0){
-                float newModule = oldModuleSpeed * 0.71f;
-                playerController.getMovementVector().setModule(newModule);
-            }
-            //altrimenti lascio la velocità iniziale
-            else {
-                playerController.getMovementVector().setModule(oldModuleSpeed);
-            }
-        }
-        else {
-            playerController.changeActualState(EntityStates.IDLE);
-        }
-
+        playerController.setDirezioneRisultatnte();
 
         //azioni
         if (InputState.ENTER.getPressed() || InputState.LEFT_CLICK.getPressed()) {

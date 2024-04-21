@@ -13,7 +13,8 @@ public class PlayerController {
     private float xPosPlayer = 19*GamePanel.TILES_SIZE, yPosPlayer = 15*GamePanel.TILES_SIZE; //posizione del player
     private final float initialxPosPlayer = xPosPlayer, initialyPosPlayer = yPosPlayer;
     private float speed = GamePanel.SCALE;
-    private Vector movementVector; //"direzione" del player
+    //"direzione" del player. oldDirection ci salva la direzione del player quando non preme i tasti di movimento
+    private Vector movementVector, oldDirection;
     private EntityStates actualState = EntityStates.IDLE;
     private boolean stateLocked = false;
     private boolean nearEntity;
@@ -40,6 +41,7 @@ public class PlayerController {
     public PlayerController(IController c){
         controller = c;
         movementVector = new Vector(speed);
+        oldDirection = new Vector();
         setHitboxes();
     }
 
@@ -480,4 +482,33 @@ public class PlayerController {
             speed = GamePanel.SCALE*0.9f;
         }
     }
+
+    public void setDirezioneRisultatnte() {
+        float xRisultante = movementVector.getX();
+        float yRisultante = movementVector.getY();
+
+        if(xRisultante != 0 || yRisultante != 0) {
+            changeActualState(EntityStates.MOVE);
+
+            oldDirection.setX(movementVector.getNomalizedX());
+            oldDirection.setY(movementVector.getNormalizedY());
+
+            //se si muove in diagonale, divido la velocità per radice di due
+            float oldModuleSpeed = getSpeed();
+            if(xRisultante != 0 && yRisultante != 0){
+                float newModule = oldModuleSpeed * 0.71f;
+                movementVector.setModule(newModule);
+            }
+            //altrimenti lascio la velocità iniziale
+            else {
+                movementVector.setModule(oldModuleSpeed);
+            }
+        }
+        else {
+            movementVector.setX(oldDirection.getX());
+            movementVector.setY(oldDirection.getY());
+            changeActualState(EntityStates.IDLE);
+        }
+    }
+
 }

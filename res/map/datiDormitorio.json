@@ -16,8 +16,18 @@
   "enemy": [
     {
       "nome": "fantasma",
-      "riga": 7,
-      "colonna": 10
+      "riga": 6,
+      "colonna": 6
+    },
+    {
+      "nome": "fantasma",
+      "riga": 6,
+      "colonna": 30
+    },
+    {
+      "nome": "fantasma",
+      "riga": 20,
+      "colonna": 40
     }
   ],
 
@@ -38,8 +48,8 @@
     },
     {
       "nome": "cfu",
-      "colonna": 35,
-      "riga": 21,
+      "colonna": 28,
+      "riga": 13,
       "larghezza": 32,
       "altezza": 32
     },
@@ -51,12 +61,19 @@
       "altezza": 32
     },
     {
+      "nome": "appunti",
+      "colonna": 36,
+      "riga": 22,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
       "nome": "cfu",
       "colonna": 18,
       "riga": 11,
       "larghezza": 32,
       "altezza": 32
     }
-
   ]
+
 }

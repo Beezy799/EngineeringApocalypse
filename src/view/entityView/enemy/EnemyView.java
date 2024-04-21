@@ -72,8 +72,10 @@ public abstract class EnemyView extends EntityView {
         if(currentState != EntityStates.DYING && currentState != EntityStates.ATTACKING){
             int life = ((EnemyComplete)entityComplete).getEnemyController().getLife();
 
-            if(life > 30)
+            if(life > 70)
                 g2.setColor(Color.green);
+            else if (life > 30)
+                g2.setColor(Color.orange);
             else
                 g2.setColor(Color.red);
 

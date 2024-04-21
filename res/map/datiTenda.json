@@ -30,6 +30,13 @@
       "altezza": 32
     },
     {
+      "nome": "cfu",
+      "colonna": 13,
+      "riga": 9,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
       "nome": "appunti",
       "colonna": 17,
       "riga": 14,

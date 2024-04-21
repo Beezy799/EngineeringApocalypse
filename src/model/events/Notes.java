@@ -4,6 +4,7 @@ package src.model.events;
 import src.controller.Hitbox;
 import src.model.Constants;
 import src.model.EntityStates;
+import src.model.GameState;
 import src.model.IModel;
 import src.view.inputs.InputState;
 
@@ -21,7 +22,7 @@ public class Notes extends Event {
 			model.getView().getPlayStateView().getPlayUI().setMessageToShow("premi E per interagire");
 
 			if (InputState.E.getPressed()) {
-				int notes = 5;
+				int notes = 15 - GameState.difficulty*5;
 				model.getController().getPlayerController().addNotes(notes);
 				model.getView().getSoundManager().playSE(Constants.SoundConstants.APPUNTI_SE);
 				model.getView().getPlayStateView().getPlayUI().setMessageToShow(message);

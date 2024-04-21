@@ -46,6 +46,8 @@ public class RobotView extends EnemyView{
 
             animationCounter = 0;
         }
+
+        drawSprite(g2, xPlayerMap, yPlayerMap);
     }
 
     protected void loadImages() {
