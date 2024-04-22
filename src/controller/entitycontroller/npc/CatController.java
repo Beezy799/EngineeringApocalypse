@@ -33,15 +33,15 @@ public class CatController extends EntityController {
         switch(currentState){
             case IDLE:
                 randomMove();
-                if(interactionHitbox.intersects(controller.getPlayerController().getHitbox())) {
-                    currentState = EntityStates.RUNAWAY;
-                }
+//                if(interactionHitbox.intersects(controller.getPlayerController().getHitbox())) {
+//                    currentState = EntityStates.RUNAWAY;
+//                }
                 break;
             case MOVE:
                 updatePosition();
-                if(interactionHitbox.intersects(controller.getPlayerController().getHitbox())) {
-                    currentState = EntityStates.RUNAWAY;
-                }
+//                if(interactionHitbox.intersects(controller.getPlayerController().getHitbox())) {
+//                    currentState = EntityStates.RUNAWAY;
+//                }
                 break;
             case SPEAKING:
                 if(firstInteraction){
@@ -67,37 +67,37 @@ public class CatController extends EntityController {
                 currentState = EntityStates.IDLE;
                 break;
 
-            case RUNAWAY:
-                speed = GamePanel.SCALE*1.2f;
-                movementVector.resetDirections();
-                int pX = (int)controller.getPlayerController().getxPosPlayer();
-                int pY = (int)controller.getPlayerController().getyPosPlayer();
-
-                //sceglie se andare su o giu
-                if(pX > hitbox.getX() && pX < hitbox.getX()+hitbox.getWidth()){
-                    //se gli sta sotto, prova a salire
-                    if(pY > yPos)
-                        movementVector.setY(-1);
-                    //se non può salire, sceglie un percorso verso uno dei due angoli in alto
-                    else
-                        movementVector.setY(1);
-                }
-                //sceglie se andare a dx o a sx
-                else {
-                    if(pX > xPos)
-                        movementVector.setX(-1);
-
-                    else
-                        movementVector.setX(1);
-                }
-                if(canMove(tempHitbox)) {
-                    tempHitbox.setY(hitbox.getY());
-                    tempHitbox.setX(hitbox.getX());
-                    updatePosition();
-                }
-                else
-                    currentState = EntityStates.HITTED;
-                break;
+//            case RUNAWAY:
+//                speed = GamePanel.SCALE*1.2f;
+//                movementVector.resetDirections();
+//                int pX = (int)controller.getPlayerController().getxPosPlayer();
+//                int pY = (int)controller.getPlayerController().getyPosPlayer();
+//
+//                //sceglie se andare su o giu
+//                if(pX > hitbox.getX() && pX < hitbox.getX()+hitbox.getWidth()){
+//                    //se gli sta sotto, prova a salire
+//                    if(pY > yPos)
+//                        movementVector.setY(-1);
+//                    //se non può salire, sceglie un percorso verso uno dei due angoli in alto
+//                    else
+//                        movementVector.setY(1);
+//                }
+//                //sceglie se andare a dx o a sx
+//                else {
+//                    if(pX > xPos)
+//                        movementVector.setX(-1);
+//
+//                    else
+//                        movementVector.setX(1);
+//                }
+//                if(canMove(tempHitbox)) {
+//                    tempHitbox.setY(hitbox.getY());
+//                    tempHitbox.setX(hitbox.getX());
+//                    updatePosition();
+//                }
+//                else
+//                    currentState = EntityStates.HITTED;
+//                break;
 
             default:
                 currentState = EntityStates.IDLE;

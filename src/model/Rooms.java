@@ -332,7 +332,7 @@ public enum Rooms {
 
     public void resetEventsAndEenemyes() {
         for(Event event : events){
-            event.setEndInteraction(false);
+            event.reset();
         }
         for(EnemyComplete enemyComplete: enemyList){
             enemyComplete.reset();

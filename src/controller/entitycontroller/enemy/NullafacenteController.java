@@ -19,7 +19,7 @@ public class NullafacenteController extends EnemyController{
         super(x, y, c, index);
         speed = GamePanel.SCALE*0.7f;
 
-        setHitbox(hitboxWidth, hitboxHeight, 12, 12);
+        setHitbox(hitboxWidth, hitboxHeight, 8, 8);
         attackHitbox = new Hitbox(0,0, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
 
         xAttackHitboxOffset = attackHitbox.getWidth()/2;

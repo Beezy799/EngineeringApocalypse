@@ -38,12 +38,12 @@ public class PupaView extends NpcView {
         dialogues[0][1] = "Nel dormitorio è saltata la luce, non vedo più niente!";
         dialogues[0][2] = "Mi fa paura il buio \n non posso vedere il mio bellissimo faccino riflesso";
         dialogues[0][3] = "Se riesci ad accendere la luce \n ti consiglio un esame a scelta molto facile \n con tanti CFU";
-        dialogues[0][4] = "Vai a sinistra, vicino alla tv, l'interruttore è da quelle parti";
-        dialogues[0][6] = "Attento a non farti prendere dal fantasma dell'ansia \n ha fatto scappare tanti studenti";
-        dialogues[0][5] = "Se sopravvivi ti aggiungo su instagram <3";
+        dialogues[0][4] = "Vai a sinistra, <vicino alla tv<, l'interruttore è da quelle parti";
+        dialogues[0][6] = "Attento a non farti prendere dai <fantasmi dell'ansia< \n hanno fatto scappare tanti studenti";
+        dialogues[0][5] = "Se sopravvivi ti aggiungo su instagram ;-)";
 
         dialogues[1] = new String[1];
-        dialogues[1][0] = "grazie! \n ti aggiungo subito su instagram <3";
+        dialogues[1][0] = "grazie! \n ti aggiungo subito su instagram ;-*";
     }
 
     @Override

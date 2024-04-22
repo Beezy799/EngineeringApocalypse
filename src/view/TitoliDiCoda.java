@@ -24,7 +24,7 @@ public class TitoliDiCoda {
     private String Salvatore = "Salvatore: code reviewer";
     private String Armando = "Armando: mental health helper";
     private String Umberto = "Umberto: game designer";
-    private String betaTesters = "Beta testers: \n Flavio, Amin, Aiman, Matteo \n Filippo, Edoardo, Valentino";
+    private String betaTesters = "Beta testers: \n Flavio, Amin, Aiman, Matteo \n Filippo, Edoardo, Valentino, Valeria";
     private Font fontTitolo, votoFont, nomiFont;
     private int counter, durataScritta = 400;
 

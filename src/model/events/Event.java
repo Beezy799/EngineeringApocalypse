@@ -53,4 +53,8 @@ public abstract class Event {
 	public void setEndInteraction(boolean b){
 		endInteraction = b;
 	}
+
+	public void reset() {
+		setEndInteraction(false);
+	}
 }

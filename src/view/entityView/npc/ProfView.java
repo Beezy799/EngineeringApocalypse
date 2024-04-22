@@ -76,10 +76,10 @@ public class ProfView extends NpcView {
         dialogues = new String[2][];
         dialogues[0] = new String[6];
         dialogues[0][0] = "hey tu, ti prego aiutami! \n non sembri una matricola nullafacente come le altre";
-        dialogues[0][1] = "sono un assistente di Paul Bags, \n il professore di robotica della facoltà";
+        dialogues[0][1] = "sono un assistente di <Paul Bags<, \n il professore di robotica della facoltà";
         dialogues[0][2] = "stavo modificando dei turtlebot, ma sono impazziti \n e ora vogliono uccidere tutti gli umani!";
         dialogues[0][3] = "so che sembra un film, ma chi scrive \n i miei dialoghi non ha molta fantasia...";
-        dialogues[0][4] = "se riesci a fermarlo, ti aiuterò con l'esame sistemi di controllo";
+        dialogues[0][4] = "se riesci a fermarlo, ti aiuterò con l'esame <sistemi di controllo<";
         dialogues[0][5] = "buona fortuna";
 
         dialogues[1] = new String[1];

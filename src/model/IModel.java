@@ -76,6 +76,7 @@ public class IModel {
                 enemy.getEnemyController().resetPosition();
             }
         }
+
     }
 
     public void loadEntitiesInRooms(IView iView) {

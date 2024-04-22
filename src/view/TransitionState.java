@@ -115,6 +115,7 @@ public class TransitionState {
             view.getModel().resumeGameAfterTransition();
             view.getSoundManager().loopMusic(Rooms.actualRoom.getMusicIndex());
             view.changeGameState(next);
+            view.getPlayStateView().getPlayUI().showRoomName();
         }
 
         //se sta tornando al menu iniziale

@@ -1,5 +1,6 @@
 package src.view.playStateView;
 
+import src.model.Rooms;
 import src.view.gameWindow.GamePanel;
 
 import java.awt.AlphaComposite;
@@ -21,8 +22,9 @@ public class PlayUI {
     private Font fontDisplay = new Font("Arial", Font.PLAIN, (int)(20*GamePanel.SCALE));
     private Font altroFont = new Font("Dialog", Font.BOLD, (int)(20*GamePanel.SCALE));
     private String message = "";
-    private int counterMessage = 0;
-    private boolean showMessage;
+    private String roomName = "";
+    private int counterMessage, roomNameCounter;
+    private boolean showMessage, showRoomName;
 
     //per disegnare i dati del player
     private BufferedImage noteIcon, cfuIcon;
@@ -67,6 +69,7 @@ public class PlayUI {
     public void draw(Graphics2D g2) {
         drawPlayerData(g2);
         drawMessage(g2);
+        drawNewRoomName(g2);
     }
 
     private void drawPlayerData(Graphics2D g2) {
@@ -219,5 +222,41 @@ public class PlayUI {
 
     }
 
+    public void drawNewRoomName(Graphics2D g2) {
+        if(showRoomName) {
+            roomNameCounter++;
+            if(roomNameCounter < 120) {
 
+                g2.setFont(altroFont);
+
+                //per disegnare il messaggio al centro dello schermo, circa
+                int x = ViewUtils.getXforCenterText(roomName, g2);
+                int y = GamePanel.GAME_HEIGHT/6;
+                int width = ViewUtils.getStringLenght(roomName, g2);
+                int height = ViewUtils.getStringHeight(roomName, g2);
+
+                //per il rettangolo giallo dietro la scritta
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+                g2.setColor(Color.yellow);
+                int backgroundWidth = (roomNameCounter*width)/120;
+                g2.fillRoundRect(x, y, backgroundWidth, height + (int)(4*GamePanel.SCALE), 20, 20);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+                //disegna la scritta
+                g2.setColor(Color.red);
+                g2.drawString(roomName, x, y + height);
+                g2.setColor(Color.black);
+            }
+
+            else {
+                roomNameCounter = 0;
+                showRoomName = false;
+            }
+        }
+    }
+
+    public void showRoomName() {
+        roomName = Rooms.actualRoom.name();
+        showRoomName = true;
+    }
 }

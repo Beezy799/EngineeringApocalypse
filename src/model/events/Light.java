@@ -61,6 +61,12 @@ public class Light extends Event {
 			}
 		}
 	}
+
+	public void reset(){
+		super.reset();
+		Rooms.DORMITORIO.setNewMusic(Constants.SoundConstants.DORMITORIO_BUIO);
+		model.getView().getPlayStateView().getScreenOverlay().setDark(true);
+	}
 	
 	
 }

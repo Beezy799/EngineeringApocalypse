@@ -53,7 +53,7 @@
       "nuovaxPlayer": 0,
       "nuovayPlayer": 0,
       "cfuRichiesti": 999,
-      "messaggio": "la segreteria è aperta tutti i giorni dalle 8:00 alle 8:01"
+      "messaggio": "la segreteria e' aperta tutti i giorni dalle 8:00 alle 8:01"
     }
   ],
   "npc": [
@@ -75,13 +75,6 @@
   ],
 
   "eventi": [
-    {
-      "nome": "Caffe",
-      "colonna": 34,
-      "riga": 8,
-      "larghezza": 32,
-      "altezza": 32
-    },
     {
       "nome": "Caffe",
       "colonna": 13,
