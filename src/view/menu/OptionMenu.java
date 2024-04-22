@@ -3,6 +3,7 @@ package src.view.menu;
 import src.model.GameState;
 import src.view.IView;
 import src.view.ViewUtils;
+import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -20,6 +21,10 @@ public class OptionMenu extends AbstractMenu{
     private int ySoundEffectBar = (int)(120*SCALE);
     private  BufferedImage diff, music, se;
     private IView view;
+
+    private String arrow = ">";
+    int fontSize = (int)(12*SCALE);
+    private Font arrowFont = new Font("Arial", Font.PLAIN, fontSize);
 
     public OptionMenu(IView v){
         view = v;
@@ -77,7 +82,6 @@ public class OptionMenu extends AbstractMenu{
         buttons[5] = new SoundBar(r1, r2, view, false);
     }
 
-
     private void createGoBackButton() {
         //immagine per bottone "indietro" , carichiamo  tre immagini in base alla posizione del mouse
         BufferedImage[] goBackButtonImage = new BufferedImage[3];
@@ -132,7 +136,7 @@ public class OptionMenu extends AbstractMenu{
         int yPosMatricolaButton = yFirstButton;
         Rectangle rect = new Rectangle(xPosMatricolaButton, yPosMatricolaButton, difficultyButtonImage[0].getWidth(), difficultyButtonImage[0].getHeight());
         //creo bottotne
-        buttons[1] = new DifficultyBotton(difficultyButtonImage, rect, DIFF_MATRICOLA, descrizioneMatricola);
+        buttons[1] = new DifficultyBotton(difficultyButtonImage, rect, DIFF_MATRICOLA, descrizioneMatricola, view);
 
         //SECONDO BOTTONE: FUORICORSO
         BufferedImage tempF = null;
@@ -157,7 +161,7 @@ public class OptionMenu extends AbstractMenu{
         int yPosFuoriCorsoButton = yFirstButton + distanceBetweenButtons;
         Rectangle rectF = new Rectangle(xPosFuoriCorsoButton, yPosFuoriCorsoButton, difficultyButtonImage[0].getWidth(), difficultyButtonImage[0].getHeight());
         //creo bottotne
-        buttons[2] = new DifficultyBotton(difficultyButtonImage, rectF, DIFF_FUORICORSO, descrizioneFuoriCorso);
+        buttons[2] = new DifficultyBotton(difficultyButtonImage, rectF, DIFF_FUORICORSO, descrizioneFuoriCorso, view);
 
         //TERZO BOTTONE: LAVORATORE
         BufferedImage tempL = null;
@@ -181,7 +185,7 @@ public class OptionMenu extends AbstractMenu{
         int yPosLavoratoreButton = yFirstButton + 2*distanceBetweenButtons;
         Rectangle rectL = new Rectangle(xPosLavoratoreButton, yPosLavoratoreButton, difficultyButtonImage[0].getWidth(), difficultyButtonImage[0].getHeight());
         //creo bottotne
-        buttons[3] = new DifficultyBotton(difficultyButtonImage, rectL, DIFF_LAVORATORE, descrizioneLavoratore);
+        buttons[3] = new DifficultyBotton(difficultyButtonImage, rectL, DIFF_LAVORATORE, descrizioneLavoratore, view);
 
     }
 
@@ -190,6 +194,22 @@ public class OptionMenu extends AbstractMenu{
         view.getMainMenu().drawBackground(g2);
         drawButtons(g2);
         drawText(g2);
+        drawArrow(g2);
+    }
+
+    private void drawArrow(Graphics2D g2) {
+        g2.setFont(arrowFont);
+        g2.setColor(Color.red);
+
+        if(GameState.difficulty == 0){
+            g2.drawString(arrow, buttons[1].bounds.x - 10*SCALE, buttons[1].bounds.y + buttons[1].bounds.height);
+        }
+        else if (GameState.difficulty == 1) {
+            g2.drawString(arrow, buttons[2].bounds.x - 10*SCALE, buttons[2].bounds.y + buttons[2].bounds.height);
+        }
+        else if (GameState.difficulty == 2) {
+            g2.drawString(arrow, buttons[3].bounds.x - 10*SCALE, buttons[3].bounds.y + buttons[3].bounds.height);
+        }
     }
 
     private void drawText(Graphics2D g2) {

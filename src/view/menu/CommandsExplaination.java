@@ -21,9 +21,9 @@ public class CommandsExplaination extends AbstractMenu {
 
     private final int heightFirstString = (int)(90* SCALE);
     private String movementExplaination = "CAMMINA:   w, a, s, d";
-    private String attackExplaination = "ATTACCA:   w,a,s,d + invio, opure";
-    private String parryExplaination = "PARATI:   w,a,s,d + spazio, oppure";
-    private String throwExplaination = "LANCIA APPUNTI: w,a,s,d + p, oppure ";
+    private String attackExplaination = "ATTACCA:   invio, opure";
+    private String parryExplaination = "PARATI:   spazio, oppure";
+    private String throwExplaination = "LANCIA APPUNTI: p, oppure ";
     private String interactExplaination = "INTERAGISCI:   e";
     private String pauseExplaination = "PAUSA:   esc";
     private BufferedImage rightClick, leftClick, middleClick;

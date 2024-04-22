@@ -98,8 +98,8 @@ public class IController {
         if (InputState.A.getPressed()) {
             playerController.setDirectionLeft();
         }
-
         playerController.setDirezioneRisultatnte();
+
 
         //azioni
         if (InputState.ENTER.getPressed() || InputState.LEFT_CLICK.getPressed()) {
@@ -108,7 +108,7 @@ public class IController {
         }
 
         //se il giocatore preme spazio, il player resta in parring finché non rilascia il tasto
-        if (InputState.SPACE.getPressed() || InputState.RIGHT_CLICK.getPressed()) {
+        else if (InputState.SPACE.getPressed() || InputState.RIGHT_CLICK.getPressed()) {
             playerController.changeActualState(EntityStates.PARRING);
             playerController.lockState();
         }
@@ -118,7 +118,7 @@ public class IController {
             playerController.unlockState();
         }
 
-        if (InputState.E.getPressed()) {
+        else if (InputState.E.getPressed()) {
             if(playerController.isNearEntity()){
                 InputState.resetBooleans();
                 playerController.speak();
@@ -127,7 +127,7 @@ public class IController {
             }
         }
 
-        if (InputState.P.getPressed() || InputState.MIDDLE_CLICK.getPressed()) {
+        else if (InputState.P.getPressed() || InputState.MIDDLE_CLICK.getPressed()) {
             //se sta in uno stato diverso, va nello stato throwing
             if(playerController.getCurrentState() != EntityStates.THROWING){
                 playerController.changeActualState(EntityStates.THROWING);
@@ -138,6 +138,9 @@ public class IController {
         }
 
         if (InputState.ESCAPE.getPressed()) {
+            InputState.resetBooleans();
+            playerController.unlockState();
+            playerController.changeActualState(EntityStates.IDLE);
             GameState.actualState = GameState.PAUSE;
             InputState.ESCAPE.setPressed(false);
         }

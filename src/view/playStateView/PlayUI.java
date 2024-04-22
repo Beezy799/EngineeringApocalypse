@@ -19,6 +19,7 @@ public class PlayUI {
 
     //per i messaggi tipo "hai preso appnti" etc
     private Font fontDisplay = new Font("Arial", Font.PLAIN, (int)(20*GamePanel.SCALE));
+    private Font altroFont = new Font("Dialog", Font.BOLD, (int)(20*GamePanel.SCALE));
     private String message = "";
     private int counterMessage = 0;
     private boolean showMessage;
@@ -132,7 +133,7 @@ public class PlayUI {
         if(showMessage) {
 
             counterMessage++;
-            if(counterMessage < 240) {
+            if(counterMessage < 120) {
 
                 g2.setFont(fontDisplay);
 
@@ -169,6 +170,42 @@ public class PlayUI {
 
     public void drawDialogue(Graphics2D g2) {
 
+        drawBackGroundRect(g2);
+
+        //disegna il testo
+        String text = null;
+        //prende l'indice dell'npc con cui parla il player, va nella stanza e prende quell'npc, prende le stringhe di dialogo da lì, poi le disegna
+        int index = play.getView().getController().getIndexEntityInteraction();
+        text = play.getView().getModel().getEntityDialogue(index);
+
+        g2.setFont(fontDisplay);
+        int y = GamePanel.GAME_HEIGHT/2 + GamePanel.GAME_HEIGHT/4 + (int)(30*GamePanel.SCALE);
+
+        for (String line : text.split("\n ")) {
+
+            if(line.contains("<")){
+                String[] parole = line.split("<");
+                int doveFinisceLaStringaPrima = 0;
+                for(int i = 0; i < parole.length; i++){
+                    g2.setColor(Color.WHITE);
+                    g2.setFont(fontDisplay);
+                    if(i%2 == 1){
+                        g2.setColor(Color.CYAN);
+                        g2.setFont(altroFont);
+                    }
+                    g2.drawString(parole[i], (int) (10 * GamePanel.SCALE) + doveFinisceLaStringaPrima, y);
+                    doveFinisceLaStringaPrima += ViewUtils.getStringLenght(parole[i], g2);
+                }
+            }
+            else{
+                g2.drawString(line, (int) (10 * GamePanel.SCALE), y);
+            }
+
+            y += 40;
+        }
+    }
+
+    private void drawBackGroundRect(Graphics2D g2) {
         //disegna il rect di background
         g2.setColor(Color.black);
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
@@ -180,21 +217,6 @@ public class PlayUI {
         g2.drawRoundRect((int)(5*GamePanel.SCALE), GamePanel.GAME_HEIGHT/2 + GamePanel.GAME_HEIGHT/4 + (int)(5*GamePanel.SCALE),
                 GamePanel.GAME_WIDTH - (int)(10*GamePanel.SCALE), GamePanel.GAME_HEIGHT/4 - (int)(10*GamePanel.SCALE), 30, 30);
 
-        //disegna il testo
-        String text = null;
-
-        //prende l'indice dell'npc con cui parla il player, va nella stanza e prende quell'npc, prende le stringhe di dialogo da lì, poi le disegna
-        int index = play.getView().getController().getIndexEntityInteraction();
-        text = play.getView().getModel().getEntityDialogue(index);
-
-        g2.setFont(fontDisplay);
-
-        int y = GamePanel.GAME_HEIGHT/2 + GamePanel.GAME_HEIGHT/4 + (int)(30*GamePanel.SCALE);
-
-        for (String line : text.split("\n ")) {
-            g2.drawString(line, (int) (10 * GamePanel.SCALE), y);
-            y += 40;
-        }
     }
 
 

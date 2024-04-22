@@ -39,5 +39,6 @@ public abstract class NpcView extends EntityView {
     protected abstract void loadDialogues();
     public void reset(){
         dialogueLine = 0;
+        dialogueIndex = 0;
     }
 }

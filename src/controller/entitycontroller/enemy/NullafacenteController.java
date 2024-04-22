@@ -26,7 +26,7 @@ public class NullafacenteController extends EnemyController{
         yAttackHitboxOffset = attackHitbox.getHeight()/2;
 
         life = 100;
-        attack = 15;
+        attack = 10;
         defence = 2;
     }
 

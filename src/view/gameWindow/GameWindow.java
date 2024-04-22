@@ -2,6 +2,7 @@ package src.view.gameWindow;
 
 import javax.swing.JFrame;
 
+import src.model.GameState;
 import src.view.inputs.InputState;
 import src.view.IView;
 
@@ -34,10 +35,11 @@ public class GameWindow extends JFrame {
 			@Override
 			public void windowLostFocus(WindowEvent e) {
 				InputState.resetBooleans();
+				if(GameState.actualState == GameState.PLAYING)
+					GameState.actualState = GameState.PAUSE;
 			}
 			@Override
 			public void windowGainedFocus(WindowEvent e) {
-				
 			}
 		});
 	}

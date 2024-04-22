@@ -104,4 +104,10 @@ public class CatController extends EntityController {
                 break;
         }
     }
+
+    public void reset(){
+        super.reset();
+        firstInteraction = true;
+    }
+
 }

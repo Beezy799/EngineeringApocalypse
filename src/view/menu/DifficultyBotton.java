@@ -1,6 +1,8 @@
 package src.view.menu;
 
+import src.model.Constants;
 import src.model.GameState;
+import src.view.IView;
 import src.view.ViewUtils;
 
 import java.awt.*;
@@ -16,7 +18,7 @@ public class DifficultyBotton extends AbstractMenuButton {
     private String explaination;
     private Font descriptionFont;
 
-    public DifficultyBotton(BufferedImage[] img, Rectangle rect, int diff, String s){
+    public DifficultyBotton(BufferedImage[] img, Rectangle rect, int diff, String s, IView v){
        mouseAwayImage = img[0];
        mouseOverImage = img[1];
        mousePressedImage = img[2];
@@ -26,6 +28,8 @@ public class DifficultyBotton extends AbstractMenuButton {
 
        int fontSize = (int)(12*SCALE);
        descriptionFont = new Font("Arial", Font.PLAIN, fontSize);
+
+       view = v;
     }
 
     @Override
@@ -52,7 +56,7 @@ public class DifficultyBotton extends AbstractMenuButton {
     @Override
     public void reactToEnter() {
         GameState.difficulty = difficulty;
-        System.out.println(difficulty);
+        view.getSoundManager().playSE(Constants.SoundConstants.DIALOGUE_SE);
     }
 
     @Override

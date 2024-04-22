@@ -1,5 +1,6 @@
 package src.view.menu;
 
+import src.model.Constants;
 import src.view.IView;
 
 import java.awt.*;
@@ -41,16 +42,7 @@ public class SoundBar extends AbstractMenuButton{
 
     @Override
     public void reactToMouse(MouseEvent e) {
-        int cursorX = e.getX();
-        int xRect = bounds.x;
-
-        volumeRect.width = cursorX - xRect;
-        if(isMusicVolume){
-            view.setMusicVolume((float) volumeRect.width/backgroundRect.width);
-        }
-        else {
-            view.setSeVolume((float) volumeRect.width /backgroundRect.width);
-        }
+        reactToEnter();
     }
 
     public void reactToDrag(MouseEvent e) {
@@ -64,7 +56,6 @@ public class SoundBar extends AbstractMenuButton{
         else{
             view.setSeVolume((float) volumeRect.width /backgroundRect.width);
         }
-
     }
 
     @Override
@@ -79,7 +70,7 @@ public class SoundBar extends AbstractMenuButton{
         }
         else {
             view.setSeVolume((float) volumeRect.width /backgroundRect.width);
-
+            view.getSoundManager().playSE(Constants.SoundConstants.APPUNTI_SE);
         }
     }
 }

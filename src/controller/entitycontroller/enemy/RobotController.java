@@ -239,4 +239,9 @@ public class RobotController extends  EnemyController{
         }
     }
 
+    public void reset(){
+        super.reset();
+        numRobots = 4;
+    }
+
 }

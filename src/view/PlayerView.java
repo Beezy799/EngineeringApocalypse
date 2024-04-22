@@ -130,7 +130,7 @@ public class PlayerView extends SortableElement {
 
             if (numSprite >= getAnimationLenght()) {
                 view.changeGameState(GameState.GAME_OVER);
-                numSprite = 0;
+                numSprite--;
             }
             animationCounter = 0;
         }

@@ -26,11 +26,6 @@
   "enemy": [
     {
       "nome": "robot",
-      "riga": 23,
-      "colonna": 17
-    },
-    {
-      "nome": "robot",
       "riga": 14,
       "colonna": 15
     },
@@ -41,8 +36,13 @@
     },
     {
       "nome": "robot",
-      "riga": 24,
-      "colonna": 21
+      "riga": 17,
+      "colonna": 19
+    },
+    {
+      "nome": "robot",
+      "riga": 18,
+      "colonna": 26
     }
   ],
 

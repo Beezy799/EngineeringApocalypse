@@ -27,14 +27,14 @@ public class ErmenegildoView extends NpcView {
     protected void loadDialogues() {
         dialogues = new String[1][10];
         dialogues[0][0] = "ciao, sei una matricola?";
-        dialogues[0][1] = "che invidia, io sono qui da un po'...\n il prof Luke Crickets mi ha bocciato 100 volte";
+        dialogues[0][1] = "che invidia, io sono qui da un po'...\n il prof <Luke Crickets< mi ha bocciato 100 volte";
         dialogues[0][2] = "lascia che ti dia qualche dritta";
-        dialogues[0][3] = "per laurearti, ti servono 180 CFU, \n che puoi trovare in giro per la facoltà";
+        dialogues[0][3] = "per laurearti, ti servono <180 CFU<, \n che puoi trovare in giro per la facoltà";
 
-        dialogues[0][4] = "non ti fare influenzare dagli studenti nullafacenti, \n abbassano la tua concentrazione!";
-        dialogues[0][5] = "usa il computer e gli appunti per difenderti \n puoi trovare gli appunti vicino ai libri";
+        dialogues[0][4] = "non ti fare influenzare dagli <studenti nullafacenti<, \n abbassano la tua concentrazione!";
+        dialogues[0][5] = "usa il <computer< e gli <appunti< per difenderti \n puoi trovare gli appunti vicino ai libri";
 
-        dialogues[0][6] = "il caffè è un tuo alleato, \n prendi ogni tazzina disponibile se ti senti stanco";
+        dialogues[0][6] = "il <caffè< è un tuo alleato, \n prendi ogni tazzina disponibile se ti senti stanco";
         dialogues[0][7] = "conosco qualche scorciatoia per racimolare CFU più in fretta:";
         dialogues[0][8] = "parla con i tuoi colleghi, \n possono aiutarti negli esami in cambio di qualche favore";
         dialogues[0][9] = "se ti serve qualche altro suggerimento, mi trovi in biblioteca. \n Qui sei al sicuro, i nullafacenti non entrano mai";
