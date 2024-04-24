@@ -328,7 +328,7 @@ public enum Rooms {
     public static IModel getModel(){
         return model;
     }
-    public static Rooms actualRoom = BIBLIOTECA;
+    public static Rooms actualRoom = STUDIO_PROF;
 
     public void resetEventsAndEenemyes() {
         for(Event event : events){

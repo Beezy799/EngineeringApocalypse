@@ -9,12 +9,6 @@ import src.view.gameWindow.GamePanel;
 
 public class NullafacenteController extends EnemyController{
 
-    private int rechargeCounter, hittedCounter;
-    private int hitboxWidth = 30, hitboxHeight = 30;
-    private float range = GamePanel.TILES_SIZE*1.4f;
-    private int attackCounter;
-
-
     public NullafacenteController(int x, int y, IController c, int index) {
         super(x, y, c, index);
         speed = GamePanel.SCALE*0.7f;
@@ -34,37 +28,9 @@ public class NullafacenteController extends EnemyController{
     public void update() {
 
         updateDamageCounter();
-
         switch (currentState){
             case IDLE:
-                //se mentre insegue il player sbatte controo un'altr entità,
-                //ritorna allo stato idle, ma vogliamo evitare che faccia
-                //pathfinding troppo spesso
-                if(pathNodeIndex != 0 || path != null){
-                    path = null;
-                    pathNodeIndex = 0;
-                    changeState(EntityStates.RECHARGE);
-                }
-
-                //controlla se il player è sotto tiro
-                else if(icanHitThePlayer(range)){
-                    changeState(EntityStates.ATTACKING);
-                    stateLocked = true;
-                }
-                //controlla se lo vede
-                else if(iCanSeeThePlayer()){
-                    if(iCanReachThePlayer()){
-                        pathNodeIndex = 0;
-                        changeState(EntityStates.CHASE);
-                    }
-                    else {
-                        changeState(EntityStates.RECHARGE);
-                    }
-                }
-                //se il player è molto lontano, gira a caso
-                else{
-                    randomMove();
-                }
+                normalState();
                 break;
 
             case MOVE:
@@ -101,40 +67,10 @@ public class NullafacenteController extends EnemyController{
                     }
                     changeState(EntityStates.RECHARGE);
                 }
-
                 break;
 
             case CHASE:
-                try {
-                    if (icanHitThePlayer(range)) {
-                        path = null;
-                        pathNodeIndex = 0;
-                        changeState(EntityStates.ATTACKING);
-                        stateLocked = true;
-                    }
-                    //se è arrivato a fine percorso
-                    else if (pathNodeIndex == path.size() - 1) {
-                        pathNodeIndex = 0;
-                        path = null;
-
-                        if (iCanSeeThePlayer()) {
-                            if (iCanReachThePlayer()) {
-                                changeState(EntityStates.CHASE);
-                            }
-                        } else {
-                            changeState(EntityStates.RECHARGE);
-                        }
-                    }
-                    //se non è arrivato e il player è lontano, cammina nel percorso
-                    else {
-                        followPath();
-                    }
-                }
-                catch (NullPointerException npe){
-                    //npe.printStackTrace();
-                    pathNodeIndex = 0;
-                    currentState = EntityStates.RECHARGE;
-                }
+                chasePlayer();
                 break;
 
             case HITTED:
@@ -156,7 +92,69 @@ public class NullafacenteController extends EnemyController{
 
     }
 
+    private void chasePlayer() {
+        try {
+            if (icanHitThePlayer(range)) {
+                path = null;
+                pathNodeIndex = 0;
+                changeState(EntityStates.ATTACKING);
+                stateLocked = true;
+            }
+            //se è arrivato a fine percorso
+            else if (pathNodeIndex == path.size()) {
+                pathNodeIndex = 0;
+                path = null;
 
+                if (iCanSeeThePlayer()) {
+                    if (iCanReachThePlayer()) {
+                        changeState(EntityStates.CHASE);
+                    }
+                } else {
+                    changeState(EntityStates.RECHARGE);
+                }
+            }
+            //se non è arrivato e il player è lontano, cammina nel percorso
+            else {
+                followPath();
+            }
+        }
+        catch (NullPointerException npe){
+            //npe.printStackTrace();
+            pathNodeIndex = 0;
+            currentState = EntityStates.RECHARGE;
+        }
+    }
+
+    private void normalState() {
+        //se mentre insegue il player sbatte controo un'altr entità,
+        //ritorna allo stato idle, ma vogliamo evitare che faccia
+        //pathfinding troppo spesso
+        if(pathNodeIndex != 0 || path != null){
+            path = null;
+            pathNodeIndex = 0;
+            changeState(EntityStates.RECHARGE);
+        }
+
+        //controlla se il player è sotto tiro
+        else if(icanHitThePlayer(range)){
+            changeState(EntityStates.ATTACKING);
+            stateLocked = true;
+        }
+        //controlla se lo vede
+        else if(iCanSeeThePlayer()){
+            if(iCanReachThePlayer()){
+                pathNodeIndex = 0;
+                changeState(EntityStates.CHASE);
+            }
+            else {
+                changeState(EntityStates.RECHARGE);
+            }
+        }
+        //se il player è molto lontano, gira a caso
+        else{
+            randomMove();
+        }
+    }
 
 
 }

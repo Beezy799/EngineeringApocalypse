@@ -47,7 +47,7 @@ public class NerdView extends NpcView {
                                 + "e sono troppo asociale per vivere in un dormitorio";
         dialogues[0][2] = "noi nerd siamo fatti così";
         dialogues[0][3] = "la tua presenza mi disturba, ma ho bisogno di una mano";
-        dialogues[0][4] = "sto programmando un videogioco per una esame, \n ma un gatto mi ha rubato il mouse!";
+        dialogues[0][4] = "sto programmando un <videogioco< per una esame, \n ma un <gatto< mi ha rubato il mouse!";
         dialogues[0][5] = "se lo trovi, portamelo e \n condividerò con te la mia conoscenza nerdosa";
         dialogues[0][6] = "uscirei io stesso a cercarlo, ma ci sono troppi \n esseri umani in giro per i miei gusti";
 

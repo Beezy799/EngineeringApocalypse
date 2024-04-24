@@ -10,6 +10,10 @@ import src.view.gameWindow.GamePanel;
 
 public abstract class EnemyController extends EntityController {
 
+    protected int rechargeCounter, hittedCounter, attackCounter;
+
+    protected int hitboxWidth = 30, hitboxHeight = 30;
+    protected float range = GamePanel.TILES_SIZE*1.4f;
     protected int life = 100;
     protected Hitbox attackHitbox;
     protected float xAttackHitboxOffset, yAttackHitboxOffset;
@@ -124,4 +128,7 @@ public abstract class EnemyController extends EntityController {
         }
     }
 
+    public Object getStreamHitbox() {
+        return null;
+    }
 }

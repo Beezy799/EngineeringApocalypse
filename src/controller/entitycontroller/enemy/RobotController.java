@@ -15,7 +15,6 @@ import src.view.playStateView.BulletView;
 public class RobotController extends  EnemyController{
 
     private static int numRobots;
-    private int rechargeCounter, hittedCounter;
     private int hitboxWidth = 28, hitboxHeight = 28;
     private float range = GamePanel.TILES_SIZE*5;
 

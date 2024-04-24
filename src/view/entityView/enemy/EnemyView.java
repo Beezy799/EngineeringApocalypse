@@ -43,25 +43,22 @@ public abstract class EnemyView extends EntityView {
 
     public void draw(Graphics2D g2, int xPlayerMap, int yPlayerMap){
         takeCurrentStateFromController();
+        takeCurrentDirectionFromController();
 
         switch (currentState){
-            case IDLE:
-            case MOVE:
-            case RECHARGE:
-            case CHASE:
-            case HITTED:
+            default:
+                animationSpeed = 30;
                 normaldraw(g2, xPlayerMap, yPlayerMap);
                 break;
             case ATTACKING:
             case THROWING:
             case PARRING:
-                animationSpeed = 30;
+                animationSpeed = 20;
                 specialDraw(g2, xPlayerMap, yPlayerMap);
                 break;
             case DYING:
+                animationSpeed = 30;
                 dyingDraw(g2,xPlayerMap, yPlayerMap);
-                break;
-            default:
                 break;
         }
 
@@ -86,8 +83,6 @@ public abstract class EnemyView extends EntityView {
 
     protected void dyingDraw(Graphics2D g2, int xPlayerMap, int yPlayerMap ) {
         animationCounter++;
-        takeCurrentStateFromController();
-        takeCurrentDirectionFromController();
 
         if (animationCounter > animationSpeed) {
             numSprite ++;
@@ -108,8 +103,6 @@ public abstract class EnemyView extends EntityView {
 
     protected void specialDraw(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
         animationCounter++;
-        takeCurrentStateFromController();
-        takeCurrentDirectionFromController();
 
         if (animationCounter > animationSpeed) {
             numSprite ++;
@@ -128,8 +121,6 @@ public abstract class EnemyView extends EntityView {
 
     public void normaldraw(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
         animationCounter++;
-        takeCurrentStateFromController();
-        takeCurrentDirectionFromController();
 
         if (animationCounter > animationSpeed) {
             numSprite++;
