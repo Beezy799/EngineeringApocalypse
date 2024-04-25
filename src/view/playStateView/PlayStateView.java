@@ -10,8 +10,6 @@ import src.model.Rooms;
 import src.view.IView;
 import src.view.PlayerView;
 import src.view.ViewUtils;
-import src.view.entityView.BossView;
-import src.view.entityView.enemy.RobotView;
 import src.view.gameWindow.GamePanel;
 import src.view.mapView.TileImageLoader;
 

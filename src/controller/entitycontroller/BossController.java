@@ -4,30 +4,35 @@ import src.controller.Hitbox;
 import src.controller.IController;
 import src.controller.entitycontroller.enemy.EnemyController;
 import src.model.EntityStates;
+import src.model.GameState;
 import src.view.gameWindow.GamePanel;
+
+import java.util.Random;
 
 public class BossController extends EnemyController {
 
     private int streamCounter;
-    private Hitbox streamHitbox;
+    private Hitbox streamHitbox, shieldHitbox;
+    private Random random;
 
     public BossController(int x, int y, IController c, int index) {
         super(x, y, c, index);
 
-        speed = GamePanel.SCALE*0.7f;
+        speed = GamePanel.SCALE * 0.7f;
 
         setHitbox(hitboxWidth, hitboxHeight, 12, 12);
-        attackHitbox = new Hitbox(0,0, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
+        attackHitbox = new Hitbox(0, 0, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
 
-        xAttackHitboxOffset = attackHitbox.getWidth()/2;
-        yAttackHitboxOffset = attackHitbox.getHeight()/2;
+        xAttackHitboxOffset = attackHitbox.getWidth() / 2;
+        yAttackHitboxOffset = attackHitbox.getHeight() / 2;
 
-        life = 100;
+        life = 400;
         attack = 15;
-        defence = 2;
+        defence = 5;
 
-        streamHitbox = new Hitbox(0,0,0,0);
-
+        streamHitbox = new Hitbox(0, 0, 0, 0);
+        shieldHitbox = new Hitbox(0, 0, GamePanel.TILES_SIZE*2, GamePanel.TILES_SIZE*2);
+        random = new Random();
         currentState = EntityStates.RECHARGE;
     }
 
@@ -37,37 +42,21 @@ public class BossController extends EnemyController {
         updateDamageCounter();
         updateStreamCounter();
 
-        switch (currentState){
+        switch (currentState) {
             case IDLE:
-                if(pathNodeIndex != 0 || path != null){
-                    path = null;
-                    pathNodeIndex = 0;
-                    changeState(EntityStates.RECHARGE);
-                }
-                else if(icanHitThePlayer(range)){
-                    changeState(EntityStates.ATTACKING);
-                    setStateLocked(true);
-                }
-                else if (iCanShotToPlayer()) {
-                    turnToPlayer();
-                    changeState(EntityStates.THROWING);
-                    setStateLocked(true);
-                }
-                else if (iCanReachThePlayer()) {
-                    pathNodeIndex = 0;
-                    changeState(EntityStates.CHASE);
-                }
-                else{
-                    changeState(EntityStates.RECHARGE);
-                }
+                normalState();
+                break;
 
             case ATTACKING:
                 attackPlayer();
                 break;
 
+            case PARRING:
+                createShield();
+                break;
+
             case THROWING:
                 streamCounter = 0;
-                //turnToPlayer();
                 shootToPlayer();
                 break;
 
@@ -75,12 +64,23 @@ public class BossController extends EnemyController {
                 chaseThePlayer();
                 break;
 
+            case HITTED:
+                hittedCounter++;
+                if (hittedCounter >= 100) {
+                    hittedCounter = 0;
+                    changeState(EntityStates.IDLE);
+                }
+                break;
+
             case RECHARGE:
                 rechargeCounter++;
-                if(rechargeCounter >= 100){
+                if (rechargeCounter >= 150) {
                     rechargeCounter = 0;
                     changeState(EntityStates.IDLE);
                 }
+                break;
+
+            case SPEAKING:
                 break;
 
             default:
@@ -90,6 +90,57 @@ public class BossController extends EnemyController {
 
         //System.out.println(currentState);
 
+    }
+
+    private void createShield() {
+        attackCounter++;
+        defence = 20;
+        if (attackCounter >= 200) {
+            attackCounter = 0;
+
+            shieldHitbox.setX(xPos - (float) shieldHitbox.getWidth() /2);
+            shieldHitbox.setY(yPos - (float) shieldHitbox.getHeight() /2);
+        }
+
+        if (shieldHitbox.intersects(controller.getPlayerController().getHitbox())) {
+            controller.getPlayerController().hitted(10, movementVector);
+        }
+
+        defence = 4;
+        changeState(EntityStates.RECHARGE);
+    }
+
+    private void normalState() {
+        if(pathNodeIndex != 0 || path != null){
+            path = null;
+            pathNodeIndex = 0;
+            changeState(EntityStates.RECHARGE);
+        }
+        else if(icanHitThePlayer(range)){
+            chooseBetweenPunchAndShield();
+        }
+        else if (iCanShotToPlayer()) {
+            turnToPlayer();
+            changeState(EntityStates.THROWING);
+            setStateLocked(true);
+        }
+        else if (iCanReachThePlayer()) {
+            pathNodeIndex = 0;
+            changeState(EntityStates.CHASE);
+        }
+        else{
+            changeState(EntityStates.RECHARGE);
+        }
+    }
+
+    private void chooseBetweenPunchAndShield() {
+        attackCounter = 0;
+        if(life < 200 && random.nextBoolean()){
+            changeState(EntityStates.PARRING);
+            setStateLocked(true);
+        }
+        changeState(EntityStates.ATTACKING);
+        setStateLocked(true);
     }
 
     private void updateStreamCounter() {
@@ -103,7 +154,7 @@ public class BossController extends EnemyController {
         turnToPlayer();
         shiftAttackHitbox();
         attackCounter++;
-        if(attackCounter >= 100){
+        if(attackCounter >= momentOfDamage/2){
             attackCounter = 0;
             if(attackHitbox.intersects(controller.getPlayerController().getHitbox())){
                 controller.getPlayerController().hitted(10, movementVector);
@@ -117,8 +168,7 @@ public class BossController extends EnemyController {
             if (icanHitThePlayer(range)) {
                 path = null;
                 pathNodeIndex = 0;
-                changeState(EntityStates.ATTACKING);
-                stateLocked = true;
+                chooseBetweenPunchAndShield();
             }
             else if(iCanShotToPlayer()){
                 turnToPlayer();
@@ -150,51 +200,54 @@ public class BossController extends EnemyController {
 
     private void shootToPlayer() {
         attackCounter++;
-        if(attackCounter >= 200){
+        defence = 2;
+        if(attackCounter >= momentOfDamage){
             attackCounter = 0;
 
             //up
             if(movementVector.getY() < 0){
-                streamHitbox.setY(0);
-                streamHitbox.setX(xPos);
                 streamHitbox.setWidth(GamePanel.TILES_SIZE);
                 streamHitbox.setHeight((int)yPos);
+                streamHitbox.setY(0);
+                streamHitbox.setX(xPos - (float) streamHitbox.getWidth() /2);
             }
 
             //down
             if(movementVector.getY() > 0){
-                streamHitbox.setY(yPos);
-                streamHitbox.setX(xPos);
                 streamHitbox.setWidth(GamePanel.TILES_SIZE);
                 streamHitbox.setHeight((GamePanel.GAME_HEIGHT));
+                streamHitbox.setY(yPos);
+                streamHitbox.setX(xPos - (float) streamHitbox.getWidth() /2);
             }
 
             //right
             if(movementVector.getX() > 0){
-                streamHitbox.setX(xPos);
-                streamHitbox.setY(yPos);
                 streamHitbox.setWidth((GamePanel.GAME_WIDTH));
                 streamHitbox.setHeight(GamePanel.TILES_SIZE);
+                streamHitbox.setX(xPos);
+                streamHitbox.setY(yPos - (float) streamHitbox.getHeight() /2);
             }
 
             //left
             if(movementVector.getX() < 0){
-                streamHitbox.setX(0);
-                streamHitbox.setY(yPos);
                 streamHitbox.setWidth((int)xPos);
                 streamHitbox.setHeight(GamePanel.TILES_SIZE);
+                streamHitbox.setX(0);
+                streamHitbox.setY(yPos - (float) streamHitbox.getHeight() /2);
             }
 
             if(streamHitbox.intersects(controller.getPlayerController().getHitbox())){
                 controller.getPlayerController().hitted(10, movementVector);
             }
+
+            defence = 4;
             changeState(EntityStates.RECHARGE);
         }
     }
 
     private boolean iCanShotToPlayer(){
 
-        if(streamCounter < 200*10){
+        if(streamCounter < 200*0){
             return false;
         }
 
@@ -217,4 +270,24 @@ public class BossController extends EnemyController {
     public Hitbox getStreamHitbox(){
         return streamHitbox;
     }
+
+    public void hitted(int playerAttack){
+        if(currentState != EntityStates.HITTED && currentState != EntityStates.ATTACKING && currentState != EntityStates.DYING) {
+
+            if(noDamageCounter < 150)
+                return;
+
+            noDamageCounter = 0;
+            changeState(EntityStates.HITTED);
+            int damage = playerAttack - defence - GameState.difficulty;
+            if (damage > 0) {
+                life -= damage;
+            }
+            if(life <= 0){
+                changeState(EntityStates.SPEAKING);
+                System.out.println("morto");
+            }
+        }
+    }
+
 }

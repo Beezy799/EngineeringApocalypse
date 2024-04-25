@@ -60,7 +60,7 @@ public class NullafacenteController extends EnemyController{
                 turnToPlayer();
                 shiftAttackHitbox();
                 attackCounter++;
-                if(attackCounter >= 100){
+                if(attackCounter >= momentOfDamage/2){
                     attackCounter = 0;
                     if(attackHitbox.intersects(controller.getPlayerController().getHitbox())){
                         controller.getPlayerController().hitted(10, movementVector);

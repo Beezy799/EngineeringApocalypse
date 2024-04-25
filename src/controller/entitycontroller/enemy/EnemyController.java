@@ -23,6 +23,8 @@ public abstract class EnemyController extends EntityController {
     protected boolean stateLocked = false;
     protected int noDamageCounter;
 
+    protected int momentOfDamage = 200;
+
 
     public EnemyController(int x, int y, IController c, int index) {
         super(x, y, c, index);
@@ -131,4 +133,6 @@ public abstract class EnemyController extends EntityController {
     public Object getStreamHitbox() {
         return null;
     }
+
+    //public Object getShieldHitbox(){return null;}
 }
