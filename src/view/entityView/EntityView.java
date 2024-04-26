@@ -84,20 +84,20 @@ public abstract class EntityView extends SortableElement {
 //        g2.fillRect(xPosOnScreen, yPosOnScreen, 5, 5);
 
         //disegna la sua hitbox
-        g2.setColor(Color.red);
-        int hitboxW = entityComplete.getEntityController().getHitbox().getWidth();
-        int hitboxH = entityComplete.getEntityController().getHitbox().getHeight();
-        int xoffsetH = entityComplete.getEntityController().getXhitboxOffset();
-        int yoffsetH = entityComplete.getEntityController().getYhitboxOffset();
-        g2.drawRect(xPosOnScreen - xoffsetH, yPosOnScreen - yoffsetH, hitboxW, hitboxH);
+//        g2.setColor(Color.red);
+//        int hitboxW = entityComplete.getEntityController().getHitbox().getWidth();
+//        int hitboxH = entityComplete.getEntityController().getHitbox().getHeight();
+//        int xoffsetH = entityComplete.getEntityController().getXhitboxOffset();
+//        int yoffsetH = entityComplete.getEntityController().getYhitboxOffset();
+//        g2.drawRect(xPosOnScreen - xoffsetH, yPosOnScreen - yoffsetH, hitboxW, hitboxH);
 
         //disegna interaction
-        g2.setColor(Color.blue);
-        int inthitboxW = entityComplete.getEntityController().getInteractionHitbox().getWidth();
-        int inthitboxH = entityComplete.getEntityController().getInteractionHitbox().getHeight();
-        int intxoffsetH = entityComplete.getEntityController().getInteractionHitbox().getWidth()/2;
-        int intyoffsetH = entityComplete.getEntityController().getInteractionHitbox().getHeight()/2;
-        g2.drawRect(xPosOnScreen - intxoffsetH, yPosOnScreen - intyoffsetH, inthitboxW, inthitboxH);
+//        g2.setColor(Color.blue);
+//        int inthitboxW = entityComplete.getEntityController().getInteractionHitbox().getWidth();
+//        int inthitboxH = entityComplete.getEntityController().getInteractionHitbox().getHeight();
+//        int intxoffsetH = entityComplete.getEntityController().getInteractionHitbox().getWidth()/2;
+//        int intyoffsetH = entityComplete.getEntityController().getInteractionHitbox().getHeight()/2;
+//        g2.drawRect(xPosOnScreen - intxoffsetH, yPosOnScreen - intyoffsetH, inthitboxW, inthitboxH);
     }
 
     protected void takeCurrentStateFromController() {
@@ -145,4 +145,5 @@ public abstract class EntityView extends SortableElement {
     public void setEntityComplete(EntityComplete ec){
         entityComplete = ec;
     }
+    public void reset(){}
 }

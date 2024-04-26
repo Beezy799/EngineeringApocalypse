@@ -26,7 +26,8 @@ public class BossController extends EnemyController {
         xAttackHitboxOffset = attackHitbox.getWidth() / 2;
         yAttackHitboxOffset = attackHitbox.getHeight() / 2;
 
-        life = 400;
+        maxLife = 400;
+        life = maxLife;
         attack = 15;
         defence = 5;
 
@@ -36,9 +37,7 @@ public class BossController extends EnemyController {
         currentState = EntityStates.RECHARGE;
     }
 
-    @Override
-    public void update() {
-
+    public void update(){
         updateDamageCounter();
         updateStreamCounter();
 
@@ -267,17 +266,13 @@ public class BossController extends EnemyController {
         return false;
     }
 
-    public Hitbox getStreamHitbox(){
-        return streamHitbox;
-    }
-
     public void hitted(int playerAttack){
         if(currentState != EntityStates.HITTED && currentState != EntityStates.ATTACKING && currentState != EntityStates.DYING) {
 
             if(noDamageCounter < 150)
                 return;
 
-            noDamageCounter = 0;
+            resetCounters();
             changeState(EntityStates.HITTED);
             int damage = playerAttack - defence - GameState.difficulty;
             if (damage > 0) {
@@ -288,6 +283,17 @@ public class BossController extends EnemyController {
                 System.out.println("morto");
             }
         }
+    }
+
+    protected void resetCounters(){
+        attackCounter = 0;
+        streamCounter = 0;
+        noDamageCounter = 0;
+    }
+
+    public void reset(){
+        super.reset();
+        entityComplete.getEntityView().reset();
     }
 
 }

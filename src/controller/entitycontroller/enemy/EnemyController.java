@@ -14,7 +14,7 @@ public abstract class EnemyController extends EntityController {
 
     protected int hitboxWidth = 30, hitboxHeight = 30;
     protected float range = GamePanel.TILES_SIZE*1.4f;
-    protected int life = 100;
+    protected int maxLife, life;
     protected Hitbox attackHitbox;
     protected float xAttackHitboxOffset, yAttackHitboxOffset;
 
@@ -28,6 +28,8 @@ public abstract class EnemyController extends EntityController {
 
     public EnemyController(int x, int y, IController c, int index) {
         super(x, y, c, index);
+        maxLife = 100;
+        life = maxLife;
     }
 
     public void hitted(int playerAttack){
@@ -36,7 +38,7 @@ public abstract class EnemyController extends EntityController {
             if(noDamageCounter < 150)
                 return;
 
-            noDamageCounter = 0;
+            resetCounters();
             changeState(EntityStates.HITTED);
             int damage = playerAttack - defence - GameState.difficulty;
             if (damage > 0) {
@@ -47,6 +49,11 @@ public abstract class EnemyController extends EntityController {
                 stateLocked = true;
             }
         }
+    }
+
+    protected void resetCounters() {
+        noDamageCounter = 0;
+        attackCounter = 0;
     }
 
     public int getAttack(){
@@ -69,9 +76,9 @@ public abstract class EnemyController extends EntityController {
 
     public void reset() {
         super.reset();
-
+        resetCounters();
         stateLocked = false;
-        life = 100;
+        life = maxLife;
     }
 
     protected boolean iCanSeeThePlayer() {
@@ -130,9 +137,4 @@ public abstract class EnemyController extends EntityController {
         }
     }
 
-    public Object getStreamHitbox() {
-        return null;
-    }
-
-    //public Object getShieldHitbox(){return null;}
 }

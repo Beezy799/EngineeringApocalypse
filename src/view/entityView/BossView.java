@@ -49,6 +49,8 @@ public class BossView extends EnemyView {
     public void draw(Graphics2D g2, int xPlayerMap, int yPlayerMap){
         takeCurrentStateFromController();
         takeCurrentDirectionFromController();
+        view.getPlayStateView().setEarthSheakeEffect(false);
+        view.getPlayStateView().getScreenOverlay().setBossSpecialAttack(false);
 
         switch (currentState){
             default:
@@ -65,7 +67,7 @@ public class BossView extends EnemyView {
                 break;
 
             case PARRING:
-                animationSpeed = 13;
+                animationSpeed = 15;
                 specialDraw(g2, xPlayerMap, yPlayerMap);
                 break;
         }
@@ -274,9 +276,7 @@ public class BossView extends EnemyView {
 
     private void makeEpicThisAttack(Graphics2D g2) {
         // tutto lo schermo si scurice, per rendere l'attacco più epico
-        g2.setColor(Color.black);
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
-        g2.fillRect(0,0, GamePanel.GAME_WIDTH,GamePanel.GAME_HEIGHT);
+        view.getPlayStateView().getScreenOverlay().setBossSpecialAttack(true);
         view.getPlayStateView().setEarthSheakeEffect(true);
     }
 
@@ -449,4 +449,9 @@ public class BossView extends EnemyView {
     protected void loadDialogues() {
 
     }
+
+    public void reset(){
+
+    }
+
 }

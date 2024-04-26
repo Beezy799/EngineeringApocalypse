@@ -12,11 +12,12 @@ public class ScreenOverlay {
     //buio, attacchi prof, altro che non saprei
 
     private BufferedImage buio;
-    private boolean isDark = true, figthBoss = true;
+    private boolean isDark = true, figthBoss = true, bossSpecialAttack;
     private int initialBossLifeRectWidth = GamePanel.GAME_WIDTH/2;
     private int completeBossLife = 400;
     private String bossName = "Prof Luke Crickets";
     private Font bossNameFont = new Font("Dialog", Font.ITALIC, (int)(10*GamePanel.SCALE));
+
 
     public ScreenOverlay(PlayStateView p){
         try {
@@ -32,6 +33,12 @@ public class ScreenOverlay {
         if(Rooms.actualRoom == Rooms.DORMITORIO && isDark) {
             g2.drawImage(buio, 0, 0, null);
         }
+        if(bossSpecialAttack){
+            g2.setColor(Color.black);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+            g2.fillRect(0,0, GamePanel.GAME_WIDTH,GamePanel.GAME_HEIGHT);
+        }
+
         if(Rooms.actualRoom == Rooms.STUDIO_PROF && figthBoss){
             drawBossLife(g2);
         }
@@ -59,4 +66,7 @@ public class ScreenOverlay {
         isDark = b;
     }
 
+    public void setBossSpecialAttack(boolean b){
+        bossSpecialAttack = b;
+    }
 }
