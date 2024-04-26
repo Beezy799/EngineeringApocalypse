@@ -18,14 +18,13 @@ import java.io.IOException;
 import static src.model.Constants.EntityConstants.*;
 import static src.model.Constants.EntityConstants.LEFT;
 import static src.model.EntityStates.*;
-import static src.view.gameWindow.GamePanel.GAME_HEIGHT;
-import static src.view.gameWindow.GamePanel.SCALE;
+import static src.view.gameWindow.GamePanel.*;
 
 public class BossView extends EnemyView {
 
-    private String attackStream = "001010011010100101001011101011011001110101010100110111101011101001101110100111010100110101010";
-    private String attackStream2 = "10101011101111010000101101100101000011110011000111111000001010001010001001010000101111001001";
-    private String attackStream3 = "01110100101001101001001001101001001001101000100000010111110101001010001001010110111010001011";
+    private String attackStream = "0010100110101001010010111010110110011101010101001101111010111010011011101001110101001101010100010100101000100100001101101010111101000110001100110";
+    private String attackStream2 = "101010111011110100001011011001010000111100110001111110000010100010100010010100001011110010010011101101001000101101011011001001011010101001001010";
+    private String attackStream3 = "011101001010011010010010011010010010011010001000000101111101010010100010010101101110100010110001010100110100100010010001000100111010100011000101";
 
     //per disegnare le stringhe dall'alto verso il basso e viceversa
     private AffineTransform defaultAt;
@@ -59,7 +58,6 @@ public class BossView extends EnemyView {
             case THROWING:
                 animationSpeed = 20;
                 drawOndaEnergetica(g2, xPlayerMap, yPlayerMap);
-                //drawOndaDiProva(g2, xPlayerMap, yPlayerMap);
                 break;
             case ATTACKING:
                 animationSpeed = 10;
@@ -73,248 +71,228 @@ public class BossView extends EnemyView {
         }
     }
 
-    private void drawOndaDiProva(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
-        animationCounter++;
-
-        if (animationCounter > animationSpeed) {
-            numSprite ++;
-
-            if(numSprite >= getAnimationLenght()) {
-                //finita l'animazione, il nemico può cambiare stato
-                ((EnemyComplete)entityComplete).getEnemyController().setStateLocked(false);
-                numSprite = 0;
-            }
-
-            animationCounter = 0;
-        }
-
-        Hitbox stream = (Hitbox) (((EnemyComplete)entityComplete).getEnemyController()).getStreamHitbox();
-        switch (currentDirection){
-            case RIGHT:
-            case DOWN:
-                g2.fillRect(xPosOnScreen, yPosOnScreen, stream.getWidth(), stream.getHeight());
-                break;
-            case LEFT:
-                g2.fillRect(0, yPosOnScreen, stream.getWidth(), stream.getHeight());
-                break;
-            case UP:
-                g2.fillRect(xPosOnScreen, 0, stream.getWidth(), stream.getHeight());
-                break;
-        }
-
-        drawSprite(g2, xPlayerMap, yPlayerMap);
-    }
-
-//    private void parringDraw(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
-//        animationCounter++;
-//
-//        if (animationCounter > animationSpeed) {
-//            numSprite++;
-//
-//            if (numSprite >= getAnimationLenght()) {
-//                numSprite = getAnimationLenght() - 1;
-//                //sblocca lo stato una volta finita l'animazione
-//                //il playercontroller resta nello stato attack o throw fino alla fine dell'animazione
-//                //finita l'anmazione, dice al controller di sbloccare lo stato e aggiornarlo
-//                (((EnemyComplete)entityComplete).getEnemyController()).setStateLocked(false);
-//            }
-//            animationCounter = 0;
-//        }
-//        drawSprite(g2, xPlayerMap, yPlayerMap);
-//        Hitbox shield = (Hitbox) (((EnemyComplete)entityComplete).getEnemyController()).getShieldHitbox();
-//        g2.drawRect(xPosOnScreen - shield.getWidth()/2, yPosOnScreen - shield.getHeight()/2, shield.getWidth(), shield.getHeight());
-//    }
-
     private void drawOndaEnergetica(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
-
-    // sposta la posizione del player velocemente per far sembrare un terremoto, peccato che può dare problemi per la collisione
-    // bisogna mettere una camera indipendente dal personaggio, che potrebbe servire anche nella scena col boss. Da vedere
-//        if(animationCounter % 5 == 0){
-//            int x = (int)view.getController().getPlayerController().getxPosPlayer();
-//            view.getController().getPlayerController().setxPosPlayer(x + (animationCounter%10==0 ? 10 : - 10));
-//            if(animationCounter == 240){
-//                view.getController().getPlayerController().setxPosPlayer(x -10);
-//            }
-//        }
-//
     attackStreamCounter++;
-    
-    animationCounter++;
-    if (animationCounter > animationSpeed) {
-        numSprite ++;
 
-        if(numSprite >= getAnimationLenght()) {
-            //finita l'animazione, il nemico può cambiare stato
-            //((EnemyComplete)entityComplete).getEnemyController().setStateLocked(false);
-            numSprite = getAnimationLenght() - 1;
-        }
-        animationCounter = 0;
-    }
+    preparationAnimation();
     drawSprite(g2, xPlayerMap, yPlayerMap);
 
+    //l'onda parte solo dopo che ha finito l'animazione
     if(numSprite < getAnimationLenght() - 1)
         return;
 
-    // tutto lo schermo si scurice, per rendere l'attacco più epico
-    g2.setColor(Color.black);
-    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
-    g2.fillRect(0,0, GamePanel.GAME_WIDTH,GamePanel.GAME_HEIGHT);
+    makeEpicThisAttack(g2);
 
     defaultAt = g2.getTransform();
     g2.setFont(streamFont);
 
-    //larghezza rettangolo interno
-    widthStreamAttackRect = 2 + attackStreamCounter*GamePanel.TILES_SIZE/240;
-    //larghezza rect esterno mezzo trasparente
-    widthStreamAttackBackgroundRect = 2 + attackStreamCounter*GamePanel.TILES_SIZE/120;
-
-    //il rect trasparente si allarga prima, una volta arrivato alla larghezza massima si ferma
-    if(widthStreamAttackBackgroundRect > 2 + GamePanel.TILES_SIZE) {
-        widthStreamAttackBackgroundRect = 2 + GamePanel.TILES_SIZE;
-    }
-
     switch (currentDirection){
         case DOWN:
+            //larghezza rettangolo interno
+            widthStreamAttackRect = 2 + attackStreamCounter*GamePanel.TILES_SIZE/240;
+            //larghezza rect esterno mezzo trasparente
+            widthStreamAttackBackgroundRect = 2 + attackStreamCounter*GamePanel.TILES_SIZE/120;
+
+            //il rect trasparente si allarga prima, una volta arrivato alla larghezza massima si ferma
+            if(widthStreamAttackBackgroundRect > 2 + GamePanel.TILES_SIZE) {
+                widthStreamAttackBackgroundRect = 2 + GamePanel.TILES_SIZE;
+            }
+
+            heightStreamAttackRect = GAME_HEIGHT;
+            heightStreamAttackRectBackground = GAME_HEIGHT;
+
             //rect trasparente
             xStreamAttack = xPosOnScreen - widthStreamAttackBackgroundRect/2;
             yStreamAttack = yPosOnScreen + GamePanel.TILES_SIZE;
 
             //rect trasparente
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-            g2.fillRoundRect(xStreamAttack, yStreamAttack, widthStreamAttackBackgroundRect, GamePanel.GAME_HEIGHT, 20, 20);
+            g2.fillRoundRect(xStreamAttack, yStreamAttack, widthStreamAttackBackgroundRect, heightStreamAttackRect, 20, 20);
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
 
             //rect interno
             xStreamAttack = xPosOnScreen - widthStreamAttackRect/2;
-            g2.fillRoundRect(xStreamAttack, yStreamAttack, widthStreamAttackRect, GAME_HEIGHT, 20, 20);
+            g2.fillRoundRect(xStreamAttack, yStreamAttack, widthStreamAttackRect, heightStreamAttackRect, 20, 20);
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
             //stream di bits
             g2.setColor(Color.green);
             g2.rotate(Math.PI / 2);
-            xStreamAttack = xPosOnScreen - ViewUtils.getStringHeight(attackStream, g2)/4;
 
-            //le stringhe di bit si alternano 6 volte
-            if(attackStreamCounter < 40)
-                g2.drawString(attackStream, yStreamAttack, -xStreamAttack);
-            else if(attackStreamCounter >= 40 && attackStreamCounter < 80)
-                g2.drawString(attackStream2, yStreamAttack, -xStreamAttack);
-            else if (attackStreamCounter >= 80 && attackStreamCounter < 120)
-                g2.drawString(attackStream3, yStreamAttack, -xStreamAttack);
-            else if (attackStreamCounter >= 120 && attackStreamCounter < 160)
-                g2.drawString(attackStream, yStreamAttack, -xStreamAttack);
-            else if (attackStreamCounter >= 160 && attackStreamCounter < 200)
-                g2.drawString(attackStream2, yStreamAttack, -xStreamAttack);
-            else if (attackStreamCounter >= 200 && attackStreamCounter < 240)
-                g2.drawString(attackStream3, yStreamAttack, -xStreamAttack);
+            xStreamAttack = -(xPosOnScreen - ViewUtils.getStringHeight(attackStream, g2)/4);
+            int temp = yStreamAttack;
+            yStreamAttack = xStreamAttack;
+            xStreamAttack = temp;
+            drawBits(g2);
 
             g2.rotate(-Math.PI / 2);
             break;
 
-        default:
+        case UP:
+            //larghezza rettangolo interno
+            widthStreamAttackRect = 2 + attackStreamCounter*GamePanel.TILES_SIZE/240;
+            //larghezza rect esterno mezzo trasparente
+            widthStreamAttackBackgroundRect = 2 + attackStreamCounter*GamePanel.TILES_SIZE/120;
+
+            //il rect trasparente si allarga prima, una volta arrivato alla larghezza massima si ferma
+            if(widthStreamAttackBackgroundRect > 2 + GamePanel.TILES_SIZE) {
+                widthStreamAttackBackgroundRect = 2 + GamePanel.TILES_SIZE;
+            }
+
+            heightStreamAttackRect = GAME_HEIGHT;
+            heightStreamAttackRectBackground = GAME_HEIGHT;
+
+            xStreamAttack = xPosOnScreen - widthStreamAttackBackgroundRect/2;
+            yStreamAttack = -(heightStreamAttackRect-yPosOnScreen);
+
+            //rect trasparente
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+            g2.fillRoundRect(xStreamAttack, yStreamAttack, widthStreamAttackBackgroundRect, heightStreamAttackRect, 20, 20);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
+
+            //rect interno
+            xStreamAttack = xPosOnScreen - widthStreamAttackRect/2;
+            g2.fillRoundRect(xStreamAttack, yStreamAttack, widthStreamAttackRect, heightStreamAttackRect, 20, 20);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+            //stream di bits
+            g2.setColor(Color.green);
+            g2.rotate(Math.PI / 2);
+
+            int streamLength = ViewUtils.getStringLenght(attackStream, g2);
+            xStreamAttack = -(xPosOnScreen - ViewUtils.getStringHeight(attackStream, g2)/4);
+            yStreamAttack = xStreamAttack;
+            xStreamAttack = yPosOnScreen-streamLength;
+
+            //le stringhe di bit si alternano 6 volte
+            drawBits(g2);
+            g2.rotate(-Math.PI / 2);
+            drawSprite(g2, xPlayerMap, yPlayerMap);
             break;
-//
-//        case UP:
-//            //rect trasparente
-//            x = xPosOnScreen;
-//            y = -(heightAttackRect - yPosOnScreen);
-//            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-//            g2.fillRoundRect(x, y, widthattackBackgroundRect, y, 20, 20);
-//            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
-//
-//            //rect interno
-//            g2.fillRoundRect(x, y, widthAttackRect, y, 20, 20);
-//            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-//
-//            //stream di bits
-//            g2.setColor(Color.green);
-//            g2.rotate(Math.PI / 2);
-//
-//            //le stringhe di bit si alternano 6 volte
-//            if(animationCounter < 40)
-//                g2.drawString(attackStream, -GamePanel.CENTER_Y_GAME_PANEL + 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
-//            else if(animationCounter >= 40 && animationCounter < 80)
-//                g2.drawString(attackStream2, -GamePanel.CENTER_Y_GAME_PANEL + 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
-//            else if (animationCounter >= 80 && animationCounter < 120)
-//                g2.drawString(attackStream3, -GamePanel.CENTER_Y_GAME_PANEL + 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
-//            else if (animationCounter >= 120 && animationCounter < 160)
-//                g2.drawString(attackStream, -GamePanel.CENTER_Y_GAME_PANEL + 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
-//            else if (animationCounter >= 160 && animationCounter < 200)
-//                g2.drawString(attackStream2, -GamePanel.CENTER_Y_GAME_PANEL + 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
-//            else if (animationCounter >= 200 && animationCounter < 240)
-//                g2.drawString(attackStream3, -GamePanel.CENTER_Y_GAME_PANEL + 2*GamePanel.TILES_SIZE, -GamePanel.CENTER_X_GAME_PANEL);
-//
-//            g2.rotate(-Math.PI / 2);
-//            break;
-//
-//        case RIGHT:
-//            x = xPosOnScreen;
-//            y = yPosOnScreen;
-//            int w = GamePanel.GAME_WIDTH/2;
-//            //rect trasparente
-//            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-//            g2.fillRoundRect(x, y, w, heightAttackRectBackground, 20, 20);
-//            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
-//
-//            //rect interno
-//            g2.fillRoundRect(x, y,w, heightAttackRect, 20, 20);
-//            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-//
-//            g2.setColor(Color.green);
-//
-//            //le stringhe di bit si alternano 6 volte
-//            if(animationCounter < 40)
-//                g2.drawString(attackStream, GamePanel.CENTER_X_GAME_PANEL + 20, GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream, g2)/2);
-//            else if(animationCounter >= 40 && animationCounter < 80)
-//                g2.drawString(attackStream2, GamePanel.CENTER_X_GAME_PANEL + 20, GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream2, g2)/2);
-//            else if (animationCounter >= 80 && animationCounter < 120)
-//                g2.drawString(attackStream3, GamePanel.CENTER_X_GAME_PANEL + 20, GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream3, g2)/2);
-//            else if (animationCounter >= 120 && animationCounter < 160)
-//                g2.drawString(attackStream, GamePanel.CENTER_X_GAME_PANEL + 20, GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream, g2)/2);
-//            else if (animationCounter >= 160 && animationCounter < 200)
-//                g2.drawString(attackStream2, GamePanel.CENTER_X_GAME_PANEL + 20, GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream2, g2)/2);
-//            else if (animationCounter >= 200 && animationCounter < 240)
-//                g2.drawString(attackStream3, GamePanel.CENTER_X_GAME_PANEL + 20, GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream3, g2)/2);
-//            break;
-//
-//        case LEFT:
-//            y = yPosOnScreen;
-//            x = -(widthAttackRect - xPosOnScreen);
-//            //rect trasparente
-//            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
-//            g2.fillRoundRect(x, y, widthAttackRect, heightAttackRect, 20, 20);
-//            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
-//
-//            //rect interno
-//            g2.fillRoundRect(0 -10,
-//                    GamePanel.CENTER_Y_GAME_PANEL - heightAttackRect/2,
-//                    GamePanel.GAME_WIDTH/2, heightAttackRect, 20, 20);
-//            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-//
-//            g2.setColor(Color.green);
-//
-//            //le stringhe di bit si alternano 6 volte
-//            if(animationCounter < 40)
-//                g2.drawString(attackStream, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2), GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream, g2)/2);
-//            else if(animationCounter >= 40 && animationCounter < 80)
-//                g2.drawString(attackStream2, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2), GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream2, g2)/2);
-//            else if (animationCounter >= 80 && animationCounter < 120)
-//                g2.drawString(attackStream3, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2), GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream3, g2)/2);
-//            else if (animationCounter >= 120 && animationCounter < 160)
-//                g2.drawString(attackStream, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2), GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream, g2)/2);
-//            else if (animationCounter >= 160 && animationCounter < 200)
-//                g2.drawString(attackStream2, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2), GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream2, g2)/2);
-//            else if (animationCounter >= 200 && animationCounter < 240)
-//                g2.drawString(attackStream3, GamePanel.CENTER_X_GAME_PANEL - ViewUtils.getStringLenght(attackStream, g2), GamePanel.CENTER_Y_GAME_PANEL + ViewUtils.getStringHeight(attackStream3, g2)/2);
-//            break;
+
+        case RIGHT:
+            //larghezza rettangolo interno
+            heightStreamAttackRect = 2 + attackStreamCounter*GamePanel.TILES_SIZE/240;
+            //larghezza rect esterno mezzo trasparente
+            heightStreamAttackRectBackground = 2 + attackStreamCounter*GamePanel.TILES_SIZE/120;
+
+            //il rect trasparente si allarga prima, una volta arrivato alla larghezza massima si ferma
+            if(heightStreamAttackRectBackground > 2 + GamePanel.TILES_SIZE) {
+                heightStreamAttackRectBackground = 2 + GamePanel.TILES_SIZE;
+            }
+
+            widthStreamAttackRect = GAME_WIDTH;
+            widthStreamAttackBackgroundRect = GAME_WIDTH;
+
+            xStreamAttack = xPosOnScreen + TILES_SIZE/2;
+            yStreamAttack = yPosOnScreen - heightStreamAttackRectBackground/2;
+
+            //rect trasparente
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+            g2.fillRoundRect(xStreamAttack, yStreamAttack, widthStreamAttackBackgroundRect, heightStreamAttackRectBackground, 20, 20);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
+
+            //rect interno
+            yStreamAttack = yPosOnScreen - heightStreamAttackRect/2;
+            g2.fillRoundRect(xStreamAttack, yStreamAttack, widthStreamAttackRect, heightStreamAttackRect, 20, 20);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+            //stringhe
+            g2.setColor(Color.green);
+            yStreamAttack = yPosOnScreen;
+
+            //le stringhe di bit si alternano 6 volte
+            drawBits(g2);
+            break;
+
+        case LEFT:
+            //larghezza rettangolo interno
+            heightStreamAttackRect = 2 + attackStreamCounter*GamePanel.TILES_SIZE/240;
+            //larghezza rect esterno mezzo trasparente
+            heightStreamAttackRectBackground = 2 + attackStreamCounter*GamePanel.TILES_SIZE/120;
+
+            //il rect trasparente si allarga prima, una volta arrivato alla larghezza massima si ferma
+            if(heightStreamAttackRectBackground > 2 + GamePanel.TILES_SIZE) {
+                heightStreamAttackRectBackground = 2 + GamePanel.TILES_SIZE;
+            }
+
+            widthStreamAttackRect = GAME_WIDTH;
+            widthStreamAttackBackgroundRect = GAME_WIDTH;
+
+            xStreamAttack = xPosOnScreen - widthStreamAttackRect - TILES_SIZE/2;
+            yStreamAttack = yPosOnScreen - heightStreamAttackRectBackground/2;
+
+            //rect trasparente
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+            g2.fillRoundRect(xStreamAttack, yStreamAttack, widthStreamAttackBackgroundRect, heightStreamAttackRectBackground, 20, 20);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
+
+            //rect interno
+            yStreamAttack = yPosOnScreen - heightStreamAttackRect/2;
+            g2.fillRoundRect(xStreamAttack, yStreamAttack, widthStreamAttackRect, heightStreamAttackRect, 20, 20);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+            //stringhe
+            g2.setColor(Color.green);
+            xStreamAttack = xPosOnScreen - ViewUtils.getStringLenght(attackStream, g2) - TILES_SIZE/2;
+            yStreamAttack = yPosOnScreen + ViewUtils.getStringHeight(attackStream, g2)/2;
+            //le stringhe di bit si alternano 6 volte
+            drawBits(g2);
+            break;
     }
 
     if(attackStreamCounter >= 240) {
-        ((EnemyComplete)entityComplete).getEnemyController().setStateLocked(false);
-        attackStreamCounter = 0;
+        resetValuesAfterStream();
     }
 
 }
+
+    private void resetValuesAfterStream() {
+        view.getPlayStateView().setEarthSheakeEffect(false);
+        ((EnemyComplete)entityComplete).getEnemyController().setStateLocked(false);
+        attackStreamCounter = 0;
+        widthStreamAttackBackgroundRect = 0;
+        widthStreamAttackRect = 0;
+        heightStreamAttackRect = 0;
+        heightStreamAttackRectBackground = 0;
+    }
+
+    private void drawBits(Graphics2D g2) {
+        if(attackStreamCounter < 40)
+            g2.drawString(attackStream, xStreamAttack, yStreamAttack);
+        else if(attackStreamCounter >= 40 && attackStreamCounter < 80)
+            g2.drawString(attackStream2, xStreamAttack, yStreamAttack);
+        else if (attackStreamCounter >= 80 && attackStreamCounter < 120)
+            g2.drawString(attackStream3, xStreamAttack, yStreamAttack);
+        else if (attackStreamCounter >= 120 && attackStreamCounter < 160)
+            g2.drawString(attackStream, xStreamAttack, yStreamAttack);
+        else if (attackStreamCounter >= 160 && attackStreamCounter < 200)
+            g2.drawString(attackStream2, xStreamAttack, yStreamAttack);
+        else if (attackStreamCounter >= 200 && attackStreamCounter < 240)
+            g2.drawString(attackStream3, xStreamAttack, yStreamAttack);
+    }
+
+    private void makeEpicThisAttack(Graphics2D g2) {
+        // tutto lo schermo si scurice, per rendere l'attacco più epico
+        g2.setColor(Color.black);
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+        g2.fillRect(0,0, GamePanel.GAME_WIDTH,GamePanel.GAME_HEIGHT);
+        view.getPlayStateView().setEarthSheakeEffect(true);
+    }
+
+    private void preparationAnimation() {
+        animationCounter++;
+        if (animationCounter > animationSpeed) {
+            numSprite ++;
+
+            if(numSprite >= getAnimationLenght()) {
+                //finita l'animazione, il nemico può cambiare stato
+                //((EnemyComplete)entityComplete).getEnemyController().setStateLocked(false);
+                numSprite = getAnimationLenght() - 1;
+            }
+            animationCounter = 0;
+        }
+    }
 
     public void normaldraw(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
         animationCounter++;

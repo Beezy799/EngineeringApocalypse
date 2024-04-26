@@ -1,7 +1,6 @@
 package src.view.playStateView;
 
 import src.controller.Hitbox;
-import src.model.BulletComplete;
 import src.model.events.CFU;
 import src.model.events.Event;
 import src.model.entity.EnemyComplete;
@@ -29,6 +28,9 @@ public class PlayStateView {
     private BufferedImage cfuImage;
     private ScreenOverlay screenOverlay;
     private ArrayList<SortableElement> elementsAboveTheFloor;
+    private int xPlayer, yPlayer;
+    private boolean earthSheakeEffect;
+    private int earthShakeCounter;
 
     public PlayStateView(IView v){
         iView = v;
@@ -55,8 +57,7 @@ public class PlayStateView {
         //per disegnare gli oggetti nella giusta posizione sullo schermo, ci prendiamo la posizione del player nella mappa
         //ci troviamo la posizione dell'oggetto relativa al player e capiamo dove esso si trova sullo schermo, sapendo
         //che il player è sempre al centro
-        int xPlayer = (int)iView.getController().getPlayerController().getxPosPlayer();
-        int yPlayer = (int)iView.getController().getPlayerController().getyPosPlayer();
+        takePlayerPosition();
 
         drawFirstLayer(g2, xPlayer, yPlayer);
         drawSecondLayer(g2, xPlayer, yPlayer);
@@ -80,6 +81,21 @@ public class PlayStateView {
 
         playUI.draw(g2);
 
+    }
+
+    private void takePlayerPosition() {
+        xPlayer = (int)iView.getController().getPlayerController().getxPosPlayer();
+        yPlayer = (int)iView.getController().getPlayerController().getyPosPlayer();
+
+        if(!earthSheakeEffect)
+            return;
+
+//      sposta la posizione del player velocemente per far sembrare un terremoto, peccato che può dare problemi per la collisione
+//      bisogna mettere una camera indipendente dal personaggio, che potrebbe servire anche nella scena col boss. Da vedere
+        earthShakeCounter++;
+        if(earthShakeCounter % 5 == 0){
+            xPlayer = (xPlayer + (earthShakeCounter%10==0 ? 10 : - 10));
+        }
     }
 
     private void drawFirstLayer(Graphics2D g2, int xPlayerPos, int yPlayerPos) {
@@ -249,5 +265,7 @@ public class PlayStateView {
     public ScreenOverlay getScreenOverlay(){
         return screenOverlay;
     }
+
+    public void setEarthSheakeEffect(boolean b){earthSheakeEffect = b;}
 
 }

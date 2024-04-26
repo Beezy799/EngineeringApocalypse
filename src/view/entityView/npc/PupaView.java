@@ -1,5 +1,6 @@
 package src.view.entityView.npc;
 
+import src.model.GameState;
 import src.view.IView;
 import src.view.ViewUtils;
 import src.view.entityView.npc.NpcView;
@@ -39,11 +40,24 @@ public class PupaView extends NpcView {
         dialogues[0][2] = "Mi fa paura il buio \n non posso vedere il mio bellissimo faccino riflesso";
         dialogues[0][3] = "Se riesci ad accendere la luce \n ti consiglio un esame a scelta molto facile \n con tanti CFU";
         dialogues[0][4] = "Vai a sinistra, <vicino alla tv<, l'interruttore è da quelle parti";
-        dialogues[0][6] = "Attento a non farti prendere dai <fantasmi dell'ansia< \n hanno fatto scappare tanti studenti";
-        dialogues[0][5] = "Se sopravvivi ti aggiungo su instagram ;-)";
+        dialogues[0][5] = "Attento a non farti prendere dai <fantasmi dell'ansia< \n hanno fatto scappare tanti studenti";
+        dialogues[0][6] = "Se sopravvivi ti aggiungo su instagram ;-)";
 
         dialogues[1] = new String[1];
         dialogues[1][0] = "grazie! \n ti aggiungo subito su instagram ;-*";
+    }
+
+    public void setNextDialogueLine(){
+        dialogueLine++;
+
+        if(dialogueLine >= dialogues[dialogueIndex].length && dialogueIndex == 0) {
+            dialogueLine = 4;
+            GameState.actualState = GameState.PLAYING;
+        }
+        else if (dialogueLine >= dialogues[dialogueIndex].length) {
+            dialogueLine = dialogues[dialogueIndex].length - 1;
+            GameState.actualState = GameState.PLAYING;
+        }
     }
 
     @Override

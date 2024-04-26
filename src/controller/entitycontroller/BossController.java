@@ -247,7 +247,7 @@ public class BossController extends EnemyController {
 
     private boolean iCanShotToPlayer(){
 
-        if(streamCounter < 200*0){
+        if(streamCounter < 200*5){
             return false;
         }
 
@@ -257,7 +257,7 @@ public class BossController extends EnemyController {
         float xDistance = Math.abs(xPos - playerX);
         float yDistance = Math.abs(yPos - playerY);
 
-        if(xDistance < 10*GamePanel.TILES_SIZE && yDistance < 10*GamePanel.TILES_SIZE) {
+        if(xDistance < 8*GamePanel.TILES_SIZE && yDistance < 8*GamePanel.TILES_SIZE) {
             boolean dentroLaHitboxLato = playerX > hitbox.getX() && playerX < hitbox.getX() + hitbox.getWidth();
             boolean dentroLaHitboxAltezza = playerY > hitbox.getY() && playerY < hitbox.getY() + hitbox.getHeight();
 
