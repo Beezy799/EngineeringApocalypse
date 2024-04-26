@@ -5,7 +5,7 @@ public enum GameState {
 	START_TITLE, MAIN_MENU, LOAD_GAME, PLAYING, SELECT_AVATAR, OPTIONS, COMMAND_EXPLAINATION, QUIT,
 	TRANSITION_STATE, PAUSE, DIALOGUE, BOSS_CUTSCENE, GAME_OVER, END_GAME, TRANSITION_AFTER_GAME_OVER;
 
-	public static GameState actualState = START_TITLE;
+	public static GameState actualState = END_GAME;
 
 	public static int difficulty = 0;
 

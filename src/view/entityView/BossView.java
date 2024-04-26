@@ -449,14 +449,16 @@ public class BossView extends EnemyView {
 
     protected void loadDialogues() {
         dialogues = new String[2][];
-        dialogues[0] = new String[2];
-        dialogues[1] = new String[2];
+        dialogues[0] = new String[3];
+        dialogues[1] = new String[3];
 
         dialogues[0][0] = "Ti stavo aspettando, \n ho visto come correvi in giro per la facoltà";
-        dialogues[0][1] = "Il tuo viaggio si ferma quì. \n Non riuscirai mai a battermi, non sai neanche usare Vim";
+        dialogues[0][1] = "Il tuo viaggio si ferma quì. \n Hai imparato bene, <ma non hai imparato tutto<...";
+        dialogues[0][2] = "Non sai sfruttare al massimo la potenza di <Vim< e copilot, \n ora ti mostrerò cosa è capace di fare un vero programmatore!";
 
-        dialogues[1][0] = "Dannazione, sei molto più bravo di quanto pensassi \n tutta colpa di chi mi ha programmato così debole!";
-        dialogues[1][1] = "Ecco la tua laurea, te la sei meritata";
+        dialogues[1][0] = "Ahh, i tuoi design pattern mi hanno veramente stupito..";
+        dialogues[1][1] = "Dannazione, sei molto più bravo di quanto pensassi, \n tutta colpa di chi mi ha programmato così debole!";
+        dialogues[1][2] = "Ecco la tua <laurea<, te la sei meritata";
     }
 
     public void reset(){

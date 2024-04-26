@@ -17,14 +17,15 @@ public class TitoliDiCoda {
     private String ringraziamenti = "GNgame ringrazia per la collaborazione:";
     private String votoSperato = "30";
     private BufferedImage title;
-    private int titleX, titleY;
+    private int titleX, titleY = GAME_HEIGHT/4;
     private String Francesco = "Francesco: voice actor, sound designer";
-    private String Bea = "Bea: sprite editing";
-    private String Lorenzo = "Lorenzo: code creative feedback";
+    private String Bea = "Bea: artistic sprite editing";
+    private String Lorenzo = "Lorenzo: creative feedback";
     private String Salvatore = "Salvatore: code reviewer";
     private String Armando = "Armando: mental health helper";
     private String Umberto = "Umberto: game designer";
-    private String betaTesters = "Beta testers: \n Flavio, Amin, Aiman, Matteo \n Filippo, Edoardo, Valentino, Valeria";
+    private String betaTesters = "BETA TESTERS: \n \n Flavio, Amin, Aiman, Matteo \n Filippo, Edoardo, Valentino, Valeria" +
+                                    " \n Alice, Elena";
     private Font fontTitolo, votoFont, nomiFont;
     private int counter, durataScritta = 400;
 
@@ -34,6 +35,7 @@ public class TitoliDiCoda {
         fontTitolo = new Font("Arial", Font.PLAIN, (int)(20* GamePanel.SCALE));
         votoFont = new Font("Arial", Font.PLAIN, (int)(300*GamePanel.SCALE));
         loadTitle();
+        titleX = ViewUtils.getCenteredXPos(title.getWidth());
     }
 
     public void draw(Graphics2D g2){
@@ -54,7 +56,7 @@ public class TitoliDiCoda {
         drawBetaTesters(g2, 200+12*durataScritta);
         drawTizio(g2, "Grazie ♥", 200 + 14*durataScritta);
 
-        if(counter >= 200 + 17*durataScritta){
+        if(counter >= 200 + 15*durataScritta){
             GameState.actualState = GameState.QUIT;
         }
 
@@ -77,14 +79,8 @@ public class TitoliDiCoda {
 
         String[] lines = betaTesters.split("\n ");
         for (int i = 0; i < lines.length; i++) {
-            g2.drawString(lines[i], ViewUtils.getXforCenterText(lines[i], g2), 600 + i*40);
+            g2.drawString(lines[i], ViewUtils.getXforCenterText(lines[i], g2), GAME_HEIGHT/2 + (int)(40* SCALE) + i*40);
         }
-
-//        float volume = view.getMusicVolume() * (1f - (   (float)(counter - quandoIniziare) / 2*durataScritta)  );
-//
-//        System.out.println(volume);
-//
-//        view.setMusicVolume(volume);
 
     }
 
@@ -98,7 +94,7 @@ public class TitoliDiCoda {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 
             int x = ViewUtils.getXforCenterText(nome,g2);
-            g2.drawString(nome, x, 600);
+            g2.drawString(nome, x, GAME_HEIGHT/2 + (int)(5*SCALE));
         }
 
         else if(quandoIniziare+durataScritta < counter && counter <= quandoIniziare+2*durataScritta){
@@ -106,7 +102,7 @@ public class TitoliDiCoda {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 
             int x = ViewUtils.getXforCenterText(nome,g2);
-            g2.drawString(nome, x, 600);
+            g2.drawString(nome, x, GAME_HEIGHT/2 + (int)(5*SCALE));
         }
     }
 
@@ -133,10 +129,8 @@ public class TitoliDiCoda {
         g2.setColor(Color.CYAN);
         g2.setFont(fontTitolo);
         int titolox = ViewUtils.getXforCenterText(ringraziamenti, g2);
-        int tiyoloy = 400;//GamePanel.GAME_HEIGHT/4;
+        int tiyoloy = titleY + title.getHeight() + (int)(18*SCALE);
         g2.drawString(ringraziamenti, titolox, tiyoloy);
-
-
     }
 
     public void loadTitle(){
@@ -147,8 +141,6 @@ public class TitoliDiCoda {
         catch (IOException e) {
             e.printStackTrace();
         }
-        titleX = ViewUtils.getCenteredXPos(title.getWidth());
-        titleY = GAME_HEIGHT/4;
     }
 
 }

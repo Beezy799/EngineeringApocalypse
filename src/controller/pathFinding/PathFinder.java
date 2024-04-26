@@ -123,7 +123,7 @@ public class PathFinder {
         }
 
         //se alla fine la frontiera è vuota e non ha trovato il goal, non c'è un percorso e restituisce null
-        System.out.println("no path, counter = " + counter + " frontier " + frontier.size());
+        //System.out.println("no path, counter = " + counter + " frontier " + frontier.size());
         counter = 0;
         frontier.clear();
         resetNodes();

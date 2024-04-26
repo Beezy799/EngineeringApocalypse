@@ -20,7 +20,7 @@ public class PlayerController {
     private boolean nearEntity;
     private int hittedCounter;
     private int life = 100;
-    private int cfu = 0;
+    private int cfu = 180;
     private int notes = 0;
     private int defence = 20;
     private int attack = 20;
@@ -471,7 +471,7 @@ public class PlayerController {
     public void setGender(int gender) {
         if(gender == Constants.EntityConstants.RAGAZZO){
             life = 70;
-            notes = 15;
+            notes = 20;
             defence = 2;
             speed = GamePanel.SCALE;
         }
@@ -479,7 +479,7 @@ public class PlayerController {
             life = 90;
             notes = 5;
             defence = 4;
-            speed = GamePanel.SCALE*0.9f;
+            speed = GamePanel.SCALE*0.8f;
         }
     }
 

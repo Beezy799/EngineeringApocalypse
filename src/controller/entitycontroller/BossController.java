@@ -14,7 +14,7 @@ import static src.model.EntityStates.SPEAKING;
 
 public class BossController extends EnemyController {
 
-    private int streamCounter;
+    private int streamCounter, streamTimeRecharge = 200*3;
     private Hitbox streamHitbox, shieldHitbox;
     private Random random;
 
@@ -29,10 +29,10 @@ public class BossController extends EnemyController {
         xAttackHitboxOffset = attackHitbox.getWidth() / 2;
         yAttackHitboxOffset = attackHitbox.getHeight() / 2;
 
-        maxLife = 20;
+        maxLife = 400;
         life = maxLife;
         attack = 15;
-        defence = 5;
+        defence = 7;
 
         streamHitbox = new Hitbox(0, 0, 0, 0);
         shieldHitbox = new Hitbox(0, 0, GamePanel.TILES_SIZE*2, GamePanel.TILES_SIZE*2);
@@ -76,7 +76,7 @@ public class BossController extends EnemyController {
 
             case RECHARGE:
                 rechargeCounter++;
-                if (rechargeCounter >= 150) {
+                if (rechargeCounter >= 100) {
                     rechargeCounter = 0;
                     changeState(EntityStates.IDLE);
                 }
@@ -97,7 +97,7 @@ public class BossController extends EnemyController {
     private void createShield() {
         attackCounter++;
         defence = 20;
-        if (attackCounter >= 200) {
+        if (attackCounter >= momentOfDamage/2) {
             attackCounter = 0;
 
             shieldHitbox.setX(xPos - (float) shieldHitbox.getWidth() /2);
@@ -147,8 +147,8 @@ public class BossController extends EnemyController {
 
     private void updateStreamCounter() {
         streamCounter++;
-        if(streamCounter >= 200*10){
-            streamCounter = 200*10;
+        if(streamCounter >= streamTimeRecharge){
+            streamCounter = streamTimeRecharge;
         }
     }
 
@@ -203,7 +203,7 @@ public class BossController extends EnemyController {
     private void shootToPlayer() {
         attackCounter++;
         defence = 2;
-        if(attackCounter >= momentOfDamage){
+        if(attackCounter >= momentOfDamage/2){
             attackCounter = 0;
 
             //up
@@ -249,7 +249,7 @@ public class BossController extends EnemyController {
 
     private boolean iCanShotToPlayer(){
 
-        if(streamCounter < 200*5){
+        if(streamCounter < streamTimeRecharge){
             return false;
         }
 
