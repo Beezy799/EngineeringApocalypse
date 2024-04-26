@@ -2,6 +2,7 @@ package src.model.events;
 
 
 import src.controller.Hitbox;
+import src.model.GameState;
 import src.model.IModel;
 
 public class CutsceneProf extends Event {
@@ -12,9 +13,9 @@ public class CutsceneProf extends Event {
 
 	@Override
 	public void interact() {
-//		//potremmo mettere la musica del combattimento
-//		model.getController().setGameState(Gamestate.BOSS_CUTSCENE);
-//		endInteraction = true;
+		//potremmo mettere la musica del combattimento
+		GameState.actualState = GameState.BOSS_CUTSCENE;
+		endInteraction = true;
 	}
 
 }

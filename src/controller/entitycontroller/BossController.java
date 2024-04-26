@@ -34,10 +34,10 @@ public class BossController extends EnemyController {
         streamHitbox = new Hitbox(0, 0, 0, 0);
         shieldHitbox = new Hitbox(0, 0, GamePanel.TILES_SIZE*2, GamePanel.TILES_SIZE*2);
         random = new Random();
-        currentState = EntityStates.RECHARGE;
+        currentState = EntityStates.SPEAKING;
     }
 
-    public void update(){
+    public void update() {
         updateDamageCounter();
         updateStreamCounter();
 

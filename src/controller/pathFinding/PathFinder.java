@@ -69,7 +69,6 @@ public class PathFinder {
         setCostOfThisNode(graph[startNode.getRow()][startNode.getCol()], startNode, goalNode);
         setCostOfThisNode(graph[goalNode.getRow()][goalNode.getCol()], startNode, goalNode);
         graph[goalNode.getRow()][goalNode.getCol()].isSolid = false;
-        //drawGraph();
     }
 
     private void setCostOfThisNode(Node node, Node startNode, Node goalNode) {
@@ -107,7 +106,7 @@ public class PathFinder {
             Node nodeToExplore = frontier.get(0);
             frontier.remove(0);
 
-            //controlla se il nodo è il goal, se sì, restituisce il percorso e si resetta tutto
+            //controlla se il nodo è il goal (heuristic = 0), se sì, restituisce il percorso e si resetta tutto
             if(nodeToExplore.getHeuristic() == 0) {
                 trackThePath(nodeToExplore, path);
                 counter = 0;
@@ -158,24 +157,6 @@ public class PathFinder {
         }
     }
 
-    public void drawGraph(){
-
-        System.out.println("//////////////////////////////////////////////////////////");
-
-        int roomRow = Rooms.actualRoom.getMap().getFirstLayer().length;
-        int roomCol = Rooms.actualRoom.getMap().getFirstLayer()[0].length;
-        for(int i = 0; i < roomRow; i++) {
-            for (int j = 0; j < roomCol; j++) {
-                Node n = graph[i][j];
-                if(n.isSolid())
-                    System.out. print(" s ");
-                else
-                    System.out.print(n.getPathCost() + " ");
-            }
-            System.out.println();
-        }
-    }
-
     //restituisce la lista di genitori del nodo soluzione, e quindi il percorso
     private void trackThePath(Node solution, ArrayList<Node> path) {
         Node current = solution;
@@ -183,8 +164,6 @@ public class PathFinder {
             path.add(0, current);
             current = current.getParent();
         }
-//        for (int i = 0; i < path.size(); i++)
-//            System.out.println(i +" " + path.get(i).getRow() + ", " + path.get(i).getCol());
     }
 
 }

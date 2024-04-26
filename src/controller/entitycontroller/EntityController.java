@@ -299,14 +299,6 @@ public abstract class EntityController {
         return movementVector;
     }
 
-    public int getXhitboxOffset() {
-        return XhitboxOffset;
-    }
-
-    public int getYhitboxOffset() {
-        return YhitboxOffset;
-    }
-
     public Hitbox getInteractionHitbox(){
         return interactionHitbox;
     }

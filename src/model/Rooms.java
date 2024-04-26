@@ -286,6 +286,9 @@ public enum Rooms {
                 case "appunti":
                     events.add(new Notes(bounds, m, i));
                     break;
+                case "boss":
+                    events.add(new CutsceneProf(bounds, m, i));
+                    break;
             }
 
         }
@@ -328,7 +331,7 @@ public enum Rooms {
     public static IModel getModel(){
         return model;
     }
-    public static Rooms actualRoom = STUDIO_PROF;
+    public static Rooms actualRoom = AULA_STUDIO;
 
     public void resetEventsAndEenemyes() {
         for(Event event : events){

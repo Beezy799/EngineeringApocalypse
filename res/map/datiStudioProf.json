@@ -17,7 +17,7 @@
     {
       "nome": "boss",
       "riga": 15,
-      "colonna": 24
+      "colonna": 25
     }
   ],
 
@@ -27,6 +27,13 @@
       "colonna": 34,
       "riga": 8,
       "larghezza": 32,
+      "altezza": 32
+    },
+    {
+      "nome": "boss",
+      "colonna": 21,
+      "riga": 22,
+      "larghezza": 256,
       "altezza": 32
     }
   ]

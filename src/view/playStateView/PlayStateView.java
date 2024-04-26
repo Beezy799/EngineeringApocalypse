@@ -268,4 +268,34 @@ public class PlayStateView {
 
     public void setEarthSheakeEffect(boolean b){earthSheakeEffect = b;}
 
+
+    //questo metodo viene usato per disegnare la cutscene, si trova qui perchè è molto simile al metodo per disegnare il playstate
+    //disegna il gioco senza il pesonaggio
+    public void drawCutSceneBackground(Graphics2D g2, int cameraXPos, int cameraYPos) {
+        takePlayerPosition();
+
+        drawFirstLayer(g2, cameraXPos, cameraYPos);
+        drawSecondLayer(g2, cameraXPos, cameraYPos);
+
+        //mettimao i tile dei livelli 3 e 4 nella lista
+        addTilesToSortList(cameraXPos, cameraYPos);
+
+        //mettiamo le creature, compreso il giocatore
+        addBoss();
+
+        Collections.sort(elementsAboveTheFloor);
+        drawAllElementsAboveTheFloor(g2, cameraXPos, cameraYPos);
+        elementsAboveTheFloor.clear();
+
+    }
+
+    private void addBoss() {
+        for(EnemyComplete enemy : Rooms.actualRoom.getEnemy()){
+            if(enemy.isAlive()) {
+                enemy.getEnemyView().updatePositionForSort();
+                elementsAboveTheFloor.add(enemy.getEnemyView());
+            }
+        }
+    }
+
 }

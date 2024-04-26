@@ -3,6 +3,7 @@ package src.view.entityView;
 import src.controller.Hitbox;
 import src.model.Constants;
 import src.model.EntityStates;
+import src.model.GameState;
 import src.model.entity.EnemyComplete;
 import src.view.IView;
 import src.view.ViewUtils;
@@ -22,13 +23,11 @@ import static src.view.gameWindow.GamePanel.*;
 
 public class BossView extends EnemyView {
 
+    private String[][] dialogues;
+    private int dialogueLine, dialogueIndex;
     private String attackStream = "0010100110101001010010111010110110011101010101001101111010111010011011101001110101001101010100010100101000100100001101101010111101000110001100110";
     private String attackStream2 = "101010111011110100001011011001010000111100110001111110000010100010100010010100001011110010010011101101001000101101011011001001011010101001001010";
     private String attackStream3 = "011101001010011010010010011010010010011010001000000101111101010010100010010101101110100010110001010100110100100010010001000100111010100011000101";
-
-    //per disegnare le stringhe dall'alto verso il basso e viceversa
-    private AffineTransform defaultAt;
-    private AffineTransform at2;
 
     //larghezza dei due rect che formano l'onda
     private int widthStreamAttackRect, widthStreamAttackBackgroundRect, heightStreamAttackRect, heightStreamAttackRectBackground;
@@ -85,7 +84,6 @@ public class BossView extends EnemyView {
 
     makeEpicThisAttack(g2);
 
-    defaultAt = g2.getTransform();
     g2.setFont(streamFont);
 
     switch (currentDirection){
@@ -447,11 +445,39 @@ public class BossView extends EnemyView {
     }
 
     protected void loadDialogues() {
+        dialogues = new String[2][];
 
+        dialogues[0][0] = "Ti stavo aspettando, \n ho visto come correvi in giro per la facoltà";
+        dialogues[0][1] = "Il tuo viaggio si ferma quì. \n Non riuscirai mai a battermi, non sai neanche usare Vim";
+
+        dialogues[1][0] = "Dannazione, sei molto più bravo di quanto pensassi \n tutta colpa di chi mi ha programmato così debole!";
+        dialogues[1][1] = "Ecco la tua laurea, te la sei meritata";
     }
 
     public void reset(){
+        dialogueIndex = 0;
+        dialogueLine = 0;
+    }
 
+    public void setNextDialogueLine(){
+        dialogueLine++;
+
+        if(dialogueLine >= dialogues[dialogueIndex].length) {
+            dialogueLine = dialogues[dialogueIndex].length - 1;
+            GameState.actualState = GameState.PLAYING;
+        }
+    }
+
+    public void setNextDialogue(){
+        dialogueIndex++;
+        dialogueLine = 0;
+        if(dialogueIndex >= dialogues.length){
+            dialogueIndex = dialogues.length -1;
+        }
+    }
+
+    public String getDialogueLine(){
+        return dialogues[dialogueIndex][dialogueLine];
     }
 
 }

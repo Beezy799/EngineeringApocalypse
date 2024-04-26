@@ -12,7 +12,7 @@ public class ScreenOverlay {
     //buio, attacchi prof, altro che non saprei
 
     private BufferedImage buio;
-    private boolean isDark = true, figthBoss = true, bossSpecialAttack;
+    private boolean isDark = true, figthBoss = false, bossSpecialAttack;
     private int initialBossLifeRectWidth = GamePanel.GAME_WIDTH/2;
     private int completeBossLife = 400;
     private String bossName = "Prof Luke Crickets";

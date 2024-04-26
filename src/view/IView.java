@@ -10,6 +10,7 @@ import src.view.inputs.MouseInputs;
 import src.view.gameWindow.GamePanel;
 import src.view.gameWindow.GameWindow;
 import src.view.menu.*;
+import src.view.playStateView.CutsceneView;
 import src.view.playStateView.PlayStateView;
 
 import static src.model.Constants.SoundConstants.MENU_MUSIC;
@@ -31,9 +32,9 @@ public class IView {
     private SoundManager soundManager;
 
     private TransitionState transitionState;
-    PlayStateView playStateView;
-
-    TitoliDiCoda titoliDiCoda;
+    private PlayStateView playStateView;
+    private TitoliDiCoda titoliDiCoda;
+    private CutsceneView cutsceneView;
 
     public IView(IController cont, IModel mod) {
 
@@ -46,6 +47,7 @@ public class IView {
         pauseMenu = new PauseMenu(this);
         avatarMenu = new AvatarMenu(this);
         commandsExplaination = new CommandsExplaination(this);
+        cutsceneView = new CutsceneView(this);
 
         mouseInputs = new MouseInputs(this);
         gamePanel = new GamePanel(this, mouseInputs);
@@ -115,6 +117,9 @@ public class IView {
                 break;
             case TRANSITION_AFTER_GAME_OVER:
                 transitionState.drawTransitionAfterGameOver(g2);
+                break;
+            case BOSS_CUTSCENE:
+                cutsceneView.drawCutscene(g2);
                 break;
             case END_GAME:
                 titoliDiCoda.draw(g2);
