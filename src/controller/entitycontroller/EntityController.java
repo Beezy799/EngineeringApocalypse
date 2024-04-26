@@ -33,6 +33,7 @@ public abstract class EntityController {
     protected EntityComplete entityComplete;
     protected ArrayList<Node> path;
     protected int pathNodeIndex;
+    protected boolean stateLocked = false;
 
     public EntityController(int x, int y, IController c, int index){
         xPos = x * GamePanel.TILES_SIZE;
@@ -389,6 +390,16 @@ public abstract class EntityController {
         int initialInteracionHitboxWidth = interactionHitbox.getWidth()/GamePanel.TILES_SIZE;
         int initialInteracionHitboxHeight = interactionHitbox.getHeight()/GamePanel.TILES_SIZE;
         setHitbox(initialHitboxWidth, initialHitboxHeight, initialInteracionHitboxWidth, initialInteracionHitboxHeight);
+    }
+
+    public  void setStateLocked(boolean b){
+        stateLocked = b;
+    }
+
+    public void changeState(EntityStates newState){
+        if(!stateLocked){
+            currentState = newState;
+        }
     }
 
 }

@@ -31,8 +31,8 @@ public class CutsceneView {
 
             //la telecamera si ferma sul boss, che parla
             case PHASE_1:
-//                view.getPlayStateView().drawCutSceneBackground(g2, cameraX, cameraY);
-//                view.getPlayStateView().getUI().drawDialogue(g2);
+                view.getPlayStateView().drawCutSceneBackground(g2, cameraX, cameraY);
+                view.getPlayStateView().getPlayUI().drawDialogue(g2);
                 break;
         }
     }

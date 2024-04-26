@@ -20,7 +20,7 @@ public abstract class EnemyController extends EntityController {
 
     //per gestire i danni subiti-fatti
     protected int attack, defence;
-    protected boolean stateLocked = false;
+
     protected int noDamageCounter;
 
     protected int momentOfDamage = 200;
@@ -62,16 +62,6 @@ public abstract class EnemyController extends EntityController {
 
     public int getLife(){
         return life;
-    }
-
-    public  void setStateLocked(boolean b){
-        stateLocked = b;
-    }
-
-    protected void changeState(EntityStates newState){
-        if(!stateLocked){
-            currentState = newState;
-        }
     }
 
     public void reset() {

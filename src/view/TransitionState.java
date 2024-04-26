@@ -32,6 +32,12 @@ public class TransitionState {
     }
 
     public void draw(Graphics2D g2) {
+
+        if(next == GameState.END_GAME){
+            drawTransitionToEndGame(g2);
+            return;
+        }
+
         counter++;
         saveOldVolume();
 
@@ -49,6 +55,22 @@ public class TransitionState {
         else
             goToNextStateAfterTransition();
 
+    }
+
+    private void drawTransitionToEndGame(Graphics2D g2) {
+        counter++;
+
+        if (counter < transitionDuration) {
+
+            //disegna il vecchio stato
+            view.changeGameState(prev);
+            view.prepareNewFrame(g2);
+            drawBlackOpaqueRect(g2);
+            view.changeGameState(GameState.TRANSITION_STATE);
+        }
+        else {
+            GameState.actualState = GameState.END_GAME;
+        }
     }
 
     public void drawTransitionAfterGameOver(Graphics2D g2){

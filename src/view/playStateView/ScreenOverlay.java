@@ -69,4 +69,8 @@ public class ScreenOverlay {
     public void setBossSpecialAttack(boolean b){
         bossSpecialAttack = b;
     }
+
+    public void setFigthBoss(boolean b){
+        figthBoss = b;
+    }
 }

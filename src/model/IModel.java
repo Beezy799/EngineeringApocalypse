@@ -7,6 +7,7 @@ import src.model.entity.EnemyComplete;
 import src.model.entity.NpcComplete;
 import src.model.mapModel.tileset.Tileset;
 import src.view.IView;
+import src.view.entityView.BossView;
 
 import java.util.ArrayList;
 
@@ -92,12 +93,21 @@ public class IModel {
     }
 
     public void setEntityNextDialogue(int entityIndex){
-        view.getSoundManager().playSE(Constants.SoundConstants.DIALOGUE_SE);
-        Rooms.actualRoom.getNpc().get(entityIndex).getNpcView().setNextDialogueLine();
+        if(Rooms.actualRoom != Rooms.STUDIO_PROF) {
+            view.getSoundManager().playSE(Constants.SoundConstants.DIALOGUE_SE);
+            Rooms.actualRoom.getNpc().get(entityIndex).getNpcView().setNextDialogueLine();
+        }
+        else {
+            ((BossView)(Rooms.actualRoom.getEnemy().get(0).getEnemyView())).setNextDialogueLine();
+        }
     }
 
     public String getEntityDialogue(int entityIndex){
-        return Rooms.actualRoom.getNpc().get(entityIndex).getNpcView().getDialogueLine();
+        //se non siamo nello studio del prof
+        if(Rooms.actualRoom != Rooms.STUDIO_PROF)
+            return Rooms.actualRoom.getNpc().get(entityIndex).getNpcView().getDialogueLine();
+        //se siamo nello studio del prof, l'unico nemico presente è lui
+        return ((BossView)(Rooms.STUDIO_PROF.getEnemy().get(0).getEnemyView())).getDialogueLine();
     }
 
     public void unlockState(int enemyIndex){

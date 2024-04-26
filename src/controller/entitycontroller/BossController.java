@@ -3,11 +3,14 @@ package src.controller.entitycontroller;
 import src.controller.Hitbox;
 import src.controller.IController;
 import src.controller.entitycontroller.enemy.EnemyController;
+import src.model.Constants;
 import src.model.EntityStates;
 import src.model.GameState;
 import src.view.gameWindow.GamePanel;
 
 import java.util.Random;
+
+import static src.model.EntityStates.SPEAKING;
 
 public class BossController extends EnemyController {
 
@@ -26,7 +29,7 @@ public class BossController extends EnemyController {
         xAttackHitboxOffset = attackHitbox.getWidth() / 2;
         yAttackHitboxOffset = attackHitbox.getHeight() / 2;
 
-        maxLife = 400;
+        maxLife = 20;
         life = maxLife;
         attack = 15;
         defence = 5;
@@ -279,8 +282,15 @@ public class BossController extends EnemyController {
                 life -= damage;
             }
             if(life <= 0){
-                changeState(EntityStates.SPEAKING);
-                System.out.println("morto");
+                turnToPlayer();
+                controller.getView().getPlayStateView().getScreenOverlay().setFigthBoss(false);
+                setStateLocked(false);
+                changeState(SPEAKING);
+                controller.getPlayerController().unlockState();
+                controller.getPlayerController().changeActualState(SPEAKING);
+                controller.getView().getSoundManager().stopMusic();
+                controller.getView().getSoundManager().loopMusic(Constants.SoundConstants.AULA_STUDIO_MUSIC);
+                GameState.actualState = GameState.DIALOGUE;
             }
         }
     }

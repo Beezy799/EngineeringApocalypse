@@ -6,7 +6,9 @@ import java.awt.event.KeyListener;
 
 import src.model.GameState;
 
+import src.model.Rooms;
 import src.view.IView;
+import src.view.entityView.BossView;
 
 import static src.view.gameWindow.GamePanel.SCALE;
 
@@ -47,16 +49,16 @@ public class KeyboardInputs implements KeyListener {
             default: //nei casi main manu , opzioni, game over e avatar selection
                 moveCursor(e);
                 break;
-//            case BOSS_CUTSCENE:
-//                if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-//                    view.getController().resetPlayerBooleans();
-//                    view.changeGameState(Gamestate.PLAYING);
-//                }
-//                else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-//                    //l'indice è sempre zero, perchè il boss è l'unico NPC della stanza
-//                    view.getPlay().getRoom(view.getCurrentRoomIndex()).getBossView().nextDialogueLine();
-//                }
-//                break;
+            case BOSS_CUTSCENE:
+                if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    view.getPlayStateView().getScreenOverlay().setFigthBoss(true);
+                    view.changeGameState(GameState.PLAYING);
+                }
+                else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    //l'indice è sempre zero, perchè il boss è l'unico NPC della stanza
+                    ((BossView)(Rooms.STUDIO_PROF.getEnemy().get(0).getEnemyView())).setNextDialogueLine();
+                }
+                break;
 
         }
 

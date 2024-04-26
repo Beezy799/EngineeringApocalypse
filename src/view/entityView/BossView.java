@@ -1,6 +1,8 @@
 package src.view.entityView;
 
 import src.controller.Hitbox;
+import src.controller.entitycontroller.BossController;
+import src.controller.entitycontroller.enemy.EnemyController;
 import src.model.Constants;
 import src.model.EntityStates;
 import src.model.GameState;
@@ -41,6 +43,7 @@ public class BossView extends EnemyView {
     public BossView(IView v, int i) {
         super(v, i);
         loadImages();
+        loadDialogues();
         xOffset = animation[0][0][0].getWidth()/2;
         yOffset = animation[0][0][0].getHeight()/2;
     }
@@ -446,6 +449,8 @@ public class BossView extends EnemyView {
 
     protected void loadDialogues() {
         dialogues = new String[2][];
+        dialogues[0] = new String[2];
+        dialogues[1] = new String[2];
 
         dialogues[0][0] = "Ti stavo aspettando, \n ho visto come correvi in giro per la facoltà";
         dialogues[0][1] = "Il tuo viaggio si ferma quì. \n Non riuscirai mai a battermi, non sai neanche usare Vim";
@@ -462,9 +467,22 @@ public class BossView extends EnemyView {
     public void setNextDialogueLine(){
         dialogueLine++;
 
-        if(dialogueLine >= dialogues[dialogueIndex].length) {
+        if(dialogueLine >= dialogues[dialogueIndex].length && dialogueIndex == 0) {
             dialogueLine = dialogues[dialogueIndex].length - 1;
+
+            setNextDialogue();
+            view.getPlayStateView().getScreenOverlay().setFigthBoss(true);
+            entityComplete.getEntityController().changeState(RECHARGE);
+            view.getSoundManager().stopMusic();
+            view.getSoundManager().loopMusic(Constants.SoundConstants.BOSS_SECOND_PHASE_MUSIC);
             GameState.actualState = GameState.PLAYING;
+        }
+        else if(dialogueLine >= dialogues[dialogueIndex].length && dialogueIndex == 1){
+            dialogueLine = dialogues[dialogueIndex].length - 1;
+            view.getController().getPlayerController().changeActualState(CFU_FOUND);
+            view.getTransitionState().setPrev(GameState.DIALOGUE);
+            view.getTransitionState().setNext(GameState.END_GAME);
+            GameState.actualState = GameState.TRANSITION_STATE;
         }
     }
 
