@@ -304,6 +304,9 @@ public class BossController extends EnemyController {
     public void reset(){
         super.reset();
         entityComplete.getEntityView().reset();
+        currentState = SPEAKING;
+        movementVector.resetDirections();
+        movementVector.setY(1);
     }
 
 }

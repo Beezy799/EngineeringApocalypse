@@ -7,7 +7,12 @@ import src.view.playStateView.BulletView;
 public class PlayerController {
 
     private IController controller;
-
+    private EntityStates actualState = EntityStates.IDLE;
+    private boolean stateLocked = false;
+    private boolean nearEntity;
+    private int hittedCounter, rechargeLifeCounter;
+    private int life = 100, cfu, notes;
+    private int defence = 20, attack = 20;
     //velocità e posizione sono dei float, perchè così possiamo scalarli meglio
     //inoltre il movimento diagonale non è più veloce
     private float xPosPlayer = 19*GamePanel.TILES_SIZE, yPosPlayer = 15*GamePanel.TILES_SIZE; //posizione del player
@@ -15,27 +20,14 @@ public class PlayerController {
     private float speed = GamePanel.SCALE;
     //"direzione" del player. oldDirection ci salva la direzione del player quando non preme i tasti di movimento
     private Vector movementVector, oldDirection;
-    private EntityStates actualState = EntityStates.IDLE;
-    private boolean stateLocked = false;
-    private boolean nearEntity;
-    private int hittedCounter;
-    private int life = 100;
-    private int cfu = 180;
-    private int notes = 0;
-    private int defence = 20;
-    private int attack = 20;
-
-    private Hitbox hitbox, attackHitbox;
     //per evitare il problema dello sticky wall, prima di aggiornare la posizione della hitbox vera, aggiorniamo questa
     //hitbox temporanea nel punto dove andrebbe la vera hiybox dopo il movimento
-    private Hitbox tempHitbox;
+    private Hitbox hitbox, attackHitbox, tempHitbox;
     private final int hitboxWidth =  (int)(0.72*GamePanel.TILES_SIZE);
     private final int hitboxHeight = 3*GamePanel.TILES_SIZE/4;
-
     //la posizione della hitbox è data dal punto in alto a sinistra, manetre la posizione del player è al centro della
     //sua hitbox. La hitbox del player è un quadrato grande mezzo tile
-    private final int XhitboxOffset = hitboxWidth/2;
-    private final int YhitboxOffset = GamePanel.TILES_SIZE/4;
+    private final int XhitboxOffset = hitboxWidth/2, YhitboxOffset = GamePanel.TILES_SIZE/4;
 
 
     public PlayerController(IController c){
@@ -52,6 +44,7 @@ public class PlayerController {
     }
 
     public void update(){
+        rechargeLife();
         //in base allo stato attuale il player agirà in modo diverso
         switch (actualState){
             case IDLE:
@@ -76,15 +69,20 @@ public class PlayerController {
                 }
                 break;
             case PARRING:
-                break;
-            case THROWING:
-                break;
             case SPEAKING:
-                break;
+            case THROWING:
             case DYING:
                 break;
         }
 
+    }
+
+    private void rechargeLife() {
+        rechargeLifeCounter++;
+        if(rechargeLifeCounter >= 800*(1+GameState.difficulty)){
+            addLife(1);
+            rechargeLifeCounter = 0;
+        }
     }
 
     private void checkHittedEnemy() {
@@ -284,6 +282,34 @@ public class PlayerController {
         movementVector.setX(movementVector.getNomalizedX() - 1);
     }
 
+    public void setDirezioneRisultatnte() {
+        float xRisultante = movementVector.getX();
+        float yRisultante = movementVector.getY();
+
+        if(xRisultante != 0 || yRisultante != 0) {
+            changeActualState(EntityStates.MOVE);
+
+            oldDirection.setX(movementVector.getNomalizedX());
+            oldDirection.setY(movementVector.getNormalizedY());
+
+            //se si muove in diagonale, divido la velocità per radice di due
+            float oldModuleSpeed = getSpeed();
+            if(xRisultante != 0 && yRisultante != 0){
+                float newModule = oldModuleSpeed * 0.71f;
+                movementVector.setModule(newModule);
+            }
+            //altrimenti lascio la velocità iniziale
+            else {
+                movementVector.setModule(oldModuleSpeed);
+            }
+        }
+        else {
+            movementVector.setX(oldDirection.getX());
+            movementVector.setY(oldDirection.getY());
+            changeActualState(EntityStates.IDLE);
+        }
+    }
+
     public void changeActualState(EntityStates newState){
         //possiamo mettere un controllo in modo che il player
         //cambia stato solo in determinate occasioni (qunado para/attacca non può cambiare stato
@@ -341,6 +367,21 @@ public class PlayerController {
         this.notes = notes;
     }
 
+    public void addLife(int gainedLife) {
+        setLife(life + gainedLife);
+        if(life > 100){
+            life = 100;
+        }
+    }
+
+    public void addCFU(int cfu) {
+        setCfu(getCfu() + cfu);
+    }
+
+    public void addNotes(int n) {
+        setNotes(notes + n);
+    }
+
     public boolean isNearEntity() {
         return nearEntity;
     }
@@ -356,23 +397,8 @@ public class PlayerController {
         changeActualState(EntityStates.IDLE);
     }
 
-    public void addLife(int gainedLife) {
-        setLife(life + gainedLife);
-        if(life > 100){
-            life = 100;
-        }
-    }
-
-    public void addCFU(int cfu) {
-        setCfu(getCfu() + cfu);
-    }
-
     public float getSpeed(){
         return speed;
-    }
-
-    public void addNotes(int n) {
-        setNotes(notes + n);
     }
 
     public void hitted(int enemyAttack, Vector attackDirection){
@@ -405,18 +431,6 @@ public class PlayerController {
                 actualState = EntityStates.DYING;
             }
         }
-    }
-
-    public void reset() {
-        life = 100;
-        cfu = 0;
-        notes = 0;
-        xPosPlayer = initialxPosPlayer;
-        yPosPlayer = initialyPosPlayer;
-        setHitboxes();
-        movementVector.resetDirections();
-        actualState = EntityStates.IDLE;
-        stateLocked = false;
     }
 
     public void createBullet() {
@@ -468,6 +482,18 @@ public class PlayerController {
         Rooms.actualRoom.getBuletList().add(bulletComplete);
     }
 
+    public void reset() {
+        life = 100;
+        cfu = 0;
+        notes = 0;
+        xPosPlayer = initialxPosPlayer;
+        yPosPlayer = initialyPosPlayer;
+        setHitboxes();
+        movementVector.resetDirections();
+        actualState = EntityStates.IDLE;
+        stateLocked = false;
+    }
+
     public void setGender(int gender) {
         if(gender == Constants.EntityConstants.RAGAZZO){
             life = 70;
@@ -483,32 +509,6 @@ public class PlayerController {
         }
     }
 
-    public void setDirezioneRisultatnte() {
-        float xRisultante = movementVector.getX();
-        float yRisultante = movementVector.getY();
 
-        if(xRisultante != 0 || yRisultante != 0) {
-            changeActualState(EntityStates.MOVE);
-
-            oldDirection.setX(movementVector.getNomalizedX());
-            oldDirection.setY(movementVector.getNormalizedY());
-
-            //se si muove in diagonale, divido la velocità per radice di due
-            float oldModuleSpeed = getSpeed();
-            if(xRisultante != 0 && yRisultante != 0){
-                float newModule = oldModuleSpeed * 0.71f;
-                movementVector.setModule(newModule);
-            }
-            //altrimenti lascio la velocità iniziale
-            else {
-                movementVector.setModule(oldModuleSpeed);
-            }
-        }
-        else {
-            movementVector.setX(oldDirection.getX());
-            movementVector.setY(oldDirection.getY());
-            changeActualState(EntityStates.IDLE);
-        }
-    }
 
 }

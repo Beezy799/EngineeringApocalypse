@@ -57,6 +57,28 @@ public class GhostController extends EnemyController{
             movementVector.setY(-1);
         }
 
+        goToPlayerTile(xPlayer, yPlayer);
+    }
+
+    private void goToPlayerTile(int xPlayer, int yPlayer){
+
+        if(movementVector.getY() < 0) {
+            setyPos(getyPos() - speed);
+            hitbox.setY(yPos - YhitboxOffset);
+        }
+        else if(movementVector.getY() > 0) {
+            setyPos(getyPos() + speed);
+            hitbox.setY(yPos - YhitboxOffset);
+        }
+        else if(movementVector.getX() < 0) {
+            setxPos(getxPos() - speed);
+            hitbox.setX(xPos - XhitboxOffset);
+        }
+        else if(movementVector.getX() > 0) {
+            setxPos(getxPos() + speed);
+            hitbox.setX(xPos - XhitboxOffset);
+        }
+
         if(Math.abs(xPos - xPlayer) < speed){
             xPos = xPlayer;
         }
@@ -64,34 +86,6 @@ public class GhostController extends EnemyController{
             yPos = yPlayer;
         }
 
-        goToPlayerTile();
-
-        //System.out.println("x " + movementVector.getX() + ", y " + movementVector.getY());
-
-    }
-
-    private void goToPlayerTile(){
-
-        if(movementVector.getY() < 0) {
-            setyPos(getyPos() - speed);
-            hitbox.setY(yPos - YhitboxOffset);
-            //interactionHitbox.setY(yPos - yInteractionHitboxOffset);
-        }
-        else if(movementVector.getY() > 0) {
-            setyPos(getyPos() + speed);
-            hitbox.setY(yPos - YhitboxOffset);
-            //interactionHitbox.setY(yPos - yInteractionHitboxOffset);
-        }
-        else if(movementVector.getX() < 0) {
-            setxPos(getxPos() - speed);
-            hitbox.setX(xPos - XhitboxOffset);
-            //interactionHitbox.setX(xPos - xInteractionHitboxOffset);
-        }
-        else if(movementVector.getX() > 0) {
-            setxPos(getxPos() + speed);
-            hitbox.setX(xPos - XhitboxOffset);
-            //interactionHitbox.setX(xPos - xInteractionHitboxOffset);
-        }
     }
 
     private void hitPlayer(int xPlayer, int yPlayer) {
