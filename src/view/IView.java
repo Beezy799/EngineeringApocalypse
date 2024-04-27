@@ -216,4 +216,6 @@ public class IView {
     public GameOverMenu getGameOverMenu(){
         return gameOverMenu;
     }
+
+    public CutsceneView getCutsceneView(){return cutsceneView; }
 }

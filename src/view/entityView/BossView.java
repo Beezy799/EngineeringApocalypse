@@ -464,6 +464,7 @@ public class BossView extends EnemyView {
     public void reset(){
         dialogueIndex = 0;
         dialogueLine = 0;
+        view.getCutsceneView().reset();
     }
 
     public void setNextDialogueLine(){

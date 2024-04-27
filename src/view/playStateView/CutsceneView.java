@@ -12,7 +12,7 @@ public class CutsceneView {
     private int currentPhase = PHASE_0;
 
     //la camera salirà dal quadratino 24,22 verso il prof, indipendentemente da dove si trova il player
-    private int cameraX = 25* GamePanel.TILES_SIZE, cameraY = 22*GamePanel.TILES_SIZE;
+    private int cameraX = 25* GamePanel.TILES_SIZE, cameraY = 21*GamePanel.TILES_SIZE;
 
     public CutsceneView(IView v) {
         view = v;
@@ -35,5 +35,11 @@ public class CutsceneView {
                 view.getPlayStateView().getPlayUI().drawDialogue(g2);
                 break;
         }
+    }
+
+    public void reset(){
+        cameraX = 25* GamePanel.TILES_SIZE;
+        cameraY = 21*GamePanel.TILES_SIZE;
+        currentPhase = PHASE_0;
     }
 }
