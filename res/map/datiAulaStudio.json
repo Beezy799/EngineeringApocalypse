@@ -83,6 +83,27 @@
       "altezza": 32
     },
     {
+      "nome": "Caffe",
+      "colonna": 37,
+      "riga": 13,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
+      "nome": "Caffe",
+      "colonna": 30,
+      "riga": 13,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
+      "nome": "Caffe",
+      "colonna": 30,
+      "riga": 23,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
       "nome": "Piano",
       "colonna": 36,
       "riga": 24,

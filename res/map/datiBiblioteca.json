@@ -30,6 +30,13 @@
       "altezza": 32
     },
     {
+      "nome": "Caffe",
+      "colonna": 26,
+      "riga": 13,
+      "larghezza": 32,
+      "altezza": 32
+    },
+    {
       "nome": "cfu",
       "colonna": 18,
       "riga": 8,

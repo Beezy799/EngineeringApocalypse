@@ -11,7 +11,7 @@ public class PlayerController {
     private boolean stateLocked = false;
     private boolean nearEntity;
     private int hittedCounter, rechargeLifeCounter;
-    private int life = 100, cfu = 180, notes;
+    private int life = 100, cfu, notes;
     private int defence = 20, attack = 20;
     //velocità e posizione sono dei float, perchè così possiamo scalarli meglio
     //inoltre il movimento diagonale non è più veloce
