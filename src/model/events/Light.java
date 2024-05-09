@@ -35,7 +35,7 @@ public class Light extends Event {
 				model.getView().getSoundManager().playSE(Constants.SoundConstants.CFU_SE);
 				model.getView().getSoundManager().stopMusic();
 				model.getView().getSoundManager().loopMusic(Constants.SoundConstants.DORMITORIO_MUSIC);
-				//sennò resta la musica horro quando rientri nella stanza
+				//sennò resta la musica horror quando rientri nella stanza
 				Rooms.actualRoom.setNewMusic(Constants.SoundConstants.DORMITORIO_MUSIC);
 
 				model.getView().getPlayStateView().getScreenOverlay().setDark(false);

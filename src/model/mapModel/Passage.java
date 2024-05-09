@@ -58,14 +58,15 @@ public class Passage {
         if(cfuPlayer >= cfuRequired) {
 
             InputState.resetBooleans();
-            //salva nel model i dati di dove si troverà il giocatore
-            Rooms.getModel().savePassageData(getxNext(), getyNext(), getNextRoom(nextRoomName));
             //il personaggio si ferma
             Rooms.getModel().getController().getPlayerController().changeActualState(EntityStates.IDLE);
+
+            //salva nel model i dati di dove si troverà il giocatore
+            Rooms.getModel().savePassageData(getxNext(), getyNext(), getNextRoom(nextRoomName));
+
             //settiamo il gamestate nella stransizione
             Rooms.getModel().getView().getTransitionState().setNext(GameState.PLAYING);
             Rooms.getModel().getView().getTransitionState().setPrev(GameState.PLAYING);
-
             GameState.actualState = GameState.TRANSITION_STATE;
 
         }

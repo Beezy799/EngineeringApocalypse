@@ -25,7 +25,6 @@ public class GameWindow extends JFrame {
 		pack();
 		setLocationRelativeTo(null);
 		handleLostFocus();
-
 	}
 
 	//questo metodo serve per quando la finestra di gioco perde il focus

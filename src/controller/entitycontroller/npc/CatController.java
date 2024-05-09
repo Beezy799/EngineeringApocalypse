@@ -18,8 +18,8 @@ public class CatController extends EntityController {
     private final int hitboxWidth = 32;
     private final int hitboxHeight = 32;
 
-    private boolean firstInteraction = true;
-    private String questCompletata = "hai ritrovato l'hard disk del nerd \n quest completata!";
+    private boolean firstInteraction = true, questActivated;
+    private String questCompletata = "hai ritrovato il mouse del nerd \n quest completata!";
 
     public CatController(int x, int y, IController c, int index) {
         super(x, y, c, index);
@@ -44,7 +44,7 @@ public class CatController extends EntityController {
 //                }
                 break;
             case SPEAKING:
-                if(firstInteraction){
+                if(firstInteraction && questActivated){
                     controller.getPlayerController().addCFU(30);
                     controller.getView().getPlayStateView().getPlayUI().setMessageToShow(questCompletata);
 
@@ -105,8 +105,13 @@ public class CatController extends EntityController {
         }
     }
 
+    public void setQuestActivated(boolean b){
+        questActivated = b;
+    }
+
     public void reset(){
         super.reset();
+        questActivated = false;
         firstInteraction = true;
     }
 

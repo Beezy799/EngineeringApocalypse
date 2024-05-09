@@ -32,7 +32,7 @@ public Starter() {
 		caricamento.showProgress(60);
 
 		view = new IView(controller, model);
-		caricamento.showProgress(99);
+		caricamento.showProgress(80);
 		controller.setView(view);
 		model.setView(view);
         caricamento.setVisible(false);

@@ -35,7 +35,7 @@ public class BossView extends EnemyView {
     private int widthStreamAttackRect, widthStreamAttackBackgroundRect, heightStreamAttackRect, heightStreamAttackRectBackground;
     private int xStreamAttack, yStreamAttack;
     private int fontSize = (int)(8*SCALE);
-    //    //font degli 0,1
+    //font degli 0,1
     private Font streamFont = new Font("Arial", Font.PLAIN, fontSize);
 
     private int attackStreamCounter;
@@ -77,7 +77,7 @@ public class BossView extends EnemyView {
 
     private void drawOndaEnergetica(Graphics2D g2, int xPlayerMap, int yPlayerMap) {
     attackStreamCounter++;
-
+    //animazione di quando sta per lanciare l'attacco
     preparationAnimation();
     drawSprite(g2, xPlayerMap, yPlayerMap);
 
@@ -276,7 +276,7 @@ public class BossView extends EnemyView {
     }
 
     private void makeEpicThisAttack(Graphics2D g2) {
-        // tutto lo schermo si scurice, per rendere l'attacco più epico
+        // tutto lo schermo si scurice e viene il terremoto, per rendere l'attacco più epico
         view.getPlayStateView().getScreenOverlay().setBossSpecialAttack(true);
         view.getPlayStateView().setEarthSheakeEffect(true);
     }

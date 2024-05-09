@@ -21,8 +21,8 @@ public class CommandsExplaination extends AbstractMenu {
 
     private final int heightFirstString = (int)(90* SCALE);
     private String movementExplaination = "CAMMINA:   w, a, s, d";
-    private String attackExplaination = "ATTACCA:   invio, opure";
-    private String parryExplaination = "PARATI:   spazio, oppure";
+    private String attackExplaination = "ATTACCA:   enter, oppure";
+    private String parryExplaination = "PARATI:   space bar, oppure";
     private String throwExplaination = "LANCIA APPUNTI: p, oppure ";
     private String interactExplaination = "INTERAGISCI:   e";
     private String pauseExplaination = "PAUSA:   esc";
@@ -34,7 +34,7 @@ public class CommandsExplaination extends AbstractMenu {
         loadGoBackButton();
         loadMouseImages();
         int fontSize = (int)(20*SCALE);
-        descriptionFont = new Font("Arial", Font.PLAIN, fontSize);
+        descriptionFont = new Font("Arial", Font.BOLD, fontSize);
     }
 
     private void loadMouseImages() {

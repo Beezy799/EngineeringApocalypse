@@ -23,6 +23,7 @@ public class KeyboardInputs implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+
         switch (GameState.actualState) {
             case START_TITLE:
                 if(e.getKeyCode() == KeyEvent.VK_ENTER) {

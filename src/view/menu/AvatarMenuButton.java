@@ -28,7 +28,7 @@ public class AvatarMenuButton extends  AbstractMenuButton{
     public AvatarMenuButton (BufferedImage[] img, Rectangle b, GameState nS, String s, int g, IView v){
         skillsDescription = s;
         int fontSize = (int)(15*SCALE);
-        descriptionFont = new Font("Arial", Font.PLAIN, fontSize);
+        descriptionFont = new Font("Arial", Font.ITALIC, fontSize);
 
         gifButton = new BufferedImage[6];
         for(int i=0; i<=5 ; i++){

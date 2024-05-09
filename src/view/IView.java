@@ -67,7 +67,6 @@ public class IView {
         //perchè ora la parte view delle entità esiste
         model.loadEntitiesInRooms(this);
 
-
         gameWindow = new GameWindow(gamePanel, this);
         gameWindow.setVisible(true);
         gamePanel.setFocusable(true);

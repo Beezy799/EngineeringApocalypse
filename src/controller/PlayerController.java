@@ -40,7 +40,7 @@ public class PlayerController {
     private void setHitboxes() {
         hitbox = new Hitbox((int)xPosPlayer - XhitboxOffset, (int)yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
         tempHitbox = new Hitbox((int)xPosPlayer - XhitboxOffset, (int)yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
-        attackHitbox = new Hitbox(0, 0, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
+        attackHitbox = new Hitbox(0, 0, GamePanel.TILES_SIZE/2, GamePanel.TILES_SIZE/2);
     }
 
     public void update(){
@@ -79,13 +79,14 @@ public class PlayerController {
 
     private void rechargeLife() {
         rechargeLifeCounter++;
-        if(rechargeLifeCounter >= 800*(1+GameState.difficulty)){
+        if(rechargeLifeCounter >= 200 * 4 * (1 + GameState.difficulty)){
             addLife(1);
             rechargeLifeCounter = 0;
         }
     }
 
     private void checkHittedEnemy() {
+        //sposta la attackhitbox in base alla direzione
         if(movementVector.getX() > 0){
             attackHitbox.setX(hitbox.getX() + hitbox.getWidth());
             attackHitbox.setY(yPosPlayer - (float) attackHitbox.getHeight() /2);
@@ -335,6 +336,8 @@ public class PlayerController {
         }
     }
 
+    public boolean isStateLocked(){return stateLocked;}
+
     public EntityStates getCurrentState(){
         return actualState;
     }
@@ -403,7 +406,7 @@ public class PlayerController {
 
     public void hitted(int enemyAttack, Vector attackDirection){
         boolean hitted = true;
-
+        //se il player si para nella direzione giusta, il player non subisce danni
         if(actualState == EntityStates.PARRING){
             if(attackDirection.getNomalizedX() != 0){
                 if(attackDirection.getNomalizedX() == -movementVector.getNomalizedX())
@@ -415,7 +418,7 @@ public class PlayerController {
             }
         }
 
-        if(actualState == EntityStates.HITTED){
+        else if(actualState == EntityStates.HITTED){
             hitted = false;
         }
 

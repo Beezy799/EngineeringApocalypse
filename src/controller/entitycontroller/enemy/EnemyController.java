@@ -21,8 +21,11 @@ public abstract class EnemyController extends EntityController {
     //per gestire i danni subiti-fatti
     protected int attack, defence;
 
+    //quando una entità viene colpita,  viene temporaneamente resa immune agli attacchi per un istante tramite.
+    // Durante questo periodo di immunità, ha ancora la capacità di contrattaccare il giocatore.
+    // Questa meccanica impedisce al giocatore di uccidere facilmente i nemici attraverso attacchi in rapida successione.
     protected int noDamageCounter;
-
+    //serve al player per avere un attimo di tempo per pararsi prima che il colpo gli faccia danno.
     protected int momentOfDamage = 200;
 
 
@@ -34,12 +37,13 @@ public abstract class EnemyController extends EntityController {
 
     public void hitted(int playerAttack){
         if(currentState != EntityStates.HITTED && currentState != EntityStates.ATTACKING && currentState != EntityStates.DYING) {
-
+            //momento immunità
             if(noDamageCounter < 150)
                 return;
 
             resetCounters();
             changeState(EntityStates.HITTED);
+            //calcolo dei danni
             int damage = playerAttack - defence - GameState.difficulty;
             if (damage > 0) {
                 life -= damage;

@@ -19,7 +19,6 @@ public class SplashScreenGame extends JFrame implements Runnable {
 	private static final long serialVersionUID = 1L;
 	
 	public SplashScreenGame() {
-	//   System.out.println("thread di creazione splashschreen " + Thread.currentThread().getId());
 		createProgressBar();
 		
 		Thread loadingThread = new Thread(this);

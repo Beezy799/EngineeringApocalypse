@@ -129,7 +129,7 @@ public class IController {
 
         else if (InputState.P.getPressed() || InputState.MIDDLE_CLICK.getPressed()) {
             //se sta in uno stato diverso, va nello stato throwing
-            if(playerController.getCurrentState() != EntityStates.THROWING){
+            if(playerController.getCurrentState() != EntityStates.THROWING && !playerController.isStateLocked()){
                 playerController.changeActualState(EntityStates.THROWING);
                 playerController.lockState();
                 playerController.createBullet();

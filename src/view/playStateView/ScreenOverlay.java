@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ScreenOverlay {
-    //buio, attacchi prof, altro che non saprei
+    //buio, vita prof, altro che non saprei
 
     private BufferedImage buio;
     private boolean isDark = true, figthBoss = false, bossSpecialAttack;

@@ -4,6 +4,9 @@ import src.controller.IController;
 import src.controller.entitycontroller.EntityController;
 import src.controller.pathFinding.Node;
 import src.model.EntityStates;
+import src.model.Rooms;
+import src.model.entity.EntityComplete;
+import src.view.entityView.npc.CatView;
 import src.view.gameWindow.GamePanel;
 
 public class NerdController extends EntityController {
@@ -38,6 +41,13 @@ public class NerdController extends EntityController {
                 break;
             case SPEAKING:
                 turnToPlayer();
+                for(int i = 0; i < Rooms.AULA_STUDIO.getNpc().size(); i++){
+                    EntityComplete e = Rooms.AULA_STUDIO.getNpc().get(i);
+                    if(e.getEntityController() instanceof CatController){
+                        ((CatController) e.getEntityController()).setQuestActivated(true);
+                        ((CatView)e.getEntityView()).setNextDialogue();
+                    }
+                }
                 currentState = EntityStates.IDLE;
                 break;
         }

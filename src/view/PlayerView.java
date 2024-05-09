@@ -66,6 +66,7 @@ public class PlayerView extends SortableElement {
                 specialDraw(g2);
                 break;
             case PARRING:
+                animationSpeed = 15;
                 parringDraw(g2);
                 break;
             case DYING:

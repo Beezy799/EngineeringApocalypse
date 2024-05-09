@@ -27,8 +27,10 @@ public class IModel {
         tileset.loadTileset("/res/map/tilesetChat.json");
 
         //una volta finito di crearsi, passa il suo riferimento alle stanze
+        //questo perchè le Rooms potrebbero crearsi prima del model
         Rooms.setModel(this);
         loadEventsRooms();
+
     }
 
     public void setView(IView v) {
@@ -64,9 +66,11 @@ public class IModel {
         controller.getPlayerController().setxPosPlayer(xPlayerAfterTransition);
         controller.getPlayerController().setyPosPlayer(yPlayerAfterTransition);
         Rooms.actualRoom = roomAfterTransition;
+
         //il pathfinder si crea il grafo della nuova stanza
         controller.getPathFinder().createGraph();
 
+        //per evitare che il player vada ad incastrarsi sopra un'altra entità
         for(NpcComplete npc : Rooms.actualRoom.getNpc()){
             if(npc.getEntityController().getHitbox().intersects(controller.getPlayerController().getHitbox())){
                 npc.getEntityController().resetPosition();

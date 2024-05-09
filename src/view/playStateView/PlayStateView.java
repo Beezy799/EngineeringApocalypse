@@ -90,8 +90,7 @@ public class PlayStateView {
         if(!earthSheakeEffect)
             return;
 
-//      sposta la posizione del player velocemente per far sembrare un terremoto, peccato che può dare problemi per la collisione
-//      bisogna mettere una camera indipendente dal personaggio, che potrebbe servire anche nella scena col boss. Da vedere
+//      sposta la posizione del player che si è salvata la view (non quella vera) velocemente a destra e a sinistra
         earthShakeCounter++;
         if(earthShakeCounter % 5 == 0){
             xPlayer = (xPlayer + (earthShakeCounter%10==0 ? 10 : - 10));

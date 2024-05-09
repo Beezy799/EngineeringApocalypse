@@ -136,7 +136,7 @@ public class PlayUI {
         if(showMessage) {
 
             counterMessage++;
-            if(counterMessage < 120) {
+            if(counterMessage < 200) {
 
                 g2.setFont(fontDisplay);
 
@@ -168,6 +168,7 @@ public class PlayUI {
 
     public void setMessageToShow(String s) {
         message = s;
+        counterMessage = 0;
         showMessage = true;
     }
 

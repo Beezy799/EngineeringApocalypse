@@ -43,6 +43,7 @@ public enum Rooms {
     private ArrayList<EnemyComplete> enemyList;
     private ArrayList<BulletComplete> buletList;
     private ArrayList<Event> events;
+
     private static IModel model;
     private int musicIndex;
     private String dataPath;
@@ -57,16 +58,17 @@ public enum Rooms {
         enemyList = new ArrayList<>();
         events = new ArrayList<>();
         buletList = new ArrayList<>();
-        loadPassages(pathRoomData);
         dataPath = pathRoomData;
+        //i passaggi non hanno riferimenti al model o al view, quindi si possono creare subito
+        loadPassages();
     }
 
-    private void loadPassages(String pathRoomData) {
+    private void loadPassages() {
         //roba per leggere il file
         BufferedReader reader = null;
 
         try {
-            InputStream is = getClass().getResourceAsStream(pathRoomData);
+            InputStream is = getClass().getResourceAsStream(dataPath);
             reader = new BufferedReader(new InputStreamReader(is));
         }
         catch (Exception e){
