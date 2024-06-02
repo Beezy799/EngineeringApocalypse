@@ -1,6 +1,5 @@
 package src.controller.pathFinding;
 
-import src.controller.IController;
 import src.model.Rooms;
 
 import java.util.ArrayList;
@@ -10,15 +9,12 @@ public class PathFinder {
 
     private Node[][] graph;
     private ArrayList<Node> frontier;
-    private IController controller;
 
     private int counter;
 
-    public PathFinder(IController c){
-        controller = c;
+    public PathFinder(){
         createGraph();
         frontier = new ArrayList<>();
-
         resetNodes();
     }
 

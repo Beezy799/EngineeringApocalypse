@@ -1,7 +1,6 @@
 package src.view.entityView.enemy;
 
 import src.model.EntityStates;
-import src.model.Rooms;
 import src.model.entity.EnemyComplete;
 import src.view.IView;
 import src.view.ViewUtils;

@@ -5,23 +5,20 @@ import src.view.IView;
 import src.model.IModel;
 import src.view.gameBegin.SplashScreenGame;
 
-public class Starter {
-private  SplashScreenGame caricamento;
-private  IView view;
-private  IController controller;
-private IModel model;
 
-public Starter() {
-    //inizializizza le interfacce View, logic
-    initClasses();
-}
+public class Starter {
+private static SplashScreenGame caricamento;
+private static IView view;
+private static IController controller;
+private static IModel model;
+
 
 	public static void main(String[] args) {
-        Starter s = new Starter();
-		new GameLoop(s.view, s.controller, s.model);
+		initClasses();
+		new GameLoop(view, controller);
 	}
   
-    private  void initClasses() {
+    private static void initClasses() {
 		
 		caricamento = new SplashScreenGame();	
 		controller = new IController();

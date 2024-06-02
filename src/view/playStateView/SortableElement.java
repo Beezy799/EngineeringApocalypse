@@ -1,6 +1,6 @@
 package src.view.playStateView;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 
 //per disegnare tutti gli elementi della mappa dall'alto verso il basso, li ordiniamo secondo la loro posizione y e secondo il
 //loro tipo. Ogni elemento della mappa estenderà questa classe molto astratta che implementa una relazione di uguaglianza/disuguaglianza

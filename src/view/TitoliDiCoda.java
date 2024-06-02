@@ -18,7 +18,7 @@ public class TitoliDiCoda {
     private String votoSperato = "30";
     private BufferedImage title;
     private int titleX, titleY = GAME_HEIGHT/4;
-    private String Francesco = "Francesco: voice actor, sound designer";
+    private String Francesco = "Francesco: sound designer";
     private String Bea = "Bea: artistic sprite editing";
     private String Lorenzo = "Lorenzo: creative feedback";
     private String Salvatore = "Salvatore: code reviewer";
@@ -118,8 +118,6 @@ public class TitoliDiCoda {
         int yVoto = GamePanel.GAME_HEIGHT/2 + ViewUtils.getStringHeight(votoSperato, g2)/4;
         g2.drawString(votoSperato, xVoto, yVoto);
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-
-
     }
 
     private void drawTitle(Graphics2D g2) {

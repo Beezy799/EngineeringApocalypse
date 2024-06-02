@@ -5,7 +5,10 @@ import src.view.ViewUtils;
 import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.AlphaComposite;
 import java.awt.image.BufferedImage;
 
 public class ScreenOverlay {

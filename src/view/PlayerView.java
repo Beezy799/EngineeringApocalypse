@@ -6,7 +6,6 @@ import src.model.GameState;
 import src.view.gameWindow.GamePanel;
 import src.view.playStateView.SortableElement;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import static src.model.Constants.EntityConstants.*;
@@ -42,7 +41,6 @@ public class PlayerView extends SortableElement {
 
     public PlayerView(IView v) {
         this.view = v;
-
         typeElemtToSort = 5;
         yPosMapForSort = (int)view.getController().getPlayerController().getyPosPlayer();
         loadImages();
@@ -50,7 +48,7 @@ public class PlayerView extends SortableElement {
 
     public void draw(Graphics2D g2, int x, int y) {
 
-        getCurrentStateFromController();
+        takeCurrentStateFromController();
 
         switch (currentState){
             case IDLE:
@@ -90,25 +88,9 @@ public class PlayerView extends SortableElement {
                         xOnScreen, yOnScreen, null);
             }
         }
-        catch (IndexOutOfBoundsException e){
+        catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
         }
-
-        //disegna la zona occupata dalla sprite
-//        g2.drawRect(xOnScreen, yOnScreen,
-//                playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite].getWidth(),
-//                playerAnimation[gender][currentState.getConstantInAnimationArray()][currenDirection][numSprite].getHeight());
-
-        //disegna la sua posizione come un piccolo quadratino
-//        g2.setColor(Color.red);
-//        g2.fillRect(GamePanel.CENTER_X_GAME_PANEL, GamePanel.CENTER_Y_GAME_PANEL, 5, 5);
-
-//        //disegna la hitbox del giocatore
-//        g2.setColor(Color.blue);
-//        g2.drawRect(GamePanel.CENTER_X_GAME_PANEL - view.getController().getPlayerController().getHitbox().getWidth()/2,
-//                GamePanel.CENTER_Y_GAME_PANEL - GamePanel.TILES_SIZE/4,
-//                view.getController().getPlayerController().getHitbox().getWidth(),
-//                view.getController().getPlayerController().getHitbox().getHeight());
     }
 
     //finita l'animazione della morte, il gioco va nello stato game over
@@ -195,7 +177,7 @@ public class PlayerView extends SortableElement {
 
     }
 
-    private void getCurrentStateFromController() {
+    private void takeCurrentStateFromController() {
         currentState = view.getController().getPlayerController().getCurrentState();
         //se è cambiata l'azione, resetta il valore di numSprite, visto che le azioni hanno numero sprite diverso
         if(previousState != currentState){

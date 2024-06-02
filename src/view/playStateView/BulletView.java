@@ -55,10 +55,6 @@ public class BulletView {
         int yPosOnScreen = GamePanel.CENTER_Y_GAME_PANEL + yDistanceFromPlayer;
 
         g2.drawImage(animation[animationIndex], xPosOnScreen, yPosOnScreen, null);
-
-//        Hitbox h = bulletComplete.getBulletController().getHitbox();
-//        g2.drawRect(xPosOnScreen, yPosOnScreen, h.getWidth(), h.getHeight());
-
     }
 
     private void loadAnimation(Vector direction) {

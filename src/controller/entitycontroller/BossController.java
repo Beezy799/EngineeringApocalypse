@@ -7,9 +7,7 @@ import src.model.Constants;
 import src.model.EntityStates;
 import src.model.GameState;
 import src.view.gameWindow.GamePanel;
-
 import java.util.Random;
-
 import static src.model.EntityStates.SPEAKING;
 
 public class BossController extends EnemyController {

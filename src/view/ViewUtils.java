@@ -3,12 +3,10 @@ package src.view;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
 import src.view.gameWindow.GamePanel;
 
 // classe che contiene alcuni metodi comodi a un po' tutte le altre classi
-//(scalare immagini,posizionare scritte al centro,lunghezza scritta...)
-	
+//(scalare immagini,posizionare scritte al centro, lunghezza scritta...)
 public class ViewUtils {
 
 	public static BufferedImage scaleImage(BufferedImage original, float width, float height) {	
@@ -22,7 +20,6 @@ public class ViewUtils {
 		
 		return scaledImage;	
 	}
-	
 
 	// per posizionare le immagini al centro dello schermo
 	public static int getCenteredXPos(int width){

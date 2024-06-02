@@ -5,7 +5,10 @@ import src.model.GameState;
 import src.view.IView;
 import src.view.ViewUtils;
 
-import java.awt.*;
+import java.awt.Rectangle;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 

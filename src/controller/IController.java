@@ -28,7 +28,7 @@ public class IController {
     public IController(){
         lock = new ReentrantLock();
         playerController = new PlayerController(this);
-        pathFinder = new PathFinder(this);
+        pathFinder = new PathFinder();
         pathFinder.createGraph();
         collisionChecker = new CollisionChecker(this);
     }

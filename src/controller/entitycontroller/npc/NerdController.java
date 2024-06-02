@@ -41,6 +41,7 @@ public class NerdController extends EntityController {
                 break;
             case SPEAKING:
                 turnToPlayer();
+                //la prossima volta che il player parla al gatto, la quest si completa
                 for(int i = 0; i < Rooms.AULA_STUDIO.getNpc().size(); i++){
                     EntityComplete e = Rooms.AULA_STUDIO.getNpc().get(i);
                     if(e.getEntityController() instanceof CatController){

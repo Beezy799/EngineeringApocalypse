@@ -16,6 +16,7 @@ public class BulletComplete {
         bulletView.setBulletComplete(this);
     }
 
+
     public BulletController getBulletController() {
         return bulletController;
     }

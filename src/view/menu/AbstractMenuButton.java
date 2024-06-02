@@ -42,14 +42,6 @@ public abstract class AbstractMenuButton {
 		this.mousePressed = mousePressed;
 	}
 	
-	public GameState getPointedState() {
-		return newState;
-	}
-	
-	public boolean getMouseOver() {
-		return mouseOver;
-	}
-	
 	public Rectangle getBounds() {
 		return bounds;
 	}

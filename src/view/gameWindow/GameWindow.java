@@ -8,7 +8,6 @@ import src.view.IView;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
-//import src.view.ViewUtils;
 
 //classe che implementa lafinestra di gioco, la cornice dentro alla quale si visualizza il gioco
 public class GameWindow extends JFrame {

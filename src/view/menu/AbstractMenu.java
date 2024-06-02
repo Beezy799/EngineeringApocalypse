@@ -7,8 +7,6 @@ import java.awt.event.MouseEvent;
 //classe astratta che contiene i metodi e le risorse comuni a tutti i tipi di menu. 
 public abstract class AbstractMenu {	
 
-
-
     //ogni menu ha un array di bottoni che saranno implemenentati diversamemente nei vari menu
 	protected AbstractMenuButton[] buttons;
 
@@ -56,10 +54,5 @@ public abstract class AbstractMenu {
 			if(mb.checkIfMouseIsIn(e)) 
 				mb.setMouseOver(true);
 	}
-	
-//	public void mouseDragged(MouseEvent e) {
-//		for(AbstractMenuButton mb : buttons)
-//			mb.reactToDrag(e);
-//	}
 	
 }

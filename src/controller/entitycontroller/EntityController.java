@@ -3,7 +3,6 @@ package src.controller.entitycontroller;
 import src.controller.IController;
 import src.controller.Vector;
 import src.controller.pathFinding.Node;
-import src.model.EntityStates;
 import src.controller.Hitbox;
 import src.model.entity.EntityComplete;
 import src.view.gameWindow.GamePanel;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import static src.model.Constants.EntityConstants.*;
 import static src.model.EntityStates.*;
+import src.model.EntityStates;
 
 public abstract class EntityController {
 

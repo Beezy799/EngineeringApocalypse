@@ -2,7 +2,6 @@ package src.model;
 
 import src.controller.Hitbox;
 import src.controller.IController;
-import src.controller.entitycontroller.EntityController;
 import src.model.entity.EnemyComplete;
 import src.model.entity.NpcComplete;
 import src.model.mapModel.tileset.Tileset;
@@ -18,7 +17,6 @@ public class IModel {
     private Tileset tileset;
     private int xPlayerAfterTransition, yPlayerAfterTransition;
     private Rooms roomAfterTransition;
-    private Rooms rooms;
 
     public IModel(IController contr){
         this.controller = contr;
@@ -81,7 +79,6 @@ public class IModel {
                 enemy.getEnemyController().resetPosition();
             }
         }
-
     }
 
     public void loadEntitiesInRooms(IView iView) {
@@ -129,7 +126,7 @@ public class IModel {
 
     public  void resetGame(){
         for (Rooms room : Rooms.values()){
-            room.resetEventsAndEenemyes();
+            room.resetEventsAndEntities();
         }
         Rooms.actualRoom = Rooms.BIBLIOTECA;
         controller.getPlayerController().reset();

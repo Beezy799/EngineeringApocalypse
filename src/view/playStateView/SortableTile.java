@@ -3,7 +3,7 @@ package src.view.playStateView;
 import src.view.IView;
 import src.view.gameWindow.GamePanel;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 //è un oggetto che contiene il tipo di tile da disegnare e la sua posizione. Siccome contiene solo tre int

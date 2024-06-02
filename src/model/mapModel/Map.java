@@ -16,7 +16,6 @@ public class Map {
     private final int FOURTH_LAYER = 3;
 
 
-
     public void loadMap(String mapPath) {
         //roba per leggere il file
         BufferedReader reader = null;
@@ -121,7 +120,6 @@ public class Map {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         //per debug
         //printLayers();
 

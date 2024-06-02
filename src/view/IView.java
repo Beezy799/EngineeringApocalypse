@@ -1,6 +1,5 @@
 package src.view;
 
-import java.awt.*;
 
 import src.controller.IController;
 import src.model.GameState;
@@ -12,6 +11,9 @@ import src.view.gameWindow.GameWindow;
 import src.view.menu.*;
 import src.view.playStateView.CutsceneView;
 import src.view.playStateView.PlayStateView;
+
+import java.awt.Graphics2D;
+import java.awt.Point;
 
 import static src.model.Constants.SoundConstants.MENU_MUSIC;
 
@@ -30,7 +32,6 @@ public class IView {
     private AvatarMenu avatarMenu;
     private GameOverMenu gameOverMenu;
     private SoundManager soundManager;
-
     private TransitionState transitionState;
     private PlayStateView playStateView;
     private TitoliDiCoda titoliDiCoda;
@@ -154,10 +155,6 @@ public class IView {
 
     public MainMenu getMainMenu(){
         return this.mainMenu;
-    }
-
-    public StartTitle getStartTitle() {
-        return startTitle;
     }
 
     public OptionMenu getOptions() {

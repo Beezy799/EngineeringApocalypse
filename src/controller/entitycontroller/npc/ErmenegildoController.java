@@ -2,7 +2,6 @@ package src.controller.entitycontroller.npc;
 
 import src.controller.IController;
 import src.controller.entitycontroller.EntityController;
-import src.controller.pathFinding.Node;
 import src.model.EntityStates;
 import src.view.gameWindow.GamePanel;
 

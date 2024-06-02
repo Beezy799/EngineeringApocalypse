@@ -4,17 +4,18 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
 import src.controller.entitycontroller.BossController;
-import src.controller.entitycontroller.enemy.GhostController;
-import src.controller.entitycontroller.enemy.NullafacenteController;
-import src.controller.entitycontroller.enemy.RobotController;
+import src.controller.entitycontroller.enemy.*;
 import src.controller.entitycontroller.npc.*;
+import src.model.events.*;
+import src.model.mapModel.Passage;
+
 import src.controller.Hitbox;
 import src.model.entity.EnemyComplete;
 import src.model.entity.NpcComplete;
-import src.model.events.*;
 import src.model.mapModel.Map;
-import src.model.mapModel.Passage;
+
 import src.view.IView;
 import src.view.entityView.BossView;
 import src.view.entityView.enemy.GhostView;
@@ -47,6 +48,20 @@ public enum Rooms {
     private static IModel model;
     private int musicIndex;
     private String dataPath;
+
+    //le stanze si salvano il riferimento al model
+    public static void setModel(IModel m){
+        model = m;
+    }
+
+    //le stanze passano il riferimento del model perchè si creano prima di lui.
+    //il model, quando ha finito di crearsi, passa il suo riferimento a questa classe
+    //le varie stanze contengono cose che hanno bisogno del model e con questo stratagemma
+    //possiamo passare loro il model
+    public static IModel getModel(){
+        return model;
+    }
+    public static Rooms actualRoom = BIBLIOTECA;
 
     //costruttore della singola stanza
     Rooms(String mapPath, String pathRoomData, int m){
@@ -300,15 +315,19 @@ public enum Rooms {
     public Map getMap(){
         return map;
     }
+
     public ArrayList<Passage> getPassages(){
         return passages;
     }
+
     public int getMusicIndex(){
         return musicIndex;
     }
+
     public ArrayList<NpcComplete> getNpc(){
         return npcList;
     }
+
     public ArrayList<EnemyComplete> getEnemy(){
         return enemyList;
     }
@@ -321,21 +340,7 @@ public enum Rooms {
         musicIndex = i;
     }
 
-    //le stanze si salvano il riferimento al model
-    public static void setModel(IModel m){
-        model = m;
-    }
-
-    //le stanze passano il riferimento del model perchè si creano prima di lui.
-    //il model, quando ha finito di crearsi, passa il suo riferimento a questa classe
-    //le varie stanze contengono cose che hanno bisogno del model e con questo stratagemma
-    //possiamo passare loro il model
-    public static IModel getModel(){
-        return model;
-    }
-    public static Rooms actualRoom = BIBLIOTECA;
-
-    public void resetEventsAndEenemyes() {
+    public void resetEventsAndEntities() {
         for(Event event : events){
             event.reset();
         }

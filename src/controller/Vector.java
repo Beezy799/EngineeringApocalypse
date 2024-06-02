@@ -16,8 +16,6 @@ public class Vector {
         module = m;
     }
 
-
-
     public void setX(float x) {
         this.x = x;
     }
@@ -55,5 +53,3 @@ public class Vector {
         setY(0);
     }
 }
-
-//ciao

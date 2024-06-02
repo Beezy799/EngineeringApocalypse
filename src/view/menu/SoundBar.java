@@ -2,8 +2,9 @@ package src.view.menu;
 
 import src.model.Constants;
 import src.view.IView;
-
-import java.awt.*;
+import java.awt.Rectangle;
+import java.awt.Graphics2D;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 
 public class SoundBar extends AbstractMenuButton{

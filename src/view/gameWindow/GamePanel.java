@@ -13,7 +13,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-
 import src.view.IView;
 import src.view.ViewUtils;
 import src.view.inputs.KeyboardInputs;
@@ -36,7 +35,7 @@ public class GamePanel extends JPanel {
 	
 	//viene tutto scalato in modo da far entrare la finestra di gioco anche in schermi più piccoli
 	static float computerScreenHeight = (float) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	public final static float SCALE = computerScreenHeight/576;	
+	public final static float SCALE = computerScreenHeight/576;
 	
 	public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
 	public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;

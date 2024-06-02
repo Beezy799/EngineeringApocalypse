@@ -310,20 +310,4 @@ public class MainMenu extends AbstractMenu{
         g2.drawImage(title, titleX, titleY, null);
     }
 
-    public AbstractMenuButton getPlayButton(){
-        return buttons[0];// che è il bottone iscriviti
-    }
-
-    public AbstractMenuButton getOptionButton(){
-        return buttons[1];
-    }
-
-    public AbstractMenuButton getResumeButton(){
-        return buttons[2];
-    }
-
-    public AbstractMenuButton getQuitButton(){
-        return buttons[3];
-    }
-
 }

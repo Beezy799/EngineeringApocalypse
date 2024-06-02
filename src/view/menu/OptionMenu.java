@@ -6,7 +6,10 @@ import src.view.ViewUtils;
 import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Font;
+import java.awt.Rectangle;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;

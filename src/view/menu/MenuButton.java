@@ -9,8 +9,6 @@ import src.model.GameState;
 
 public class MenuButton extends AbstractMenuButton {
 
-
-
     public MenuButton  (BufferedImage [] i, Rectangle b, GameState nS){
         this.mouseAwayImage = i[0];
         this.mouseOverImage = i[1];

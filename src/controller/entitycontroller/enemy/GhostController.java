@@ -1,8 +1,5 @@
 package src.controller.entitycontroller.enemy;
-
-import src.controller.Hitbox;
 import src.controller.IController;
-import src.model.EntityStates;
 import src.view.gameWindow.GamePanel;
 
 public class GhostController extends EnemyController{

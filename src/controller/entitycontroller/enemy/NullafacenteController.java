@@ -2,9 +2,7 @@ package src.controller.entitycontroller.enemy;
 
 import src.controller.Hitbox;
 import src.controller.IController;
-import src.controller.pathFinding.Node;
 import src.model.EntityStates;
-import src.model.GameState;
 import src.view.gameWindow.GamePanel;
 
 public class NullafacenteController extends EnemyController{

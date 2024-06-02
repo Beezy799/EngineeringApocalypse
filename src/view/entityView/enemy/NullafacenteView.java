@@ -2,11 +2,9 @@ package src.view.entityView.enemy;
 
 import src.view.IView;
 import src.view.ViewUtils;
-import src.view.entityView.enemy.EnemyView;
 import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 

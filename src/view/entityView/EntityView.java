@@ -6,7 +6,8 @@ import src.view.IView;
 import src.view.gameWindow.GamePanel;
 import src.view.playStateView.SortableElement;
 
-import java.awt.*;
+
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import static src.model.Constants.EntityConstants.*;
@@ -74,30 +75,6 @@ public abstract class EntityView extends SortableElement {
 
         //siccome la posizone dell'entità non coincide col punto in alto a sinistra dell'immagine, compensiamo con gli offset
         g2.drawImage(animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite], xPosOnScreen - xOffset, yPosOnScreen - yOffset, null);
-
-
-        //disegna la zona occupata dalla sprite
-//        g2.drawRect(xPosOnScreen - xOffset, yPosOnScreen - yOffset,
-//                animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite].getWidth(),
-//                animation[currentState.getConstantInAnimationArray()][currentDirection][numSprite].getHeight());
-        //disegna la posizione
-//        g2.fillRect(xPosOnScreen, yPosOnScreen, 5, 5);
-
-        //disegna la sua hitbox
-//        g2.setColor(Color.red);
-//        int hitboxW = entityComplete.getEntityController().getHitbox().getWidth();
-//        int hitboxH = entityComplete.getEntityController().getHitbox().getHeight();
-//        int xoffsetH = entityComplete.getEntityController().getXhitboxOffset();
-//        int yoffsetH = entityComplete.getEntityController().getYhitboxOffset();
-//        g2.drawRect(xPosOnScreen - xoffsetH, yPosOnScreen - yoffsetH, hitboxW, hitboxH);
-
-        //disegna interaction
-//        g2.setColor(Color.blue);
-//        int inthitboxW = entityComplete.getEntityController().getInteractionHitbox().getWidth();
-//        int inthitboxH = entityComplete.getEntityController().getInteractionHitbox().getHeight();
-//        int intxoffsetH = entityComplete.getEntityController().getInteractionHitbox().getWidth()/2;
-//        int intyoffsetH = entityComplete.getEntityController().getInteractionHitbox().getHeight()/2;
-//        g2.drawRect(xPosOnScreen - intxoffsetH, yPosOnScreen - intyoffsetH, inthitboxW, inthitboxH);
     }
 
     protected void takeCurrentStateFromController() {

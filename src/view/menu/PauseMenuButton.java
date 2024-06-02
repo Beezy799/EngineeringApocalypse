@@ -4,7 +4,8 @@ import src.model.GameState;
 import src.view.IView;
 import src.view.gameWindow.GamePanel;
 
-import java.awt.*;
+import java.awt.Rectangle;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;

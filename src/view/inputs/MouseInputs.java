@@ -1,7 +1,5 @@
 package src.view.inputs;
 
-
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -9,7 +7,6 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.SwingUtilities;
 
 import src.model.GameState;
-//import controller.main.Gamestate;
 import src.model.Rooms;
 import src.view.IView;
 import src.view.entityView.BossView;

@@ -6,7 +6,11 @@ import src.view.ViewUtils;
 import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Font;
+import java.awt.Rectangle;
+import java.awt.Graphics2D;
+import java.awt.Color;
+import java.awt.AlphaComposite;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -15,7 +19,6 @@ import static src.view.gameWindow.GamePanel.SCALE;
 public class GameOverMenu extends AbstractMenu {
     //bottone torna alla home
     //bottone rinuncia agli studi
-    private IView view;
     private String homeIconPath = "/res/pauseMenu/bottoneHome.png";
 
     int fontSize = (int)(15*SCALE);
@@ -27,7 +30,6 @@ public class GameOverMenu extends AbstractMenu {
     private int yDistance = (int)(50*SCALE);
 
     public GameOverMenu(IView v){
-        view = v;
         loadGameOverImage();
         yGameOverImage = GamePanel.GAME_HEIGHT/2 - gameOverImage.getHeight();
         yGameOverString = yGameOverImage + gameOverImage.getHeight() + yDistance;

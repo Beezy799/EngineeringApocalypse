@@ -1,6 +1,7 @@
 package src.view.inputs;
 
-import java.awt.*;
+
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -60,7 +61,6 @@ public class KeyboardInputs implements KeyListener {
                     ((BossView)(Rooms.STUDIO_PROF.getEnemy().get(0).getEnemyView())).setNextDialogueLine();
                 }
                 break;
-
         }
 
     }
@@ -83,9 +83,6 @@ public class KeyboardInputs implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_LEFT ||e.getKeyCode() == KeyEvent.VK_A){
             view.setCursorPosition(x - cursorSpeed, y);
         }
-
-
-
     }
 
 

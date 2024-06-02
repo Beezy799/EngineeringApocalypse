@@ -6,14 +6,12 @@ import src.view.ViewUtils;
 import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import static src.model.Constants.EntityConstants.*;
 
 public class GhostView extends EnemyView{
-
 
     public GhostView(IView v, int i) {
         super(v, i);

@@ -1,6 +1,10 @@
 package src.controller;
 
-import src.model.*;
+import src.model.Constants;
+import src.model.EntityStates;
+import src.model.BulletComplete;
+import src.model.GameState;
+import src.model.Rooms;
 import src.view.gameWindow.GamePanel;
 import src.view.playStateView.BulletView;
 
@@ -40,7 +44,7 @@ public class PlayerController {
     private void setHitboxes() {
         hitbox = new Hitbox((int)xPosPlayer - XhitboxOffset, (int)yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
         tempHitbox = new Hitbox((int)xPosPlayer - XhitboxOffset, (int)yPosPlayer - YhitboxOffset, hitboxWidth, hitboxHeight);
-        attackHitbox = new Hitbox(0, 0, GamePanel.TILES_SIZE/2, GamePanel.TILES_SIZE/2);
+        attackHitbox = new Hitbox(0, 0, GamePanel.TILES_SIZE, GamePanel.TILES_SIZE);
     }
 
     public void update(){

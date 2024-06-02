@@ -1,8 +1,5 @@
 package src.view.entityView;
 
-import src.controller.Hitbox;
-import src.controller.entitycontroller.BossController;
-import src.controller.entitycontroller.enemy.EnemyController;
 import src.model.Constants;
 import src.model.EntityStates;
 import src.model.GameState;
@@ -13,10 +10,13 @@ import src.view.entityView.enemy.EnemyView;
 import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.geom.AffineTransform;
+import java.awt.Graphics2D;
+import java.awt.Font;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.awt.AlphaComposite;
+import java.awt.Color;
 
 import static src.model.Constants.EntityConstants.*;
 import static src.model.Constants.EntityConstants.LEFT;

@@ -8,11 +8,10 @@ import src.view.ViewUtils;
 import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import static javax.swing.TransferHandler.MOVE;
 import static src.model.Constants.EntityConstants.*;
 import static src.model.EntityStates.ATTACKING;
 import static src.model.EntityStates.IDLE;

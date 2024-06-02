@@ -49,7 +49,6 @@ public class GameOverMenuButton extends  AbstractMenuButton {
 
     @Override
     public void reactToEnter() {
-        GameState.playStateInStandBy = false;
         view.changeGameState(GameState.TRANSITION_AFTER_GAME_OVER);
     }
 

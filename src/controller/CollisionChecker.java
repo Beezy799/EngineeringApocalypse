@@ -203,7 +203,6 @@ public class CollisionChecker {
                     return other;
                 }
             }
-
         }
 
         //deve controllare anche il giocatore

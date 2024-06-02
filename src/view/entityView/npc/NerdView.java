@@ -2,7 +2,6 @@ package src.view.entityView.npc;
 
 import src.view.IView;
 import src.view.ViewUtils;
-import src.view.entityView.npc.NpcView;
 import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -24,7 +23,6 @@ public class NerdView extends NpcView {
 
         animationSpeed = 20;
     }
-
 
 
     @Override

@@ -3,7 +3,6 @@ package src.view.entityView.npc;
 import src.model.GameState;
 import src.view.IView;
 import src.view.ViewUtils;
-import src.view.entityView.npc.NpcView;
 import src.view.gameWindow.GamePanel;
 
 import javax.imageio.ImageIO;

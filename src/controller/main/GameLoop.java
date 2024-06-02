@@ -2,7 +2,7 @@ package src.controller.main;
 
 import src.controller.IController;
 import src.view.IView;
-import src.model.IModel;
+
 
 // classe contenente il game loop, il ciclo di update e repaint del gioco
 public class GameLoop implements Runnable {
@@ -14,13 +14,11 @@ public class GameLoop implements Runnable {
 	
 	private IView view;
 	private IController controller;
-	private IModel model;
 
 	
-	public GameLoop(IView v, IController c, IModel m) {
+	public GameLoop(IView v, IController c) {
 		this.view = v;
 		this.controller = c;
-		model = m;
 		startGameLoop();
 	}
 

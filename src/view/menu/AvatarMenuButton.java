@@ -86,8 +86,6 @@ public class AvatarMenuButton extends  AbstractMenuButton{
 //metodo per reagire ad enter come se fosse un clic
     @Override
     public void reactToMouse(MouseEvent e) {
-//        view.getPlayerWiew().setGender(gender);
-//        GameState.actualState = newState;
         reactToEnter();
     }
 

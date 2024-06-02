@@ -19,7 +19,6 @@ public class AvatarMenu extends AbstractMenu{
     private IView view;
     private int titleAvatarX, titleAvatarY;
     private BufferedImage titleAvatar; // immagine "scegli avatar"
-    private String[] characterSkills;
 
 
     public AvatarMenu(IView v) {
@@ -98,7 +97,6 @@ public class AvatarMenu extends AbstractMenu{
     }
 
 
-
     private void createGoBackButton() {
         //immagine per bottone "indietro" , carichiamo  tre immagini in base alla posizione del mouse
         BufferedImage[] goBackButtonImage = new BufferedImage[3];
@@ -126,7 +124,6 @@ public class AvatarMenu extends AbstractMenu{
     }
 
 
-
     public void draw(Graphics2D g2) {
         // chiede al menu principale di disegnare il background, senza dover ricaricare le immagini dello sfondo
         view.getMainMenu().drawBackground(g2);
@@ -137,70 +134,6 @@ public class AvatarMenu extends AbstractMenu{
     private void drawAvatarMenuTitle(Graphics2D g2) {
         g2.drawImage(titleAvatar, titleAvatarX, titleAvatarY, null);
     }
-
-/*    public void keyReleased(int tasto) {
-
-        switch(buttonIndex) {
-            case RAGAZZO:
-                keyboardInputsBoyButton(tasto);
-                break;
-            case RAGAZZA:
-                keyboardInputsGirlButton(tasto);
-                break;
-            case INDIETRO:
-                keyboardInputsBackButton(tasto);
-                break;
-        }
-    }*/
-
-    //metedo che serve per muoversi nel menù con la tastiera (WASD-frecce)
-/*    private void keyboardInputsBoyButton(int tasto) {
-        if(tasto == KeyEvent.VK_A || tasto == KeyEvent.VK_LEFT)
-            view.setCursorPosition(buttons[RAGAZZO].getBounds().x, buttons[RAGAZZO].getBounds().y);
-
-        if(tasto == KeyEvent.VK_S || tasto == KeyEvent.VK_DOWN) {
-            view.setCursorPosition(buttons[INDIETRO].getBounds().x, buttons[INDIETRO].getBounds().y);
-            buttonIndex = INDIETRO;
-        }
-        if(tasto == KeyEvent.VK_D || tasto == KeyEvent.VK_RIGHT) {
-            view.setCursorPosition(buttons[RAGAZZA].getBounds().x, buttons[RAGAZZA].getBounds().y);
-            buttonIndex = RAGAZZA;
-        }
-        if(tasto == KeyEvent.VK_ENTER) {
-            resetButtons();
-            buttons[RAGAZZO].reactToMouse(null);
-        }
-    }
-
-    private void keyboardInputsGirlButton(int tasto) {
-        if(tasto == KeyEvent.VK_S || tasto == KeyEvent.VK_DOWN) {
-            view.setCursorPosition(buttons[INDIETRO].getBounds().x, buttons[INDIETRO].getBounds().y);
-            buttonIndex = INDIETRO;
-        }
-        if(tasto == KeyEvent.VK_A || tasto == KeyEvent.VK_LEFT) {
-            view.setCursorPosition(buttons[RAGAZZO].getBounds().x, buttons[RAGAZZO].getBounds().y);
-            buttonIndex = RAGAZZO;
-        }
-        if(tasto == KeyEvent.VK_ENTER) {
-            resetButtons();
-            buttons[RAGAZZA].reactToMouse(null);
-        }
-    }
-
-    private void keyboardInputsBackButton(int tasto) {
-        if(tasto == KeyEvent.VK_A || tasto == KeyEvent.VK_LEFT) {
-            view.setCursorPosition(buttons[RAGAZZO].getBounds().x, buttons[RAGAZZO].getBounds().y);
-            buttonIndex = RAGAZZO;
-        }
-        if(tasto == KeyEvent.VK_D || tasto == KeyEvent.VK_RIGHT) {
-            view.setCursorPosition(buttons[RAGAZZA].getBounds().x, buttons[RAGAZZA].getBounds().y);
-            buttonIndex = RAGAZZA;
-        }
-        if(tasto == KeyEvent.VK_ENTER) {
-            resetButtons();
-            view.changeGameState(buttons[INDIETRO].getButtonState());
-        }
-    }*/
 
 }
 

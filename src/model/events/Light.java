@@ -8,10 +8,7 @@ import src.model.EntityStates;
 import src.model.IModel;
 import src.model.Rooms;
 import src.model.entity.EnemyComplete;
-import src.model.entity.EntityComplete;
 import src.model.entity.NpcComplete;
-import src.view.entityView.npc.NpcView;
-import src.view.entityView.npc.ProfView;
 import src.view.entityView.npc.PupaView;
 import src.view.inputs.InputState;
 

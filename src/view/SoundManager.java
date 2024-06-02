@@ -41,7 +41,6 @@ public class SoundManager {
         soundURL[DORMITORIO_BUIO] = getClass().getResource("/res/sound/dormitorio buio.wav");
         soundURL[PIANO_SE] = getClass().getResource("/res/sound/pianoSE.wav");
 
-
         setMusic(MENU_MUSIC);
         setMusicVolume(musicVolume);
         setSE(COLPO_SE);
